@@ -1,0 +1,706 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package spring.client.controller;
+
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import java.text.DecimalFormat;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.Date;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Objects;
+import java.util.Set;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.naming.Context;
+import javax.naming.InitialContext;
+import javax.naming.NamingException;
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+import spring.ejb.BrandsFacadeLocal;
+import spring.ejb.CategoriesFacadeLocal;
+
+import spring.ejb.ProductsFacadeLocal;
+import spring.ejb.UsersFacadeLocal;
+
+import spring.entity.Brands;
+import spring.entity.Categories;
+import spring.entity.ProductColors;
+
+import spring.entity.Products;
+import spring.entity.Rating;
+import spring.entity.SizeLetterOrder;
+import spring.entity.SizesByColor;
+
+@Controller
+public class ProductController {
+
+    CategoriesFacadeLocal categoriesFacade = lookupCategoriesFacadeLocal();
+
+    BrandsFacadeLocal brandsFacade = lookupBrandsFacadeLocal();
+
+    ProductsFacadeLocal productsFacade = lookupProductsFacadeLocal();
+
+    UsersFacadeLocal usersFacade = lookupUsersFacadeLocal();
+
+    
+    
+    
+    
+//    ProductStateLessBeanLocal productStateLessBean = lookupProductStateLessBeanLocal();
+//    UsersStateLessBeanLocal usersStateLessBean = lookupUsersStateLessBeanLocal();
+
+    @RequestMapping(value = "/brand/{braID:[0-9]+}-{braName:[A-Za-z0-9-]+}")
+    public String categorylist(ModelMap model,
+            @PathVariable("braID") Integer cateID,
+            @PathVariable("braName") String categoryNameNA) {
+        int page = 1;
+        int itemPerPage = 6;
+
+        List<Brands> cateList = brandsFacade.findAll();
+        
+        List<Products> allProductByCate = brandsFacade.find(cateID).getProductListWorking();
+        int numberOfProducts = allProductByCate.size();
+        int fromProduct = ((page - 1) * itemPerPage) + 1;
+        int toProduct = ((page - 1) * itemPerPage) + itemPerPage;
+        if (toProduct > numberOfProducts) {
+            toProduct = numberOfProducts;
+        }
+        String currentProductPageInfo = fromProduct + " - " + toProduct;
+
+        if (numberOfProducts > 0) {
+            double fromPrice = productsFacade.getMinPriceOfProduct_ByCate(cateID);
+            double toPrice = productsFacade.getMaxPriceOfProduct_ByCate(cateID);
+
+            List<Object[]> productIDList = productsFacade.filterProductByCategory(cateID, page, itemPerPage, fromPrice, toPrice, "", "", 1);
+            System.err.println(cateID);
+            List<Products> finalProductList = new ArrayList<>();
+            for (Object[] prod : productIDList) {
+                Products product = productsFacade.findProductByID((Integer) prod[0]);
+                finalProductList.add(product);
+            }
+            Set<String> colorSet = new HashSet<>();
+            Set<String> sizeSet = new HashSet<>();
+
+            //get List of Color
+            for (Products p : allProductByCate) {
+                for (ProductColors pc : p.getProductColorsList()) {
+                    colorSet.add(pc.getColor());
+                    for (SizesByColor size : pc.getSizesByColorList()) {
+                        sizeSet.add(size.getSize());
+                    }
+                }
+            }
+
+            
+           
+            
+            model.addAttribute("numberOfProducts", numberOfProducts);
+            model.addAttribute("currentProductPageInfo", currentProductPageInfo);
+            model.addAttribute("braID", cateID);
+            model.addAttribute("productsList", finalProductList);
+            model.addAttribute("colorList", colorSet);
+            model.addAttribute("sizeList", sizeSet);
+            model.addAttribute("maxPrice", productsFacade.getMaxPriceOfProduct_ByCate(cateID));
+            model.addAttribute("minPrice", productsFacade.getMinPriceOfProduct_ByCate(cateID));
+        }
+        model.addAttribute("braList", cateList);
+        return "client/pages/brands-grid";
+    }
+
+    @RequestMapping(value = "/{brandName:[A-Za-z0-9-]+}/{catID:[0-9]+}-{catName:[A-Za-z0-9-]+}")
+    public String subCategoryList(ModelMap model,
+            @PathVariable("catID") Integer subCateID) {
+        if (categoriesFacade.find(subCateID) != null) {
+            //2 dòng này thêm để render ra menu chính
+            List<Brands> cateList = brandsFacade.findAll();
+
+            int page = 1;
+            int itemPerPage = 6;
+
+            List<Products> allProductBySubCate = categoriesFacade.find(subCateID).getProductListWorking();
+            int numberOfProducts = allProductBySubCate.size();
+            if (numberOfProducts > 0) {
+                int fromProduct = ((page - 1) * itemPerPage) + 1;
+                int toProduct = ((page - 1) * itemPerPage) + itemPerPage;
+                if (toProduct > numberOfProducts) {
+                    toProduct = numberOfProducts;
+                }
+                String currentProductPageInfo = fromProduct + " - " + toProduct;
+
+                double fromPrice = productsFacade.getMinPriceOfProduct_BySubCate(subCateID);
+                double toPrice = productsFacade.getMaxPriceOfProduct_BySubCate(subCateID);
+
+                List<Object[]> productIDList = productsFacade.filterProductBySubCategory(subCateID, page, itemPerPage, fromPrice, toPrice, "", "", 1);
+                List<Products> finalProductList = new ArrayList<>();
+
+                for (Object[] prod : productIDList) {
+                    Products product = productsFacade.findProductByID((Integer) prod[0]);
+                    finalProductList.add(product);
+                }
+                Set<String> colorSet = new HashSet<>();
+                Set<String> sizeSet = new HashSet<>();
+
+                //get List of Color
+                for (Products p : allProductBySubCate) {
+                    for (ProductColors pc : p.getProductColorsList()) {
+                        colorSet.add(pc.getColor());
+                        for (SizesByColor size : pc.getSizesByColorList()) {
+                            sizeSet.add(size.getSize());
+                        }
+                    }
+                }
+
+                List<SizeLetterOrder> newSizeList = new ArrayList<>();
+            for (String s : sizeSet) {
+                SizeLetterOrder slo = new SizeLetterOrder();
+                if (s.equals("38.5")) {
+                    slo.setSizeLetter("38.5");
+                    slo.setOrder(0);
+                } else if (s.equals("39")) {
+                    slo.setSizeLetter("39");
+                    slo.setOrder(1);
+                } else if (s.equals("40")) {
+                    slo.setSizeLetter("40");
+                    slo.setOrder(2);
+                } else if (s.equals("40.5")) {
+                    slo.setSizeLetter("40.5");
+                    slo.setOrder(3);
+                } else if (s.equals("41")) {
+                    slo.setSizeLetter("41");
+                    slo.setOrder(4);
+                } else if (s.equals("42")) {
+                    slo.setSizeLetter("42");
+                    slo.setOrder(5);
+                } else if (s.equals("42.5")) {
+                    slo.setSizeLetter("42.5");
+                    slo.setOrder(6);
+                } else if (s.equals("43")) {
+                    slo.setSizeLetter("43");
+                    slo.setOrder(7);
+                }
+                newSizeList.add(slo);
+            }
+
+                Collections.sort(newSizeList, new Comparator<SizeLetterOrder>() {
+                    @Override
+                    public int compare(SizeLetterOrder o1, SizeLetterOrder o2) {
+                        return o1.getOrder() - o2.getOrder();
+                    }
+                });
+                model.addAttribute("subCateID", subCateID);
+                model.addAttribute("numberOfProducts", numberOfProducts);
+                model.addAttribute("currentProductPageInfo", currentProductPageInfo);
+                model.addAttribute("productsList", finalProductList);
+                model.addAttribute("colorList", colorSet);
+                model.addAttribute("sizeList", newSizeList);
+                model.addAttribute("maxPrice", productsFacade.getMaxPriceOfProduct_BySubCate(subCateID));
+                model.addAttribute("minPrice", productsFacade.getMinPriceOfProduct_BySubCate(subCateID));
+            }
+
+            model.addAttribute("cateList", cateList);
+            return "client/pages/sub-categories-grid";
+        } else {
+            return "Ve Trang 404!";
+        }
+
+    }
+
+    @RequestMapping(value = "/{productID:[0-9]+}-{colorID:[0-9]+}-{productNameNA:[A-Za-z0-9-]+}")
+    public String productdetail(ModelMap model,
+            @PathVariable("productID") Integer productID,
+            @PathVariable("colorID") Integer colorID,
+            HttpSession session,
+            HttpServletRequest request,
+            HttpServletResponse response
+    ) {
+
+        Products targetProduct = productsFacade.findProductByID(productID);
+
+        List<Brands> cateList = brandsFacade.findAll();
+        if ((targetProduct != null)) {
+            int currentView = targetProduct.getProductViews();
+            currentView++;
+            targetProduct.setProductViews(currentView);
+            productsFacade.updateProductGeneralInfo(targetProduct);
+            List<Rating> ratingList = targetProduct.getRatingList();
+            float ratingAVR = 0;
+            float ratingSum = 0;
+            int ratingfor1 = 0;
+            int ratingfor2 = 0;
+            int ratingfor3 = 0;
+            int ratingfor4 = 0;
+            int ratingfor5 = 0;
+            int checkUserRated = 0;
+            if (ratingList.size() > 0) {
+                for (Rating rating : ratingList) {
+                    ratingSum += rating.getRating();
+                    if (rating.getRating() == 1) {
+                        ratingfor1++;
+                    }
+
+                    if (rating.getRating() == 2) {
+                        ratingfor2++;
+                    }
+
+                    if (rating.getRating() == 3) {
+                        ratingfor3++;
+                    }
+
+                    if (rating.getRating() == 4) {
+                        ratingfor4++;
+                    }
+
+                    if (rating.getRating() == 5) {
+                        ratingfor5++;
+                    }
+
+                    if (session.getAttribute("findUsersID") != null) {
+                        if (Objects.equals(rating.getUserID().getUserID(), session.getAttribute("findUsersID"))) {
+                            checkUserRated = 1;
+                        }
+                    }
+                }
+                ratingAVR = ratingSum / (float) ratingList.size();
+            }
+            DecimalFormat decimalformat = new DecimalFormat("#.#");
+            decimalformat.format(ratingAVR);
+
+            List<ProductColors> productColorList = targetProduct.getProductColorsList();
+            int count = 0;
+            for (ProductColors color : productColorList) {
+                if (Objects.equals(color.getColorID(), colorID)) {
+                    count++;
+                    break;
+                }
+            }
+
+            if (count > 0) {
+                Cookie[] cookies = request.getCookies();
+                if (cookies != null) { //có cookie mà chưa biết cookie nào
+                    int dem = 0; //nếu có cookie thì dem tăng lên 1.
+                    for (Cookie c : cookies) {
+                        //kiểm tra có cookie recentProd ko
+                        if (c.getName().equals("recentProdArr")) { //có thì lấy ra, thêm cái mới vào
+                            dem++;
+                            String productIDList = c.getValue();
+                            String[] productIDArr = productIDList.split(",");
+                            Collections.reverse(Arrays.asList(productIDArr));
+                            List<Products> recentProductList = new ArrayList<>();
+                            int cnt = 0;
+                            for (String prodID : productIDArr) {
+                                if (productID == (Integer.parseInt(prodID))) {
+                                    cnt++;
+                                }
+                                Products recentprd = productsFacade.findProductByID(Integer.parseInt(prodID));
+                                recentProductList.add(recentprd);
+                            }
+                            model.addAttribute("recentProductList", recentProductList);
+
+                            if (cnt == 0) {
+                                productIDList += productID.toString() + ",";
+                                Cookie recentProdCookie = new Cookie("recentProdArr", productIDList);
+                                recentProdCookie.setMaxAge(30 * 24 * 60 * 60);
+                                response.addCookie(recentProdCookie);
+                            }
+                            break;
+                        }
+                    }
+                    if (dem == 0) {//ko có => tạo mới  
+                        String recentProdIDStr = productID.toString() + ",";
+                        Cookie recentProdCookie = new Cookie("recentProdArr", recentProdIDStr);
+                        recentProdCookie.setMaxAge(30 * 24 * 60 * 60);
+                        response.addCookie(recentProdCookie);
+
+                    }
+                } else { //cookie == null => tạo cookie mới
+                    String recentProdIDStr = productID.toString() + ",";
+                    Cookie recentProdCookie = new Cookie("recentProdArr", recentProdIDStr);
+                    recentProdCookie.setMaxAge(30 * 24 * 60 * 60);
+                    response.addCookie(recentProdCookie);
+                }
+
+                ProductColors targetColor = productsFacade.findProductColorByColorID(colorID);
+                model.addAttribute("targetProduct", targetProduct);
+                model.addAttribute("targetColor", targetColor);
+                model.addAttribute("cateList", cateList);
+                model.addAttribute("ratingAVR", ratingAVR);
+                model.addAttribute("numberOfRating", ratingList.size());
+                model.addAttribute("ratingfor1", ratingfor1);
+                model.addAttribute("ratingfor2", ratingfor2);
+                model.addAttribute("ratingfor3", ratingfor3);
+                model.addAttribute("ratingfor4", ratingfor4);
+                model.addAttribute("ratingfor5", ratingfor5);
+                model.addAttribute("checkUserRated", checkUserRated);
+            } else {
+                String error = "Product ko có color này!";
+            }
+        } else {
+            String error = "Product ko có!";
+        }
+
+        return "client/pages/product-detail";
+    }
+
+    @ResponseBody
+    @RequestMapping(value = "/ajax/findProduct", method = RequestMethod.POST)
+    public String getProductByID(@RequestParam("productID") Integer productID) {
+        Products targetProduct = productsFacade.findProductByID(productID);
+
+        try {
+            ObjectMapper mapper = new ObjectMapper();
+            String result = mapper.writeValueAsString(targetProduct);
+            return result;
+        } catch (Exception e) {
+            return "Error!" + e.getMessage();
+        }
+
+    }
+
+    @ResponseBody
+    @RequestMapping(value = "/ajax/color", method = RequestMethod.POST)
+    public String getInforByColorID(@RequestParam("colorID") Integer colorID) {
+        ProductColors color = productsFacade.findProductColorByColorID(colorID);
+
+        try {
+            ObjectMapper mapper = new ObjectMapper();
+            String result = mapper.writeValueAsString(color);
+            return result;
+        } catch (Exception e) {
+            return "" + e.getMessage();
+        }
+    }
+
+    @ResponseBody
+    @RequestMapping(value = "/ajax/productPagination", method = RequestMethod.POST)
+    public String productPagination(
+            @RequestParam("cateID") Integer cateID,
+            @RequestParam("page") Integer page,
+            @RequestParam("itemPerPage") Integer itemPerPage,
+            @RequestParam("sortBy") Integer sortBy,
+            @RequestParam("fromPrice") Double fromPrice,
+            @RequestParam("toPrice") Double toPrice,
+            @RequestParam(value = "colorFilterArr[]", required = false) List<String> colorFilterArr,
+            @RequestParam(value = "sizeFilterArr[]", required = false) List<String> sizeFilterArr) {
+        if (fromPrice == null) {
+            fromPrice = productsFacade.getMinPriceOfProduct_ByCate(cateID);
+        }
+
+        if (toPrice == null) {
+            toPrice = productsFacade.getMaxPriceOfProduct_ByCate(cateID);
+        }
+        String filterColor = "";
+        String beginColorStr = "AND pc.color in (";
+        String endColorStr = ") ";
+        String contentColorStr = "";
+
+        String filterSize = "";
+        String beginSizeStr = "AND ps.productSize in (";
+        String endSizeStr = ") ";
+        String contentSizeStr = "";
+
+        if (colorFilterArr != null) {
+            for (String color : colorFilterArr) {
+                contentColorStr += "'" + color + "',";
+            }
+            contentColorStr = contentColorStr.substring(0, contentColorStr.length() - 1);
+            filterColor = beginColorStr + contentColorStr + endColorStr;
+        }
+
+        if (sizeFilterArr != null) {
+            for (String size : sizeFilterArr) {
+                contentSizeStr += "'" + size + "',";
+            }
+            contentSizeStr = contentSizeStr.substring(0, contentSizeStr.length() - 1);
+            filterSize = beginSizeStr + contentSizeStr + endSizeStr;
+        }
+
+        List<Object[]> productIDList = productsFacade.filterProductByCategory(cateID, page, itemPerPage, fromPrice, toPrice, filterColor, filterSize, sortBy);
+        List<Products> finalProductList = new ArrayList<>();
+        for (Object[] prod : productIDList) {
+
+            Products product = productsFacade.findProductByID((Integer) prod[0]);
+            finalProductList.add(product);
+        }
+        ObjectMapper mapper = new ObjectMapper();
+        String result = "";
+        try {
+            result = mapper.writeValueAsString(finalProductList);
+        } catch (JsonProcessingException ex) {
+            Logger.getLogger(ProductController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        return result;
+    }
+
+    @ResponseBody
+    @RequestMapping(value = "/ajax/getNumberOfProductsByFilter_OfACategory", method = RequestMethod.POST)
+    public String getNumberOfProductsByFilter_OfACategory(
+            @RequestParam("cateID") Integer cateID,
+            @RequestParam("fromPrice") Double fromPrice,
+            @RequestParam("toPrice") Double toPrice,
+            @RequestParam(value = "colorFilterArr[]", required = false) List<String> colorFilterArr,
+            @RequestParam(value = "sizeFilterArr[]", required = false) List<String> sizeFilterArr
+    ) {
+        if (fromPrice == null) {
+            fromPrice = productsFacade.getMinPriceOfProduct_ByCate(cateID);
+        }
+
+        if (toPrice == null) {
+            toPrice = productsFacade.getMaxPriceOfProduct_ByCate(cateID);
+        }
+        String filterColor = "";
+        String beginColorStr = "AND pc.color in (";
+        String endColorStr = ") ";
+        String contentColorStr = "";
+
+        String filterSize = "";
+        String beginSizeStr = "AND ps.productSize in (";
+        String endSizeStr = ") ";
+        String contentSizeStr = "";
+
+        if (colorFilterArr != null) {
+            for (String color : colorFilterArr) {
+                contentColorStr += "'" + color + "',";
+            }
+            contentColorStr = contentColorStr.substring(0, contentColorStr.length() - 1);
+            filterColor = beginColorStr + contentColorStr + endColorStr;
+        }
+
+        if (sizeFilterArr != null) {
+            for (String size : sizeFilterArr) {
+                contentSizeStr += "'" + size + "',";
+            }
+            contentSizeStr = contentSizeStr.substring(0, contentSizeStr.length() - 1);
+            filterSize = beginSizeStr + contentSizeStr + endSizeStr;
+        }
+
+        List<Object[]> allProductFilteredByPrice = productsFacade.productsByFilter_OfACategory(cateID, fromPrice, toPrice, filterColor, filterSize);
+
+        int numberOfProducts = allProductFilteredByPrice.size();
+        return "" + numberOfProducts;
+    }
+
+    @ResponseBody
+    @RequestMapping(value = "/ajax/productPaginationForSubCate", method = RequestMethod.POST)
+    public String productPaginationForSubCate(
+            @RequestParam("subCateID") Integer subCateID,
+            @RequestParam("page") Integer page,
+            @RequestParam("itemPerPage") Integer itemPerPage,
+            @RequestParam("sortBy") Integer sortBy,
+            @RequestParam("fromPrice") Double fromPrice,
+            @RequestParam("toPrice") Double toPrice,
+            @RequestParam(value = "colorFilterArrSubCate[]", required = false) List<String> colorFilterArrSubCate,
+            @RequestParam(value = "sizeFilterArrSubCate[]", required = false) List<String> sizeFilterArrSubCate) {
+        if (fromPrice == null) {
+            fromPrice = productsFacade.getMinPriceOfProduct_BySubCate(subCateID);
+        }
+
+        if (toPrice == null) {
+            toPrice = productsFacade.getMaxPriceOfProduct_BySubCate(subCateID);
+        }
+        String filterColor = "";
+        String beginColorStr = "AND pc.color in (";
+        String endColorStr = ") ";
+        String contentColorStr = "";
+
+        String filterSize = "";
+        String beginSizeStr = "AND ps.productSize in (";
+        String endSizeStr = ") ";
+        String contentSizeStr = "";
+
+        if (colorFilterArrSubCate != null) {
+            for (String color : colorFilterArrSubCate) {
+                contentColorStr += "'" + color + "',";
+            }
+            contentColorStr = contentColorStr.substring(0, contentColorStr.length() - 1);
+            filterColor = beginColorStr + contentColorStr + endColorStr;
+        }
+
+        if (sizeFilterArrSubCate != null) {
+            for (String size : sizeFilterArrSubCate) {
+                contentSizeStr += "'" + size + "',";
+            }
+            contentSizeStr = contentSizeStr.substring(0, contentSizeStr.length() - 1);
+            filterSize = beginSizeStr + contentSizeStr + endSizeStr;
+        }
+
+        List<Object[]> productIDList = productsFacade.filterProductBySubCategory(subCateID, page, itemPerPage, fromPrice, toPrice, filterColor, filterSize, sortBy);
+        List<Products> finalProductList = new ArrayList<>();
+        for (Object[] prod : productIDList) {
+
+            Products product = productsFacade.findProductByID((Integer) prod[0]);
+            finalProductList.add(product);
+        }
+        ObjectMapper mapper = new ObjectMapper();
+        String result = "";
+        try {
+            result = mapper.writeValueAsString(finalProductList);
+        } catch (JsonProcessingException ex) {
+            Logger.getLogger(ProductController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        return result;
+    }
+
+    @ResponseBody
+    @RequestMapping(value = "/ajax/getNumberOfProductsByFilter_OfASubCategory", method = RequestMethod.POST)
+    public String getNumberOfProductsByFilter_OfASubCategory(
+            @RequestParam("subCateID") Integer subCateID,
+            @RequestParam("fromPrice") Double fromPrice,
+            @RequestParam("toPrice") Double toPrice,
+            @RequestParam(value = "colorFilterArrSubCate[]", required = false) List<String> colorFilterArrSubCate,
+            @RequestParam(value = "sizeFilterArrSubCate[]", required = false) List<String> sizeFilterArrSubCate
+    ) {
+        if (fromPrice == null) {
+            fromPrice = productsFacade.getMinPriceOfProduct_BySubCate(subCateID);
+        }
+
+        if (toPrice == null) {
+            toPrice = productsFacade.getMaxPriceOfProduct_BySubCate(subCateID);
+        }
+        String filterColor = "";
+        String beginColorStr = "AND pc.color in (";
+        String endColorStr = ") ";
+        String contentColorStr = "";
+
+        String filterSize = "";
+        String beginSizeStr = "AND ps.productSize in (";
+        String endSizeStr = ") ";
+        String contentSizeStr = "";
+
+        if (colorFilterArrSubCate != null) {
+            for (String color : colorFilterArrSubCate) {
+                contentColorStr += "'" + color + "',";
+            }
+            contentColorStr = contentColorStr.substring(0, contentColorStr.length() - 1);
+            filterColor = beginColorStr + contentColorStr + endColorStr;
+        }
+
+        if (sizeFilterArrSubCate != null) {
+            for (String size : sizeFilterArrSubCate) {
+                contentSizeStr += "'" + size + "',";
+            }
+            contentSizeStr = contentSizeStr.substring(0, contentSizeStr.length() - 1);
+            filterSize = beginSizeStr + contentSizeStr + endSizeStr;
+        }
+
+        List<Object[]> allProductFilteredByPrice = productsFacade.productsByFilter_OfASubCategory(subCateID, fromPrice, toPrice, filterColor, filterSize);
+
+        int numberOfProducts = allProductFilteredByPrice.size();
+        return "" + numberOfProducts;
+    }
+
+    @ResponseBody
+    @RequestMapping(value = "/ajax/submitReviewRating", method = RequestMethod.POST)
+    public String submitReviewRating(
+            @RequestParam("productID") Integer productID,
+            @RequestParam("userID") Integer userID,
+            @RequestParam("ratingVal") Integer ratingVal,
+            @RequestParam("review") String review
+    ) {
+        Products thatProd = productsFacade.findProductByID(productID);
+
+        Rating newRating = new Rating();
+        newRating.setProductID(thatProd);
+        newRating.setUserID(usersFacade.getUserByID(userID));
+        newRating.setRating(ratingVal);
+        newRating.setRatingDate(new Date());
+//        newRating.setStatus(review);
+        newRating.setStatus((short) 0);
+
+        if (productsFacade.createNewProductRating(productID, newRating)) {
+            return "ok";
+        } else {
+            return "false";
+        }
+    }
+
+    @ResponseBody
+    @RequestMapping(value = "ajax/checkquantity", method = RequestMethod.POST)
+    public String checkquantity(
+            @RequestParam("sizeID") Integer sizeID
+    ) {
+        SizesByColor targetSize = productsFacade.getSizeByID(sizeID);
+
+        return "" + targetSize.getQuantity();
+    }
+
+    @ResponseBody
+    @RequestMapping(value = "ajax/searchProductByKeyWord", method = RequestMethod.POST)
+    public String searchProductByKeyWord(
+            @RequestParam("keyword") String keyword
+    ) {
+        List<Products> productList = productsFacade.getSearchedProducts(keyword);
+
+        String result = "";
+
+        for (Products p : productList) {
+            result += "<li class=\"fs-search-result\">\n"
+                    + "     <a href=\"" + p.getProductID()+ "-" + p.getProductColorListWorking().get(0).getColorID() + "-" + p.getProductName()+ ".html\">"
+                    + "         "+ p.getProductName() +""
+                    + "     </a>\n"
+                    + "</li>";
+        }
+
+        return result;
+    }
+
+    private UsersFacadeLocal lookupUsersFacadeLocal() {
+        try {
+            Context c = new InitialContext();
+            return (UsersFacadeLocal) c.lookup("java:global/ShoeGardenPJ/UsersFacade!spring.ejb.UsersFacadeLocal");
+        } catch (NamingException ne) {
+            Logger.getLogger(getClass().getName()).log(Level.SEVERE, "exception caught", ne);
+            throw new RuntimeException(ne);
+        }
+    }
+
+    private ProductsFacadeLocal lookupProductsFacadeLocal() {
+        try {
+            Context c = new InitialContext();
+            return (ProductsFacadeLocal) c.lookup("java:global/ShoeGardenPJ/ProductsFacade!spring.ejb.ProductsFacadeLocal");
+        } catch (NamingException ne) {
+            Logger.getLogger(getClass().getName()).log(Level.SEVERE, "exception caught", ne);
+            throw new RuntimeException(ne);
+        }
+    }
+
+    private BrandsFacadeLocal lookupBrandsFacadeLocal() {
+        try {
+            Context c = new InitialContext();
+            return (BrandsFacadeLocal) c.lookup("java:global/ShoeGardenPJ/BrandsFacade!spring.ejb.BrandsFacadeLocal");
+        } catch (NamingException ne) {
+            Logger.getLogger(getClass().getName()).log(Level.SEVERE, "exception caught", ne);
+            throw new RuntimeException(ne);
+        }
+    }
+
+    private CategoriesFacadeLocal lookupCategoriesFacadeLocal() {
+        try {
+            Context c = new InitialContext();
+            return (CategoriesFacadeLocal) c.lookup("java:global/ShoeGardenPJ/CategoriesFacade!spring.ejb.CategoriesFacadeLocal");
+        } catch (NamingException ne) {
+            Logger.getLogger(getClass().getName()).log(Level.SEVERE, "exception caught", ne);
+            throw new RuntimeException(ne);
+        }
+    }
+
+    
+}
