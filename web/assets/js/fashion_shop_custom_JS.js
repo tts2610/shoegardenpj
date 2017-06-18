@@ -416,9 +416,9 @@ $(document).ready(function() {
 
                 $.each(response.sizeListWorking, function(i, item) {
                     if (item.quantity == 0) {
-                        str_change_size += "<div class=\"fs-particular-size fs-unselectable\" fs-size=\"" + item.sizeID + "\">" + item.productSize + "</div>";
+                        str_change_size += "<div class=\"fs-particular-size fs-unselectable\" fs-size=\"" + item.sizeID + "\">" + item.size + "</div>";
                     } else {
-                        str_change_size += "<div class=\"fs-particular-size\" fs-size=\"" + item.sizeID + "\">" + item.productSize + "</div>";
+                        str_change_size += "<div class=\"fs-particular-size\" fs-size=\"" + item.sizeID + "\">" + item.size + "</div>";
                     }
                 });
                 $("#fs-product-modal-size").hide().html(str_change_size).fadeIn(1000);
@@ -1478,7 +1478,7 @@ $(document).ready(function() {
                                         });
                                     }
 
-                                    if (prod.discountDetailsList[0].discID==null) {
+                                    if (prod.discountDetailsList[0]==null) {
                                         result += "<div class=\"col-md-4 col-sm-6\">\n" +
                                             "     <div class=\"product-item\">\n" +
                                             "          <div class=\"item-thumb\">\n" +
@@ -1653,7 +1653,7 @@ $(document).ready(function() {
                                         });
                                     }
 
-                                    if (prod.discountDetailsList[0].discID==null) {
+                                    if (prod.discountDetailsList[0]==null) {
                                         result += "<div class=\"col-md-4 col-sm-6\">\n" +
                                             "     <div class=\"product-item\">\n" +
                                             "          <div class=\"item-thumb\">\n" +
@@ -2020,6 +2020,7 @@ $(document).ready(function() {
                                     "                </div>\n" +
                                     "                <div class=\"product-overlay\">\n" +
                                     "                     <a href=\"#\" class=\"addcart fa fa-shopping-cart\"></a>\n" +
+                                    "<a href=\"#\" class=\"compare fa fa-signal\"></a>"+
                                     "                     <a href=\"#\" class=\"likeitem fa fa-heart-o\"></a>\n" +
                                     "                </div>\n" +
                                     "          </div>\n" +
@@ -2052,6 +2053,7 @@ $(document).ready(function() {
                                     "                </div>\n" +
                                     "                <div class=\"product-overlay\">\n" +
                                     "                     <a href=\"#\" class=\"addcart fa fa-shopping-cart\"></a>\n" +
+                                    "<a href=\"#\" class=\"compare fa fa-signal\"></a>"+
                                     "                     <a href=\"#\" class=\"likeitem fa fa-heart-o\"></a>\n" +
                                     "                </div>\n" +
                                     "          </div>\n" +
@@ -2159,6 +2161,7 @@ $(document).ready(function() {
                                     "                </div>\n" +
                                     "                <div class=\"product-overlay\">\n" +
                                     "                     <a href=\"#\" class=\"addcart fa fa-shopping-cart\"></a>\n" +
+                                    "<a href=\"#\" class=\"compare fa fa-signal\"></a>"+
                                     "                     <a href=\"#\" class=\"likeitem fa fa-heart-o\"></a>\n" +
                                     "                </div>\n" +
                                     "          </div>\n" +
@@ -2191,6 +2194,7 @@ $(document).ready(function() {
                                     "                </div>\n" +
                                     "                <div class=\"product-overlay\">\n" +
                                     "                     <a href=\"#\" class=\"addcart fa fa-shopping-cart\"></a>\n" +
+                                    "<a href=\"#\" class=\"compare fa fa-signal\"></a>"+
                                     "                     <a href=\"#\" class=\"likeitem fa fa-heart-o\"></a>\n" +
                                     "                </div>\n" +
                                     "          </div>\n" +
@@ -2340,6 +2344,7 @@ $(document).ready(function() {
                                                 "                </div>\n" +
                                                 "                <div class=\"product-overlay\">\n" +
                                                 "                     <a href=\"#\" class=\"addcart fa fa-shopping-cart\"></a>\n" +
+                                                "<a href=\"#\" class=\"compare fa fa-signal\"></a>"+
                                                 "                     <a href=\"#\" class=\"likeitem fa fa-heart-o\"></a>\n" +
                                                 "                </div>\n" +
                                                 "          </div>\n" +
@@ -2372,6 +2377,7 @@ $(document).ready(function() {
                                                 "                </div>\n" +
                                                 "                <div class=\"product-overlay\">\n" +
                                                 "                     <a href=\"#\" class=\"addcart fa fa-shopping-cart\"></a>\n" +
+                                                "<a href=\"#\" class=\"compare fa fa-signal\"></a>"+
                                                 "                     <a href=\"#\" class=\"likeitem fa fa-heart-o\"></a>\n" +
                                                 "                </div>\n" +
                                                 "          </div>\n" +
@@ -2512,6 +2518,7 @@ $(document).ready(function() {
                                             "                </div>\n" +
                                             "                <div class=\"product-overlay\">\n" +
                                             "                     <a href=\"#\" class=\"addcart fa fa-shopping-cart\"></a>\n" +
+                                            "<a href=\"#\" class=\"compare fa fa-signal\"></a>"+
                                             "                     <a href=\"#\" class=\"likeitem fa fa-heart-o\"></a>\n" +
                                             "                </div>\n" +
                                             "          </div>\n" +
@@ -2544,6 +2551,7 @@ $(document).ready(function() {
                                             "                </div>\n" +
                                             "                <div class=\"product-overlay\">\n" +
                                             "                     <a href=\"#\" class=\"addcart fa fa-shopping-cart\"></a>\n" +
+                                            "<a href=\"#\" class=\"compare fa fa-signal\"></a>"+
                                             "                     <a href=\"#\" class=\"likeitem fa fa-heart-o\"></a>\n" +
                                             "                </div>\n" +
                                             "          </div>\n" +
@@ -2678,6 +2686,7 @@ $(document).ready(function() {
                                             "                </div>\n" +
                                             "                <div class=\"product-overlay\">\n" +
                                             "                     <a href=\"#\" class=\"addcart fa fa-shopping-cart\"></a>\n" +
+                                            "<a href=\"#\" class=\"compare fa fa-signal\"></a>"+
                                             "                     <a href=\"#\" class=\"likeitem fa fa-heart-o\"></a>\n" +
                                             "                </div>\n" +
                                             "          </div>\n" +
@@ -2698,7 +2707,7 @@ $(document).ready(function() {
                                         result += "<div class=\"col-md-4 col-sm-6\">\n" +
                                             "     <div class=\"product-item\">\n" +
                                             "          <div class=\"item-thumb\">\n" +
-                                            "               <span class=\"badge offer\">-" + product.discountDetailsList[0].discID.discount + "%</span>\n" +
+                                            "               <span class=\"badge offer\">-" + prod.discountDetailsList[0].discID.discount + "%</span>\n" +
                                             "               <img src=\"assets/images/products/" + prod.urlImg + "\" \n" +
                                             "                    class=\"img-responsive\" \n" +
                                             "                    alt=\"" + prod.urlImg + "\"\n" +
@@ -2710,6 +2719,7 @@ $(document).ready(function() {
                                             "                </div>\n" +
                                             "                <div class=\"product-overlay\">\n" +
                                             "                     <a href=\"#\" class=\"addcart fa fa-shopping-cart\"></a>\n" +
+                                            "<a href=\"#\" class=\"compare fa fa-signal\"></a>"+
                                             "                     <a href=\"#\" class=\"likeitem fa fa-heart-o\"></a>\n" +
                                             "                </div>\n" +
                                             "          </div>\n" +
