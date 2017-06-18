@@ -5,6 +5,7 @@
  */
 package spring.entity;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -51,8 +52,10 @@ public class Brands implements Serializable {
     @Column(name = "status")
     private Short status;
     @OneToMany(mappedBy = "braID")
+    @JsonManagedReference
     private List<Products> productsList;
     @OneToMany(mappedBy = "braID")
+    @JsonManagedReference
     private List<Categories> categoriesList;
 
     public Brands() {

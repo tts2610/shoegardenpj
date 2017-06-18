@@ -222,11 +222,11 @@
             <div id="isotope" class="isotope">
                 <c:forEach items="${braList}" var="bra">
                     <c:forEach items="${bra.productListWorking}" var="product" begin="0" end="7" varStatus="no">
-                        
+
                         <div class="isotope-item ${bra.braName} <c:if test="${no.index % 2 == 0}">isotope_to_all</c:if>">
                                 <div class="product-item">
                                     <div class="item-thumb">
-                                    <c:if test="${product.discountDetailsList[0].discID.discount > 0}">
+                                    <c:if test="${product.discountDetailsList[0]!=null}">
                                         <div class="badge offer">-${product.discountDetailsList[0].discID.discount}%</div>
                                     </c:if>
                                     <img src="assets/images/products/${product.urlImg}"
@@ -239,8 +239,8 @@
                                          data-toggle="modal" >
                                     </div>
                                     <div class="product-overlay">
-                                        <!--                                        <a href="#" class="addcart fa fa-shopping-cart"></a>
-                                                                                <a href="#" class="compare fa fa-signal"></a>-->
+                                        <a href="#" class="addcart fa fa-shopping-cart"></a>
+                                        <a href="#" class="compare fa fa-signal"></a>
                                         <a class="likeitem fa fa-heart-o fs-wishlish-add" 
                                            fs-userID="${sessionScope.findUsersID}" 
                                            fs-productID="${product.productID}" ></a>
@@ -254,12 +254,12 @@
                                         </a>
                                     </h4>
                                     <span class="product-price">
-                                        <c:if test="${product.discountDetailsList[0].discID.discount > 0}">
+                                        <c:if test="${product.discountDetailsList[0] != null}">
                                             <small class="cutprice">$ ${product.price}0 </small>  $
                                             <fmt:formatNumber type="number" maxFractionDigits="2" value="${product.price * (1-product.discountDetailsList[0].discID.discount/100)}" var="prodPrice"/>
                                             ${fn:replace(prodPrice, ",", ".")}
                                         </c:if>
-                                        <c:if test="${product.discountDetailsList[0].discID.discount == 0}">
+                                        <c:if test="${product.discountDetailsList[0] == null}">
                                             $ ${product.price}0
                                         </c:if>
                                     </span>
@@ -362,13 +362,13 @@
                                     </h4>
 
                                     <span class="product-price">
-                                        <c:if test="${ltp.discountDetailsList[0].discID.discount > 0}">
+                                        <c:if test="${ltp.discountDetailsList[0]!=null}">
                                             <small class="cutprice">$ ${ltp.price}0 </small>  $
                                             <fmt:formatNumber type="number" maxFractionDigits="2" value="${ltp.price * (1-ltp.discountDetailsList[0].discID.discount/100)}" var="ltpPrice"/>
                                             ${fn:replace(ltpPrice, ",", ".")}
 
                                         </c:if>
-                                        <c:if test="${ltp.discountDetailsList[0].discID.discount == 0}">
+                                        <c:if test="${ltp.discountDetailsList[0]==null}">
                                             $ ${ltp.price}0
                                         </c:if>
                                     </span>

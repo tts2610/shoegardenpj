@@ -5,6 +5,8 @@
  */
 package spring.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
@@ -75,6 +77,7 @@ public class Discounts implements Serializable {
     @Column(name = "discount")
     private short discount;
     @OneToMany(mappedBy = "discID")
+    @JsonBackReference
     private List<DiscountDetails> discountDetailList;
 
     public List<DiscountDetails> getDiscountDetailList() {

@@ -157,7 +157,10 @@ public class ProductsFacade extends AbstractFacade<Products> implements Products
 
     @Override
     public List<Object[]> productsByFilter_OfACategory(int cateID, double fromPrice, double toPrice, String filterColor, String filterSize) {
-        String sql = "SELECT DISTINCT"
+        
+        Query q = null;
+        try{
+            String sql = "SELECT DISTINCT"
                 + "         p.productID, p.price\n"
                 + "FROM Products p\n"
                 + "JOIN p.productColorsList pc\n"
@@ -167,12 +170,19 @@ public class ProductsFacade extends AbstractFacade<Products> implements Products
                 + filterColor
                 + filterSize
                 + "AND p.status = 1";
-        Query q = getEntityManager().createQuery(sql, Products.class);
+        q = getEntityManager().createQuery(sql, Products.class);
         q.setParameter("cateID", cateID);
         q.setParameter("fromPrice", fromPrice);
         q.setParameter("toPrice", toPrice);
-
+        
+        }
+        catch(Exception e){
+            e.printStackTrace();
+        }
+        
         return q.getResultList();
+
+        
     }
 
     @Override

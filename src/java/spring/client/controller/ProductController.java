@@ -89,7 +89,7 @@ public class ProductController {
             double toPrice = productsFacade.getMaxPriceOfProduct_ByCate(cateID);
 
             List<Object[]> productIDList = productsFacade.filterProductByCategory(cateID, page, itemPerPage, fromPrice, toPrice, "", "", 1);
-            System.err.println(cateID);
+            
             List<Products> finalProductList = new ArrayList<>();
             for (Object[] prod : productIDList) {
                 Products product = productsFacade.findProductByID((Integer) prod[0]);
@@ -167,55 +167,21 @@ public class ProductController {
                     }
                 }
 
-                List<SizeLetterOrder> newSizeList = new ArrayList<>();
-            for (String s : sizeSet) {
-                SizeLetterOrder slo = new SizeLetterOrder();
-                if (s.equals("38.5")) {
-                    slo.setSizeLetter("38.5");
-                    slo.setOrder(0);
-                } else if (s.equals("39")) {
-                    slo.setSizeLetter("39");
-                    slo.setOrder(1);
-                } else if (s.equals("40")) {
-                    slo.setSizeLetter("40");
-                    slo.setOrder(2);
-                } else if (s.equals("40.5")) {
-                    slo.setSizeLetter("40.5");
-                    slo.setOrder(3);
-                } else if (s.equals("41")) {
-                    slo.setSizeLetter("41");
-                    slo.setOrder(4);
-                } else if (s.equals("42")) {
-                    slo.setSizeLetter("42");
-                    slo.setOrder(5);
-                } else if (s.equals("42.5")) {
-                    slo.setSizeLetter("42.5");
-                    slo.setOrder(6);
-                } else if (s.equals("43")) {
-                    slo.setSizeLetter("43");
-                    slo.setOrder(7);
-                }
-                newSizeList.add(slo);
-            }
+                
 
-                Collections.sort(newSizeList, new Comparator<SizeLetterOrder>() {
-                    @Override
-                    public int compare(SizeLetterOrder o1, SizeLetterOrder o2) {
-                        return o1.getOrder() - o2.getOrder();
-                    }
-                });
+                
                 model.addAttribute("subCateID", subCateID);
                 model.addAttribute("numberOfProducts", numberOfProducts);
                 model.addAttribute("currentProductPageInfo", currentProductPageInfo);
                 model.addAttribute("productsList", finalProductList);
                 model.addAttribute("colorList", colorSet);
-                model.addAttribute("sizeList", newSizeList);
+                model.addAttribute("sizeList", sizeSet);
                 model.addAttribute("maxPrice", productsFacade.getMaxPriceOfProduct_BySubCate(subCateID));
                 model.addAttribute("minPrice", productsFacade.getMinPriceOfProduct_BySubCate(subCateID));
             }
 
-            model.addAttribute("cateList", cateList);
-            return "client/pages/sub-categories-grid";
+            model.addAttribute("braList", cateList);
+            return "client/pages/categories-grid";
         } else {
             return "Ve Trang 404!";
         }
@@ -411,7 +377,7 @@ public class ProductController {
         String contentColorStr = "";
 
         String filterSize = "";
-        String beginSizeStr = "AND ps.productSize in (";
+        String beginSizeStr = "AND ps.size in (";
         String endSizeStr = ") ";
         String contentSizeStr = "";
 
@@ -433,9 +399,11 @@ public class ProductController {
 
         List<Object[]> productIDList = productsFacade.filterProductByCategory(cateID, page, itemPerPage, fromPrice, toPrice, filterColor, filterSize, sortBy);
         List<Products> finalProductList = new ArrayList<>();
+        
         for (Object[] prod : productIDList) {
 
             Products product = productsFacade.findProductByID((Integer) prod[0]);
+            
             finalProductList.add(product);
         }
         ObjectMapper mapper = new ObjectMapper();
@@ -443,9 +411,10 @@ public class ProductController {
         try {
             result = mapper.writeValueAsString(finalProductList);
         } catch (JsonProcessingException ex) {
-            Logger.getLogger(ProductController.class.getName()).log(Level.SEVERE, null, ex);
+            ex.printStackTrace();
         }
 
+        
         return result;
     }
 
@@ -458,6 +427,7 @@ public class ProductController {
             @RequestParam(value = "colorFilterArr[]", required = false) List<String> colorFilterArr,
             @RequestParam(value = "sizeFilterArr[]", required = false) List<String> sizeFilterArr
     ) {
+        
         if (fromPrice == null) {
             fromPrice = productsFacade.getMinPriceOfProduct_ByCate(cateID);
         }
@@ -471,7 +441,7 @@ public class ProductController {
         String contentColorStr = "";
 
         String filterSize = "";
-        String beginSizeStr = "AND ps.productSize in (";
+        String beginSizeStr = "AND ps.size in (";
         String endSizeStr = ") ";
         String contentSizeStr = "";
 
@@ -494,6 +464,7 @@ public class ProductController {
         List<Object[]> allProductFilteredByPrice = productsFacade.productsByFilter_OfACategory(cateID, fromPrice, toPrice, filterColor, filterSize);
 
         int numberOfProducts = allProductFilteredByPrice.size();
+        
         return "" + numberOfProducts;
     }
 
@@ -521,7 +492,7 @@ public class ProductController {
         String contentColorStr = "";
 
         String filterSize = "";
-        String beginSizeStr = "AND ps.productSize in (";
+        String beginSizeStr = "AND ps.size in (";
         String endSizeStr = ") ";
         String contentSizeStr = "";
 
@@ -581,7 +552,7 @@ public class ProductController {
         String contentColorStr = "";
 
         String filterSize = "";
-        String beginSizeStr = "AND ps.productSize in (";
+        String beginSizeStr = "AND ps.size in (";
         String endSizeStr = ") ";
         String contentSizeStr = "";
 

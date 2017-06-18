@@ -5,6 +5,8 @@
  */
 package spring.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import java.io.Serializable;
 import javax.persistence.Basic;
 import javax.persistence.Column;
@@ -40,9 +42,11 @@ public class DiscountDetails implements Serializable {
     private Integer discDetailID;
     @JoinColumn(name = "discID", referencedColumnName = "discID")
     @ManyToOne
+    @JsonManagedReference
     private Discounts discID;
     @JoinColumn(name = "productID", referencedColumnName = "productID")
     @ManyToOne
+    @JsonBackReference
     private Products productID;
 
     

@@ -5,6 +5,8 @@
  */
 package spring.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -95,18 +97,24 @@ public class Products implements Serializable {
     @OneToMany(mappedBy = "productID")
     private List<Comments> commentsList;
     @OneToMany(mappedBy = "productID",cascade = CascadeType.PERSIST)
+    @JsonManagedReference
     private List<ProductColors> productColorsList;
     @OneToMany(mappedBy = "productID")
+    @JsonManagedReference
     private List<Rating> ratingList;
     @JoinColumn(name = "braID", referencedColumnName = "braID")
     @ManyToOne
+    @JsonBackReference
     private Brands braID;
     @JoinColumn(name = "catID", referencedColumnName = "catID")
     @ManyToOne
+    @JsonBackReference
     private Categories catID;
-    @OneToMany(mappedBy = "productID")
+    @OneToMany(mappedBy = "productID",cascade = CascadeType.PERSIST)
+    @JsonManagedReference
     private List<DiscountDetails> discountDetailsList;
-    @OneToMany(mappedBy = "productID")
+    @OneToMany(mappedBy = "productID",cascade = CascadeType.PERSIST)
+    @JsonManagedReference
     private List<OrdersDetail> ordersDetailList;
 
     public List<DiscountDetails> getDiscountDetailsList() {

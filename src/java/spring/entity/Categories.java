@@ -5,6 +5,8 @@
  */
 package spring.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -53,9 +55,11 @@ public class Categories implements Serializable {
     @Column(name = "status")
     private Short status;
     @OneToMany(mappedBy = "catID")
+    @JsonManagedReference
     private List<Products> productsList;
     @JoinColumn(name = "braID", referencedColumnName = "braID")
     @ManyToOne
+    @JsonBackReference
     private Brands braID;
 
     public Categories() {

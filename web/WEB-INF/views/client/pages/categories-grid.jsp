@@ -53,8 +53,8 @@
                         <ul class="fs-ul-size">
                             <c:forEach items="${sizeList}" var="size" varStatus="i">
                                 <li style="margin-bottom: 10px;">
-                                    <input id="fs-size-checkbox-${i.index + 1}" class="fs-size-checkbox" type="checkbox" value="${size.sizeLetter}"/>
-                                    <label style="font-weight: normal" for="fs-size-checkbox-${i.index + 1}">${size.sizeLetter}</label>
+                                    <input id="fs-size-checkbox-${i.index + 1}" class="fs-size-checkbox" type="checkbox" value="${size}"/>
+                                    <label style="font-weight: normal" for="fs-size-checkbox-${i.index + 1}">${size}</label>
                                 </li>
                             </c:forEach>
                         </ul>
@@ -113,8 +113,8 @@
                                 <div class="col-md-4 col-sm-6">
                                     <div class="product-item">
                                         <div class="item-thumb">
-                                            <c:if test="${product.productDiscount > 0}">
-                                                <span class="badge offer">-${product.productDiscount}%</span>
+                                            <c:if test="${product.discountDetailsList[0]!=null}">
+                                                <span class="badge offer">-${product.discountDetailsList[0].discID.discount}%</span>
                                             </c:if>
                                             <img src="assets/images/products/${product.urlImg}" 
                                                  class="img-responsive" 
@@ -134,17 +134,17 @@
                                         </div>
                                         <div class="product-info">
                                             <h4 class="product-title">
-                                                <a href="${product.productID}-${product.productColorListWorking[0].colorID}-${product.productNameNA}.html">
+                                                <a href="${product.productID}-${product.productColorListWorking[0].colorID}-${product.productName}.html">
                                                     ${product.productName}
                                                 </a>
                                             </h4>
                                             <span class="product-price">
-                                                <c:if test="${product.productDiscount > 0}">
+                                                <c:if test="${product.discountDetailsList[0]!=null}">
                                                     <small class="cutprice">$ ${product.price}0 </small>  $
-                                                    <fmt:formatNumber type="number" maxFractionDigits="2" value="${product.price - (product.price*product.productDiscount/100)}" var="prodPrice"/>
+                                                    <fmt:formatNumber type="number" maxFractionDigits="2" value="${product.price * (1-product.discountDetailsList[0].discID.discount/100)}" var="prodPrice"/>
                                                     ${fn:replace(prodPrice, ",", ".")}
                                                 </c:if>
-                                                <c:if test="${product.productDiscount == 0}">
+                                                <c:if test="${product.discountDetailsList[0]==null}">
                                                     $ ${product.price}0
                                                 </c:if>
                                             </span>

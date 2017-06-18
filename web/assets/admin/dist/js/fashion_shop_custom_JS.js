@@ -736,8 +736,8 @@ $(document).ready(function () {
         } else if (!isNaN(productName.charAt(0))) {
             $("#fs-product-name-error").text("Product Name cannot begin with a number!");
             $("#fs-product-name").focus();
-        } else if (productName.length < 5 || productName.length > 25) {
-            $("#fs-product-name-error").text("Product Name must have 5 - 25 characters!");
+        } else if (productName.length < 5 || productName.length > 255) {
+            $("#fs-product-name-error").text("Product Name must have 5 - 255 characters!");
             $("#fs-product-name").focus();
         } else {
             $("#fs-product-name-error").text("");
@@ -897,8 +897,8 @@ $(document).ready(function () {
                     } else if (!isNaN(productName.charAt(0))) {
                         $("#fs-product-name-error").text("Product Name cannot begin with a number!");
                         $("#fs-product-name").focus();
-                    } else if (productName.length < 5 || productName.length > 25) {
-                        $("#fs-product-name-error").text("Product Name must have 5 - 25 characters!");
+                    } else if (productName.length < 5 || productName.length > 255) {
+                        $("#fs-product-name-error").text("Product Name must have 5 - 255 characters!");
                     } else {
                         $("#fs-product-name-error").text("");
                     }

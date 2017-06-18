@@ -39,7 +39,7 @@
                         <p>
                             <button type="button" id="fs-btn-filter-price" class="btn-black pull-left">Filter Now</button>
                             <span class="pull-right fs-sc-range">
-                                Price:<b> $<span fs-min-price="${minPrice}" id="fs-price-from-text">${minPrice}</span> - $<span fs-max-price="${maxPrice}" id="fs-price-to-text">${maxPrice}</span> </b>
+                                <b>$<span fs-min-price="${minPrice}" id="fs-price-from-text">${minPrice}</span> - $<span fs-max-price="${maxPrice}" id="fs-price-to-text">${maxPrice}</span> </b>
                             </span>
                         </p>
                         <div class="clearfix space30"></div>
@@ -118,7 +118,7 @@
                                 <div class="col-md-4 col-sm-6">
                                     <div class="product-item">
                                         <div class="item-thumb">
-                                            <c:if test="${product.discountDetailsList[0].discID.discount > 0}">
+                                            <c:if test="${product.discountDetailsList[0]!=null}">
                                                 <span class="badge offer">-${product.discountDetailsList[0].discID.discount}%</span>
                                             </c:if>
                                             <img src="assets/images/products/${product.urlImg}" 
@@ -131,7 +131,8 @@
                                                  fs-product-modal-color="${product.productColorListWorking[0].colorID}">
                                             </div>
                                             <div class="product-overlay">
-<!--                                                 <a href="#" class="addcart fa fa-shopping-cart"></a> -->
+                                                <a href="#" class="addcart fa fa-shopping-cart"></a>
+                                                <a href="#" class="compare fa fa-signal"></a>
                                                 <a href="#" class="likeitem fa fa-heart-o"></a>
                                             </div>
                                         </div>
@@ -142,12 +143,12 @@
                                                 </a>
                                             </h4>
                                             <span class="product-price">
-                                                <c:if test="${product.discountDetailsList[0].discID.discount > 0}">
+                                                <c:if test="${product.discountDetailsList[0]!=null}">
                                                     <small class="cutprice">$ ${product.price}0 </small>  $
                                                     <fmt:formatNumber type="number" maxFractionDigits="2" value="${product.price * (1-product.discountDetailsList[0].discID.discount/100)}" var="prodPrice"/>
                                                     ${fn:replace(prodPrice, ",", ".")}
                                                 </c:if>
-                                                <c:if test="${product.discountDetailsList[0].discID.discount == 0}">
+                                                <c:if test="${product.discountDetailsList[0]==null}">
                                                     $ ${product.price}0
                                                 </c:if>
                                             </span>

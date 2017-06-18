@@ -291,9 +291,9 @@ $(document).ready(function() {
 
                         $.each(item.sizeListWorking, function(j, size) {
                             if (size.quantity == 0) {
-                                sizeStr += "<div class=\"fs-particular-size fs-unselectable\" fs-size=\"" + size.sizeID + "\">" + size.size + "</div>";
+                                sizeStr += "<div class=\"fs-particular-size fs-unselectable\" fs-size=\"" + size.sizeID + "\">" + size.productSize + "</div>";
                             } else {
-                                sizeStr += "<div class=\"fs-particular-size\" fs-size=\"" + size.sizeID + "\">" + size.size + "</div>";
+                                sizeStr += "<div class=\"fs-particular-size\" fs-size=\"" + size.sizeID + "\">" + size.productSize + "</div>";
                             }
 
                         });
@@ -314,7 +314,7 @@ $(document).ready(function() {
                 $("#fs-product-modal-size").html(sizeStr);
                 $("#fs-product-modal-slide-img").html(finalStrToChangeImg);
                 fsCreateOwlCarousel();
-                $(".fs-product-modal-link-to-detail").attr("href", productID + "-" + colorID + "-" + response.productName + ".html");
+                $(".fs-product-modal-link-to-detail").attr("href", productID + "-" + colorID + "-" + response.productNameNA + ".html");
                 //Call Modal
                 productModal.modal("show");
             }
@@ -820,7 +820,7 @@ $(document).ready(function() {
                                     });
                                 }
 
-                                if (prod.discountDetailsList[0].discID== null) {
+                                if (prod.discountDetailsList[0]== null) {
                                     result += "<div class=\"col-md-4 col-sm-6\">\n" +
                                         "     <div class=\"product-item\">\n" +
                                         "          <div class=\"item-thumb\">\n" +
@@ -836,7 +836,6 @@ $(document).ready(function() {
                                         "                <div class=\"product-overlay\">\n" +
                                         "                     <a href=\"#\" class=\"addcart fa fa-shopping-cart\"></a>\n" +
                                         "                     <a href=\"#\" class=\"likeitem fa fa-heart-o\"></a>\n" +
-                                        "                     <a href=\"#\" class=\"compare fa fa-signal\"></a>"+
                                         "                </div>\n" +
                                         "          </div>\n" +
                                         "      <div class=\"product-info\">\n" +
@@ -869,7 +868,6 @@ $(document).ready(function() {
                                         "                <div class=\"product-overlay\">\n" +
                                         "                     <a href=\"#\" class=\"addcart fa fa-shopping-cart\"></a>\n" +
                                         "                     <a href=\"#\" class=\"likeitem fa fa-heart-o\"></a>\n" +
-                                        "                     <a href=\"#\" class=\"compare fa fa-signal\"></a>"+
                                         "                </div>\n" +
                                         "          </div>\n" +
                                         "      <div class=\"product-info\">\n" +
@@ -953,8 +951,8 @@ $(document).ready(function() {
                                         "              title=\"" + color.color + "\"/>";
                                 });
                             }
-                            
-                            if (prod.discountDetailsList[0]==null) {
+
+                            if (prod.discountDetailsList[0] == null) {
                                 result += "<div class=\"col-md-4 col-sm-6\">\n" +
                                     "     <div class=\"product-item\">\n" +
                                     "          <div class=\"item-thumb\">\n" +
@@ -969,9 +967,7 @@ $(document).ready(function() {
                                     "                </div>\n" +
                                     "                <div class=\"product-overlay\">\n" +
                                     "                     <a href=\"#\" class=\"addcart fa fa-shopping-cart\"></a>\n" +
-                                    "<a href=\"#\" class=\"compare fa fa-signal\"></a>"+
                                     "                     <a href=\"#\" class=\"likeitem fa fa-heart-o\"></a>\n" +
-                                    
                                     "                </div>\n" +
                                     "          </div>\n" +
                                     "      <div class=\"product-info\">\n" +
@@ -991,7 +987,7 @@ $(document).ready(function() {
                                 result += "<div class=\"col-md-4 col-sm-6\">\n" +
                                     "     <div class=\"product-item\">\n" +
                                     "          <div class=\"item-thumb\">\n" +
-                                    "               <span class=\"badge offer\">-" + prod.discountDetailsList[0].discID.discount + "%</span>\n" +
+                                    "               <span class=\"badge offer\">-" + prod.productDiscount + "%</span>\n" +
                                     "               <img src=\"assets/images/products/" + prod.urlImg + "\" \n" +
                                     "                    class=\"img-responsive\" \n" +
                                     "                    alt=\"" + prod.urlImg + "\"\n" +
@@ -1003,9 +999,7 @@ $(document).ready(function() {
                                     "                </div>\n" +
                                     "                <div class=\"product-overlay\">\n" +
                                     "                     <a href=\"#\" class=\"addcart fa fa-shopping-cart\"></a>\n" +
-                                    "<a href=\"#\" class=\"compare fa fa-signal\"></a>"+
                                     "                     <a href=\"#\" class=\"likeitem fa fa-heart-o\"></a>\n" +
-                                    
                                     "                </div>\n" +
                                     "          </div>\n" +
                                     "      <div class=\"product-info\">\n" +
@@ -1103,7 +1097,7 @@ $(document).ready(function() {
                                 });
                             }
 
-                            if (prod.discountDetailsList[0].discID == null) {
+                            if (prod.discountDetailsList[0] == null) {
                                 result += "<div class=\"col-md-4 col-sm-6\">\n" +
                                     "     <div class=\"product-item\">\n" +
                                     "          <div class=\"item-thumb\">\n" +
@@ -1118,9 +1112,7 @@ $(document).ready(function() {
                                     "                </div>\n" +
                                     "                <div class=\"product-overlay\">\n" +
                                     "                     <a href=\"#\" class=\"addcart fa fa-shopping-cart\"></a>\n" +
-                                    "<a href=\"#\" class=\"compare fa fa-signal\"></a>"+
                                     "                     <a href=\"#\" class=\"likeitem fa fa-heart-o\"></a>\n" +
-                                    
                                     "                </div>\n" +
                                     "          </div>\n" +
                                     "      <div class=\"product-info\">\n" +
@@ -1152,9 +1144,7 @@ $(document).ready(function() {
                                     "                </div>\n" +
                                     "                <div class=\"product-overlay\">\n" +
                                     "                     <a href=\"#\" class=\"addcart fa fa-shopping-cart\"></a>\n" +
-                                                          "<a href=\"#\" class=\"compare fa fa-signal\"></a>"+
                                     "                     <a href=\"#\" class=\"likeitem fa fa-heart-o\"></a>\n" +
-
                                     "                </div>\n" +
                                     "          </div>\n" +
                                     "      <div class=\"product-info\">\n" +
@@ -1183,7 +1173,7 @@ $(document).ready(function() {
 
     /* FILTER PRODUCT BY PRICE */
     $("#fs-shop-content").on("click", "#fs-btn-filter-price", function() {
-        
+
         $(this).attr("fs-filter", "yes");
         var page = 1;
         var fromPrice = $("#fs-price-from").val();
@@ -1200,10 +1190,8 @@ $(document).ready(function() {
             toPrice = $("#fs-price-to-text").attr("fs-max-price");
         }
 
-        
         if (fromPrice > toPrice) {
-            
-//            $("#fs-filter-price-error").text("Price must in range!");
+            $("#fs-filter-price-error").text("\"From\" Price must be less than \"To\" Price");
             $("#fs-price-from").val("");
             $("#fs-price-to").val("");
             $("#fs-price-from").focus();
@@ -1227,7 +1215,6 @@ $(document).ready(function() {
                     sizeFilterArr: sizeFilterArr
                 },
                 success: function(numberOfProducts) {
-                    
                     $.ajax({
                         url: "ajax/productPagination.html",
                         method: "POST",
@@ -1294,9 +1281,8 @@ $(document).ready(function() {
                                                     "              title=\"" + color.color + "\"/>";
                                             });
                                         }
-
-                                        if (prod.discountDetailsList[0].discID==null) {
-                                            
+                                        //concacnhe
+                                        if (prod.discountDetailsList[0].discID == null) {
                                             result += "<div class=\"col-md-4 col-sm-6\">\n" +
                                                 "     <div class=\"product-item\">\n" +
                                                 "          <div class=\"item-thumb\">\n" +
@@ -1311,7 +1297,6 @@ $(document).ready(function() {
                                                 "                </div>\n" +
                                                 "                <div class=\"product-overlay\">\n" +
                                                 "                     <a href=\"#\" class=\"addcart fa fa-shopping-cart\"></a>\n" +
-                                                "<a href=\"#\" class=\"compare fa fa-signal\"></a>"+
                                                 "                     <a href=\"#\" class=\"likeitem fa fa-heart-o\"></a>\n" +
                                                 "                </div>\n" +
                                                 "          </div>\n" +
@@ -1344,7 +1329,6 @@ $(document).ready(function() {
                                                 "                </div>\n" +
                                                 "                <div class=\"product-overlay\">\n" +
                                                 "                     <a href=\"#\" class=\"addcart fa fa-shopping-cart\"></a>\n" +
-                                                "                     <a href=\"#\" class=\"compare fa fa-signal\"></a>"+
                                                 "                     <a href=\"#\" class=\"likeitem fa fa-heart-o\"></a>\n" +
                                                 "                </div>\n" +
                                                 "          </div>\n" +
@@ -1478,7 +1462,7 @@ $(document).ready(function() {
                                         });
                                     }
 
-                                    if (prod.discountDetailsList[0].discID==null) {
+                                    if (prod.discountDetailsList[0] == null) {
                                         result += "<div class=\"col-md-4 col-sm-6\">\n" +
                                             "     <div class=\"product-item\">\n" +
                                             "          <div class=\"item-thumb\">\n" +
@@ -1493,7 +1477,6 @@ $(document).ready(function() {
                                             "                </div>\n" +
                                             "                <div class=\"product-overlay\">\n" +
                                             "                     <a href=\"#\" class=\"addcart fa fa-shopping-cart\"></a>\n" +
-                                            "<a href=\"#\" class=\"compare fa fa-signal\"></a>"+
                                             "                     <a href=\"#\" class=\"likeitem fa fa-heart-o\"></a>\n" +
                                             "                </div>\n" +
                                             "          </div>\n" +
@@ -1526,18 +1509,17 @@ $(document).ready(function() {
                                             "                </div>\n" +
                                             "                <div class=\"product-overlay\">\n" +
                                             "                     <a href=\"#\" class=\"addcart fa fa-shopping-cart\"></a>\n" +
-                                            "<a href=\"#\" class=\"compare fa fa-signal\"></a>"+
                                             "                     <a href=\"#\" class=\"likeitem fa fa-heart-o\"></a>\n" +
                                             "                </div>\n" +
                                             "          </div>\n" +
                                             "      <div class=\"product-info\">\n" +
                                             "          <h4 class=\"product-title\">\n" +
-                                            "              <a href=\"" + prod.productID + "-" + prod.productColorListWorking[0].colorID + "-" + prod.productName + ".html\">\n" +
+                                            "              <a href=\"" + prod.productID + "-" + prod.productColorListWorking[0].colorID + "-" + prod.productNameNA + ".html\">\n" +
                                             "                 " + prod.productName + "\n" +
                                             "              </a>\n" +
                                             "          </h4>\n" +
                                             "          <span class=\"product-price\">\n" +
-                                            "               <small class=\"cutprice\">$ " + prod.price + ".00 </small>  $ " + (prod.price * (1-prod.discountDetailsList[0].discID.discount/100)) +
+                                            "               <small class=\"cutprice\">$ " + prod.price + ".00 </small>  $ " + prod.price * (1-prod.discountDetailsList[0].discID.discount/100) +
                                             "          </span>\n" +
                                             "          <div class=\"item-colors\" style=\"height: 25px;\">\n" +
                                             renderColor +
@@ -1653,7 +1635,7 @@ $(document).ready(function() {
                                         });
                                     }
 
-                                    if (prod.discountDetailsList[0].discID==null) {
+                                    if (prod.discountDetailsList[0] == null) {
                                         result += "<div class=\"col-md-4 col-sm-6\">\n" +
                                             "     <div class=\"product-item\">\n" +
                                             "          <div class=\"item-thumb\">\n" +
@@ -1668,7 +1650,6 @@ $(document).ready(function() {
                                             "                </div>\n" +
                                             "                <div class=\"product-overlay\">\n" +
                                             "                     <a href=\"#\" class=\"addcart fa fa-shopping-cart\"></a>\n" +
-                                            "<a href=\"#\" class=\"compare fa fa-signal\"></a>"+
                                             "                     <a href=\"#\" class=\"likeitem fa fa-heart-o\"></a>\n" +
                                             "                </div>\n" +
                                             "          </div>\n" +
@@ -1701,7 +1682,6 @@ $(document).ready(function() {
                                             "                </div>\n" +
                                             "                <div class=\"product-overlay\">\n" +
                                             "                     <a href=\"#\" class=\"addcart fa fa-shopping-cart\"></a>\n" +
-                                            "<a href=\"#\" class=\"compare fa fa-signal\"></a>"+
                                             "                     <a href=\"#\" class=\"likeitem fa fa-heart-o\"></a>\n" +
                                             "                </div>\n" +
                                             "          </div>\n" +
@@ -1795,7 +1775,7 @@ $(document).ready(function() {
                                     });
                                 }
 
-                                if (prod.discountDetailsList[0].discID == null) {
+                                if (prod.discountDetailsList[0]== null) {
                                     result += "<div class=\"col-md-4 col-sm-6\">\n" +
                                         "     <div class=\"product-item\">\n" +
                                         "          <div class=\"item-thumb\">\n" +
@@ -1810,7 +1790,6 @@ $(document).ready(function() {
                                         "                </div>\n" +
                                         "                <div class=\"product-overlay\">\n" +
                                         "                     <a href=\"#\" class=\"addcart fa fa-shopping-cart\"></a>\n" +
-                                        "<a href=\"#\" class=\"compare fa fa-signal\"></a>"+
                                         "                     <a class=\"likeitem fa fa-heart-o fs-wl-add-sub-a\" \n" +
                                         "                     fs-userID=\"" + userID + "\" \n" +
                                         "                     fs-productID=\"" + prod.productID + "\"></a>\n" +
@@ -1845,7 +1824,6 @@ $(document).ready(function() {
                                         "                </div>\n" +
                                         "                <div class=\"product-overlay\">\n" +
                                         "                     <a href=\"#\" class=\"addcart fa fa-shopping-cart\"></a>\n" +
-                                        "<a href=\"#\" class=\"compare fa fa-signal\"></a>"+
                                         "                     <a class=\"likeitem fa fa-heart-o fs-wl-add-sub-a\" \n" +
                                         "                     fs-userID=\"" + userID + "\" \n" +
                                         "                     fs-productID=\"" + prod.productID + "\"></a>\n" +
@@ -2005,7 +1983,7 @@ $(document).ready(function() {
                                 });
                             }
 
-                            if (prod.discountDetailsList[0]== null) {
+                            if (prod.productDiscount == 0) {
                                 result += "<div class=\"col-md-4 col-sm-6\">\n" +
                                     "     <div class=\"product-item\">\n" +
                                     "          <div class=\"item-thumb\">\n" +
@@ -2025,7 +2003,7 @@ $(document).ready(function() {
                                     "          </div>\n" +
                                     "      <div class=\"product-info\">\n" +
                                     "          <h4 class=\"product-title\">\n" +
-                                    "              <a href=\"" + prod.productID + "-" + prod.productColorListWorking[0].colorID + "-" + prod.productName + ".html\">\n" +
+                                    "              <a href=\"" + prod.productID + "-" + prod.productColorListWorking[0].colorID + "-" + prod.productNameNA + ".html\">\n" +
                                     "                 " + prod.productName + "\n" +
                                     "              </a>\n" +
                                     "          </h4>\n" +
@@ -2040,7 +2018,7 @@ $(document).ready(function() {
                                 result += "<div class=\"col-md-4 col-sm-6\">\n" +
                                     "     <div class=\"product-item\">\n" +
                                     "          <div class=\"item-thumb\">\n" +
-                                    "               <span class=\"badge offer\">-" + prod.discountDetailsList[0].discID.discount + "%</span>\n" +
+                                    "               <span class=\"badge offer\">-" + prod.productDiscount + "%</span>\n" +
                                     "               <img src=\"assets/images/products/" + prod.urlImg + "\" \n" +
                                     "                    class=\"img-responsive\" \n" +
                                     "                    alt=\"" + prod.urlImg + "\"\n" +
@@ -2057,12 +2035,12 @@ $(document).ready(function() {
                                     "          </div>\n" +
                                     "      <div class=\"product-info\">\n" +
                                     "          <h4 class=\"product-title\">\n" +
-                                    "              <a href=\"" + prod.productID + "-" + prod.productColorListWorking[0].colorID + "-" + prod.productName + ".html\">\n" +
+                                    "              <a href=\"" + prod.productID + "-" + prod.productColorListWorking[0].colorID + "-" + prod.productNameNA + ".html\">\n" +
                                     "                 " + prod.productName + "\n" +
                                     "              </a>\n" +
                                     "          </h4>\n" +
                                     "          <span class=\"product-price\">\n" +
-                                    "               <small class=\"cutprice\">$ " + prod.price + ".00 </small>  $ " + prod.price * (1-prod.discountDetailsList[0].discID.discount/100) +
+                                    "               <small class=\"cutprice\">$ " + prod.price + ".00 </small>  $ " + (prod.price - prod.price * prod.productDiscount / 100) +
                                     "          </span>\n" +
                                     "          <div class=\"item-colors\" style=\"height: 25px;\">\n" +
                                     renderColor +
@@ -2144,7 +2122,7 @@ $(document).ready(function() {
                                 });
                             }
 
-                            if (prod.discountDetailsList[0]== null) {
+                            if (prod.productDiscount == 0) {
                                 result += "<div class=\"col-md-4 col-sm-6\">\n" +
                                     "     <div class=\"product-item\">\n" +
                                     "          <div class=\"item-thumb\">\n" +
@@ -2164,7 +2142,7 @@ $(document).ready(function() {
                                     "          </div>\n" +
                                     "      <div class=\"product-info\">\n" +
                                     "          <h4 class=\"product-title\">\n" +
-                                    "              <a href=\"" + prod.productID + "-" + prod.productColorListWorking[0].colorID + "-" + prod.productName + ".html\">\n" +
+                                    "              <a href=\"" + prod.productID + "-" + prod.productColorListWorking[0].colorID + "-" + prod.productNameNA + ".html\">\n" +
                                     "                 " + prod.productName + "\n" +
                                     "              </a>\n" +
                                     "          </h4>\n" +
@@ -2179,7 +2157,7 @@ $(document).ready(function() {
                                 result += "<div class=\"col-md-4 col-sm-6\">\n" +
                                     "     <div class=\"product-item\">\n" +
                                     "          <div class=\"item-thumb\">\n" +
-                                    "               <span class=\"badge offer\">-" + prod.discountDetailsList[0].discID.discount + "%</span>\n" +
+                                    "               <span class=\"badge offer\">-" + prod.productDiscount + "%</span>\n" +
                                     "               <img src=\"assets/images/products/" + prod.urlImg + "\" \n" +
                                     "                    class=\"img-responsive\" \n" +
                                     "                    alt=\"" + prod.urlImg + "\"\n" +
@@ -2196,12 +2174,12 @@ $(document).ready(function() {
                                     "          </div>\n" +
                                     "      <div class=\"product-info\">\n" +
                                     "          <h4 class=\"product-title\">\n" +
-                                    "              <a href=\"" + prod.productID + "-" + prod.productColorListWorking[0].colorID + "-" + prod.productName + ".html\">\n" +
+                                    "              <a href=\"" + prod.productID + "-" + prod.productColorListWorking[0].colorID + "-" + prod.productNameNA + ".html\">\n" +
                                     "                 " + prod.productName + "\n" +
                                     "              </a>\n" +
                                     "          </h4>\n" +
                                     "          <span class=\"product-price\">\n" +
-                                    "               <small class=\"cutprice\">$ " + prod.price + ".00 </small>  $ " + prod.price * (1-prod.discountDetailsList[0].discID.discount/100) +
+                                    "               <small class=\"cutprice\">$ " + prod.price + ".00 </small>  $ " + (prod.price - prod.price * prod.productDiscount / 100) +
                                     "          </span>\n" +
                                     "          <div class=\"item-colors\" style=\"height: 25px;\">\n" +
                                     renderColor +
@@ -2325,7 +2303,7 @@ $(document).ready(function() {
                                             });
                                         }
 
-                                        if (prod.discountDetailsList[0]== null) {
+                                        if (prod.productDiscount == 0) {
                                             result += "<div class=\"col-md-4 col-sm-6\">\n" +
                                                 "     <div class=\"product-item\">\n" +
                                                 "          <div class=\"item-thumb\">\n" +
@@ -2345,7 +2323,7 @@ $(document).ready(function() {
                                                 "          </div>\n" +
                                                 "      <div class=\"product-info\">\n" +
                                                 "          <h4 class=\"product-title\">\n" +
-                                                "              <a href=\"" + prod.productID + "-" + prod.productColorListWorking[0].colorID + "-" + prod.productName + ".html\">\n" +
+                                                "              <a href=\"" + prod.productID + "-" + prod.productColorListWorking[0].colorID + "-" + prod.productNameNA + ".html\">\n" +
                                                 "                 " + prod.productName + "\n" +
                                                 "              </a>\n" +
                                                 "          </h4>\n" +
@@ -2360,7 +2338,7 @@ $(document).ready(function() {
                                             result += "<div class=\"col-md-4 col-sm-6\">\n" +
                                                 "     <div class=\"product-item\">\n" +
                                                 "          <div class=\"item-thumb\">\n" +
-                                                "               <span class=\"badge offer\">-" + prod.discountDetailsList[0].discID.discount + "%</span>\n" +
+                                                "               <span class=\"badge offer\">-" + prod.productDiscount + "%</span>\n" +
                                                 "               <img src=\"assets/images/products/" + prod.urlImg + "\" \n" +
                                                 "                    class=\"img-responsive\" \n" +
                                                 "                    alt=\"" + prod.urlImg + "\"\n" +
@@ -2377,12 +2355,12 @@ $(document).ready(function() {
                                                 "          </div>\n" +
                                                 "      <div class=\"product-info\">\n" +
                                                 "          <h4 class=\"product-title\">\n" +
-                                                "              <a href=\"" + prod.productID + "-" + prod.productColorListWorking[0].colorID + "-" + prod.productName + ".html\">\n" +
+                                                "              <a href=\"" + prod.productID + "-" + prod.productColorListWorking[0].colorID + "-" + prod.productNameNA + ".html\">\n" +
                                                 "                 " + prod.productName + "\n" +
                                                 "              </a>\n" +
                                                 "          </h4>\n" +
                                                 "          <span class=\"product-price\">\n" +
-                                                "               <small class=\"cutprice\">$ " + prod.price + ".00 </small>  $ " + prod.price * (1-prod.discountDetailsList[0].discID.discount/100) +
+                                                "               <small class=\"cutprice\">$ " + prod.price + ".00 </small>  $ " + (prod.price - prod.price * prod.productDiscount / 100) +
                                                 "          </span>\n" +
                                                 "          <div class=\"item-colors\" style=\"height: 25px;\">\n" +
                                                 renderColor +
@@ -2497,7 +2475,7 @@ $(document).ready(function() {
                                         });
                                     }
 
-                                    if (prod.discountDetailsList[0] == null) {
+                                    if (prod.productDiscount == 0) {
                                         result += "<div class=\"col-md-4 col-sm-6\">\n" +
                                             "     <div class=\"product-item\">\n" +
                                             "          <div class=\"item-thumb\">\n" +
@@ -2517,7 +2495,7 @@ $(document).ready(function() {
                                             "          </div>\n" +
                                             "      <div class=\"product-info\">\n" +
                                             "          <h4 class=\"product-title\">\n" +
-                                            "              <a href=\"" + prod.productID + "-" + prod.productColorListWorking[0].colorID + "-" + prod.productName + ".html\">\n" +
+                                            "              <a href=\"" + prod.productID + "-" + prod.productColorListWorking[0].colorID + "-" + prod.productNameNA + ".html\">\n" +
                                             "                 " + prod.productName + "\n" +
                                             "              </a>\n" +
                                             "          </h4>\n" +
@@ -2532,7 +2510,7 @@ $(document).ready(function() {
                                         result += "<div class=\"col-md-4 col-sm-6\">\n" +
                                             "     <div class=\"product-item\">\n" +
                                             "          <div class=\"item-thumb\">\n" +
-                                            "               <span class=\"badge offer\">-" + prod.discountDetailsList[0].discID.discount + "%</span>\n" +
+                                            "               <span class=\"badge offer\">-" + prod.productDiscount + "%</span>\n" +
                                             "               <img src=\"assets/images/products/" + prod.urlImg + "\" \n" +
                                             "                    class=\"img-responsive\" \n" +
                                             "                    alt=\"" + prod.urlImg + "\"\n" +
@@ -2549,12 +2527,13 @@ $(document).ready(function() {
                                             "          </div>\n" +
                                             "      <div class=\"product-info\">\n" +
                                             "          <h4 class=\"product-title\">\n" +
-                                            "              <a href=\"" + prod.productID + "-" + prod.productColorListWorking[0].colorID + "-" + prod.productName + ".html\">\n" +
+                                            "              <a href=\"" + prod.productID + "-" + prod.productColorListWorking[0].colorID + "-" + prod.productNameNA + ".html\">\n" +
                                             "                 " + prod.productName + "\n" +
                                             "              </a>\n" +
                                             "          </h4>\n" +
                                             "          <span class=\"product-price\">\n" +
-                                            "               <small class=\"cutprice\">$ " + prod.price + ".00 </small>  $ " + prod.price * (1-prod.discountDetailsList[0].discID.discount/100)+
+                                            "               <small class=\"cutprice\">$ " + prod.price + ".00 </small>  $ " + (prod.price - prod.price * prod.productDiscount / 100) +
+                                            "          </span>\n" +
                                             "          <div class=\"item-colors\" style=\"height: 25px;\">\n" +
                                             renderColor +
                                             "          </div>\n" +
@@ -2663,7 +2642,7 @@ $(document).ready(function() {
                                         });
                                     }
 
-                                    if (prod.discountDetailsList[0] == null) {
+                                    if (prod.productDiscount == 0) {
                                         result += "<div class=\"col-md-4 col-sm-6\">\n" +
                                             "     <div class=\"product-item\">\n" +
                                             "          <div class=\"item-thumb\">\n" +
@@ -2683,7 +2662,7 @@ $(document).ready(function() {
                                             "          </div>\n" +
                                             "      <div class=\"product-info\">\n" +
                                             "          <h4 class=\"product-title\">\n" +
-                                            "              <a href=\"" + prod.productID + "-" + prod.productColorListWorking[0].colorID + "-" + prod.productName + ".html\">\n" +
+                                            "              <a href=\"" + prod.productID + "-" + prod.productColorListWorking[0].colorID + "-" + prod.productNameNA + ".html\">\n" +
                                             "                 " + prod.productName + "\n" +
                                             "              </a>\n" +
                                             "          </h4>\n" +
@@ -2698,7 +2677,7 @@ $(document).ready(function() {
                                         result += "<div class=\"col-md-4 col-sm-6\">\n" +
                                             "     <div class=\"product-item\">\n" +
                                             "          <div class=\"item-thumb\">\n" +
-                                            "               <span class=\"badge offer\">-" + product.discountDetailsList[0].discID.discount + "%</span>\n" +
+                                            "               <span class=\"badge offer\">-" + prod.productDiscount + "%</span>\n" +
                                             "               <img src=\"assets/images/products/" + prod.urlImg + "\" \n" +
                                             "                    class=\"img-responsive\" \n" +
                                             "                    alt=\"" + prod.urlImg + "\"\n" +
@@ -2715,12 +2694,12 @@ $(document).ready(function() {
                                             "          </div>\n" +
                                             "      <div class=\"product-info\">\n" +
                                             "          <h4 class=\"product-title\">\n" +
-                                            "              <a href=\"" + prod.productID + "-" + prod.productColorListWorking[0].colorID + "-" + prod.productName + ".html\">\n" +
+                                            "              <a href=\"" + prod.productID + "-" + prod.productColorListWorking[0].colorID + "-" + prod.productNameNA + ".html\">\n" +
                                             "                 " + prod.productName + "\n" +
                                             "              </a>\n" +
                                             "          </h4>\n" +
                                             "          <span class=\"product-price\">\n" +
-                                            "               <small class=\"cutprice\">$ " + prod.price + ".00 </small>  $ " + prod.price * (1-prod.discountDetailsList[0].discID.discount/100) +
+                                            "               <small class=\"cutprice\">$ " + prod.price + ".00 </small>  $ " + (prod.price - prod.price * prod.productDiscount / 100) +
                                             "          </span>\n" +
                                             "          <div class=\"item-colors\" style=\"height: 25px;\">\n" +
                                             renderColor +

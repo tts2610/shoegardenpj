@@ -8,6 +8,7 @@ package spring.entity;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
@@ -140,6 +141,15 @@ public class ProductColors implements Serializable {
 
     public void setProductID(Products productID) {
         this.productID = productID;
+    }
+    public List<SizesByColor> getSizeListWorking(){
+        List<SizesByColor> productRatingWorking = new ArrayList<>();
+        for (SizesByColor p : sizesByColorList) {
+            if(p.getStatus() == 1){
+                productRatingWorking.add(p);
+            }
+        }
+        return productRatingWorking;
     }
 
     @Override
