@@ -41,7 +41,7 @@
 }
 
 .fs-product-color-border:hover, .fs-product-modal-color-border:hover {
-    border-color: #000; 
+    border-color: #32CD32; 
 }
 
 .fs-clear-fix {
@@ -49,7 +49,7 @@
 }
 
 .fs-product-selected {
-    border-color: #000 !important; 
+    border-color: #32CD32    !important; 
 }
 
 .fs-product-size {
@@ -73,7 +73,10 @@
     position: relative;
     color: #d6644a;
 }
-
+.fs-particular-size:hover{
+    background: #d6644a;
+    color: #fff;
+}
 .fs-unselectable {
     background: #e6e6e6;
     color: #ccc;
@@ -81,7 +84,7 @@
 }
 
 a.fs-product-modal-link-to-detail:hover {
-    background: #d6644a;
+    background: #32CD32;
 }
 
 a.fs-product-modal-link-to-detail{
@@ -111,9 +114,6 @@ a.fs-product-modal-link-to-detail{
     color: #fff !important;
 }
 
-.fs-modal-btn-addtobag:hover {
-    background: #333;
-}
 
 .fs-modal-btn-addtobag {
     height: 33px;
@@ -130,6 +130,10 @@ a.fs-product-modal-link-to-detail{
     margin: 8px 0 0;
 }
 
+.fs-modal-btn-addtobag:hover {
+    background: #32CD32;
+}
+
 .modal-ku {
     width: 900px !important;
     margin: auto;
@@ -141,7 +145,7 @@ a.fs-product-modal-link-to-detail{
 
 /*CSS FOR USER-LOGIN-MODAL:*/ 
 .fs-login-page:link, .fs-login-page:visited, .fs-login-page:hover, .fs-login-page:active {
-    color: #cccccc !important;
+    color: #333 !important;
 }
 
 .fs-login-page{
@@ -152,10 +156,8 @@ a.fs-product-modal-link-to-detail{
 }
 
 .btn-custom,.btn-custom:hover, .btn-custom:active, .btn-custom:focus {
-    background-color: #ff8627;
+    background-color: #333;
     color: #ffffff;
-    padding-bottom: 10px;
-    padding-top: 10px;
     transition: background-color 300ms linear 0s;
     display: block;
     width: 100%;
@@ -163,26 +165,13 @@ a.fs-product-modal-link-to-detail{
 
 
 .login-tab {
-    margin: 0 auto;
-    max-width: 380px;
-}
-
-.login-modal-header {
-    background: #27ae60;
-    color: #fff;
-}
-
-.login-modal-header .modal-title {
-    color: #fff;
-}
-
-.login-modal-header .close {
-    color: #fff;
+    margin: 0 0;
+    max-width: 500px;
 }
 
 
 .login-modal .fs-login-modal {
-    max-width: 340px;
+    max-width: 500px;
 }
 
 .tab-pane .fs-login-modal {
@@ -407,7 +396,7 @@ input.fs-color-checkbox:checked + label:before, input.fs-size-checkbox:checked +
 }
 
 #fs-btn-login-to-review:hover {
-    background-color: black;
+    background-color: #32CD32;
 
 }
 
@@ -437,9 +426,5 @@ input.fs-color-checkbox:checked + label:before, input.fs-size-checkbox:checked +
     padding: 10px; 
     border-bottom: 1px solid #ededed;
 }
-
-.row_selected td {
-    background-color: black !important; /* Add !important to make sure override datables base styles */
- }
 /* CSS FOR USER-LOGIN-MODAL: */
 
