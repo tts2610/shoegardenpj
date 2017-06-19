@@ -14,15 +14,11 @@
     }
 </style>
 
-
 <div id="loginModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="loginModalLabel" aria-hidden="true" data-backdrop="static" data-keyboard="false">
     <div class="modal-dialog">
-        <div class="modal-content login-modal">
-            <div class="modal-header login-modal-header">
-                <button type="button" class="close" style="color: black" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title text-center" id="loginModalLabel"><i class="fa fa-user" style="font: 20px;"></i> USER AUTHENTICATION</h4>
-            </div>
+        <div class="modal-content login-modal">            
             <div class="modal-body">
+                <button type="button" class="close" style="color: black" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>  
                 <div class="">
                     <div role="tabpanel" class="login-tab">
                         <!-- Nav tabs -->
@@ -31,8 +27,7 @@
                             <li role="presentation"><a id="signup-taba" href="#profile" aria-controls="profile" role="tab" data-toggle="tab"><i class="fa fa-user-plus"></i> REGISTER</a></li>
                         </ul>
                     </div>
-
-                    <!-- Tab panes -->
+         <!-- Tab panes -->
                     <div class="tab-content">
                         <div role="tabpanel" class="tab-pane active text-center" id="home">
                             &nbsp;&nbsp;

@@ -7,12 +7,12 @@
             <div class="row">
                 <div class="col-md-12 col-sm-12">
                     <div class="tb_left pull-left">
-                        <p>Welcome to Fashion Store !</p>
+                        <p>Welcome to Shoe Garden !</p>
                     </div>
                     <div class="tb_center pull-left">
                         <ul>
-                            <li><i class="fa fa-phone"></i> Hotline: <a href="#">0168 8866 424</a></li>
-                            <li><i class="fa fa-envelope-o"></i> <a href="#">support@smile.com</a></li>
+                            <li><i class="fa fa-phone"></i> Hotline: <a href="#">0988034225</a></li>
+                            <li><i class="fa fa-envelope-o"></i> <a href="#">support_shoegarden@gmail.com</a></li>
                         </ul>
                     </div>
                     <div class="tb_right pull-right">
@@ -59,7 +59,7 @@
                         <span class="icon-bar"></span>
                     </button>
                     <!-- Logo -->
-                    <a class="navbar-brand" href="./index.html"><img src="assets/images/basic/logo.png" class="img-responsive" alt=""/></a>
+                    <a class="navbar-brand" href="./index.html"><img src="assets/images/basic/logo_shoe.png" class="img-responsive" alt=""/></a>
                 </div>
                 <!-- Cart & Search -->
                 <div class="header-xtra pull-right">
