@@ -11,7 +11,7 @@
         <meta name="description" content="">
         <meta name="author" content="">
         <base href="${pageContext.servletContext.contextPath}/" />
-        <title>SB Admin 2 - Bootstrap Admin Theme</title>
+        <title>ShoeGarden-Admin</title>
 
         <!-- Bootstrap Core CSS -->
         <link href="assets/admin/vendor/bootstrap/css/bootstrap.css" rel="stylesheet">
