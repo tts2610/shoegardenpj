@@ -1482,7 +1482,7 @@ $(document).ready(function () {
                         $("#fs-discount-title-error").text("Duplicate Discount Title!, Please change another one!");
                     } else {
                         $("#fs-discount-title-error").text("");
-                        $("#fs-form-create-discount").submit();
+                        $("#fs-form-update-discount").submit();
                     }
                 }
             });

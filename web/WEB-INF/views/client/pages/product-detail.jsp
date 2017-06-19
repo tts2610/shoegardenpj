@@ -38,8 +38,18 @@
                         <div class="product-single">
                             <div class="ps-header fs-product-detail-name" fs-product-id="${targetProduct.productID}">
                                 <h3>${targetProduct.productName}</h3>
-                                <div class="ps-price"><h1>$ ${targetProduct.price}0</h1></div>
-                            </div>
+                                <c:if test="${targetProduct.productWithDiscount!=targetProduct.price}">
+                                <div class="ps-price">
+                                    <h1 style="color: #888888;text-decoration: line-through; display: inline">$${targetProduct.price} </h1>
+                                    <h1 style="display: inline">
+                                    <fmt:formatNumber type="number" maxFractionDigits="2" value="${targetProduct.productWithDiscount}" var="prodPrice"/>
+                                    ${fn:replace(prodPrice, ",", ".")}</h1>
+                                </div>
+                                </c:if>
+                                <c:if test="${targetProduct.productWithDiscount==targetProduct.price}">
+                                <div class="ps-price"><h1>$${targetProduct.price} </h1></div>
+                                </c:if>
+                                </div>
                             <div class="ps-stock">
                                 Availability: <span style="color: #d6644a" class="fs-quantity-in-stock">---</span>
                                 <div class="fs-display-none" id="fs-show-quantity"></div>
@@ -60,12 +70,12 @@
                                     <p style="margin-bottom: 8px">Size<span>*</span></p>
 
                                     <div id="fs-product-size">
-                                        <c:forEach items="${targetColor.sizeList}" var="size">
+                                        <c:forEach items="${targetColor.sizesByColorList}" var="size">
                                             <c:if test="${size.status != 0}">
                                                 <div class="fs-particular-size <c:if test="${size.quantity == 0}">fs-unselectable</c:if>" 
                                                      fs-product="${targetProduct.productID}" 
                                                      fs-size="${size.sizeID}">
-                                                    ${size.productSize}
+                                                    ${size.size}
                                                 </div>
                                             </c:if>
                                         </c:forEach>
@@ -93,6 +103,7 @@
                             <div class="space20"></div>
                             <div class="share">
                                 <span>
+                                    <a href="#" class="compare fa fa-signal"></a>
                                     <a href="#" class="fa fa-heart-o"></a>
                                 </span>
                                 <div class="addthis_native_toolbox"></div>
@@ -121,7 +132,7 @@
                     <!-- Tab panes -->
                     <div class="tab-content">
                         <div class="tab-pane active" id="fs-menu-tab-1">
-                            ${targetProduct.productDescription}
+                            ${targetProduct.productDes}
                         </div>
                         <div class="tab-pane" id="fs-menu-tab-2">
                             <div class="reviews-tab">
@@ -205,7 +216,7 @@
                                 </div>	
                                 <div class="sep"></div>
                                 <div class="fs-display-none" id="fs-number-of-rating" fs-nort="${numberOfRating}"></div>
-                                <c:forEach items="${targetProduct.productRatingList}" var="review" varStatus="no">
+                                <c:forEach items="${targetProduct.ratingList}" var="review" varStatus="no">
                                     <p>
                                         <b>${review.user.firstName} ${review.user.lastName}</b>, <fmt:formatDate value="${review.ratingDate}" pattern="dd MMM, yyyy" timeZone="US"/>
                                     </p>
@@ -280,8 +291,8 @@
                                     <div class="pc-wrap">
                                         <div class="product-item">
                                             <div class="item-thumb">
-                                                <c:if test="${prod.productDiscount > 0}">
-                                                    <div class="badge offer">-${prod.productDiscount}%</div>
+                                                <c:if test="${product.discountDetailsList[0]!=null}">
+                                                    <div class="badge offer">-${product.discountDetailsList[0].discID.discount}%</div>
                                                 </c:if>
                                                 <img src="assets/images/products/${prod.urlImg}" 
                                                      class="img-responsive" 
@@ -300,19 +311,19 @@
                                             </div>
                                             <div class="product-info">
                                                 <h4 class="product-title">
-                                                    <a href="${prod.productID}-${prod.productColorListWorking[0].colorID}-${prod.productNameNA}.html">
+                                                    <a href="${prod.productID}-${prod.productColorListWorking[0].colorID}-${prod.productName}.html">
                                                         ${prod.productName}
                                                     </a>
                                                 </h4>
 
                                                 <span class="product-price">
-                                                    <c:if test="${prod.productDiscount > 0}">
+                                                    <c:if test="${product.discountDetailsList[0]!=null}">
                                                         <small class="cutprice">$ ${prod.price}0 </small>  $
-                                                        <fmt:formatNumber type="number" maxFractionDigits="2" value="${prod.price - (prod.price*prod.productDiscount/100)}" var="prodPrice"/>
+                                                        <fmt:formatNumber type="number" maxFractionDigits="2" value="${product.price * (1-product.discountDetailsList[0].discID.discount/100)}" var="prodPrice"/>
                                                         ${fn:replace(prodPrice, ",", ".")}
 
                                                     </c:if>
-                                                    <c:if test="${prod.productDiscount == 0}">
+                                                    <c:if test="${product.discountDetailsList[0]==null}">
                                                         $ ${prod.price}0
                                                     </c:if>
                                                 </span>
@@ -353,7 +364,7 @@
         productID: '${targetProduct.productID}',
         productColorID: '${targetColor.colorID}',
         productName: '${targetProduct.productName}',
-        productNameNA: '${targetProduct.productNameNA}',
+        productNameNA: '${targetProduct.productName}',
         productImg: '${targetProduct.urlImg}'
     };
 

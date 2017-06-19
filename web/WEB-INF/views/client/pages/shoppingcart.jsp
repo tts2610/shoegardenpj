@@ -1,5 +1,8 @@
 <%@page import="spring.entity.CartLineInfo"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+<%@taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!-- BREADCRUMBS -->
 <jsp:include page="../blocks/breadcrumbs.jsp" flush="true" />
@@ -33,21 +36,21 @@
                                     <td><img src="assets/images/products/${item.getProduct().getUrlImg()}" class="img-responsive" alt=""/></td>
                                     <td>
                                         <h4>
-                                            <a href="${item.getProduct().productID}-${item.getProduct().productColorList[0].colorID}-${item.getProduct().productNameNA}.html">
+                                            <a href="${item.getProduct().productID}-${item.getProduct().productColorsList[0].colorID}-${item.getProduct().productName}.html">
                                                 ${item.getProduct().productName}
                                             </a>
                                         </h4>
-                                        <p>Size: ${item.getSizesByColor().getProductSize()}  |  Color:   
-                                            <img fs-color="${item.getSizesByColor().getColor().colorID}" 
-                                                 src="assets/images/products/colors/${item.getSizesByColor().getColor().getUrlColorImg()}" 
+                                        <p>Size: ${item.getSizesByColor().getSize()}  |  Color:   
+                                            <img fs-color="${item.getSizesByColor().getColorID().colorID}" 
+                                                 src="assets/images/products/colors/${item.getSizesByColor().getColorID().getUrlColorImg()}" 
                                                  class="img-responsive" 
-                                                 alt="${item.getSizesByColor().getColor().urlColorImg}" 
-                                                 title="${item.getSizesByColor().getColor().getColor()}"
+                                                 alt="${item.getSizesByColor().getColorID().urlColorImg}" 
+                                                 title="${item.getSizesByColor().getColorID().getColor()}"
                                                  style="width: 20px; height: 20px; display: inline;"/>
                                         </p>
                                     </td>
                                     <td style="width: 100px;" align="center">
-                                        <select id="select-quantity-shoppingcart" name="${item.getProduct().productID}-${item.getSizesByColor().getSizeID()}-${item.getSizesByColor().getColor().getColorID()}">
+                                        <select id="select-quantity-shoppingcart" name="${item.getProduct().productID}-${item.getSizesByColor().getSizeID()}-${item.getSizesByColor().getColorID().getColorID()}">
                                             <%
                                                 CartLineInfo cartLineInfo = (CartLineInfo) pageContext.getAttribute("item");
                                                 for (int i = 1; i < 11; i++) {
@@ -68,12 +71,12 @@
                                         <div class="item-price">$${item.getProduct().getPrice()}</div>
                                     </td>
                                     <td>
-                                        <div class="item-price">-$${item.getProductDiscount()}</div>
+                                        <div class="item-price">${item.product.discountByProduct}%</div>
                                     </td>
                                     <td>
                                         <div class="item-price">$${item.getSubTotal()}</div>
                                     </td>
-                                    <td><a href="orders/deleteitemCart/${item.getProduct().productID}/${item.getSizesByColor().getSizeID()}/${item.getSizesByColor().getColor().getColorID()}.html"><i class="fa fa-trash-o"></i></a></td>
+                                    <td><a href="orders/deleteitemCart/${item.getProduct().productID}/${item.getSizesByColor().getSizeID()}/${item.getSizesByColor().getColorID().getColorID()}.html"><i class="fa fa-trash-o"></i></a></td>
                                 </tr>
                             </c:forEach>
                         </tbody>
@@ -100,108 +103,62 @@
                         <span class="heading-small">YOU MAY BE INTERESTED IN THE FOLLOWING ITEM(S)</span>
                         <div class="space30"></div>
                         <div class="product-carousel3">
-                            <div class="pc-wrap">
-                                <div class="product-item">
-                                    <div class="item-thumb">
-                                        <img src="assets/images/products/fashion/5.jpg" class="img-responsive" alt=""/>
-                                        <div class="overlay-rmore fa fa-search quickview" data-toggle="modal" data-target="#myModal"></div>
-                                        <div class="product-overlay">
-                                            <a href="#" class="addcart fa fa-shopping-cart"></a>
-                                            <a href="#" class="compare fa fa-signal"></a>
-                                            <a href="#" class="likeitem fa fa-heart-o"></a>
+                            <c:forEach items="${proList}" var="product">
+                                <div class="pc-wrap">
+                                    <div class="product-item">
+                                        <div class="item-thumb">
+                                            <c:if test="${product.discountDetailsList[0]!=null}">
+                                                <div class="badge offer">-${product.discountDetailsList[0].discID.discount}%</div>
+                                            </c:if>
+                                            <img src="assets/images/products/${product.urlImg}"
+                                                 class="img-responsive" 
+                                                 alt="${product.urlImg}"
+                                                 fs-product-for-img="${product.productID}"/>
+                                            <div class="overlay-rmore fa fa-search quickview fs-product-modal" 
+                                                 fs-product="${product.productID}" 
+                                                 fs-product-modal-color="${product.productColorListWorking[0].colorID}" 
+                                                 data-toggle="modal" >
+                                            </div>
+                                            <div class="product-overlay">
+                                                <a href="#" class="addcart fa fa-shopping-cart"></a>
+                                                <a href="#" class="compare fa fa-signal"></a>
+                                                <a class="likeitem fa fa-heart-o fs-wishlish-add" 
+                                                   fs-userID="${sessionScope.findUsersID}" 
+                                                   fs-productID="${product.productID}" ></a>
+                                                <input type="hidden" name="emailUser" value="${sessionScope.emailUser}" />
+                                            </div>
+                                        </div>
+                                        <div class="product-info">
+                                            <h4 class="product-title">
+                                                <a href="${product.productID}-${product.productColorListWorking[0].colorID}-${product.productName}.html">
+                                                    ${product.productName}
+                                                </a></h4>
+                                            <span class="product-price">
+                                                <c:if test="${product.discountDetailsList[0] != null}">
+                                                    <small class="cutprice">$ ${product.price}0 </small>  $
+                                                    <fmt:formatNumber type="number" maxFractionDigits="2" value="${product.price * (1-product.discountDetailsList[0].discID.discount/100)}" var="prodPrice"/>
+                                                    ${fn:replace(prodPrice, ",", ".")}
+                                                </c:if>
+                                                <c:if test="${product.discountDetailsList[0] == null}">
+                                                    $ ${product.price}0
+                                                </c:if>
+                                            </span>
+                                            <div class="item-colors" style="height: 25px;">
+                                                <c:if test="${product.productColorListWorking.size() > 1}">
+                                                    <c:forEach items="${product.productColorListWorking}" var="color" begin="0" end="4">
+                                                        <img src="assets/images/products/colors/${color.urlColorImg}" 
+                                                             class="img-responsive fs-index-color-img" 
+                                                             fs-index-color-img="${color.colorID}" 
+                                                             fs-product="${product.productID}" 
+                                                             alt="${color.urlColorImg}" 
+                                                             title="${color.color}"/>
+                                                    </c:forEach>
+                                                </c:if>
+                                            </div>
                                         </div>
                                     </div>
-                                    <div class="product-info">
-                                        <h4 class="product-title"><a href="./single-product.html">Product fashion</a></h4>
-                                        <span class="product-price">$99.00 <em>- Pre order</em></span>
-                                    </div>
                                 </div>
-                            </div>
-                            <div class="pc-wrap">
-                                <div class="product-item">
-                                    <div class="item-thumb">
-                                        <img src="assets/images/products/fashion/15.jpg" class="img-responsive" alt=""/>
-                                        <div class="overlay-rmore fa fa-search quickview" data-toggle="modal" data-target="#myModal"></div>
-                                        <div class="product-overlay">
-                                            <a href="#" class="addcart fa fa-shopping-cart"></a>
-                                            <a href="#" class="compare fa fa-signal"></a>
-                                            <a href="#" class="likeitem fa fa-heart-o"></a>
-                                        </div>
-                                    </div>
-                                    <div class="product-info">
-                                        <h4 class="product-title"><a href="./single-product.html">Product fashion</a></h4>
-                                        <span class="product-price">$99.00 <em>- Pre order</em></span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="pc-wrap">
-                                <div class="product-item">
-                                    <div class="item-thumb">
-                                        <img src="assets/images/products/accessories/8.jpg" class="img-responsive" alt=""/>
-                                        <div class="overlay-rmore fa fa-search quickview" data-toggle="modal" data-target="#myModal"></div>
-                                        <div class="product-overlay">
-                                            <a href="#" class="addcart fa fa-shopping-cart"></a>
-                                            <a href="#" class="compare fa fa-signal"></a>
-                                            <a href="#" class="likeitem fa fa-heart-o"></a>
-                                        </div>
-                                    </div>
-                                    <div class="product-info">
-                                        <h4 class="product-title"><a href="./single-product.html">Product fashion</a></h4>
-                                        <span class="product-price">$99.00 <em>- Pre order</em></span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="pc-wrap">
-                                <div class="product-item">
-                                    <div class="item-thumb">
-                                        <img src="assets/images/products/fashion/18.jpg" class="img-responsive" alt=""/>
-                                        <div class="overlay-rmore fa fa-search quickview" data-toggle="modal" data-target="#myModal"></div>
-                                        <div class="product-overlay">
-                                            <a href="#" class="addcart fa fa-shopping-cart"></a>
-                                            <a href="#" class="compare fa fa-signal"></a>
-                                            <a href="#" class="likeitem fa fa-heart-o"></a>
-                                        </div>
-                                    </div>
-                                    <div class="product-info">
-                                        <h4 class="product-title"><a href="./single-product.html">Product fashion</a></h4>
-                                        <span class="product-price">$99.00 <em>- Pre order</em></span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="pc-wrap">
-                                <div class="product-item">
-                                    <div class="item-thumb">
-                                        <img src="assets/images/products/fashion/10.jpg" class="img-responsive" alt=""/>
-                                        <div class="overlay-rmore fa fa-search quickview" data-toggle="modal" data-target="#myModal"></div>
-                                        <div class="product-overlay">
-                                            <a href="#" class="addcart fa fa-shopping-cart"></a>
-                                            <a href="#" class="compare fa fa-signal"></a>
-                                            <a href="#" class="likeitem fa fa-heart-o"></a>
-                                        </div>
-                                    </div>
-                                    <div class="product-info">
-                                        <h4 class="product-title"><a href="./single-product.html">Product fashion</a></h4>
-                                        <span class="product-price">$99.00 <em>- Pre order</em></span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="pc-wrap">
-                                <div class="product-item">
-                                    <div class="item-thumb">
-                                        <img src="assets/images/products/accessories/5.jpg" class="img-responsive" alt=""/>
-                                        <div class="overlay-rmore fa fa-search quickview" data-toggle="modal" data-target="#myModal"></div>
-                                        <div class="product-overlay">
-                                            <a href="#" class="addcart fa fa-shopping-cart"></a>
-                                            <a href="#" class="compare fa fa-signal"></a>
-                                            <a href="#" class="likeitem fa fa-heart-o"></a>
-                                        </div>
-                                    </div>
-                                    <div class="product-info">
-                                        <h4 class="product-title"><a href="./single-product.html">Product fashion</a></h4>
-                                        <span class="product-price">$99.00 <em>- Pre order</em></span>
-                                    </div>
-                                </div>
-                            </div>
+                            </c:forEach>
                         </div>
                     </div>
                 </div>

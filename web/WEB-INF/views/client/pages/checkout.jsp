@@ -1,5 +1,8 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+<%@taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <!-- BREADCRUMBS -->
 <jsp:include page="../blocks/breadcrumbs.jsp" flush="true"/>
 
@@ -59,26 +62,7 @@
                                                 <li class="clearfix"></li>
                                             </ul>
                                         </li>
-                                        <li class="col-md-12 col-sm-12 discount-code">
-                                            <p class="help-block" id="fs-checkout-discountvou-error" style="color: red;"></p>
-                                            <ul class="form-list row discount-ul">
-                                                <li class="col-md-6 col-sm-6 discount-inputs">
-                                                    <label><span style="font-weight: 900; font-size: 16px;">Your Discount Code</span></label>
-                                                    <div class="input-box">
-                                                        <p class="help-block" id="fs-checkout-discountvou-error" style="color: red;"></p>
-                                                        <input class="input-text" id="coupon_code" name="coupon_code" value=""/>
-                                                    </div>
-                                                </li>
-                                                <li class="col-md-6 col-sm-6 discount-buttons" style="padding-top: 30px;">
-                                                    <div class="buttons-set">
-                                                        <button style="height: 40px;" type="button" title="Apply Discount Code" class="btn-black" id="discount-order" ><span><span>Apply Discount Code</span></span></button>
-                                                    </div>
-                                                </li>
-                                                <li class="col-md-8 col-sm-6 discount-show">
-
-                                                </li>
-                                            </ul>
-                                        </li>
+                                        
                                         <li class="col-md-12 col-sm-12">
                                             <span style="font-weight: 900; font-size: 16px;">Note (Eg: deliver during office hours)</span>
                                             <p id="error-checkout-note" style="color: red; font-weight: 700;"></p>
@@ -135,7 +119,7 @@
                                                 <li class="clearfix"></li>
                                             </ul>
                                         </li>
-                                        <li class="col-md-12 col-sm-12 discount-code">
+<!--                                        <li class="col-md-12 col-sm-12 discount-code">
                                             <p class="help-block" id="fs-checkout-discountvou-error" style="color: red;"></p>
                                             <ul class="form-list row discount-ul">
                                                 <li class="col-md-6 col-sm-6 discount-inputs">
@@ -154,7 +138,7 @@
 
                                                 </li>
                                             </ul>
-                                        </li>
+                                        </li>-->
                                         <li class="col-md-12 col-sm-12">
                                             <span style="font-weight: 900; font-size: 16px;">Note (Eg: deliver during office hours)</span>
                                             <p id="error-checkout-note" style="color: red; font-weight: 700;"></p>
@@ -181,33 +165,29 @@
                                 <tr>                                              
                                     <td colspan="2">
                                         <div class="item-img col-md-5 col-sm-5">
-                                            <a href="${item.getProduct().productID}-${item.getProduct().productColorList[0].colorID}-${item.getProduct().productNameNA}.html">
+                                            <a href="${item.getProduct().productID}-${item.getProduct().productColorsList[0].colorID}.html">
                                                 <img src="assets/images/products/${item.getProduct().getUrlImg()}" class="img-responsive" alt=""/>
                                             </a>
                                         </div>
                                         <div class="item-info col-md-7 col-sm-7">
                                             <h4>${item.getProduct().productName}</h4>
                                             <p>
-                                                &nbsp Size: ${item.getSizesByColor().getProductSize()} 
-                                                <img fs-color="${item.getSizesByColor().getColor().colorID}" 
-                                                     src="assets/images/products/colors/${item.getSizesByColor().getColor().getUrlColorImg()}" 
+                                                &nbsp Size: ${item.getSizesByColor().getSize()} 
+                                                <img fs-color="${item.getSizesByColor().getColorID().colorID}" 
+                                                     src="assets/images/products/colors/${item.getSizesByColor().getColorID().getUrlColorImg()}" 
                                                      class="img-responsive" 
-                                                     alt="${item.getSizesByColor().getColor().urlColorImg}" 
-                                                     title="${item.getSizesByColor().getColor().getColor()}"
+                                                     alt="${item.getSizesByColor().getColorID().urlColorImg}" 
+                                                     title="${item.getSizesByColor().getColorID().getColor()}"
                                                      style="width: 20px; height: 20px; border: 2px;"/> 
                                             </p>
-                                            <p>&nbsp ${item.quantity} &nbsp x $${item.getProduct().getPrice()}</p>
+                                            <p>&nbsp ${item.quantity} &nbsp x $<fmt:formatNumber type="number" maxFractionDigits="2" value="${item.product.productWithDiscount}" var="prodPrice"/>
+                                    ${fn:replace(prodPrice, ",", ".")}</p>
                                         </div>
                                     </td>
                                 </tr>
                             </c:forEach>
                             <tfoot class="foot">
-                                <tr>
-                                    <th>Discount</th>
-                                    <td>
-                                        <div class="">-$0.0</div>
-                                    </td> 
-                                </tr>
+                                
                                 <tr>
                                     <th>Order Total</th>
                                     <td>

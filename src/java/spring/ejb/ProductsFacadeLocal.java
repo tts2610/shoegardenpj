@@ -90,4 +90,6 @@ public interface ProductsFacadeLocal {
     
     List<Products> getProductWorkingList(String role);
     
+    List<Products> selectTop8Product();
+    
 }

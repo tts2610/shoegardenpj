@@ -9,6 +9,19 @@ $(document).ready(function() {
         defaultDate: '01/01/1960',
         yearRange: "1960:1999"
     });
+    $("#account-id #txtBirthday").datepicker({
+        dateFormat: "dd/mm/yy",
+        showAnim: "drop",
+        changeMonth: true,
+        changeYear: true,
+        defaultDate: '01/01/1960',
+        yearRange: "1960:1999",
+        onSelect: function () {
+            $("#account-id #txtBirthday").datepicker();
+        }
+        
+    });
+    
 
     $("#loginModal").on("change", "#fs-upImage", function() {
         var type = $(this)[0].files[0].type;
@@ -61,7 +74,7 @@ $(document).ready(function() {
             var liProdStr = "";
             $.each(productsArrLocal, function(i, prod) {
                 liProdStr += "<div>\n\
-                                <a href=\"" + prod.productID + "-" + prod.productColorID + "-" + prod.productNameNA + ".html\">\n\
+                                <a href=\"" + prod.productID + "-" + prod.productColorID + "-" + prod.productName + ".html\">\n\
                                     <img style=\"width: 150px\" src=\"assets/images/products/" + prod.productImg + "\" class=\"img-responsive\" alt=\"" + prod.productImg + "\"/>\n\
                                 </a>\n\
                             </div>";
@@ -262,7 +275,7 @@ $(document).ready(function() {
         $(".fs-modal-input-number").val(1);
         $(".fs-modal-btn-quantity-minus").attr("disabled", "disabled");
         //$(".fs-modal-btn-quantity-plus").removeAttr("disabled");
-
+        
         $.ajax({
             url: "ajax/findProduct.html",
             data: {
@@ -274,8 +287,15 @@ $(document).ready(function() {
                 /* Init Name and Price */
                 $("h3.fs-product-name").text(response.productName);
                 $("h3.fs-product-name").attr("fs-product-modal-id", productID);
-                $("div.fs-product-price").text("$ " + response.price + ".00");
-
+                if(response.productWithDiscount!=response.price){
+                $("small.cutprice").text("$" + response.price + ".00");
+                $("div.fs-product-price").text(" $"+parseFloat(Math.round(response.productWithDiscount * 100) / 100).toFixed(2));
+                    
+                }
+                else{
+                $("small.cutprice").text("");
+                $("div.fs-product-price").text("$" + response.price + ".00");
+                }
 
                 /* Init color img  */
                 var colorImgStr = "<p>Color<span>*</span></p>";
@@ -314,7 +334,8 @@ $(document).ready(function() {
                 $("#fs-product-modal-size").html(sizeStr);
                 $("#fs-product-modal-slide-img").html(finalStrToChangeImg);
                 fsCreateOwlCarousel();
-                $(".fs-product-modal-link-to-detail").attr("href", productID + "-" + colorID + "-" + response.productName + ".html");
+                
+                $(".fs-product-modal-link-to-detail").attr("href", productID + "-" + colorID +".html");
                 //Call Modal
                 productModal.modal("show");
             }
@@ -389,7 +410,8 @@ $(document).ready(function() {
         var linkArray = oldLink.split("-");
         linkArray[1] = colorID;
         var newLink = linkArray.join("-");
-        $(".fs-product-modal-link-to-detail").attr("href", newLink);
+        $(".fs-product-modal-link-to-detail").attr("href", newLink+".html");
+        
         $.ajax({
             url: "ajax/color.html",
             method: "POST",
@@ -532,9 +554,9 @@ $(document).ready(function() {
                 var str_change_size = "";
                 $.each(response.sizeListWorking, function(i, item) {
                     if (item.quantity == 0) {
-                        str_change_size += "<div class=\"fs-particular-size fs-unselectable\" fs-size=\"" + item.sizeID + "\">" + item.productSize + "</div>";
+                        str_change_size += "<div class=\"fs-particular-size fs-unselectable\" fs-size=\"" + item.sizeID + "\">" + item.size + "</div>";
                     } else {
-                        str_change_size += "<div class=\"fs-particular-size\" fs-size=\"" + item.sizeID + "\">" + item.productSize + "</div>";
+                        str_change_size += "<div class=\"fs-particular-size\" fs-size=\"" + item.sizeID + "\">" + item.size + "</div>";
                     }
                 });
                 $("#fs-product-size").hide().html(str_change_size).fadeIn(1000);
@@ -3853,16 +3875,16 @@ $(document).ready(function() {
 
     //    BẮT VALIDATION CẬP NHẬT THÔNG TIN CÁ NHÂN     
 
-    $("#txtbirthday").click(function() {
-        $("#txtbirthday").datepicker({
-            dateFormat: "dd/mm/yy",
-            showAnim: "drop",
-            changeMonth: true,
-            changeYear: true,
-            defaultDate: '01/01/1960',
-            yearRange: "1960:1999"
-        });
-    });
+//    $("#txtbirthday").click(function() {
+//        $("#txtbirthday").datepicker({
+//            dateFormat: "dd/mm/yy",
+//            showAnim: "drop",
+//            changeMonth: true,
+//            changeYear: true,
+//            defaultDate: '01/01/1960',
+//            yearRange: "1960:1999"
+//        });
+//    });
     // BẮT VỚI UPDATE ACCOUNT CLICK
 
 
