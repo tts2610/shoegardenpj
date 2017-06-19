@@ -30,6 +30,9 @@
                                     <span>${sessionScope.USfirstname} <i class="fa fa-caret-down"></i></span>
 
                                     <div class="tbr-inner">
+                                        <c:if test="${sessionScope.userRole=='mod'}">
+                                            <a href="admin/index.html">Dashboard</a>
+                                        </c:if>
                                         <a href="user/myaccount.html">My Account</a>
                                         <a href="user/wishlist/${sessionScope.findUsersID}.html">My Wishlist</a>
                                         <a href="orders/order-history.html">Order History</a>
