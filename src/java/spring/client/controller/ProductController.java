@@ -124,7 +124,7 @@ public class ProductController {
         return "client/pages/brands-grid";
     }
 
-    @RequestMapping(value = "/{brandName:[A-Za-z0-9- ]+}/{catID:[0-9]+}-{catName:[A-Za-z0-9- ]+}")
+    @RequestMapping(value = "/{brandName:[A-Za-z0-9-]+}/{catID:[0-9]+}-{catName:[A-Za-z0-9-]+}")
     public String subCategoryList(ModelMap model,
             @PathVariable("catID") Integer subCateID) {
         if (categoriesFacade.find(subCateID) != null) {
@@ -188,7 +188,7 @@ public class ProductController {
 
     }
 
-    @RequestMapping(value = "/{productID:[0-9]+}-{colorID:[0-9]+}")
+    @RequestMapping(value = "/{productID:[0-9]+}-{colorID:[0-9]+}-{productNameNA:[A-Za-z0-9-]+}")
     public String productdetail(ModelMap model,
             @PathVariable("productID") Integer productID,
             @PathVariable("colorID") Integer colorID,
@@ -238,7 +238,7 @@ public class ProductController {
                     }
 
                     if (session.getAttribute("findUsersID") != null) {
-                        if (Objects.equals(rating.getUser().getUserID(), session.getAttribute("findUsersID"))) {
+                        if (Objects.equals(rating.getUserID().getUserID(), session.getAttribute("findUsersID"))) {
                             checkUserRated = 1;
                         }
                     }
@@ -305,7 +305,7 @@ public class ProductController {
                 ProductColors targetColor = productsFacade.findProductColorByColorID(colorID);
                 model.addAttribute("targetProduct", targetProduct);
                 model.addAttribute("targetColor", targetColor);
-                model.addAttribute("braList", cateList);
+                model.addAttribute("cateList", cateList);
                 model.addAttribute("ratingAVR", ratingAVR);
                 model.addAttribute("numberOfRating", ratingList.size());
                 model.addAttribute("ratingfor1", ratingfor1);
@@ -589,8 +589,8 @@ public class ProductController {
         Products thatProd = productsFacade.findProductByID(productID);
 
         Rating newRating = new Rating();
-        newRating.setProduct(thatProd);
-        newRating.setUser(usersFacade.getUserByID(userID));
+        newRating.setProductID(thatProd);
+        newRating.setUserID(usersFacade.getUserByID(userID));
         newRating.setRating(ratingVal);
         newRating.setRatingDate(new Date());
 //        newRating.setStatus(review);

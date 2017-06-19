@@ -273,10 +273,8 @@ public class Orders_Controller {
     @RequestMapping(value = "orderlistdetail/{orderid}", method = RequestMethod.GET)
     public String orderlistdetail(@PathVariable("orderid") int orderid, ModelMap model) {
         Orders order = orderStateLessBean.getOrderByID(orderid);
-        List<OrdersDetail> list = orderStateLessBean.getAllOrderDetailByOrderID(orderid);
-        
         if (order != null) {
-            model.addAttribute("orderdetailList",list );
+            model.addAttribute("orderdetailList", orderStateLessBean.getAllOrderDetailByOrderID(orderid));
             model.addAttribute("order", order);
             return "admin/pages/orders-list-detail";
         }
@@ -286,7 +284,6 @@ public class Orders_Controller {
     @RequestMapping(value = "invoice/{orderID}")
     public String invoice(ModelMap model, @PathVariable("orderID") Integer orderID) {
         Orders orders = orderStateLessBean.getOrderByID(orderID);
-        
         model.addAttribute("orders", orders);
         return "admin/orders-invoice";
     }

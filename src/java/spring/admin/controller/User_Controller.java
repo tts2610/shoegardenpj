@@ -27,7 +27,6 @@ import spring.ejb.RolesFacadeLocal;
 import spring.ejb.UsersFacadeLocal;
 
 import spring.entity.Roles;
-import spring.entity.UserAddresses;
 
 import spring.entity.Users;
 
@@ -137,21 +136,21 @@ public class User_Controller {
         return "redirect:/admin/user/role/edit/" + roleID + ".html";
     }
     
-    @ResponseBody //Annotation này: dùng để trả về string nguyên thủy, ko trả về view.
-    @RequestMapping(value = "ajax/getUserAddress", method = RequestMethod.POST)
-    public String getUserAddress(@RequestParam("userID") Integer userID){
-        List<UserAddresses> userAddressList = usersStateLessBean.getUserByID(userID).getUserAddressList();
-
-        ObjectMapper om = new ObjectMapper();
-        String json = "";
-        try {
-            json = om.writeValueAsString(userAddressList); //Chuyển list sang chuỗi JSON (com.fasterxml.jackson.databind.ObjectMapper;)
-        } catch (JsonProcessingException ex) {
-            Logger.getLogger(User_Controller.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        
-        return json;
-    }
+//    @ResponseBody //Annotation này: dùng để trả về string nguyên thủy, ko trả về view.
+//    @RequestMapping(value = "ajax/getUserAddress", method = RequestMethod.POST)
+//    public String getUserAddress(@RequestParam("userID") Integer userID){
+//        List<UserAddresses> userAddressList = usersStateLessBean.getUserByID(userID).getUserAddressList();
+//
+//        ObjectMapper om = new ObjectMapper();
+//        String json = "";
+//        try {
+//            json = om.writeValueAsString(userAddressList); //Chuyển list sang chuỗi JSON (com.fasterxml.jackson.databind.ObjectMapper;)
+//        } catch (JsonProcessingException ex) {
+//            Logger.getLogger(User_Controller.class.getName()).log(Level.SEVERE, null, ex);
+//        }
+//        
+//        return json;
+//    }
     
     @ResponseBody 
     @RequestMapping(value = "ajax/getUsersByID", method = RequestMethod.POST)

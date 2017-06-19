@@ -3,7 +3,6 @@
 <%@page import="spring.entity.Orders"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!-- Page Content -->
 <div id="page-wrapper">
@@ -67,7 +66,7 @@
                             <th class="text-center fs-valign-middle">Quantity</th>
                             <th class="text-center fs-valign-middle">Price for one</th>
                             <th class="text-center fs-valign-middle">Product discount</th>
-                            <th class="text-center fs-valign-middle">SubTotal</th>
+                            <th class="text-center fs-valign-middle">Total</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -76,12 +75,11 @@
                                 <td class="text-center fs-valign-middle">${orderdetail.productID.productID}</td>
                                 <td class="text-center fs-valign-middle">${orderdetail.productID.productName}</td>
                                 <td class="text-center fs-valign-middle">${orderdetail.sizeID.colorID.color}</td>
-                                <td class="text-center fs-valign-middle">${orderdetail.sizeID.size}</td>
+                                <td class="text-center fs-valign-middle">${orderdetail.getSize().productSize}</td>
                                 <td class="text-center fs-valign-middle">${orderdetail.quantity}</td>
                                 <td class="text-center fs-valign-middle">$${orderdetail.price}</td>
-                                <td class="text-center fs-valign-middle">${orderdetail.productDiscount}%</td>
-                                <td class="text-center fs-valign-middle">$<fmt:formatNumber type="number" maxFractionDigits="2" value="${orderdetail.subTotal}" var="prodPrice"/>
-                                    ${fn:replace(prodPrice, ",", ".")}</td>
+                                <td class="text-center fs-valign-middle">-${orderdetail.productDiscount}%</td>
+                                <td class="text-center fs-valign-middle">$${orderdetail.subTotal}</td>
                                 
                             </tr>
                         </c:forEach>
@@ -91,8 +89,7 @@
                         
                         <tr>
                             <td colspan="7" align="right"><b>Order Total</b></td>
-                            <td class="text-center fs-valign-middle">$<fmt:formatNumber type="number" maxFractionDigits="2" value="${order.total}" var="prodPrice"/>
-                                    ${fn:replace(prodPrice, ",", ".")}</td>
+                            <td class="text-center fs-valign-middle">$${order.total}</td>
                             <td></td>
                         </tr>
                     </tfoot>

@@ -54,12 +54,13 @@ public class CartLineInfo {
     }
     
     public double getSubTotal(){
-           return (product.getPrice()*(1-(getProductDiscount()/100)))*quantity;
+        return ((product.getPrice() * quantity)-((product.getPrice() * (discountDetailsFacade.findDiscountDetailsByProductID(product)/100))*quantity));
     }
     
     public double getProductDiscount(){
-        return discountDetailsFacade.findDiscountDetailsByProductID(product);
+        return ((product.getPrice() * quantity)-((product.getPrice() * (discountDetailsFacade.findDiscountDetailsByProductID(product)/100))*quantity));
     }
+
     private DiscountDetailsFacadeLocal lookupDiscountDetailsFacadeLocal() {
         try {
             Context c = new InitialContext();

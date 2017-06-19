@@ -5,7 +5,6 @@
  */
 package spring.entity;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import java.io.Serializable;
 import java.util.Date;
 import javax.persistence.Basic;
@@ -13,7 +12,6 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
@@ -50,27 +48,16 @@ public class Rating implements Serializable {
     @Column(name = "rating")
     private int rating;
     @Temporal(TemporalType.DATE)
-    @Column(name = "ratingDate")
     private Date ratingDate;
-    @Lob
-    @Size(max = 2147483647)
-    @Column(name = "review")
-    private String review;
     @Column(name = "status")
     private Short status;
+    @JoinColumn(name = "productID", referencedColumnName = "productID")
+    @ManyToOne
+    private Products productID;
+    @JoinColumn(name = "userID", referencedColumnName = "userID")
+    @ManyToOne
+    private Users userID;
 
-    
-    @ManyToOne
-    @JoinColumn(name = "productID")
-    @JsonBackReference
-    private Products product;
-    
-    @ManyToOne
-    @JoinColumn(name = "userID")
-    @JsonBackReference
-    private Users user;
-    
-    
     public Rating() {
     }
 
@@ -107,20 +94,28 @@ public class Rating implements Serializable {
         this.ratingDate = ratingDate;
     }
 
-    public String getReview() {
-        return review;
-    }
-
-    public void setReview(String review) {
-        this.review = review;
-    }
-
     public Short getStatus() {
         return status;
     }
 
     public void setStatus(Short status) {
         this.status = status;
+    }
+
+    public Products getProductID() {
+        return productID;
+    }
+
+    public void setProductID(Products productID) {
+        this.productID = productID;
+    }
+
+    public Users getUserID() {
+        return userID;
+    }
+
+    public void setUserID(Users userID) {
+        this.userID = userID;
     }
 
     @Override

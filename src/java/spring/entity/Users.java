@@ -5,7 +5,6 @@
  */
 package spring.entity;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
@@ -35,6 +34,21 @@ import org.springframework.format.annotation.DateTimeFormat;
  */
 @Entity
 @Table(name = "users")
+@XmlRootElement
+@NamedQueries({
+    @NamedQuery(name = "Users.findAll", query = "SELECT u FROM Users u")
+    , @NamedQuery(name = "Users.findByUserID", query = "SELECT u FROM Users u WHERE u.userID = :userID")
+    , @NamedQuery(name = "Users.findByEmail", query = "SELECT u FROM Users u WHERE u.email = :email")
+    , @NamedQuery(name = "Users.findByPassword", query = "SELECT u FROM Users u WHERE u.password = :password")
+    , @NamedQuery(name = "Users.findByFirstName", query = "SELECT u FROM Users u WHERE u.firstName = :firstName")
+    , @NamedQuery(name = "Users.findByLastName", query = "SELECT u FROM Users u WHERE u.lastName = :lastName")
+    , @NamedQuery(name = "Users.findByAddress", query = "SELECT u FROM Users u WHERE u.address = :address")
+    , @NamedQuery(name = "Users.findByPhoneNumber", query = "SELECT u FROM Users u WHERE u.phoneNumber = :phoneNumber")
+    , @NamedQuery(name = "Users.findByAvatar", query = "SELECT u FROM Users u WHERE u.avatar = :avatar")
+    , @NamedQuery(name = "Users.findByGender", query = "SELECT u FROM Users u WHERE u.gender = :gender")
+    , @NamedQuery(name = "Users.findByBirthday", query = "SELECT u FROM Users u WHERE u.birthday = :birthday")
+    , @NamedQuery(name = "Users.findByRegistrationDate", query = "SELECT u FROM Users u WHERE u.registrationDate = :registrationDate")
+    , @NamedQuery(name = "Users.findByStatus", query = "SELECT u FROM Users u WHERE u.status = :status")})
 public class Users implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -51,7 +65,7 @@ public class Users implements Serializable {
     private String email;
     @Basic(optional = false)
     @NotNull
-    @Size(min = 1, max = 500)
+    @Size(min = 1, max = 50)
     @Column(name = "password")
     private String password;
     @Basic(optional = false)
@@ -74,34 +88,28 @@ public class Users implements Serializable {
     @Size(min = 1, max = 20)
     @Column(name = "phoneNumber")
     private String phoneNumber;
+    @Size(max = 50)
+    @Column(name = "avatar")
+    private String avatar;
     @Column(name = "gender")
     private Short gender;
     @Temporal(TemporalType.DATE)
     @DateTimeFormat(pattern = "dd/MM/yyyy")
-    @Column(name = "birthday")
     private Date birthday;
-    @Temporal(TemporalType.DATE)
     @DateTimeFormat(pattern = "dd/MM/yyyy")
-    @Column(name = "registrationDate")
+    @Temporal(TemporalType.DATE)
     private Date registrationDate;
     @Column(name = "status")
     private Short status;
     @OneToMany(mappedBy = "userID")
-    @JsonManagedReference
-    private List<WishList> wishList;
+    private List<Comments> commentsList;
+    @OneToMany(mappedBy = "userID")
+    private List<Rating> ratingList;
     @JoinColumn(name = "roleID", referencedColumnName = "roleID")
     @ManyToOne
     private Roles roleID;
     @OneToMany(mappedBy = "userID")
-    @JsonManagedReference
     private List<Orders> ordersList;
-    @OneToMany(mappedBy = "user")
-    @JsonManagedReference
-    private List<UserAddresses> userAddressList;
-    @OneToMany(mappedBy = "user")
-    @JsonManagedReference
-    private List<Rating> productRatingList;
-    
 
     public Users() {
     }
@@ -120,32 +128,6 @@ public class Users implements Serializable {
 //        this.phoneNumber = phoneNumber;
 //        this.birthday = birthday;
 //    }
-
-    public List<Orders> getOrdersList() {
-        return ordersList;
-    }
-
-    public void setOrdersList(List<Orders> ordersList) {
-        this.ordersList = ordersList;
-    }
-
-    public List<UserAddresses> getUserAddressList() {
-        return userAddressList;
-    }
-
-    public void setUserAddressList(List<UserAddresses> userAddressList) {
-        this.userAddressList = userAddressList;
-    }
-
-    public List<Rating> getProductRatingList() {
-        return productRatingList;
-    }
-
-    public void setProductRatingList(List<Rating> productRatingList) {
-        this.productRatingList = productRatingList;
-    }
-    
-    
 
     public Integer getUserID() {
         return userID;
@@ -203,6 +185,14 @@ public class Users implements Serializable {
         this.phoneNumber = phoneNumber;
     }
 
+    public String getAvatar() {
+        return avatar;
+    }
+
+    public void setAvatar(String avatar) {
+        this.avatar = avatar;
+    }
+
     public Short getGender() {
         return gender;
     }
@@ -235,15 +225,23 @@ public class Users implements Serializable {
         this.status = status;
     }
 
-    public List<WishList> getWishList() {
-        return wishList;
+    @XmlTransient
+    public List<Comments> getCommentsList() {
+        return commentsList;
     }
 
-    public void setWishList(List<WishList> wishList) {
-        this.wishList = wishList;
+    public void setCommentsList(List<Comments> commentsList) {
+        this.commentsList = commentsList;
     }
 
-    
+    @XmlTransient
+    public List<Rating> getRatingList() {
+        return ratingList;
+    }
+
+    public void setRatingList(List<Rating> ratingList) {
+        this.ratingList = ratingList;
+    }
 
     public Roles getRoleID() {
         return roleID;
@@ -251,6 +249,15 @@ public class Users implements Serializable {
 
     public void setRoleID(Roles roleID) {
         this.roleID = roleID;
+    }
+
+    @XmlTransient
+    public List<Orders> getOrdersList() {
+        return ordersList;
+    }
+
+    public void setOrdersList(List<Orders> ordersList) {
+        this.ordersList = ordersList;
     }
 
     @Override

@@ -7,7 +7,6 @@ package spring.ejb;
 
 import java.util.List;
 import javax.ejb.Local;
-import spring.entity.UserAddresses;
 import spring.entity.Users;
 
 /**
@@ -21,11 +20,11 @@ public interface UsersFacadeLocal {
 
     Users findUserByEmail(String email);
 
-    int addUsers(Users users, String phone, String address); //kiểu trả vẻ: int hoặc string. nếu dùng int: int error_code; nếu error_code = 1 => insert thành công, error_code = 2 => username này bị trùng, error_code = 0=> có lỗi xãy ra
+    int addUsers(Users users); //kiểu trả vẻ: int hoặc string. nếu dùng int: int error_code; nếu error_code = 1 => insert thành công, error_code = 2 => username này bị trùng, error_code = 0=> có lỗi xãy ra
 
     Users getUserByID(int userID);
 
-    void addUserAddress(UserAddresses newUserAddress);
+//    void addUserAddress(UserAddresses newUserAddress);
 
     boolean updateStatusUser(int userID, short status);
 

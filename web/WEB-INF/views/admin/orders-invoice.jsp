@@ -1,6 +1,5 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -81,12 +80,11 @@
                 <tbody>
                     <c:forEach items="${orders.orderDetailList}" var="orderDetail">
                         <tr>
-                            <td align="center">${orderDetail.productID.productName}</td>
-                            <td align="center">${orderDetail.quantity}</td>
-                            <td align="center">$${orderDetail.price}</td>
-                            <td align="center">${orderDetail.productDiscount}%</td>
-                            <td align="center">$<fmt:formatNumber type="number" maxFractionDigits="2" value="${orderDetail.subTotal}" var="prodPrice"/>
-                                    ${fn:replace(prodPrice, ",", ".")}</td>
+                            <td align="center">${orderdetail.productID.productName}</td>
+                            <td align="center">${orderdetail.quantity}</td>
+                            <td align="center">$${orderdetail.price}</td>
+                            <td align="center">-${orderdetail.productDiscount}%</td>
+                            <td align="center">$${orderdetail.subTotal}</td>
                         </tr>
                     </c:forEach>
                 </tbody>
@@ -94,8 +92,7 @@
                     
                     <tr>
                         <td colspan="4" align="right" style="padding-right: 5px;">Payment Total</td>
-                        <td align="center">$<fmt:formatNumber type="number" maxFractionDigits="2" value="${orders.total}" var="prodPrice"/>
-                                    ${fn:replace(prodPrice, ",", ".")}</td>
+                        <td align="center">$${order.total}</td>
                     </tr>
                 </tfoot>
             </table>

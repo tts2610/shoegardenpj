@@ -36,14 +36,12 @@ import spring.ejb.CategoriesFacadeLocal;
 
 import spring.ejb.ProductsFacadeLocal;
 import spring.ejb.RolesFacadeLocal;
-import spring.ejb.UserAddressesStateLessBeanLocal;
 
 import spring.ejb.UsersFacadeLocal;
 
 import spring.entity.Brands;
 import spring.entity.Categories;
 import spring.entity.Products;
-import spring.entity.UserAddresses;
 
 import spring.entity.Users;
 
@@ -52,8 +50,6 @@ import spring.functions.SharedFunctions;
 @Controller
 @RequestMapping(value = "/user/")
 public class UserController {
-
-    UserAddressesStateLessBeanLocal userAddressesStateLessBean = lookupUserAddressesStateLessBeanLocal();
 
     CategoriesFacadeLocal categoriesFacade = lookupCategoriesFacadeLocal();
 
@@ -126,16 +122,31 @@ public class UserController {
             Logger.getLogger(UserController.class.getName()).log(Level.SEVERE, null, ex);
         }
 
-        
-        if (phoneNumber == null) {
-            phoneNumber = "";
-        }
+        if (image != null) {
+            if (image.isEmpty()) {
+                newUser.setAvatar("default_user.jpg");
+            } else {
+                try {
+                    newUser.setAvatar(simpleDateFormat.format(new Date()) + sharedFunc.changeText(image.getOriginalFilename()));
+                    String path = app.getRealPath("/assets/images/avatar/") + "/" + newUser.getAvatar();
+                    image.transferTo(new File(path));
 
-        if (address == null) {
-            address = "";
+                } catch (IOException | IllegalStateException ex) {
+                    Logger.getLogger(UserController.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+        } else {
+            newUser.setAvatar("default_user.jpg");
         }
+//        if (phoneNumber == null) {
+//            phoneNumber = "";
+//        }
+//
+//        if (address == null) {
+//            address = "";
+//        }
 
-        int error = usersFacade.addUsers(newUser,phoneNumber,address);
+        int error = usersFacade.addUsers(newUser);
         String err = "";
         if (error == 1) {
             session.setAttribute("emailUser", newUser.getEmail());
@@ -177,76 +188,76 @@ public class UserController {
         return "redirect:/user/change-password/" + userID + ".html";
     }
 
-    @RequestMapping(value = "address-add/{userID}", method = RequestMethod.POST)
-    public String addressAdd(@PathVariable("userID") int userID, @ModelAttribute("userAddress") UserAddresses userAddress,
-            RedirectAttributes redirectAttributes) {
+//    @RequestMapping(value = "address-add/{userID}", method = RequestMethod.POST)
+//    public String addressAdd(@PathVariable("userID") int userID, @ModelAttribute("userAddress") UserAddresses userAddress,
+//            RedirectAttributes redirectAttributes) {
+//
+//        List<UserAddresses> listAddress = usersFacade.getUserByID(userID).getUserAddressList();
+//        for (UserAddresses list : listAddress) {
+//            if (list.getAddress().equals(userAddress.getAddress()) && list.getPhoneNumber().equals(userAddress.getPhoneNumber())) {
+//                redirectAttributes.addFlashAttribute("error", "bị trùng");
+//                return "redirect:/user/address-add/" + userID + ".html";
+//            }
+//            break;
+//        }
+//        userAddressesStateLessBean.addAddressUser(userAddress, userID);
+//        redirectAttributes.addFlashAttribute("error", "<div class=\"col-md-12  alert alert-success\">Create Address Successfully!</div>");
+//        return "redirect:/user/address-list/" + userID + ".html";
+//    }
 
-        List<UserAddresses> listAddress = usersFacade.getUserByID(userID).getUserAddressList();
-        for (UserAddresses list : listAddress) {
-            if (list.getAddress().equals(userAddress.getAddress()) && list.getPhoneNumber().equals(userAddress.getPhoneNumber())) {
-                redirectAttributes.addFlashAttribute("error", "bị trùng");
-                return "redirect:/user/address-add/" + userID + ".html";
-            }
-            break;
-        }
-        userAddressesStateLessBean.addAddressUser(userAddress, userID);
-        redirectAttributes.addFlashAttribute("error", "<div class=\"col-md-12  alert alert-success\">Create Address Successfully!</div>");
-        return "redirect:/user/address-list/" + userID + ".html";
-    }
+//    @RequestMapping(value = "address-list/{userID}")
+//    public String addresslist(ModelMap model, @PathVariable("userID") int userID) {
+//        List<UserAddresses> listAddress = usersStateLessBean.getUserByID(userID).getUserAddressList();
+//        model.addAttribute("listua", listAddress);
+//        //2 dòng này thêm để render ra menu chính
+//        List<Categories> cateList = productStateLessBean.categoryList();
+//        model.addAttribute("cateList", cateList);
+//        List<UserAddresses> ualist = userAddressesStateLessBean.AddressListUser(userID);
+//        model.addAttribute("ualist", ualist);
+//        model.addAttribute("userAddress", new UserAddresses());
+//        return "client/pages/address-list";
+//    }
 
-    @RequestMapping(value = "address-list/{userID}")
-    public String addresslist(ModelMap model, @PathVariable("userID") int userID) {
-        List<UserAddresses> listAddress = usersFacade.getUserByID(userID).getUserAddressList();
-        model.addAttribute("listua", listAddress);
-        //2 dòng này thêm để render ra menu chính
-        List<Brands> cateList = brandsFacade.findAll();
-        model.addAttribute("braList", cateList);
-        List<UserAddresses> ualist = userAddressesStateLessBean.AddressListUser(userID);
-        model.addAttribute("ualist", ualist);
-        model.addAttribute("userAddress", new UserAddresses());
-        return "client/pages/address-list";
-    }
+//    @RequestMapping(value = "address-book/{userID}-{addressID}", method = RequestMethod.GET)
+//    public String addressbook(ModelMap model, @PathVariable("userID") int userID,
+//            @PathVariable("addressID") int addressID) {
+//        //2 dòng này thêm để render ra menu chính
+//        List<Categories> cateList = productStateLessBean.categoryList();
+//        model.addAttribute("cateList", cateList);
+//
+//        UserAddresses userAddresses = userAddressesStateLessBean.findID(userID);
+//        UserAddresses userAddresses1 = userAddressesStateLessBean.findAddressID(addressID);
+//
+//        model.addAttribute("userAddresses", userAddresses1);
+//        return "client/pages/address-book";
+//
+//    }
 
-    @RequestMapping(value = "address-book/{userID}-{addressID}", method = RequestMethod.GET)
-    public String addressbook(ModelMap model, @PathVariable("userID") int userID,
-            @PathVariable("addressID") int addressID) {
-        //2 dòng này thêm để render ra menu chính
-         List<Brands> cateList = brandsFacade.findAll();
-        model.addAttribute("braList", cateList);
+//    @RequestMapping(value = "address-book/{userID}-{addressID}", method = RequestMethod.POST)
+//    public String addressbook(ModelMap model, @ModelAttribute("userAddresses") UserAddresses userAddresses,
+//            RedirectAttributes redirectAttributes, @PathVariable("userID") int userID,
+//            @PathVariable("addressID") int addressID) {
+//        int error;
+//        model.addAttribute("addressID", userAddresses.getAddressID());
+//        error = userAddressesStateLessBean.editAddressUser(userAddresses, userID);
+//        if (error == 1) {
+//            redirectAttributes.addFlashAttribute("error", "<div class=\"col-md-12  alert alert-success\">Update Address Successfully!</div>");
+//        } else if (error == 0) {
+//            redirectAttributes.addFlashAttribute("error", "lỗi");
+//        }
+//        return "redirect:/user/address-book/" + userID + "-" + addressID + ".html";
+//    }
 
-        UserAddresses userAddresses = userAddressesStateLessBean.findID(userID);
-        UserAddresses userAddresses1 = userAddressesStateLessBean.findAddressID(addressID);
-
-        model.addAttribute("userAddresses", userAddresses1);
-        return "client/pages/address-book";
-
-    }
-
-    @RequestMapping(value = "address-book/{userID}-{addressID}", method = RequestMethod.POST)
-    public String addressbook(ModelMap model, @ModelAttribute("userAddresses") UserAddresses userAddresses,
-            RedirectAttributes redirectAttributes, @PathVariable("userID") int userID,
-            @PathVariable("addressID") int addressID) {
-        int error;
-        model.addAttribute("addressID", userAddresses.getAddressID());
-        error = userAddressesStateLessBean.editAddressUser(userAddresses, userID);
-        if (error == 1) {
-            redirectAttributes.addFlashAttribute("error", "<div class=\"col-md-12  alert alert-success\">Update Address Successfully!</div>");
-        } else if (error == 0) {
-            redirectAttributes.addFlashAttribute("error", "lỗi");
-        }
-        return "redirect:/user/address-book/" + userID + "-" + addressID + ".html";
-    }
-
-    @ResponseBody
-    @RequestMapping(value = "deleteAddress/{addressID}", method = RequestMethod.POST)
-    public String deleteaddress(@PathVariable("addressID") int addressID, ModelMap model) {
-        UserAddresses usa = userAddressesStateLessBean.findAddressID(addressID);
-//        Integer userID = userAddressesStateLessBean.findAddressID(addressID).getUser().getUserID();
-        if (usa != null) {
-            userAddressesStateLessBean.deleteAddress(addressID);
-        }
-        return "1";
-    }
+//    @ResponseBody
+//    @RequestMapping(value = "deleteAddress/{addressID}", method = RequestMethod.POST)
+//    public String deleteaddress(@PathVariable("addressID") int addressID, ModelMap model) {
+//        UserAddresses usa = userAddressesStateLessBean.findAddressID(addressID);
+////        Integer userID = userAddressesStateLessBean.findAddressID(addressID).getUser().getUserID();
+//        if (usa != null) {
+//            userAddressesStateLessBean.deleteAddress(addressID);
+//        }
+//        return "1";
+//    }
 
     @RequestMapping(value = "account-information/{userID}", method = RequestMethod.GET)
     public String accountinfo(@PathVariable("userID") int userID, ModelMap model) {
@@ -272,19 +283,26 @@ public class UserController {
             RedirectAttributes redirectAttributes, @RequestParam("upImage") MultipartFile image) {
         Users oldUser = usersFacade.getUserByID(userID); // thong tin user chua chinh sua
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyyMMdd_HH_mm_ss");
-        
         try {
-            updateUser.setUserID(userID);
-            updateUser.setAddress(oldUser.getAddress());
-            updateUser.setPhoneNumber(oldUser.getPhoneNumber());
+            if (!image.isEmpty()) {
+                updateUser.setAvatar(simpleDateFormat.format(new Date()) + sharedFunc.changeText(image.getOriginalFilename()));
+                String path = app.getRealPath("/assets/images/avatar/") + "/" + updateUser.getAvatar();
+                image.transferTo(new File(path));
+            } else {
+                updateUser.setAvatar(oldUser.getAvatar());
+            }
+        } catch (Exception ex) {
+            Logger.getLogger(UserController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        try {
             updateUser.setRegistrationDate(oldUser.getRegistrationDate());
             updateUser.setStatus(oldUser.getStatus());
             updateUser.setRoleID(oldUser.getRoleID());
             updateUser.setPassword(oldUser.getPassword());
         } catch (Exception ex) {
-            ex.printStackTrace();
+            Logger.getLogger(UserController.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
         int error = usersFacade.updateUser(updateUser);
 
         if (error == 1) {
@@ -444,16 +462,6 @@ public class UserController {
         try {
             Context c = new InitialContext();
             return (CategoriesFacadeLocal) c.lookup("java:global/ShoeGardenPJ/CategoriesFacade!spring.ejb.CategoriesFacadeLocal");
-        } catch (NamingException ne) {
-            Logger.getLogger(getClass().getName()).log(Level.SEVERE, "exception caught", ne);
-            throw new RuntimeException(ne);
-        }
-    }
-
-    private UserAddressesStateLessBeanLocal lookupUserAddressesStateLessBeanLocal() {
-        try {
-            Context c = new InitialContext();
-            return (UserAddressesStateLessBeanLocal) c.lookup("java:global/ShoeGardenPJ/UserAddressesStateLessBean!spring.ejb.UserAddressesStateLessBeanLocal");
         } catch (NamingException ne) {
             Logger.getLogger(getClass().getName()).log(Level.SEVERE, "exception caught", ne);
             throw new RuntimeException(ne);

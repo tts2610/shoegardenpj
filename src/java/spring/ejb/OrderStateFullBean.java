@@ -101,7 +101,7 @@ public class OrderStateFullBean implements OrderStateFullBeanLocal, Serializable
                 ordersDetail.setOrdersID(orders);
                 ordersDetail.setProductID(cartLineInfo.getProduct());
                 ordersDetail.setSizeID(cartLineInfo.getSizesByColor());
-                ordersDetail.setProductDiscount((short) cartLineInfo.getProduct().getDiscountByProduct());
+                ordersDetail.setProductDiscount((short) cartLineInfo.getProductDiscount());// LUU Y
                 ordersDetail.setQuantity(cartLineInfo.getQuantity());
                 ordersDetail.setPrice(cartLineInfo.getProduct().getPrice());
                 ordersDetail.setStatus(Short.parseShort("0"));
@@ -122,7 +122,6 @@ public class OrderStateFullBean implements OrderStateFullBeanLocal, Serializable
 //            }
             checkError = String.valueOf(orders.getOrdersID());
         } catch (Exception e) {
-            e.printStackTrace();
             checkError = String.valueOf("000");
         }
         cart = new ArrayList<>();

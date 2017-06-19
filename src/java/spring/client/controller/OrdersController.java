@@ -27,7 +27,6 @@ import spring.ejb.OrderStateFullBeanLocal;
 import spring.ejb.OrderStateLessBeanLocal;
 
 import spring.ejb.ProductsFacadeLocal;
-import spring.ejb.UserAddressesStateLessBeanLocal;
 import spring.ejb.UsersFacadeLocal;
 import spring.entity.Brands;
 import spring.entity.CartLineInfo;
@@ -37,7 +36,6 @@ import spring.entity.Categories;
 import spring.entity.Orders;
 import spring.entity.Products;
 import spring.entity.SizesByColor;
-import spring.entity.UserAddresses;
 
 import spring.entity.Users;
 
@@ -45,23 +43,17 @@ import spring.entity.Users;
 @RequestMapping(value = "/orders/")
 public class OrdersController {
 
-    UserAddressesStateLessBeanLocal userAddressesStateLessBean = lookupUserAddressesStateLessBeanLocal();
-
-    OrderStateFullBeanLocal orderStateFullBean = lookupOrderStateFullBeanLocal();
-
     BrandsFacadeLocal brandsFacade = lookupBrandsFacadeLocal();
 
     CategoriesFacadeLocal categoriesFacade = lookupCategoriesFacadeLocal();
 
     OrderStateLessBeanLocal orderStateLessBean = lookupOrderStateLessBeanLocal();
 
-    
+    OrderStateFullBeanLocal orderStateFullBean = lookupOrderStateFullBeanLocal();
 
     UsersFacadeLocal usersFacade = lookupUsersFacadeLocal();
 
     ProductsFacadeLocal productsFacade = lookupProductsFacadeLocal();
-    
-    
     
     
 
@@ -87,9 +79,7 @@ public class OrdersController {
             @RequestParam("colorID") Integer colorID,
             @RequestParam("quantity") Integer quantity) {
         Products pro = orderStateLessBean.getProductByID(productID);
-        
         SizesByColor sizesByColor = orderStateLessBean.getSizesByColorBySizeIDandColorID(sizeID, colorID);
-        
         if (pro != null) {
             if (sizesByColor != null) {
                 if (sizesByColor.getQuantity() < quantity) {
@@ -120,8 +110,8 @@ public class OrdersController {
                 //2 dòng này thêm để render ra menu chính
                 List<Brands> cateList = brandsFacade.findAll();
                 model.addAttribute("emailU", users);
-                model.addAttribute("braList", cateList);
-                model.addAttribute("userAddressList", userAddressesStateLessBean.AddressListUser(users.getUserID()));
+                model.addAttribute("cateList", cateList);
+//                model.addAttribute("userAddressList", userAddressesStateLessBean.AddressListUser(users.getUserID())); //LUU Y
                 model.addAttribute("cartList", orderStateFullBean.showCart());
                 model.addAttribute("grandTotal", orderStateFullBean.subTotal());
                 return "client/pages/checkout";
@@ -135,7 +125,12 @@ public class OrdersController {
         String success_orderID = "";
         String email = (String) request.getSession().getAttribute("emailUser");
         Users users = usersFacade.findUserByEmail(email);
+        String discountCode = request.getParameter("discount-code-input");
         String addressSize = request.getParameter("addressSize");
+//        DiscountVoucher discountVoucher = null;
+//        if (discountCode != null) {
+//            discountVoucher = orderStateLessBean.getDiscountVoucherByID(discountCode);
+//        }
         String note = request.getParameter("note");
         if (addressSize.equals("0")) {
             String firstname = request.getParameter("diffFirstname");
@@ -175,30 +170,30 @@ public class OrdersController {
                 orders.setStatus(Short.parseShort("2"));
                 success_orderID = orderStateFullBean.completePurchase(orders);
             } else {
-                UserAddresses userAddresses = userAddressesStateLessBean.findAddressID(Integer.parseInt(addressChoice));
-                if (userAddresses != null) {
-                    String firstname = users.getFirstName();
-                    String lastname = users.getLastName();
-                    String address = userAddresses.getAddress();
-                    String phone = userAddresses.getPhoneNumber();
-                    Orders orders = new Orders();
-                    orders.setUserID(users);
-                    orders.setOrdersDate(new Date());
-                    orders.setReceiverFirstName(firstname);
-                    orders.setReceiverLastName(lastname);
-                    orders.setPhoneNumber(phone);
-                    orders.setDeliveryAddress(address);
+//                UserAddresses userAddresses = userAddressesStateLessBean.findAddressID(Integer.parseInt(addressChoice));
+//                if (userAddresses != null) {
+//                    String firstname = users.getFirstName();
+//                    String lastname = users.getLastName();
+//                    String address = userAddresses.getAddress();
+//                    String phone = userAddresses.getPhoneNumber();
+//                    Orders orders = new Orders();
+//                    orders.setUser(users);
+//                    orders.setOrdersDate(new Date());
+//                    orders.setReceiverFirstName(firstname);
+//                    orders.setReceiverLastName(lastname);
+//                    orders.setPhoneNumber(phone);
+//                    orders.setDeliveryAddress(address);
 //                    if (discountVoucher != null) {
 //                        orders.setVoucher(discountVoucher);
 //                    } else {
 //                        orders.setVoucher(null);
 //                    }
-                    orders.setNote(note);
-                    orders.setStatus(Short.parseShort("2"));
-                    success_orderID = orderStateFullBean.completePurchase(orders);
-                } else {
-                    return "redirect:/orders/checkout.html";
-                }
+//                    orders.setNote(note);
+//                    orders.setStatus(Short.parseShort("2"));
+//                    success_orderID = orderStateFulBean.completePurchase(orders);
+//                } else {
+//                    return "redirect:/orders/checkout.html";
+//                }
             }
         }
         if (success_orderID.equals("000")) {
@@ -215,7 +210,7 @@ public class OrdersController {
     public String checkout_success(ModelMap model, @PathVariable("success_orderID") Integer success_orderID) {
         //2 dòng này thêm để render ra menu chính
         List<Brands> cateList = brandsFacade.findAll();
-        model.addAttribute("braList", cateList);
+        model.addAttribute("cateList", cateList);
         model.addAttribute("success_orderID", success_orderID);
         return "client/pages/checkout-success";
     }
@@ -226,10 +221,8 @@ public class OrdersController {
             return "redirect:/index.html";
         }
         //2 dòng này thêm để render ra menu chính
-        List<Products> proList = productsFacade.selectTop8Product();
         List<Brands> cateList = brandsFacade.findAll();
-        model.addAttribute("proList", proList);
-        model.addAttribute("braList", cateList);
+        model.addAttribute("cateList", cateList);
         model.addAttribute("cartList", orderStateFullBean.showCart());
         model.addAttribute("grandTotal", orderStateFullBean.subTotal());
         return "client/pages/shoppingcart";
@@ -377,7 +370,7 @@ public class OrdersController {
                     + "                                line-height: 33px;\n"
                     + "                                font-weight: 700;\" class=\"btn\">CHECKOUT</button> \n"
                     + "                            </div>";
-            str_subtotal = "<div class=\"ci-total\">Grand Total: $" + String.format( "%.2f", subTotal ) + "</div>";
+            str_subtotal = "<div class=\"ci-total\">Subtotal: $" + subTotal + "</div>";
             for (CartLineInfo cartLineInfo : orderStateFullBean.showCart()) {
                 str_cart_detail += "<div class=\"ci-item\">\n"
                         + "        <img src=\"assets/images/products/" + cartLineInfo.getProduct().getUrlImg() + "\" width=\"90\" alt=\"\"/>\n"
@@ -397,13 +390,12 @@ public class OrdersController {
                         + "                                        </p>"
                         + "<p>Size: " + cartLineInfo.getSizesByColor().getSize()+ "</p>\n"
                         + " <p>Quantity: &nbsp " + cartLineInfo.getQuantity() + "</p>\n"
-                        + "            <p>Price: &nbsp $" + String.format( "%.2f", cartLineInfo.getSubTotal() ) + "</p>\n"
-                           
+                        + "            <p>Price: &nbsp $" + cartLineInfo.getProduct().getPrice() + "</p>\n"
                         + "        </div>\n"
                         + "    </div>";
             }
         }
-        //"
+        //<div class=\"ci-edit\"><button onclick=\"deleteItem(" + cartLineInfo.getProduct().getProductID() + "," + cartLineInfo.getSizesByColor().getSizeID() + "," + cartLineInfo.getSizesByColor().getColor().getColorID() + ");\" class=\"edit fa fa-trash\"></button></div>\n"
         str_cart_big = "<span><i class=\"fa fa-shopping-cart\"></i></span>\n"
                 + "<div class=\"cart-info\">\n"
                 + "<small>You have <em class=\"highlight\">" + cartSize + " item(s)</em> in your shopping bag</small>\n"
@@ -639,7 +631,15 @@ public class OrdersController {
         }
     }
 
-    
+    private OrderStateFullBeanLocal lookupOrderStateFullBeanLocal() {
+        try {
+            Context c = new InitialContext();
+            return (OrderStateFullBeanLocal) c.lookup("java:global/ShoeGardenPJ/OrderStateFullBean!spring.ejb.OrderStateFullBeanLocal");
+        } catch (NamingException ne) {
+            Logger.getLogger(getClass().getName()).log(Level.SEVERE, "exception caught", ne);
+            throw new RuntimeException(ne);
+        }
+    }
 
     private OrderStateLessBeanLocal lookupOrderStateLessBeanLocal() {
         try {
@@ -665,26 +665,6 @@ public class OrdersController {
         try {
             Context c = new InitialContext();
             return (BrandsFacadeLocal) c.lookup("java:global/ShoeGardenPJ/BrandsFacade!spring.ejb.BrandsFacadeLocal");
-        } catch (NamingException ne) {
-            Logger.getLogger(getClass().getName()).log(Level.SEVERE, "exception caught", ne);
-            throw new RuntimeException(ne);
-        }
-    }
-
-    private OrderStateFullBeanLocal lookupOrderStateFullBeanLocal() {
-        try {
-            Context c = new InitialContext();
-            return (OrderStateFullBeanLocal) c.lookup("java:global/ShoeGardenPJ/OrderStateFullBean!spring.ejb.OrderStateFullBeanLocal");
-        } catch (NamingException ne) {
-            Logger.getLogger(getClass().getName()).log(Level.SEVERE, "exception caught", ne);
-            throw new RuntimeException(ne);
-        }
-    }
-
-    private UserAddressesStateLessBeanLocal lookupUserAddressesStateLessBeanLocal() {
-        try {
-            Context c = new InitialContext();
-            return (UserAddressesStateLessBeanLocal) c.lookup("java:global/ShoeGardenPJ/UserAddressesStateLessBean!spring.ejb.UserAddressesStateLessBeanLocal");
         } catch (NamingException ne) {
             Logger.getLogger(getClass().getName()).log(Level.SEVERE, "exception caught", ne);
             throw new RuntimeException(ne);

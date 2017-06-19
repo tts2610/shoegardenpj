@@ -94,10 +94,12 @@ public class Products implements Serializable {
     private Integer productViews;
     @Column(name = "status")
     private Short status;
-    @OneToMany(mappedBy = "productID", cascade = CascadeType.PERSIST)
+    @OneToMany(mappedBy = "productID")
+    private List<Comments> commentsList;
+    @OneToMany(mappedBy = "productID",cascade = CascadeType.PERSIST)
     @JsonManagedReference
     private List<ProductColors> productColorsList;
-    @OneToMany(mappedBy = "product", cascade = CascadeType.PERSIST)
+    @OneToMany(mappedBy = "productID")
     @JsonManagedReference
     private List<Rating> ratingList;
     @JoinColumn(name = "braID", referencedColumnName = "braID")
@@ -123,6 +125,12 @@ public class Products implements Serializable {
         this.discountDetailsList = discountDetailsList;
     }
 
+    
+    
+    
+    
+    
+    
     public Products() {
     }
 
@@ -154,7 +162,6 @@ public class Products implements Serializable {
     }
 
     public double getPrice() {
-        
         return price;
     }
 
@@ -202,7 +209,14 @@ public class Products implements Serializable {
         this.status = status;
     }
 
-    
+    @XmlTransient
+    public List<Comments> getCommentsList() {
+        return commentsList;
+    }
+
+    public void setCommentsList(List<Comments> commentsList) {
+        this.commentsList = commentsList;
+    }
 
     @XmlTransient
     public List<ProductColors> getProductColorsList() {
@@ -229,25 +243,14 @@ public class Products implements Serializable {
         return productRatingWorking;
     }
      
-    public float getProductWithDiscount(){
-        for(DiscountDetails d : this.discountDetailsList){
-            if(Objects.equals(d.getProductID().getProductID(), this.productID)){
-                
-                return (float) (this.price*(1-(float)d.getDiscID().getDiscount()/100));
-            }
-        }
-        return (float) this.price;
-    }
-    
-    public short getDiscountByProduct(){
-        for(DiscountDetails d : this.discountDetailsList){
-            if(Objects.equals(d.getProductID().getProductID(), this.productID)){
-                
-                return d.getDiscID().getDiscount();
-            }
-        }
-        return 0;
-    }
+//    public float getProductDiscount(){
+//        for(DiscountDetails d : discountDetailsList){
+//            if(Objects.equals(d.getProductID().productID, this.productID)){
+//                return d.getDiscount();
+//            }
+//        }
+//        return 0;
+//    }
 
     @XmlTransient
     public List<Rating> getRatingList() {

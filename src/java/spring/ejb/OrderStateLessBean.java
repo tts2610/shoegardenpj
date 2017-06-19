@@ -85,7 +85,7 @@ public class OrderStateLessBean implements OrderStateLessBeanLocal {
     @Override
     public List<OrdersDetail> getAllOrderDetailByOrderID(int orderID) {
         try {
-            Query q = getEntityManager().createQuery("SELECT od FROM OrdersDetail od WHERE od.ordersID.ordersID = :orderID", OrdersDetail.class);
+            Query q = getEntityManager().createQuery("SELECT od FROM OrdersDetail od WHERE od.order.ordersID = :orderID", OrdersDetail.class);
             q.setParameter("orderID", orderID);
             return q.getResultList();
         } catch (Exception e) {
@@ -98,10 +98,8 @@ public class OrderStateLessBean implements OrderStateLessBeanLocal {
         try {
             Query q = getEntityManager().createQuery("SELECT o FROM Orders o WHERE o.ordersID = :orderID", Orders.class);
             q.setParameter("orderID", orderID);
-            
             return (Orders) q.getSingleResult();
         } catch (Exception e) {
-            
             return null;
         }
     }
@@ -256,12 +254,11 @@ public class OrderStateLessBean implements OrderStateLessBeanLocal {
     @Override
     public SizesByColor getSizesByColorBySizeIDandColorID(int sizeId, int colorId) {
         try {
-            Query q = getEntityManager().createQuery("SELECT s FROM SizesByColor s WHERE s.sizeID = :sizeid AND s.colorID.colorID = :colorid", SizesByColor.class);
+            Query q = getEntityManager().createQuery("SELECT s FROM SizesByColor s WHERE s.sizeID = :sizeid AND s.color.colorID = :colorid", Categories.class);
             q.setParameter("sizeid", sizeId);
             q.setParameter("colorid", colorId);
             return (SizesByColor) q.getSingleResult();
         } catch (Exception e) {
-            e.printStackTrace();
             return null;
         }
     }
