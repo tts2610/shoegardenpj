@@ -69,6 +69,24 @@ public class Rating implements Serializable {
     @JoinColumn(name = "userID")
     @JsonBackReference
     private Users user;
+
+    public Products getProduct() {
+        return product;
+    }
+
+    public void setProduct(Products product) {
+        this.product = product;
+    }
+
+    public Users getUser() {
+        return user;
+    }
+
+    public void setUser(Users user) {
+        this.user = user;
+    }
+    
+    
     
     
     public Rating() {
