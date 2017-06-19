@@ -13,7 +13,7 @@
         <meta name="description" content="">
         <meta name="author" content="">
         <base href="${pageContext.servletContext.contextPath}/" />
-        <title>Smile | Responsive Bootstrap Ecommerce Template</title>
+        <title>Shoe Garden</title>
 
         <!-- Mobile Metas -->
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
