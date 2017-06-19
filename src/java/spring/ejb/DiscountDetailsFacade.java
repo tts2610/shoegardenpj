@@ -12,6 +12,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import spring.entity.DiscountDetails;
+import spring.entity.Discounts;
 import spring.entity.Products;
 
 /**
@@ -35,8 +36,12 @@ public class DiscountDetailsFacade extends AbstractFacade<DiscountDetails> imple
     
     @Override
     public short findDiscountDetailsByProductID(Products pro){
-        Query q = em.createNativeQuery("select discount from discountDetails where productID = "+pro.getProductID());
-        return (short)q.getSingleResult();
+        Query q = em.createNativeQuery("select d.discount from Discounts d JOIN DiscountDetails di on d.discID = di.discID AND di.productID = "+pro.getProductID());
+        try{
+        return (short) q.getSingleResult();}
+        catch(Exception e){
+            return 0;
+        }
     }
 
     @Override

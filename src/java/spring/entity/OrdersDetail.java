@@ -5,10 +5,13 @@
  */
 package spring.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import java.io.Serializable;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -37,7 +40,7 @@ public class OrdersDetail implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
-    @NotNull
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ordersDetailID")
     private Integer ordersDetailID;
     @Basic(optional = false)
@@ -56,12 +59,15 @@ public class OrdersDetail implements Serializable {
     private Short status;
     @JoinColumn(name = "ordersID", referencedColumnName = "ordersID")
     @ManyToOne
+    @JsonBackReference
     private Orders ordersID;
     @JoinColumn(name = "productID", referencedColumnName = "productID")
     @ManyToOne
+    @JsonBackReference
     private Products productID;
     @JoinColumn(name = "sizeID", referencedColumnName = "sizeID")
     @ManyToOne
+    @JsonBackReference
     private SizesByColor sizeID;
 
     public OrdersDetail() {
@@ -177,7 +183,7 @@ public class OrdersDetail implements Serializable {
 //    }
     
     public float getSubTotal(){
-        return (float) ((1-getProductDiscount()/100)*getPrice()*getQuantity());
+        return (float) ((1-(float)getProductDiscount()/100)*getPrice()*getQuantity());
     }
     
 }

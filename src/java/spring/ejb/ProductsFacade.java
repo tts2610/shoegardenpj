@@ -545,6 +545,12 @@ public class ProductsFacade extends AbstractFacade<Products> implements Products
         return q.getResultList();
     }
 
+    @Override
+    public List<Products> selectTop8Product() {
+        Query q = getEntityManager().createNativeQuery("SELECT TOP 8 * FROM PRODUCTS",Products.class);
+        return q.getResultList();
+    }
+
     
     
 }

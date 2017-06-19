@@ -59,7 +59,7 @@
                                 <li class="col-md-6 col-sm-12">  
                                     <label><i class="fa fa-birthday-cake"></i> Birthday</label>
                                     <div class="fs-birthday-update">
-                                        <form:input path="birthday" id="txtbirthday" cssClass="input-text" />
+                                        <form:input path="birthday" id="txtBirthday" cssClass="input-text" />
                                         <p class="help-block" style="color: red; text-align: center; margin-top: -10px;" id="fs-birthday-update-user-error"></p>
                                     </div>
                                 </li>

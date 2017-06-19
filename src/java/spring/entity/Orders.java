@@ -5,6 +5,7 @@
  */
 package spring.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import java.io.Serializable;
 import java.util.Date;
@@ -13,6 +14,8 @@ import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.Lob;
@@ -48,7 +51,7 @@ public class Orders implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
-    @NotNull
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ordersID")
     private Integer ordersID;
     @Column(name = "ordersDate")
@@ -82,6 +85,7 @@ public class Orders implements Serializable {
     private Short status;
     @JoinColumn(name = "userID", referencedColumnName = "userID")
     @ManyToOne
+    @JsonBackReference
     private Users userID;
 
     @OneToMany(mappedBy = "ordersID", cascade = CascadeType.ALL)

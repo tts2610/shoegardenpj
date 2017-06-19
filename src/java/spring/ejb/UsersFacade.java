@@ -16,6 +16,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import spring.entity.Products;
+import spring.entity.UserAddresses;
 import spring.entity.Users;
 
 /**
@@ -53,25 +54,30 @@ public class UsersFacade extends AbstractFacade<Users> implements UsersFacadeLoc
         }
     }
 
-//    @Override
-//    public void addUserAddress(UserAddresses newUserAddress) {
-//        getEntityManager().persist(newUserAddress);
-//    }
+    @Override
+    public void addUserAddress(UserAddresses newUserAddress) {
+        getEntityManager().persist(newUserAddress);
+    }
 
     @Override
-    public int addUsers(Users users) {
+    public int addUsers(Users users, String phone, String address) {
         int error;
         Users findE = findUserByEmail(users.getEmail());
         if (findE != null) {
             error = 2; //email tồn tại
         } else {
             try {
-                
-                //validate
-                if (!"".equals(users.getPhoneNumber()) && !"".equals(users.getAddress())) {
-                    
-                    getEntityManager().persist(users);
-                    
+                getEntityManager().persist(users);
+
+                if (!"".equals(phone) && !"".equals(address)) {
+                    getEntityManager().flush();
+
+                    UserAddresses newUserAddress = new UserAddresses();
+                    newUserAddress.setUser(users);
+                    newUserAddress.setAddress(address);
+                    newUserAddress.setPhoneNumber(phone);
+
+                    addUserAddress(newUserAddress);
                 }
                 error = 1;  //add mới thành công
             } catch (Exception e) {
@@ -158,9 +164,10 @@ public class UsersFacade extends AbstractFacade<Users> implements UsersFacadeLoc
 //        if(findEmail == null){
         if(findID.getEmail().equals(user.getEmail())){ // không thay đổi email
             try {
-                getEntityManager().merge(user);
+                edit(user);
                 error = 1;
             } catch (Exception e) {
+                
                 error = 0;
             }
         }
@@ -169,9 +176,10 @@ public class UsersFacade extends AbstractFacade<Users> implements UsersFacadeLoc
             error = 2;// email đã có
         } else {
             try {
-                getEntityManager().merge(user);
+                edit(user);
                 error = 1; // update thành công
             } catch (Exception e) {
+                
                 error = 0; // lỗi
             }
         }
