@@ -9,18 +9,6 @@ $(document).ready(function() {
         defaultDate: '01/01/1960',
         yearRange: "1960:1999"
     });
-    $("#account-id #txtBirthday").datepicker({
-        dateFormat: "dd/mm/yy",
-        showAnim: "drop",
-        changeMonth: true,
-        changeYear: true,
-        defaultDate: '01/01/1960',
-        yearRange: "1960:1999",
-        onSelect: function () {
-            $("#account-id #txtBirthday").datepicker();
-        }
-        
-    });
     
 
     $("#loginModal").on("change", "#fs-upImage", function() {
@@ -3875,16 +3863,16 @@ $(document).ready(function() {
 
     //    BẮT VALIDATION CẬP NHẬT THÔNG TIN CÁ NHÂN     
 
-//    $("#txtbirthday").click(function() {
-//        $("#txtbirthday").datepicker({
-//            dateFormat: "dd/mm/yy",
-//            showAnim: "drop",
-//            changeMonth: true,
-//            changeYear: true,
-//            defaultDate: '01/01/1960',
-//            yearRange: "1960:1999"
-//        });
-//    });
+$("#txtbirthday").datepicker({
+        dateFormat: "dd/mm/yy",
+        showAnim: "drop",
+        changeMonth: true,
+        changeYear: true,
+        defaultDate: '01/01/1960',
+        yearRange: "1960:1999"
+        
+    });
+
     // BẮT VỚI UPDATE ACCOUNT CLICK
 
 

@@ -87,5 +87,6 @@
         <script src="assets/js/bootstrap-notify.js" type="text/javascript"></script>
 
         <script src="assets/js/fashion_shop_custom_JS.js" type="text/javascript"></script>
+        
     </body>
 </html>

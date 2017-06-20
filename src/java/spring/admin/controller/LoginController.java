@@ -57,10 +57,13 @@ public class LoginController {
         int error = usersFacade.login(email, sharedFunc.encodePassword(password));
         if (error == 1) {
             session.setAttribute("email", email);
+            int id = usersFacade.findUserByEmail(email).getUserID();
+            session.setAttribute("uid",id );
             if(remember != null && remember == 1){
                 Cookie ckEmail = new Cookie("emailA", email);
                 ckEmail.setMaxAge(24*60*60);
                 response.addCookie(ckEmail);
+                
                 Cookie ckPassword = new Cookie("passwordA", sharedFunc.encodePassword(password));
                 ckPassword.setMaxAge(24*60*60);
                 response.addCookie(ckPassword);
@@ -73,11 +76,11 @@ public class LoginController {
                 return "redirect:" + session.getAttribute("request_url");
             }
         } else if (error == 2) {
-            model.addAttribute("error", "<div class=\"alert alert-danger\">FAILED!. Error Email Wrong!</div>");
+            model.addAttribute("error", "<div class=\"alert alert-danger\">FAILED!. Email Not Matched!</div>");
         } else if (error == 3) {
-            model.addAttribute("error", "<div class=\"alert alert-danger\">FAILED!. Error Wrong!</div>");
+            model.addAttribute("error", "<div class=\"alert alert-danger\">FAILED!. Access Denied!</div>");
         } else {
-            model.addAttribute("error", "<div class=\"alert alert-danger\">FAILED!. Error Password Wrong!</div>");
+            model.addAttribute("error", "<div class=\"alert alert-danger\">FAILED!. Password Not Matched!</div>");
         }
         return "admin/login";
     }
