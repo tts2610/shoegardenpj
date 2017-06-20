@@ -30,4 +30,8 @@ public interface RatingFacadeLocal {
 
     int count();
     
+    int countUnvarifiedRecord();
+    
+    boolean updateStatusRating(int rateID, short status);
+    
 }

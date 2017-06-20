@@ -27,10 +27,10 @@
                                 <tr id="fs-list-id-${wl.wishID}">
                                     <td class="text-center"><img src="assets/images/products/${wl.product.urlImg}" class="img-responsive" alt=""/></td>
                                     <td class="text-center">
-                                        <a href="${wl.product.productID}-${wl.product.productColorList[0].colorID}-${wl.product.productNameNA}.html"><p><b> ${wl.product.productName}</b></p></a>
-                                        <p>CATE NAME: ${wl.product.category.cateName}</p>
-                                        <p>SUBCATE NAME: ${wl.product.subCate.subCateName}</p>
-                                        <p>DATE ADD WISHLIST: <fmt:formatDate pattern="dd/MM/yyyy" value="${wl.createDate}"/></p>
+                                        <a href="${wl.product.productID}-${wl.product.productColorsList[0].colorID}-${wl.product.productName}.html"><p><b> ${wl.product.productName}</b></p></a>
+                                        <p>Brand: ${wl.product.braID.braName}</p>
+                                        <p>Category: ${wl.product.catID.catName}</p>
+                                        <p>Date Added: <fmt:formatDate pattern="dd/MM/yyyy" value="${wl.createDate}"/></p>
                                     </td>
                                     <td class="text-center" style="text-align: center;">${wl.product.price}</td>
                                     <td class="text-center">

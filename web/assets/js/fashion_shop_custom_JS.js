@@ -252,7 +252,7 @@ $(document).ready(function() {
         autoplay_slideshow: true
     });
 
-
+    
     /* AJAX CALL MODAL */
     $("body").on("click", ".fs-product-modal", function() {
         $(".fs-quantity-in-stock").text("---");
@@ -331,62 +331,62 @@ $(document).ready(function() {
     });
     // ADD WISHLIST MODAL
 
-    //    $(".fs-wl-add-detail").click(function () {
-    //        var userID = $(this).attr("fs-userID");
-    //        var input = $("input[name='emailUser']");
-    //        if (input.val() != "") {
-    //            //Có session
-    //            if (!$(this).hasClass("fs-heart-color")) {
-    //                $(this).addClass("fs-heart-color");
-    //                $.ajax({
-    //                    url: "user/ajax/addWishList.html",
-    //                    method: "POST",
-    //                    data: {userID: userID, productID: productID},
-    //                    success: function (response) {
-    //                        if (response == "1") {
-    //                            $("#fs-mess-wl-error").text("");
-    //                            $("#fs-mess-wl-success").text("SUCCESS");
-    //                            $("#fs-mess-body-wl").text("Add Wish List success.");
-    //                            $("#fs-wl-ajax-error").modal("show");
-    //                        } else if (response == "0") {
-    //                            $("#fs-mess-wl-success").text("");
-    //                            $("#fs-mess-wl-error").text("ERROR");
-    //                            $("#fs-mess-body-wl").text("Error, Fail add wishlist.");
-    //                            $("#fs-wl-ajax-error").modal("show");
-    //                        }
-    //                    }
-    //                });
-    //            } else {
-    //                $(this).removeClass("fs-heart-color");
-    //                $.ajax({
-    //                    url: "user/ajax/deleteWishListt.html",
-    //                    method: "POST",
-    //                    data: {userID: userID, productID: productID},
-    //                    success: function (response) {
-    //                        if (response == "1") {
-    //                            $("#fs-mess-wl-success").text("");
-    //                            $("#fs-mess-wl-error").text("DELETE");
-    //                            $("#fs-mess-body-wl").text("Delete Wish List success.");
-    //                            $("#fs-wl-ajax-error").modal("show");
-    //                        }
-    //                    }
-    //                });
-    //            }
-    //        } else {
-    //            //Khong có session
-    //            productModal.modal("hide");
-    //            $("#fs-modal-mess").modal("show");
-    //            $(".fs-modal-wl-close").click(function () {
-    //                productModal.modal("show");
-    //            });
-    //            $(".fs-btn-login-wl").click(function () {
-    //                $("#fs-modal-mess").modal("hide");
-    //                productModal.modal("hide");
-    //                window.location = window.location.href;
-    ////                            $("#loginModal").modal("show");
-    //            });
-    //        }
-    //    });
+//        $(".fs-wl-add-detail").click(function () {
+//            var userID = $(this).attr("fs-userID");
+//            var input = $("input[name='emailUser']");
+//            if (input.val() != "") {
+//                //Có session
+//                if (!$(this).hasClass("fs-heart-color")) {
+//                    $(this).addClass("fs-heart-color");
+//                    $.ajax({
+//                        url: "user/ajax/addWishList.html",
+//                        method: "POST",
+//                        data: {userID: userID, productID: productID},
+//                        success: function (response) {
+//                            if (response == "1") {
+//                                $("#fs-mess-wl-error").text("");
+//                                $("#fs-mess-wl-success").text("SUCCESS");
+//                                $("#fs-mess-body-wl").text("Add Wish List success.");
+//                                $("#fs-wl-ajax-error").modal("show");
+//                            } else if (response == "0") {
+//                                $("#fs-mess-wl-success").text("");
+//                                $("#fs-mess-wl-error").text("ERROR");
+//                                $("#fs-mess-body-wl").text("Error, Fail add wishlist.");
+//                                $("#fs-wl-ajax-error").modal("show");
+//                            }
+//                        }
+//                    });
+//                } else {
+//                    $(this).removeClass("fs-heart-color");
+//                    $.ajax({
+//                        url: "user/ajax/deleteWishListt.html",
+//                        method: "POST",
+//                        data: {userID: userID, productID: productID},
+//                        success: function (response) {
+//                            if (response == "1") {
+//                                $("#fs-mess-wl-success").text("");
+//                                $("#fs-mess-wl-error").text("DELETE");
+//                                $("#fs-mess-body-wl").text("Delete Wish List success.");
+//                                $("#fs-wl-ajax-error").modal("show");
+//                            }
+//                        }
+//                    });
+//                }
+//            } else {
+//                //Khong có session
+//                productModal.modal("hide");
+//                $("#fs-modal-mess").modal("show");
+//                $(".fs-modal-wl-close").click(function () {
+//                    productModal.modal("show");
+//                });
+//                $(".fs-btn-login-wl").click(function () {
+//                    $("#fs-modal-mess").modal("hide");
+//                    productModal.modal("hide");
+//                    window.location = window.location.href;
+//    //                            $("#loginModal").modal("show");
+//                });
+//            }
+//        });
     /* MODAL - EVENT CLICK ON COLOR IMG */
     $("div.fs-product-modal-color").on("click", ".fs-product-modal-color-border", function() {
         $(".fs-quantity-in-stock").text("---");
@@ -3391,7 +3391,7 @@ $(document).ready(function() {
                     } else if (response == "3") {
                         PassWrong(pass);
                     } else if (response == "4") {
-                        $("#fs-error-show").text("Fail account wrong!");
+                        $("#fs-error-show").text("Access Denied!");
                     } else {
                         var currentUrl = window.location.href;
                         window.location = currentUrl;
@@ -3406,7 +3406,7 @@ $(document).ready(function() {
     function EmailWrong(email) {
         email = $("#fs-email-login-user").val().trim();
         if ($("#loginModal").modal('show')) {
-            $("#fs-error-show").text("Email is wrong!");
+            $("#fs-error-show").text("Email not matched!");
             $("#fs-email-login-user").focus();
             var div = $("#fs-email-login-user").closest("div.fs-email-user");
             div.removeClass("has-success");
@@ -4298,15 +4298,16 @@ $("#txtbirthday").datepicker({
 
 
     // ADD WISH-LIST: PAGE HOME FEATURED PRODUCTS
-
-    $(".fs-wishlish-add").click(function() {
+$(".fs-wishlish-add").click(function() {
         var userID = $(this).attr("fs-userID");
         var productID = $(this).attr("fs-productID");
         var input = $("input[name='emailUser']");
         if (input.val() != "") {
             //Có session
-            if (!$(this).hasClass("fs-heart-color")) {
-                $(this).addClass("fs-heart-color");
+            //            $(this).addClass("fs-heart-color");
+            
+                
+                
                 $.ajax({
                     url: "user/ajax/addWishList.html",
                     method: "POST",
@@ -4326,28 +4327,15 @@ $("#txtbirthday").datepicker({
                         } else if (response == "0") {
                             swal({
                                 title: "<h1 style='color: #F65D20;' >Error!",
-                                text: "Error, Fail add wishlist",
+                                text: "Error",
                                 timer: 2000,
                                 showConfirmButton: false,
                                 html: true
                             });
-                        }
-                    }
-                });
-            } else {
-                $(this).removeClass("fs-heart-color");
-                $.ajax({
-                    url: "user/ajax/deleteWishListt.html",
-                    method: "POST",
-                    data: {
-                        userID: userID,
-                        productID: productID
-                    },
-                    success: function(response) {
-                        if (response == "1") {
+                        }else if (response == "2") {
                             swal({
-                                title: "<h1 style='color: #ff0000;' >Delete</h1>",
-                                text: "Delete Wish List success.",
+                                title: "<h1 style='color: #F65D20;' >Error!",
+                                text: "This product is available in your wishlist",
                                 timer: 2000,
                                 showConfirmButton: false,
                                 html: true
@@ -4355,18 +4343,19 @@ $("#txtbirthday").datepicker({
                         }
                     }
                 });
-            }
+            
 
         } else {
             //Khong có session
             $("#fs-modal-mess").modal("show");
             $(".fs-btn-login-wl").click(function() {
                 $("#fs-modal-mess").modal("hide");
-                window.location = window.location.href;
-                //                $("#loginModal").modal("show");
+                
+                                $("#loginModal").modal("show");
             });
         }
     });
+    
 
 
     // ADD WISH-LIST: PAGE HOME LATEST PRODUCTS
@@ -4378,8 +4367,8 @@ $("#txtbirthday").datepicker({
         if (input.val() != "") {
             //Có session
             //            $(this).addClass("fs-heart-color");
-            if (!$(this).hasClass("fs-heart-color")) {
-                $(this).addClass("fs-heart-color");
+            
+                
                 $.ajax({
                     url: "user/ajax/addWishList.html",
                     method: "POST",
@@ -4388,6 +4377,7 @@ $("#txtbirthday").datepicker({
                         productID: productID
                     },
                     success: function(response) {
+                        
                         if (response == "1") {
                             swal({
                                 title: "<h1 style='color: #31b131;'>Success</h1>",
@@ -4399,28 +4389,15 @@ $("#txtbirthday").datepicker({
                         } else if (response == "0") {
                             swal({
                                 title: "<h1 style='color: #F65D20;' >Error!",
-                                text: "Error, Fail add wishlist",
+                                text: "Error",
                                 timer: 2000,
                                 showConfirmButton: false,
                                 html: true
                             });
-                        }
-                    }
-                });
-            } else {
-                $(this).removeClass("fs-heart-color");
-                $.ajax({
-                    url: "user/ajax/deleteWishListt.html",
-                    method: "POST",
-                    data: {
-                        userID: userID,
-                        productID: productID
-                    },
-                    success: function(response) {
-                        if (response == "1") {
+                        }else if (response == "2") {
                             swal({
-                                title: "<h1 style='color: #ff0000;' >Delete</h1>",
-                                text: "Delete Wish List success.",
+                                title: "<h1 style='color: #F65D20;' >Error!",
+                                text: "This product is available in your wishlist",
                                 timer: 2000,
                                 showConfirmButton: false,
                                 html: true
@@ -4428,18 +4405,20 @@ $("#txtbirthday").datepicker({
                         }
                     }
                 });
-            }
+            
 
         } else {
             //Khong có session
             $("#fs-modal-mess").modal("show");
             $(".fs-btn-login-wl").click(function() {
                 $("#fs-modal-mess").modal("hide");
-                window.location = window.location.href;
-                //                $("#loginModal").modal("show");
+                
+                                $("#loginModal").modal("show");
             });
         }
     });
+    
+    
 
 
     // ADD WISH-LIST: SUB_CATEGORY

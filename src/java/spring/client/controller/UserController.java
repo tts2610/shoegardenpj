@@ -46,6 +46,7 @@ import spring.entity.Products;
 import spring.entity.UserAddresses;
 
 import spring.entity.Users;
+import spring.entity.WishList;
 
 import spring.functions.SharedFunctions;
 
@@ -312,53 +313,48 @@ public class UserController {
         return "client/pages/my-account";
     }
 
-//    @RequestMapping(value = "wishlist/{userID}")
-//    public String getWishList(ModelMap model, @PathVariable("userID") int userID) {
-//        List<Categories> cateList = productStateLessBean.categoryList();
-//        model.addAttribute("cateList", cateList);
-//        List<WishList> getWishList = usersStateLessBean.getAllWishList(userID);
-//        model.addAttribute("wishList", getWishList);
-//        return "client/pages/wishlist";
-//    }
+    @RequestMapping(value = "wishlist/{userID}")
+    public String getWishList(ModelMap model, @PathVariable("userID") int userID) {
+        List<Brands> cateList = brandsFacade.findAll();
+        model.addAttribute("cateList", cateList);
+        List<WishList> getWishList = usersFacade.getAllWishList(userID);
+        model.addAttribute("wishList", getWishList);
+        return "client/pages/wishlist";
+    }
 //
-//    @ResponseBody
-//    @RequestMapping(value = "ajax/addWishList", method = RequestMethod.POST)
-//    public String addWL(@RequestParam("userID") int userID, @RequestParam("productID") int productID) {
-//        WishList wishList = new WishList();
-//        Users findUserID = usersStateLessBean.getUserByID(userID);
-//        Products findProductID = productStateLessBean.findProductByID(productID);
-//        wishList.setUser(findUserID);
-//        wishList.setProduct(findProductID);
-//        try {
-//            wishList.setCreateDate(new Date());
-//        } catch (Exception ex) {
-//            Logger.getLogger(UserController.class.getName()).log(Level.SEVERE, null, ex);
-//        }
-//        int error = usersStateLessBean.addWishlist(wishList, userID, productID);
-//        if (error == 1) {
-//            return "1"; // thanh cong
-//        } 
-//        else {
-//            return "0"; // loi
-//        }
-//    }
-//    
-//    @ResponseBody
-//    @RequestMapping(value = "ajax/deleteWishList/{wishID}", method = RequestMethod.POST)
-//    public String deleteWL(@PathVariable("wishID") int wishID, ModelMap model){
-//        WishList findwishID = usersStateLessBean.findWishID(wishID);
-//        if(findwishID != null){
-//            usersStateLessBean.deleteWishLish(wishID);
-//        }
-//        return "1";
-//    }
-//    
-//    @ResponseBody
-//    @RequestMapping(value = "ajax/deleteWishListt", method = RequestMethod.POST)
-//    public String deleteWLL(@RequestParam("productID") int productID,@RequestParam("userID") int userID, ModelMap model){
-//            usersStateLessBean.deleteWL(productID, userID);
-//        return "1";
-//    }
+    @ResponseBody
+    @RequestMapping(value = "ajax/addWishList", method = RequestMethod.POST)
+    public String addWL(@RequestParam("userID") int userID, @RequestParam("productID") int productID) {
+        WishList wishList = new WishList();
+        Users findUserID = usersFacade.getUserByID(userID);
+        Products findProductID = productsFacade.findProductByID(productID);
+        wishList.setUser(findUserID);
+        wishList.setProduct(findProductID);
+        try {
+            wishList.setCreateDate(new Date());
+        } catch (Exception ex) {
+            Logger.getLogger(UserController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        int error = usersFacade.addWishlist(wishList, userID, productID);
+        return Integer.toString(error);
+    }
+    
+    @ResponseBody
+    @RequestMapping(value = "ajax/deleteWishList/{wishID}", method = RequestMethod.POST)
+    public String deleteWL(@PathVariable("wishID") int wishID, ModelMap model){
+        WishList findwishID = usersFacade.findWishID(wishID);
+        if(findwishID != null){
+            usersFacade.deleteWishLish(wishID);
+        }
+        return "1";
+    }
+    
+    @ResponseBody
+    @RequestMapping(value = "ajax/deleteWishListt", method = RequestMethod.POST)
+    public String deleteWLL(@RequestParam("productID") int productID,@RequestParam("userID") int userID, ModelMap model){
+            usersFacade.deleteWL(productID, userID);
+        return "1";
+    }
     
 //    private UsersStateLessBeanLocal lookupUsersStateLessBeanLocal() {
 //        try {

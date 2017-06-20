@@ -8,6 +8,7 @@ package spring.ejb;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 import spring.entity.Rating;
 
 /**
@@ -27,6 +28,31 @@ public class RatingFacade extends AbstractFacade<Rating> implements RatingFacade
 
     public RatingFacade() {
         super(Rating.class);
+    }
+
+    @Override
+    public int countUnvarifiedRecord() {
+        Query q = getEntityManager().createNativeQuery("SELECT COUNT(*) FROM rating r where r.status = 0 ");
+        try{
+        return (int) q.getSingleResult();
+        }catch(Exception e){
+            e.printStackTrace();
+            return 0;
+        }
+    }
+
+    @Override
+    public boolean updateStatusRating(int rateID, short status) {
+        Rating targetRating = find(rateID);
+
+        if (targetRating == null) {
+            return false;
+        }
+
+        targetRating.setStatus(status);
+        getEntityManager().merge(targetRating);
+
+        return true;
     }
     
 }

@@ -86,7 +86,7 @@ public class Users implements Serializable {
     private Date registrationDate;
     @Column(name = "status")
     private Short status;
-    @OneToMany(mappedBy = "userID")
+    @OneToMany(mappedBy = "user")
     @JsonManagedReference
     private List<WishList> wishList;
     @JoinColumn(name = "roleID", referencedColumnName = "roleID")

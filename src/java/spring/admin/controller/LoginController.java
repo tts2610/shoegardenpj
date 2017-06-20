@@ -41,6 +41,7 @@ public class LoginController {
     
     @RequestMapping(value = "/admin/login", method = RequestMethod.GET)
     public String login() {
+        
         return "admin/login";
     }
     
@@ -54,6 +55,7 @@ public class LoginController {
             HttpServletRequest request,
             HttpServletResponse response,
             RedirectAttributes redirectAttributes) {
+        
         int error = usersFacade.login(email, sharedFunc.encodePassword(password));
         if (error == 1) {
             session.setAttribute("email", email);

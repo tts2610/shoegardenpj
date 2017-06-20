@@ -23,6 +23,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import spring.ejb.BrandsFacadeLocal;
 import spring.ejb.CategoriesFacadeLocal;
 import spring.ejb.ProductsFacadeLocal;
+import spring.ejb.RatingFacadeLocal;
 import spring.ejb.UsersFacadeLocal;
 import spring.entity.Brands;
 
@@ -34,6 +35,8 @@ import spring.functions.SharedFunctions;
 @Controller
 public class GeneralController {
 
+    RatingFacadeLocal ratingFacade = lookupRatingFacadeLocal();
+
     UsersFacadeLocal usersFacade = lookupUsersFacadeLocal();
 
     BrandsFacadeLocal brandsFacade = lookupBrandsFacadeLocal();
@@ -41,6 +44,8 @@ public class GeneralController {
     CategoriesFacadeLocal categoriesFacade = lookupCategoriesFacadeLocal();
 
     ProductsFacadeLocal productsFacade = lookupProductsFacadeLocal();
+    
+    
 
 //    ProductStateLessBeanLocal productStateLessBean = lookupProductStateLessBeanLocal();
 //    BlogsSBLocal blogsSB = lookupBlogsSBLocal();
@@ -81,6 +86,7 @@ public class GeneralController {
 
     @RequestMapping(value = "/admin/index")
     public String admin(ModelMap model) {
+        
         return "admin/pages/index";
     }
 
@@ -207,6 +213,16 @@ public class GeneralController {
         try {
             Context c = new InitialContext();
             return (UsersFacadeLocal) c.lookup("java:global/ShoeGardenPJ/UsersFacade!spring.ejb.UsersFacadeLocal");
+        } catch (NamingException ne) {
+            Logger.getLogger(getClass().getName()).log(Level.SEVERE, "exception caught", ne);
+            throw new RuntimeException(ne);
+        }
+    }
+
+    private RatingFacadeLocal lookupRatingFacadeLocal() {
+        try {
+            Context c = new InitialContext();
+            return (RatingFacadeLocal) c.lookup("java:global/ShoeGardenPJ/RatingFacade!spring.ejb.RatingFacadeLocal");
         } catch (NamingException ne) {
             Logger.getLogger(getClass().getName()).log(Level.SEVERE, "exception caught", ne);
             throw new RuntimeException(ne);

@@ -3350,7 +3350,7 @@ $(document).ready(function() {
                     } else if (response == "3") {
                         PassWrong(pass);
                     } else if (response == "4") {
-                        $("#fs-error-show").text("Fail account wrong!");
+                        $("#fs-error-show").text("Access Denied!");
                     } else {
                         var currentUrl = window.location.href;
                         window.location = currentUrl;
@@ -3365,7 +3365,7 @@ $(document).ready(function() {
     function EmailWrong(email) {
         email = $("#fs-email-login-user").val().trim();
         if ($("#loginModal").modal('show')) {
-            $("#fs-error-show").text("Email is wrong!");
+            $("#fs-error-show").text("Email not matched!");
             $("#fs-email-login-user").focus();
             var div = $("#fs-email-login-user").closest("div.fs-email-user");
             div.removeClass("has-success");
@@ -3379,7 +3379,7 @@ $(document).ready(function() {
     function PassWrong(password) {
         password = $("#fs-pass-login-user").val().trim();
         if ($("#loginModal").modal('show')) {
-            $("#fs-error-show").text("Password is wrong!");
+            $("#fs-error-show").text("Password not matched!");
             $("#fs-pass-login-user").focus();
             var div = $("#fs-pass-login-user").closest("div.fs-pass-user");
             div.removeClass("has-success");

@@ -8,6 +8,7 @@ package spring.ejb;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.naming.Context;
 import javax.naming.InitialContext;
@@ -18,6 +19,7 @@ import javax.persistence.Query;
 import spring.entity.Products;
 import spring.entity.UserAddresses;
 import spring.entity.Users;
+import spring.entity.WishList;
 
 /**
  *
@@ -26,8 +28,19 @@ import spring.entity.Users;
 @Stateless
 public class UsersFacade extends AbstractFacade<Users> implements UsersFacadeLocal {
 
+    
+
+    @EJB
+    private ProductsFacadeLocal productsFacade;
+    
+    
+
+    
+
     @PersistenceContext(unitName = "ShoeGardenPJPU")
     private EntityManager em;
+    
+    
 
     @Override
     protected EntityManager getEntityManager() {
@@ -200,35 +213,69 @@ public class UsersFacade extends AbstractFacade<Users> implements UsersFacadeLoc
         return q.getResultList();
     }
 
-//    @Override
-//    public int addWishlist(WishList wishList,int userID, int productID) {
-//        int error;
-//        Users findUserID = getUserByID(userID);
-//        Products findProduct = productStateLessBean.findProductByID(productID);
-////        if(findProduct != null){
-////            error = 2; // san pham da co
-////        }else{
-//            try {
-//                wishList.setUser(findUserID);
-//                wishList.setProduct(findProduct);
-//                getEm().persist(wishList);
-//                error = 1; //them thanh cong
-//            } catch (Exception e) {
-//                error = 0; // loi
-//            }
-////        }
-//        return error;
-//        
-//    }
-//
-//    @Override
-//    public List<WishList> getAllWishList(int userID) {
-//        Query q = getEm().createQuery("SELECT w FROM WishList w WHERE w.user.userID = :userID", WishList.class);
-//        q.setParameter("userID", userID);
-//        return q.getResultList();
-//    }
-//
-//    
+    @Override
+    public int addWishlist(WishList wishList,int userID, int productID) {
+        int error;
+        Users findUserID = getUserByID(userID);
+        Products findProduct = productsFacade.findProductByID(productID);
+        if(findWishProductID(productID, userID)!=null){
+            error = 2; // san pham da co
+        }else{
+            try {
+                wishList.setUser(findUserID);
+                wishList.setProduct(findProduct);
+                getEntityManager().persist(wishList);
+                error = 1; //them thanh cong
+            } catch (Exception e) {
+                e.printStackTrace();
+                error = 0; // loi
+            }
+        }
+        return error;
+        
+    }
+
+    @Override
+    public List<WishList> getAllWishList(int userID) {
+        Query q = getEntityManager().createQuery("SELECT w FROM WishList w WHERE w.user.userID = :userID", WishList.class);
+        q.setParameter("userID", userID);
+        return q.getResultList();
+    }
+
+    
+    
+
+    @Override
+    public void deleteWishLish(int wishID) {
+        WishList findwishID = findWishID(wishID);
+        findwishID.getWishID();
+        getEntityManager().remove(findwishID);
+    }
+
+    @Override
+    public WishList findWishID(int wishID) {
+        return getEntityManager().find(WishList.class, wishID);
+    }
+
+    @Override
+    public WishList findWishProductID(int productID, int userID) {
+        Query q = getEntityManager().createQuery("SELECT wf FROM WishList wf WHERE wf.product.productID = :productID AND wf.user.userID = :userID", WishList.class);
+        q.setParameter("productID", productID);
+        q.setParameter("userID", userID);
+        try {
+            return (WishList) q.getSingleResult();
+        } catch (Exception e) {
+            return null;
+        }
+    }
+
+    @Override
+    public void deleteWL(int productID, int userID) {
+        WishList wll = findWishProductID(productID, userID);
+        getEntityManager().remove(wll);
+    }
+
+    
 //    private ProductStateLessBeanLocal lookupProductStateLessBeanLocal() {
 //        try {
 //            Context c = new InitialContext();
@@ -238,6 +285,9 @@ public class UsersFacade extends AbstractFacade<Users> implements UsersFacadeLoc
 //            throw new RuntimeException(ne);
 //        }
 //    }
+
+    
+    
 
     
     

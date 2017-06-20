@@ -593,7 +593,7 @@ public class ProductController {
         newRating.setUser(usersFacade.getUserByID(userID));
         newRating.setRating(ratingVal);
         newRating.setRatingDate(new Date());
-//        newRating.setStatus(review);
+        newRating.setReview(review);
         newRating.setStatus((short) 0);
 
         if (productsFacade.createNewProductRating(productID, newRating)) {

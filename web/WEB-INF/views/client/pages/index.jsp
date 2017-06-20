@@ -321,7 +321,7 @@
     <!--Modal thong bao dang nhap-->
     <div id="fs-modal-mess" class="modal fade fs-modal-wl-mess" tabindex="-1" role="dialog" aria-labelledby="messlodalLabel" aria-hidden="true" data-backdrop="static" data-keyboard="false">
         <div class="modal-content fs-modal-wl-content">
-            <p class="text-center fs-wl-text"><b>If you want add WishList - You should Login</b></p>
+            <p class="text-center fs-wl-text"><b>Wishlist is available for members only</b></p>
             <div class="modal-header">
                 <a class="close fs-modal-wl-close" data-dismiss="modal" aria-label="Close">x</a>
             </div>

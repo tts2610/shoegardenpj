@@ -57,6 +57,7 @@
 
         <!--Bootstrap X-EditAble-->
         <link href="assets/admin/dist/css/bootstrap-editable.css" rel="stylesheet" type="text/css"/>
+        <link href="assets/css/fontawesome-stars-o.css" rel="stylesheet" type="text/css"/>
     </head>
 
     <body>        
@@ -120,7 +121,7 @@
         <!-- Page-Level Demo Scripts - Tables - Use for reference -->
         <script src="assets/admin/dist/js/fashion_shop_custom_JS.js" type="text/javascript"></script>
 
-
+        <script src="assets/js/jquery.barrating.min.js" type="text/javascript"></script>
     </body>
 
 </html>

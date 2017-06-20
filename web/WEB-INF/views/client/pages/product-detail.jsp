@@ -217,6 +217,7 @@
                                 <div class="sep"></div>
                                 <div class="fs-display-none" id="fs-number-of-rating" fs-nort="${numberOfRating}"></div>
                                 <c:forEach items="${targetProduct.ratingList}" var="review" varStatus="no">
+                                    <c:if test="${review.status==1}">
                                     <p>
                                         <b>${review.user.firstName} ${review.user.lastName}</b>, <fmt:formatDate value="${review.ratingDate}" pattern="dd MMM, yyyy" timeZone="US"/>
                                     </p>
@@ -231,6 +232,7 @@
                                         <option value="5">5</option>
                                     </select>
                                     <div class="sep"></div>
+                                    </c:if>
                                 </c:forEach>
                                 <c:choose>
                                     <c:when test="${sessionScope.findUsersID != null && checkUserRated == 1}">

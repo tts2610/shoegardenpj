@@ -4,8 +4,25 @@
     Author     : vinh.an
 --%>
 
+<%@page import="spring.ejb.RatingFacadeLocal"%>
+<%@page import="javax.naming.InitialContext"%>
+<%@page import="javax.naming.Context"%>
+<%@page import="spring.ejb.RatingFacade"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!-- Navigation -->
+<%!
+    RatingFacadeLocal ratingFacade;
+%>
+<%
+try {
+Context context = new InitialContext();
+ratingFacade = (RatingFacadeLocal) context.lookup("java:global/ShoeGardenPJ/RatingFacade!spring.ejb.RatingFacadeLocal");
+}
+catch(Exception e) {
+    e.printStackTrace();
+}
+%>
 <nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0">
     <div class="navbar-header">
         <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
@@ -142,33 +159,20 @@
                 </li>
 
                 <li>
-                    <a href="#"><i class="fa fa-thumb-tack fa-fw"></i> Blog Category<span class="fa arrow"></span></a>
+                    <a href="#"><i class="fa fa-thumb-tack fa-fw"></i> Comments&nbsp;
+                        <%if(ratingFacade.countUnvarifiedRecord()!=0){%>
+                        <span class="badge" style="background: red"><%=ratingFacade.countUnvarifiedRecord()%></span>
+                        <%}%>
+                        <span class="fa arrow"></span></a>
                     <ul class="nav nav-second-level">
                         <li>
-                            <a href="admin/blog/category.html"><i class="fa fa-list" aria-hidden="true"></i> List</a>
-                        </li>
-                        <li>
-                            <a href="admin/blog/category/create.html"><i class="fa fa-plus" aria-hidden="true"></i> New</a>
+                            <a href="admin/comments/list.html"><i class="fa fa-list" aria-hidden="true"></i> List</a>
                         </li>
                     </ul>
                     <!-- /.nav-second-level -->
                 </li>
 
-                <li>
-                    <a href="#"><i class="fa fa-newspaper-o fa-fw"></i> Blog<span class="fa arrow"></span></a>
-                    <ul class="nav nav-second-level">
-                        <li>
-                            <a href="admin/blog/list.html"><i class="fa fa-list" aria-hidden="true"></i> List</a>
-                        </li>
-                        <li>
-                            <a href="admin/blog/create.html"><i class="fa fa-plus" aria-hidden="true"></i> New</a>
-                        </li>
-                        <li>
-                            <a href="admin/blog/listchartblog.html"><i class="fa fa-list" aria-hidden="true"></i> Statistics</a>
-                        </li>
-                    </ul>
-                    <!-- /.nav-second-level -->
-                </li>
+                
 
             </ul>
         </div>

@@ -3927,7 +3927,38 @@ $(document).ready(function () {
             }
         });
     });
+    
+    $(".fs-select-comment-status").on("change", function () {
+        var status = $(this).val();
+        var rateID = $(this).attr("fs-comment");
 
+        $.ajax({
+            url: "admin/comments/updateStatus.html",
+            method: "POST",
+            data: {rateID: rateID, status: status},
+            success: function (response) {
+//                swal("UPDATE SUCCESS", response, "success");
+                swal({
+                    type: "success",
+                    title: "UPDATE SUCCESS",
+                    text: response,
+                    timer: 2000,
+                    showConfirmButton: false
+                });
+
+            }
+        });
+    });
+
+
+
+    var currentRating = $('#fs-rating-star-result').data('current-rating');
+    $('#fs-rating-star-result').barrating({
+        theme: 'fontawesome-stars-o',
+        initialRating: currentRating,
+        showSelectedRating: false,
+        readonly: true
+    });
 //    document.getElementById('fs-status-1').onclick = function(){
 //    swal("Good job!", "You clicked the button!", "success");
 //};

@@ -438,6 +438,7 @@ public class ProductsFacade extends AbstractFacade<Products> implements Products
             getEntityManager().flush();
             return true;
         } catch (Exception e) {
+            e.printStackTrace();
             return false;
         }
     }

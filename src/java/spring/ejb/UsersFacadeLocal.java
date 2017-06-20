@@ -9,6 +9,7 @@ import java.util.List;
 import javax.ejb.Local;
 import spring.entity.UserAddresses;
 import spring.entity.Users;
+import spring.entity.WishList;
 
 /**
  *
@@ -41,16 +42,18 @@ public interface UsersFacadeLocal {
     
     List<Users> getAllEmail();
     
-//    int addWishlist(WishList wishList, int userID, int productID);
-//    
-//    List<WishList> getAllWishList(int userID);
-//    
-//    void deleteWishLish(int wishID);
-//    
-//    WishList findWishID(int wishID);
-// 
-//    WishList findWishProductID (int productID, int userID);
-//    
-//    void deleteWL(int productID, int userID);
+    int addWishlist(WishList wishList, int userID, int productID);
+    
+    List<WishList> getAllWishList(int userID);
+    
+    void deleteWishLish(int wishID);
+    
+    WishList findWishID(int wishID);
+ 
+    WishList findWishProductID (int productID, int userID);
+    
+    void deleteWL(int productID, int userID);
+    
+    
     
 }

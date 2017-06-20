@@ -39,6 +39,7 @@ public class LoginInterceptor extends HandlerInterceptorAdapter {
         String base = uri.substring(ctx.length());
         session.setAttribute("request_url", base);
        
+       
 
         if (session.getAttribute("email") != null) {
             return true; //Cho vào

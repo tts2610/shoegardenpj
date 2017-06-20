@@ -5,19 +5,26 @@
  */
 package spring.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import java.io.Serializable;
+import java.util.Date;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
+import org.springframework.format.annotation.DateTimeFormat;
 
 /**
  *
@@ -35,16 +42,34 @@ public class WishList implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
-    @NotNull
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "wishID")
     private Integer wishID;
-    @Size(max = 10)
-    @Column(name = "createDate")
-    private String createDate;
-    @JoinColumn(name = "userID", referencedColumnName = "userID")
+    @DateTimeFormat(pattern = "dd/MM/yyyy")
+    @Temporal(TemporalType.DATE)
+    private Date createDate;
     @ManyToOne
-    private Users userID;
+    @JoinColumn(name = "userID")
+    @JsonBackReference
+    private Users user;
+    
+    @ManyToOne
+    @JoinColumn(name = "productID")
+    @JsonBackReference
+    private Products product;
 
+    public Products getProduct() {
+        return product;
+    }
+
+    public void setProduct(Products product) {
+        this.product = product;
+    }
+
+    
+    
+    
+    
     public WishList() {
     }
 
@@ -60,20 +85,20 @@ public class WishList implements Serializable {
         this.wishID = wishID;
     }
 
-    public String getCreateDate() {
+    public Date getCreateDate() {
         return createDate;
     }
 
-    public void setCreateDate(String createDate) {
+    public void setCreateDate(Date createDate) {
         this.createDate = createDate;
     }
 
-    public Users getUserID() {
-        return userID;
+    public Users getUser() {
+        return user;
     }
 
-    public void setUserID(Users userID) {
-        this.userID = userID;
+    public void setUser(Users userID) {
+        this.user = userID;
     }
 
     @Override
