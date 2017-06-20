@@ -80,7 +80,7 @@ public class LoginController {
         } else if (error == 3) {
             model.addAttribute("error", "<div class=\"alert alert-danger\">FAILED!. Access Denied!</div>");
         } else {
-            model.addAttribute("error", "<div class=\"alert alert-danger\">FAILED!. Password Not Matched!</div>");
+            model.addAttribute("error", "<div class=\"alert alert-danger\">FAILED!. Password Not Matched</div>");
         }
         return "admin/login";
     }
