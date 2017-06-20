@@ -5,7 +5,8 @@
             <button type="button" class="close fs-modal-close" data-dismiss="modal" aria-hidden="true">
                 <i class="fa fa-times"></i>
             </button>
-            <div class="row">
+            <div class="row-product">
+                
                 <div class="col-md-5 col-sm-6" id="fs-product-modal-slide-img">
                     <div class="owl-carousel sync1 fs-main-product-img">
 
@@ -85,6 +86,7 @@
                         <button class="fs-modal-btn-addtobag">Add to Bag</button>
                         <!--</form>-->
                         <a class="fs-product-modal-link-to-detail" href="#">Go to Details</a>
+                        <div class="space20"></div>
                     </div>
                 </div>
             </div>

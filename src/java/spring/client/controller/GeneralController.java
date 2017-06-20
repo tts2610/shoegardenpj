@@ -41,16 +41,10 @@ public class GeneralController {
     CategoriesFacadeLocal categoriesFacade = lookupCategoriesFacadeLocal();
 
     ProductsFacadeLocal productsFacade = lookupProductsFacadeLocal();
-    
-    
-    
 
 //    ProductStateLessBeanLocal productStateLessBean = lookupProductStateLessBeanLocal();
 //    BlogsSBLocal blogsSB = lookupBlogsSBLocal();
 //    UsersStateLessBeanLocal usersStateLessBean = lookupUsersStateLessBeanLocal();
-    
-    
-    
     @Autowired
     SharedFunctions sharedFunc;
 
@@ -64,10 +58,10 @@ public class GeneralController {
         }
         List<Object> bestSellerList = productsFacade.getTop3ProductBestSeller();
         List<Products> mostViewList = productsFacade.getTop3ProductMostViewed();
-        
+
         List<Object[]> productTopRateList = productsFacade.getProductTop3Rated();
         List<Object[]> newTopRateList = new ArrayList<>();
-        
+
         for (Object[] rate : productTopRateList) {
             int productID = (int) rate[0];
             Products product = productsFacade.findProductByID(productID);
@@ -75,7 +69,7 @@ public class GeneralController {
             Object[] newObj = new Object[]{product, avgRating};
             newTopRateList.add(newObj);
         }
-        
+
         model.addAttribute("braList", cateList);
         model.addAttribute("latestProducts", productsFacade.productList("client")); //lấy sản phẩm mới nhất
         model.addAttribute("bestSellerList", bestSellerList); //lấy sản phẩm bán chạy nhất
@@ -107,6 +101,9 @@ public class GeneralController {
             Users userfindUserID = usersFacade.findUserByEmail(email);
             session.setAttribute("findUsersID", userfindUserID.getUserID());
             session.setAttribute("USfirstname", userfindUserID.getFirstName() + " " + userfindUserID.getLastName());
+            if (userfindUserID.getRoleID().getRoleID() == 1 || userfindUserID.getRoleID().getRoleID() == 2) {
+                session.setAttribute("userRole", "mod");
+            }
 
             if (checkremember != null && checkremember == 1) {
                 Cookie ckEmail = new Cookie("emailU", email);
@@ -125,7 +122,7 @@ public class GeneralController {
             return "3";
         }
     }
-    
+
     @RequestMapping(value = "/logout")
     public String logOut(HttpSession session, HttpServletRequest request, HttpServletResponse response) {
         //Remove Session
@@ -176,7 +173,6 @@ public class GeneralController {
 //            throw new RuntimeException(ne);
 //        }
 //    }
-
     private ProductsFacadeLocal lookupProductsFacadeLocal() {
         try {
             Context c = new InitialContext();
