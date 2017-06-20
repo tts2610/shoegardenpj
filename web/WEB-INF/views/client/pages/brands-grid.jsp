@@ -3,8 +3,11 @@
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <%@taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
-
 <!-- BREADCRUMBS -->
+<jsp:include page="../blocks/breadcrumbs.jsp" flush="true" />
+
+<!--
+ BREADCRUMBS 
 <div class="bcrumbs">
     <div class="container">
         <ul>
@@ -12,7 +15,7 @@
             <li>Brand</li>
         </ul>
     </div>
-</div>
+</div>-->
 
 <!-- SHOP CONTENT -->
 <div class="shop-content" id="fs-shop-content">
@@ -130,11 +133,11 @@
                                                  fs-product="${product.productID}" 
                                                  fs-product-modal-color="${product.productColorListWorking[0].colorID}">
                                             </div>
-                                            <div class="product-overlay">
+<!--                                            <div class="product-overlay">
                                                 <a href="#" class="addcart fa fa-shopping-cart"></a>
-                                                <a href="#" class="compare fa fa-signal"></a>
+                                                <a href="#" class="compare fa fa-retweet"></a>
                                                 <a href="#" class="likeitem fa fa-heart-o"></a>
-                                            </div>
+                                            </div>-->
                                         </div>
                                         <div class="product-info">
                                             <h4 class="product-title">

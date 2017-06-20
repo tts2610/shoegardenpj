@@ -23,7 +23,7 @@
                         </div>
                         <div class="col-sm-6">
                             <img src="assets/images/slides/adidas_alphabounce.jpg" class="girl img-responsive" alt="" />
-<!--                            <img src="assets/images/slides/pricing.png"  class="pricing" alt="" />-->
+                            <!--                            <img src="assets/images/slides/pricing.png"  class="pricing" alt="" />-->
                         </div>
                     </div>
                     <div class="item">
@@ -35,7 +35,7 @@
                         </div>
                         <div class="col-sm-6">
                             <img src="assets/images/slides/air-max-2017-mens-running-shoe.jpg" class="girl img-responsive" alt="" />
-<!--                            <img src="assets/images/slides/pricing.png"  class="pricing" alt="" />-->
+                            <!--                            <img src="assets/images/slides/pricing.png"  class="pricing" alt="" />-->
                         </div>
                     </div>
 
@@ -48,7 +48,7 @@
                         </div>
                         <div class="col-sm-6">
                             <img src="assets/images/slides/vans-era.jpg" class="girl img-responsive" alt="" />
-<!--                            <img src="assets/images/slides/pricing.png" class="pricing" alt="" />-->
+                            <!--                            <img src="assets/images/slides/pricing.png" class="pricing" alt="" />-->
                         </div>
                     </div>
 
@@ -103,8 +103,8 @@
                                          data-toggle="modal" >
                                     </div>
                                     <div class="product-overlay">
-                                        <a href="#" class="addcart fa fa-shopping-cart"></a>
-                                        <a href="#" class="compare fa fa-signal"></a>
+                                        <!--<a href="#" class="addcart fa fa-shopping-cart"></a>-->
+                                        <a href="#" class="compare fa fa-retweet"></a>
                                         <a class="likeitem fa fa-heart-o fs-wishlish-add" 
                                            fs-userID="${sessionScope.findUsersID}" 
                                            fs-productID="${product.productID}" ></a>
@@ -176,7 +176,7 @@
                                          data-toggle="modal" ></div>
                                     <div class="product-overlay">
                                         <a href="#" class="addcart fa fa-shopping-cart"></a>
-                                        <a href="#" class="compare fa fa-signal"></a>
+                                        <a href="#" class="compare fa fa-retweet"></a>
                                         <a class="likeitem fa fa-heart-o fs-wl-add-lsp"
                                            fs-userID="${sessionScope.findUsersID}" fs-productID="${ltp.productID}" ></a>
                                         <input type="hidden" name="emailUser" value="${sessionScope.emailUser}" />
@@ -321,10 +321,10 @@
     <!--Modal thong bao dang nhap-->
     <div id="fs-modal-mess" class="modal fade fs-modal-wl-mess" tabindex="-1" role="dialog" aria-labelledby="messlodalLabel" aria-hidden="true" data-backdrop="static" data-keyboard="false">
         <div class="modal-content fs-modal-wl-content">
-            <p class="text-center fs-wl-text"><b>Wishlist is available for members only</b></p>
-            <div class="modal-header">
-                <a class="close fs-modal-wl-close" data-dismiss="modal" aria-label="Close">x</a>
-            </div>
+            <button type="button" class="close fs-modal-close" data-dismiss="modal" aria-hidden="true">
+                <i class="fa fa-times"></i>
+            </button>
+            <p class="text-center fs-wl-text"><b>Login to add wishlist !</b></p>
             <div class="modal-body fs-modal-wl-body">
                 <a class="btn fs-btn-wl fs-btn-login-wl text-center">Login</a>
             </div>

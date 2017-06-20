@@ -47,7 +47,7 @@ h1,h2,h3,h4,h5,h6 {
 }
 
 p {
-    color: #d9534f;
+    color: #e74c3c;
     font-size: 16px;
     line-height: 22px;
 }
@@ -626,18 +626,18 @@ h5.heading2 span {
 .product-overlay a {
     width: 28px;
     height: 28px;
-    background: #444444;
+    background: #f5f5f5;
     font-size: 14px;
     border-radius: 3px;
     line-height: 28px;
     text-align: center;
-    color: #fff;
+    color: #444;
     display: block;
     margin-top: 5px;
 }
 
 .product-overlay a:hover {
-    background: #32CD32;
+    background: #444;
     color: #fff;
 }
 
@@ -691,35 +691,19 @@ h5.heading2 span {
     padding: 55px 0;
 }
 
-.pi-wrap i {
-    width: 60px;
-    height: 60px;
-    border-radius: 50%;
-    background-color: #EDEDED;
-    transition: all 0.3s ease-out 0s;
-    margin: auto;
-    cursor: pointer;
-    display: inline-block;
-    text-align: center;
-    font-size: 24px;
-    line-height: 60px;
-    color: #333333;
-}
-
-.pi-wrap:hover i {
-    background-color: #000000;
-    color: #fff;
+.pi-wrap i {   
+    color: #e74c3c;
+    padding-right: 25px;
 }
 
 .pi-wrap h4 {
     margin: 0px;
-    padding: 23px 0px 0px;
+    padding: 10px 10px 0px;
     font-family: "Montserrat";
     text-transform: uppercase;
     font-weight: bold;
-    color: #FFF;
-    font-size: 14px;
-    line-height: 20px;
+    color: #444;
+    font-size: 14px;    
     position: relative;
 }
 
@@ -854,6 +838,7 @@ h5.heading2 span {
 
 .space10 {
     margin-bottom: 10px !important;
+    margin-top: -15px;
 }
 
 .space20 {
@@ -1037,7 +1022,7 @@ h5.heading2 span {
 
 .quote-info cite {
     font-size: 14px;
-    color: #d9534f;
+    color: #e74c3c;
     font-style: normal;
 }
 
@@ -1175,7 +1160,7 @@ h5.heading2 span {
 .fw-price {
     font-family: Montserrat;
     font-size: 16px;
-    color: #d9534f;
+    color: #e74c3c;
 }
 
 .ratings span {
@@ -1298,7 +1283,7 @@ footer {
 
 .newsletter button {
     border-radius: 3px;
-    background: #d9534f;
+    background: #e74c3c;
     color: #fff;
     height: 39px;
     line-height: 39px;
@@ -1370,7 +1355,7 @@ footer {
 
 .tb_center ul li {
     float: left;
-    color: #D6644A;
+    color: #e74c3c;
     margin-right: 43px;
     position: relative;
 }
@@ -1387,7 +1372,7 @@ footer {
 }
 
 .tb_center ul li i {
-    color: #D6644A;
+    color: #e74c3c;
     margin-right: 4px;
 }
 
@@ -1503,7 +1488,9 @@ footer {
     padding: 0 20px;
     line-height: 48px;
 }
-
+.topsignal {
+    display: inline-block;
+}
 .topcart {
     display: inline-block;
 }
@@ -1512,7 +1499,7 @@ footer {
     display: inline-block;
 }
 
-.cart-info {
+.cart-info, .compare-info{
     border: solid 1px #666;
     width: 330px;
     background: #fff;
@@ -1529,7 +1516,7 @@ footer {
     overflow-x: hidden !important;
 }
 
-.cart-info:after {
+.cart-info:after,.compare-info:after {
     content: "";
     height: 12px;
     background: #fff;
@@ -1541,19 +1528,19 @@ footer {
     opacity: 0;
 }
 
-.topcart:hover .cart-info {
+.topcart:hover .cart-info, .topsignal:hover .compare-info {
     opacity: 1;
     visibility: visible;
     margin-top: 12px;
     transition: .4s;
 }
 
-.topcart:hover span {
+.topcart:hover span, .topsignal:hover span {
     background: #32CD32;
     color: #fff;
 }
 
-.cart-info small {
+.cart-info small, .compare-info small {
     color: #444;
     font-size: 14px;
     text-transform: none;
@@ -1563,7 +1550,7 @@ footer {
     display: table;
 }
 
-.cart-info small em {
+.cart-info small em, .compare-info small em {
     font-style: normal;
     color: #32CD32;
 }
@@ -1622,12 +1609,12 @@ footer {
 .ci-total {
     font-size: 15px;
     text-transform: none;
-    color: #d9534f;
+    color: #e74c3c;
     margin: -10px 0 15px;
 }
 
 .cart-btn a {
-    background: #d9534f;
+    background: #e74c3c;
     font-size: 11px;
     color: #fff;
     text-transform: none;
@@ -2104,7 +2091,7 @@ footer {
 }
 
 .tpc-info h4 a:hover {
-    color: #D6644A;
+    color: #e74c3c;
 }
 
 .tpc-info p {
@@ -2172,7 +2159,7 @@ footer {
     text-align: center;
     font-size: 38px;
     line-height: 40px;
-    color: #d9534f;
+    color: #e74c3c;
 }
 
 #policy3 .pi-wrap:hover i {
@@ -2380,7 +2367,7 @@ footer {
 
 #home2 .home-carousel .slick-next:hover ,
 #home2 .home-carousel .slick-prev:hover {
-    background: #d9534f;
+    background: #e74c3c;
     transition: .4s;
     visibility: visible;
     color: #fff;
@@ -2711,7 +2698,7 @@ footer {
 }
 
 .filter-wrap .col-md-3 a.active {
-    color: #D6644A;
+    color: #e74c3c;
 }
 
 .pagenav-wrap {
@@ -3084,7 +3071,7 @@ footer {
 
 .ps-price {
     font-size: 16px;
-    color: #d9534f;
+    color: #e74c3c;
     font-family: Montserrat;
     margin: 0 0 10px;
 }
@@ -3135,14 +3122,14 @@ footer {
 }
 
 .share a:hover {
-    background: #d9534f;
-    color: #FFF;
+    background: #e74c3c;
+    color: #fff;
 }
 
 .addtobag {
     height: 31px;
     line-height: 31px;
-    background: #d9534f;
+    background: #e74c3c;
     padding: 0 15px;
     display: inline-block;
     font-family: Montserrat;
@@ -3269,8 +3256,8 @@ footer {
     height: 33px;
     border: none;
     line-height: 33px;
-    background: #d9534f;
-    padding: 0 20px;
+    background: #e74c3c;
+    padding: 0 15px;
     display: inline-block;
     font-family: Montserrat;
     font-size: 11px;
@@ -3289,7 +3276,7 @@ footer {
     height: 33px;
     border: none;
     line-height: 33px;
-    background: #d9534f;
+    background: #e74c3c;
     padding: 0 20px;
     display: inline-block;
     font-family: Montserrat;
@@ -3427,7 +3414,7 @@ footer {
     vertical-align: top;
     font-family: Montserrat;
     font-size: 16px;
-    color: #d9534f;
+    color: #e74c3c;
 }
 
 .shipping-info-wrap h2 {
@@ -3502,7 +3489,7 @@ footer {
 }
 
 .accordion-toggle span {
-/*    width: 40px;*/
+    /*    width: 40px;*/
     height: 40px;
     background: none;
     display: inline-block;
@@ -3724,7 +3711,7 @@ footer {
 }
 
 .new {
-    background: #d9534f;
+    background: #e74c3c;
 }
 
 .offer {
@@ -3773,7 +3760,7 @@ footer {
     line-height: 20px;
     padding: 0px 0px 23px;
     margin: 0px;
-    color: #D6644A;
+    color: #e74c3c;
     font-family: "Montserrat";
     text-transform: uppercase;
 }
@@ -3841,7 +3828,7 @@ footer {
 }
 
 #popup-newsletter .block-content button:hover {
-    background: #D6644A;
+    background: #e74c3c;
 }
 
 .subscribe-bottom span {
@@ -3872,6 +3859,7 @@ button.close {
     position: absolute;
     top: 10px;
     right: 10px;
+    z-index: 1;
 }
 
 .c-text {
@@ -4015,7 +4003,7 @@ button.close {
 }
 
 #header4 .header-xtra span:hover {
-    background: #d9534f !important;
+    background: #e74c3c !important;
     color: #fff;
     transition: .4s;
 }
@@ -4281,12 +4269,12 @@ button.close {
 
 .ui-state-default, .ui-widget-content .ui-state-default {
     border: none;
-    background: #d9534f;
+    background: #e74c3c;
     margin-top: -2px;
 }
 
 .ui-state-default:hover, .ui-widget-content .ui-state-default:hover {
-    background: #d9534f;
+    background: #e74c3c;
 }
 
 .ui-widget-header {
@@ -4369,7 +4357,7 @@ label.css-label {
     color: #fff;
     font-size: 12px;
     padding: 0 7px;
-    background: #d9534f;
+    background: #e74c3c;
     display: inline-block;
     margin-left: 12px;
 }
@@ -5276,12 +5264,12 @@ label.css-label {
     color: #B4B1AB;
     font-family: abel;
     font-size: 48px;
-    margin-top: 115px;
+    margin-top: 80px;
     margin-left: 50px;
 }
 
 .item h1 span {
-    color:#d9534f; 
+    color:#e74c3c; 
 }
 
 .item h2 {
@@ -5289,7 +5277,7 @@ label.css-label {
     font-family: 'Roboto', sans-serif;
     font-size: 28px;
     font-weight: 700;
-    margin-bottom: 22px;
+    margin-bottom: 10px;
     margin-top: 10px;
     margin-left: 50px;
 }
@@ -5303,7 +5291,7 @@ label.css-label {
 }
 
 .get {
-    background: #d9534f;
+    background: #e74c3c;
     border: 0 none;
     border-radius: 0;
     color: #FFFFFF;
@@ -5313,10 +5301,8 @@ label.css-label {
     margin-top: 23px;
 }
 .item button {
-    background: #d9534f;
+    background: #e74c3c;
     margin-left: 50px;
-    border: 2px;
-    border-color: #d9534f;
 }
 
 .item button:hover {

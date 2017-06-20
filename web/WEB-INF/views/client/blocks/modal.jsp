@@ -5,8 +5,7 @@
             <button type="button" class="close fs-modal-close" data-dismiss="modal" aria-hidden="true">
                 <i class="fa fa-times"></i>
             </button>
-            <div class="row-product">
-                
+            <div class="row">                
                 <div class="col-md-5 col-sm-6" id="fs-product-modal-slide-img">
                     <div class="owl-carousel sync1 fs-main-product-img">
 
@@ -74,8 +73,7 @@
                                 <a class="fa fa-heart-o fs-wl-add-detail"
                                    fs-userID="${sessionScope.findUsersID}" ></a>
                                    <input type="hidden" name="emailUser" value="${sessionScope.emailUser}" />
-                                <a href="#" class="fa fa-signal" onclick="return false;"></a>
-                                <a href="#" class="fa fa-envelope-o" onclick="return false;"></a>
+                                <a href="#" class="fa fa-retweet" onclick="return false;"></a>
                             </span>
                             <div class="addthis_native_toolbox"></div>
                         </div>

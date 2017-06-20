@@ -1,9 +1,3 @@
-<%-- 
-    Document   : loginModal
-    Created on : May 6, 2017, 4:02:07 PM
-    Author     : hoang
---%>
-
 <!-- BREADCRUMBS -->
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -152,7 +146,7 @@
                                     </li>
                                 </ul>
                                 <div class="buttons-set text-center">
-                                    <button class="btn-black btn-custom fs-button-create-user" id="fs-button-create-user" type="submit"><span>Create Account</span></button>
+                                    <button class="btn-black fs-button-login-user" id="fs-button-create-user" type="submit"><span>Create Account</span></button>
                                 </div>
                             </form>
                         </div>

@@ -31,7 +31,7 @@
 
                                     <div class="tbr-inner">
                                         <c:if test="${sessionScope.userRole=='mod'}">
-                                            <a href="admin/index.html">Dashboard</a>
+                                            <a href="admin/login.html">Dashboard</a>
                                         </c:if>
                                         <a href="user/myaccount.html">My Account</a>
                                         <a href="user/wishlist/${sessionScope.findUsersID}.html">My Wishlist</a>
@@ -66,6 +66,14 @@
                 </div>
                 <!-- Cart & Search -->
                 <div class="header-xtra pull-right">
+                    <div class="topsignal">
+                        <span><i class="fa fa-retweet"></i></span>
+                        <div id="compare">
+                            <div class="compare-info">
+                                <h3></h3>
+                            </div>
+                        </div>
+                    </div>
                     <div class="topcart">
                         <div id="cart">
 

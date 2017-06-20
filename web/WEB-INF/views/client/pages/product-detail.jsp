@@ -103,7 +103,7 @@
                             <div class="space20"></div>
                             <div class="share">
                                 <span>
-                                    <a href="#" class="compare fa fa-signal"></a>
+                                    <a href="#" class="compare fa fa-retweet"></a>
                                     <a href="#" class="fa fa-heart-o"></a>
                                 </span>
                                 <div class="addthis_native_toolbox"></div>

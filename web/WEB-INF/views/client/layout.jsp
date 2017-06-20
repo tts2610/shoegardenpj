@@ -35,7 +35,7 @@
         <link rel="stylesheet" href="assets/plugin/prettyphoto/css/prettyPhoto.css">  
         <link rel="stylesheet" href="assets/css/style.css">
         <link rel="stylesheet" href="assets/js/jquery-ui-1.12.1/jquery-ui.min.css"/>
-        <link rel="stylesheet" href="assets/css/fashion_shop_custom_CSS.css">
+        <link rel="stylesheet" href="assets/css/shoegarden_custom_CSS.css">
         <link href="assets/css/fontawesome-stars.css" rel="stylesheet" type="text/css"/>
         <link href="assets/css/fontawesome-stars-o.css" rel="stylesheet" type="text/css"/>
         <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
@@ -86,7 +86,7 @@
         <script src="assets/js/main.js"></script>
         <script src="assets/js/bootstrap-notify.js" type="text/javascript"></script>
 
-        <script src="assets/js/fashion_shop_custom_JS.js" type="text/javascript"></script>
+        <script src="assets/js/shoegarden_custom_JS.js" type="text/javascript"></script>
         
     </body>
 </html>

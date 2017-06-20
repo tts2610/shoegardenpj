@@ -1,16 +1,10 @@
-<%-- 
-    Document   : messmodal
-    Created on : May 20, 2017, 6:30:16 PM
-    Author     : hoang
---%>
-
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <div id="fs-modal-mess" class="modal fade fs-modal-wl-mess" tabindex="-1" role="dialog" aria-labelledby="messlodalLabel" aria-hidden="true" data-backdrop="static" data-keyboard="false">
     <div class="modal-content fs-modal-wl-content">
-        <p class="text-center fs-wl-text"><b>Wishlist is available for members only</b></p>
-        <div class="modal-header">
-            <a class="close fs-modal-wl-close" data-dismiss="modal" aria-label="Close">x</a>
-        </div>
+        <button type="button" class="close fs-modal-close" data-dismiss="modal" aria-hidden="true">
+            <i class="fa fa-times"></i>
+        </button>
+        <p class="text-center fs-wl-text"><b>Login to add wishlist !</b></p>
         <div class="modal-body fs-modal-wl-body">
             <a class="btn fs-btn-wl fs-btn-login-wl text-center">Login</a>
         </div>

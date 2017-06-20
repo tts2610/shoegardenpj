@@ -31,8 +31,8 @@
         <!-- Custom CSS -->
         <link href="assets/admin/dist/css/sb-admin-2.css" rel="stylesheet">
 
-        <!-- Custom FASHION SHOP CSS -->
-        <link href="assets/admin/dist/css/fashion_shop_custom_CSS.css" rel="stylesheet" type="text/css"/>
+        <!-- Custom SHOP CSS -->
+        <link href="assets/admin/dist/css/shoegarden_custom_CSS.css" rel="stylesheet" type="text/css"/>
 
         <!-- JQUERY UI CSS -->
         <link href="assets/js/jquery-ui-1.12.1/jquery-ui.min.css" rel="stylesheet" type="text/css"/>
@@ -119,7 +119,7 @@
         <script src="assets/admin/vendor/flot/jquery.flot.axislabels.js"></script>
         
         <!-- Page-Level Demo Scripts - Tables - Use for reference -->
-        <script src="assets/admin/dist/js/fashion_shop_custom_JS.js" type="text/javascript"></script>
+        <script src="assets/admin/dist/js/shoegarden_custom_JS.js" type="text/javascript"></script>
 
         <script src="assets/js/jquery.barrating.min.js" type="text/javascript"></script>
     </body>
