@@ -127,7 +127,7 @@ a.fs-product-modal-link-to-detail{
     border-radius: 3px;
     color: #fff;
     text-transform: uppercase;
-    margin: 8px 0 0;
+    margin: 15px 0;
 }
 
 .fs-modal-btn-addtobag:hover {
@@ -136,7 +136,7 @@ a.fs-product-modal-link-to-detail{
 
 .modal-ku {
     width: 900px !important;
-    margin: 60px auto;
+    margin: auto;
 }
 
 .overlay-rmore {
