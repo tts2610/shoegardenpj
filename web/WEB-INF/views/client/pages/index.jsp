@@ -112,7 +112,7 @@
                                 </div>
                                 <div class="product-info">
                                     <h4 class="product-title">
-                                        <a href="${product.productID}-${product.productColorListWorking[0].colorID}-${product.productName}.html">
+                                        <a href="${product.productID}-${product.productColorListWorking[0].colorID}.html">
                                             ${product.productName}
                                         </a>
                                     </h4>
@@ -182,7 +182,7 @@
                                 </div>
                                 <div class="product-info">
                                     <h4 class="product-title">
-                                        <a href="${ltp.productID}-${ltp.productColorListWorking[0].colorID}-${ltp.productName}.html">
+                                        <a href="${ltp.productID}-${ltp.productColorListWorking[0].colorID}.html">
                                             ${ltp.productName}
                                         </a>
                                     </h4>
@@ -247,7 +247,7 @@
                                     </div>
                                     <div class="fw-info">
                                         <h4>
-                                            <a href="${prod[0]}-${prod[5]}-${prod[2]}.html">
+                                            <a href="${prod[0]}-${prod[5]}.html">
                                                 ${prod[1]}
                                             </a>
                                         </h4>
@@ -269,7 +269,7 @@
                                     </div>
                                     <div class="fw-info">
                                         <h4>
-                                            <a href="${prod.productID}-${prod.productColorListWorking[0].colorID}-${prod.productName}.html">
+                                            <a href="${prod.productID}-${prod.productColorListWorking[0].colorID}.html">
                                                 ${prod.productName}
                                             </a>
                                         </h4>
@@ -292,7 +292,7 @@
                                     </div>
                                     <div class="fw-info">
                                         <h4>
-                                            <a href="${prod[0].productID}-${prod[0].productColorListWorking[0].colorID}-${prod[0].productName}.html">
+                                            <a href="${prod[0].productID}-${prod[0].productColorListWorking[0].colorID}.html">
                                                 ${prod[0].productName}
                                             </a>
                                         </h4>

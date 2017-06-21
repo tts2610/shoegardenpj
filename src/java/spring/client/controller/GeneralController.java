@@ -135,6 +135,7 @@ public class GeneralController {
         session.removeAttribute("emailUser");
         session.removeAttribute("findUsersID");
         session.removeAttribute("USfirstname");
+        session.removeAttribute("userRole");
 
         //Remove cookie
         for (Cookie ck : request.getCookies()) {
