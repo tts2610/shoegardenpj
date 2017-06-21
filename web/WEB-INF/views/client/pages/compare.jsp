@@ -16,13 +16,13 @@
         <div class="container">
             <div class="row">
                 <div class="col-md-12 col-sm-12">
-                    <form method="GET" action="compare/deleteAll.html">
-                        <button type="submit" style="margin-left: 20px;" class="btn-black pull-right" onclick="return confirm('Are you sure to clear all?');">Clear all</button>
+                    <form method="GET">
+                        <button id="comparedeleteall" type="submit" style="margin-left: 20px;" class="btn-black pull-right" onclick="return confirm('Are you sure to clear all?');">Clear all</button>
                         <a href="index.html" class="btn-black pull-right">Back to shopping</a>
-                    </form
+                    </form>
                 </div>
             </div>
-        </div>
+        
         <section class="cd-products-comparison-table">
             <div class="cd-products-table">
                 <div class="features">
@@ -38,19 +38,19 @@
                 <div class="cd-products-wrapper">
                     <ul class="cd-products-columns">
 
-                        <c:forEach items="${compareList}" var="item">
+                        <c:forEach items="${sessionScope.compareList}" var="item">
                             <li class="product" id="fs-compare-del-${item.productID}">
                                 <div class="top-info">
                                     <a class="fs-compare-del" fs-compare-del-id="${item.productID}"><span style="font-size: 40px;text-align: center;">&times;</span></a>
                                     <div class="compare-img">
                                         <img src="assets/images/products/${item.urlImg}" alt="product image" style="max-height: 100px;">
                                     </div>                            
-                                    <h3>${item.productName}</h3>
+                                    <h4>${item.productName}</h4>
                                 </div> <!-- .top-info -->
 
                                 <ul class="cd-features-list">
                                     <li>${item.price}</li>
-                                    <li>${item.productDiscount}</li>
+                                    <li>${item.discountByProduct}</li>
                                     <li><fmt:formatDate pattern="dd/MM/yyyy" value="${item.postedDate}"/></li>
                                     <li>${item.productViews}</li>
                                 </ul>
@@ -67,6 +67,7 @@
             </div> <!-- .cd-products-table -->
         </section> <!-- .cd-products-comparison-table -->
     </div>
+</div>
 </c:if>
 
 <!-- MODAL -->

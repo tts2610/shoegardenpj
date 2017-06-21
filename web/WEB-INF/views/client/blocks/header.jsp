@@ -67,7 +67,7 @@
                 <!-- Cart & Search -->
                 <div class="header-xtra pull-right">
                     <div class="topsignal">
-                        <span><i class="fa fa-retweet"></i></span>
+                        <span><i class="fa fa-bar-chart"></i></span>
                         <div id="compare">
                             <div class="compare-info">
                                 <h3></h3>

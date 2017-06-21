@@ -133,11 +133,12 @@
                                                  fs-product="${product.productID}" 
                                                  fs-product-modal-color="${product.productColorListWorking[0].colorID}">
                                             </div>
-<!--                                            <div class="product-overlay">
-                                                <a href="#" class="addcart fa fa-shopping-cart"></a>
-                                                <a href="#" class="compare fa fa-retweet"></a>
-                                                <a href="#" class="likeitem fa fa-heart-o"></a>
-                                            </div>-->
+                                            <div class="product-overlay">
+                                                <a class="fa fa-bar-chart fs-cp-bra" fs-productID="${product.productID}"></a>
+                                                <a class="likeitem fa fa-heart-o fs-wl-add-bra"
+                                                   fs-userID="${sessionScope.findUsersID}" 
+                                           fs-productID="${product.productID}" ></a>
+                                            </div>
                                         </div>
                                         <div class="product-info">
                                             <h4 class="product-title">

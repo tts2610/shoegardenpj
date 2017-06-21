@@ -73,7 +73,7 @@
                                 <a class="fa fa-heart-o fs-wl-add-detail"
                                    fs-userID="${sessionScope.findUsersID}" ></a>
                                    <input type="hidden" name="emailUser" value="${sessionScope.emailUser}" />
-                                <a href="#" class="fa fa-retweet" onclick="return false;"></a>
+                                <a class="fa fa-bar-chart fs-compare-detail"></a>
                             </span>
                             <div class="addthis_native_toolbox"></div>
                         </div>

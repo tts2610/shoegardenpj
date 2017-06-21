@@ -123,6 +123,105 @@ public class ProductController {
         model.addAttribute("braList", cateList);
         return "client/pages/brands-grid";
     }
+    @RequestMapping(value = "/comparelist")
+    public String compareNavigate(){
+        return "client/pages/compare";
+    }
+    @ResponseBody
+    @RequestMapping(value = "ajax/compare", method = RequestMethod.POST)
+    public String comparelist(HttpServletRequest request, ModelMap model,
+            @RequestParam("proID") Integer proID) {
+        String error = "1";
+        HttpSession session = request.getSession();
+        List<Products> slist = (List<Products>) session.getAttribute("compareList");
+        Products p = productsFacade.findProductByID(proID);
+        if(slist==null){
+            slist = new ArrayList<>();
+            slist.add(p);
+        }else{
+            if(slist.contains(p)){
+                error = "2";
+            }else{
+                slist.add(p);
+            }
+        }
+        session.setAttribute("compareList", slist);
+        return error;
+    }
+    
+    @ResponseBody
+    @RequestMapping(value = "ajax/comparedelete", method = RequestMethod.POST)
+    public String comparedelete(HttpServletRequest request, ModelMap model,
+            @RequestParam("proID") Integer proID) {
+        String error = "1";
+        HttpSession session = request.getSession();
+        List<Products> slist = (List<Products>) session.getAttribute("compareList");
+        Products p = productsFacade.findProductByID(proID);
+        slist.remove(p);
+        
+        session.setAttribute("compareList", slist);
+        return error;
+    }
+    @ResponseBody
+    @RequestMapping(value = "compare/deleteAll", method = RequestMethod.GET)
+    public String comparedeleteall(HttpServletRequest request) {
+        String error = "1";
+        HttpSession session = request.getSession();
+        List<Products> slist = (List<Products>) session.getAttribute("compareList");
+        slist.clear();
+        
+        session.setAttribute("compareList", slist);
+        return error;
+    }
+    @ResponseBody
+    @RequestMapping(value = "ajax/comparelist", method = RequestMethod.GET)
+    public String compare(HttpServletRequest request) {
+        String str_cart_detail = "";
+        String str_cart_big = "";
+        String str_cart_button = "";
+        String str_subtotal = "";
+        
+        int cartSize = 0;
+        HttpSession session = request.getSession();
+        List<Products> slist = (List<Products>) session.getAttribute("compareList");
+        if (slist==null) {
+            
+            cartSize = 0;
+        } else {
+            
+            cartSize = slist.size();
+            str_cart_button = "<div class=\"cart-btn\">\n"
+                    + "                                <a href=\"comparelist.html\">VIEW COMPARE LIST</a>\n"
+                    
+                    + "                            </div>";
+            
+            for (Products p : slist) {
+                str_cart_detail += "<div class=\"ci-item\">\n"
+                        + "        <img src=\"assets/images/products/" + p.getUrlImg() + "\" width=\"90\" alt=\"\"/>\n"
+                        + "        <div class=\"ci-item-info\">\n"
+                        + "            <h5>\n"
+                        + "                <a style=\"font-weight: 700;\" href=\"" + p.getProductID() + "-" + p.getProductColorsList().get(0).getColorID() + "-" + p.getProductName() + ".html\">\n"
+                        + "                    " + p.getProductName() + "\n"
+                        + "                </a>\n"
+                        + "            </h5>\n"
+                        + "            <p>Posted Date: &nbsp $" + p.getPostedDate() + "</p>\n"
+                        + "            <p>Price: &nbsp $" + String.format( "%.2f", p.getPrice() ) + "</p>\n"
+                           
+                        + "        </div>\n"
+                        + "    </div>";
+            }
+        }
+        //"
+        str_cart_big = 
+                
+                "<small>You have <em class=\"highlight\">" + cartSize + " item(s)</em> in your compare table</small>\n"
+                + str_cart_detail
+                + str_subtotal
+                + str_cart_button;
+
+        return str_cart_big;
+    }
+    
 
     @RequestMapping(value = "/{brandName:[A-Za-z0-9- ]+}/{catID:[0-9]+}-{catName:[A-Za-z0-9- ]+}")
     public String subCategoryList(ModelMap model,
@@ -624,7 +723,7 @@ public class ProductController {
 
         for (Products p : productList) {
             result += "<li class=\"fs-search-result\">\n"
-                    + "     <a href=\"" + p.getProductID()+ "-" + p.getProductColorListWorking().get(0).getColorID() + "-" + p.getProductName()+ ".html\">"
+                    + "     <a href=\"" + p.getProductID()+ "-" + p.getProductColorListWorking().get(0).getColorID()+ ".html\">"
                     + "         "+ p.getProductName() +""
                     + "     </a>\n"
                     + "</li>";
