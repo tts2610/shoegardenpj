@@ -62,7 +62,7 @@ public class OrderStateLessBean implements OrderStateLessBeanLocal {
     @Override
     public List<Orders> getAllOrderByUserID(int userID) {
         try {
-            Query q = getEntityManager().createQuery("SELECT o FROM Orders o WHERE o.user.userID = :userID ORDER BY o.ordersDate DESC", Orders.class);
+            Query q = getEntityManager().createQuery("SELECT o FROM Orders o WHERE o.userID.userID = :userID ORDER BY o.ordersDate DESC", Orders.class);
             q.setParameter("userID", userID);
             return q.getResultList();
         } catch (Exception e) {
@@ -73,7 +73,7 @@ public class OrderStateLessBean implements OrderStateLessBeanLocal {
     @Override
     public List<Orders> getAllOrderByUserIDAndStatus(int userID, int status) {
         try {
-            Query q = getEntityManager().createQuery("SELECT o FROM Orders o WHERE o.user.userID = :userID AND o.status = :status ORDER BY o.ordersDate DESC", Orders.class);
+            Query q = getEntityManager().createQuery("SELECT o FROM Orders o WHERE o.userID.userID = :userID AND o.status = :status ORDER BY o.ordersDate DESC", Orders.class);
             q.setParameter("userID", userID);
             q.setParameter("status", status);
             return q.getResultList();
@@ -314,6 +314,7 @@ public class OrderStateLessBean implements OrderStateLessBeanLocal {
             Query q = getEntityManager().createQuery("SELECT FUNCTION('YEAR',o.ordersDate) FROM Orders o GROUP BY FUNCTION('YEAR',o.ordersDate) ORDER BY FUNCTION('YEAR',o.ordersDate) DESC", Orders.class);
             return q.getResultList();
         } catch (Exception e) {
+            e.printStackTrace();
             return null;
         }
     }
@@ -345,10 +346,13 @@ public class OrderStateLessBean implements OrderStateLessBeanLocal {
     @Override
     public List<Integer> getAllMonthOrderedByYear(int year) {
         try {
+            
             Query q = getEntityManager().createQuery("SELECT FUNCTION('MONTH',o.ordersDate) FROM Orders o WHERE FUNCTION('YEAR',o.ordersDate) = FUNCTION('YEAR',:year) GROUP BY FUNCTION('MONTH',o.ordersDate)", Orders.class);
             q.setParameter("year", String.valueOf(year) + "-05-15");
             return q.getResultList();
         } catch (Exception e) {
+            
+            e.printStackTrace();
             return null;
         }
     }
@@ -395,7 +399,7 @@ public class OrderStateLessBean implements OrderStateLessBeanLocal {
     @Override
     public Integer countAllUsersByRole() {
         try {
-            Query u = getEntityManager().createQuery("SELECT COUNT(u.userID) FROM Users u WHERE u.role.roleID = :roleID AND u.status = :status", Users.class);
+            Query u = getEntityManager().createQuery("SELECT COUNT(u.userID) FROM Users u WHERE u.roleID.roleID = :roleID AND u.status = :status", Users.class);
             u.setParameter("roleID", 3);
             u.setParameter("status", 1);
             return Integer.parseInt(u.getSingleResult().toString());

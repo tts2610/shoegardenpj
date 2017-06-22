@@ -315,7 +315,7 @@
                                             </div>
                                             <div class="product-info">
                                                 <h4 class="product-title">
-                                                    <a href="${prod.productID}-${prod.productColorListWorking[0].colorID}-${prod.productName}.html">
+                                                    <a href="${prod.productID}-${prod.productColorListWorking[0].colorID}.html">
                                                         ${prod.productName}
                                                     </a>
                                                 </h4>

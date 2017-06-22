@@ -56,21 +56,21 @@
         <div class="col-sm-6" style="height: 50px;"></div>
         <div class="col-sm-6" style="height: 50px;"></div>
         <div class="col-sm-6 text-center">
-            <label><span style="font-weight: 900;">TOTAL QUANTITY ORDERED BY CATEGORY</span></label>
+            <label><span style="font-weight: 900;">TOTAL QUANTITY ORDERED BY BRAND</span></label>
             <div id="donut-chart-category" ></div>
         </div>
         <div class="col-sm-6 text-center">
-            <label><span style="font-weight: 900;">TOTAL QUANTITY ORDERED BY SUB-CATEGORY</span></label>
+            <label><span style="font-weight: 900;">TOTAL QUANTITY ORDERED BY CATEGORY</span></label>
             <div id="donut-chart-subcategory" ></div>
         </div>
         <div class="col-sm-6" style="height: 50px;"></div>
         <div class="col-sm-6" style="height: 50px;"></div>
         <div class="col-sm-6 text-center">
-            <label><span style="font-weight: 900;">TOTAL REVENUE ORDERED BY CATEGORY</span></label>
+            <label><span style="font-weight: 900;">TOTAL REVENUE ORDERED BY BRAND</span></label>
             <div id="donut-chart-category-money" ></div>
         </div>
         <div class="col-sm-6 text-center">
-            <label><span style="font-weight: 900;">TOTAL REVENUE ORDERED BY SUB-CATEGORY</span></label>
+            <label><span style="font-weight: 900;">TOTAL REVENUE ORDERED BY CATEGORY</span></label>
             <div id="donut-chart-subcategory-money" ></div>
         </div>
         <div class="col-sm-6" style="height: 50px;"></div>

@@ -113,28 +113,28 @@ public class Orders implements Serializable {
 //        }
 //        for (OrdersDetail orderDetail : orderDetailList) {
 //            if (orderDetail.getStatus() != 1) {
-//                total += orderDetail.getTotalPrice();
+//                total += orderDetail.getSubTotal();
 //            }
 //        }
 //        return (total * (voucherDiscount/100));
 //    } 
+    
+    public float getPaymentTotal(){
+        float total = 0;
+        for (OrdersDetail orderDetail : orderDetailList) {
+            if (orderDetail.getStatus() != 1) {
+                total += orderDetail.getSubTotal();
+            }
+        }
+        return total;
+    }
 //    
-//    public float getPaymentTotal(){
-//        float total = 0;
-//        for (OrdersDetail orderDetail : orderDetailList) {
-//            if (orderDetail.getStatus() != 1) {
-//                total += orderDetail.getSubTotal();
-//            }
-//        }
-//        return (total - getOrderDiscountPrice());
-//    }
-//    
-//    public OrdersDetail getOrderDetailForOrderHistoryPage(){
-//        if (!orderDetailList.isEmpty()) {
-//            return orderDetailList.get(0);
-//        }
-//        return null;
-//    }
+    public OrdersDetail getOrderDetailForOrderHistoryPage(){
+        if (!orderDetailList.isEmpty()) {
+            return orderDetailList.get(0);
+        }
+        return null;
+    }
     
     public float getTotal(){
         float total = 0;
