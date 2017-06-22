@@ -138,11 +138,12 @@
                                                 <a class="likeitem fa fa-heart-o fs-wl-add-bra"
                                                    fs-userID="${sessionScope.findUsersID}" 
                                            fs-productID="${product.productID}" ></a>
+                                           <input type="hidden" name="emailUser" value="${sessionScope.emailUser}" />
                                             </div>
                                         </div>
                                         <div class="product-info">
                                             <h4 class="product-title">
-                                                <a href="${product.productID}-${product.productColorListWorking[0].colorID}-${product.productName}.html">
+                                                <a href="${product.productID}-${product.productColorListWorking[0].colorID}.html">
                                                     ${product.productName}
                                                 </a>
                                             </h4>
@@ -222,3 +223,4 @@
 
 <!-- MODAL -->
 <jsp:include page="../blocks/modal.jsp" flush="true" />
+<jsp:include page="../blocks/messmodal.jsp" flush="true"/>

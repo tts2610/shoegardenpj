@@ -103,8 +103,10 @@
                             <div class="space20"></div>
                             <div class="share">
                                 <span>
-                                    <a href="#" class="compare fa fa-retweet"></a>
-                                    <a href="#" class="fa fa-heart-o"></a>
+                                    <a class="fa fa-bar-chart" id="fs-product-detail-compare" fs-productID="${targetProduct.productID}"></a>
+                                    <a class="likeitem fa fa-heart-o fs-product-detail-wl" id="fs-product-detail-wl" fs-userID="${sessionScope.findUsersID}" 
+                                           fs-productID="${targetProduct.productID}"></a>
+                                    <input type="hidden" name="emailUser" value="${sessionScope.emailUser}" />
                                 </span>
                                 <div class="addthis_native_toolbox"></div>
                             </div>
@@ -360,7 +362,9 @@
 
 <!-- BREADCRUMBS -->
 
-<jsp:include page="../blocks/modal.jsp" flush="true"/>
+<!-- MODAL -->
+<jsp:include page="../blocks/modal.jsp" flush="true" />
+<jsp:include page="../blocks/messmodal.jsp" flush="true"/>
 <script type="text/javascript">
     var productObj = {
         productID: '${targetProduct.productID}',
