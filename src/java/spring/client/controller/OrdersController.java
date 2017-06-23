@@ -383,7 +383,7 @@ public class OrdersController {
                         + "        <img src=\"assets/images/products/" + cartLineInfo.getProduct().getUrlImg() + "\" width=\"90\" alt=\"\"/>\n"
                         + "        <div class=\"ci-item-info\">\n"
                         + "            <h5>\n"
-                        + "                <a style=\"font-weight: 700;\" href=\"" + cartLineInfo.getProduct().getProductID() + "-" + cartLineInfo.getProduct().getProductColorsList().get(0).getColorID() + "-" + cartLineInfo.getProduct().getProductName() + ".html\">\n"
+                        + "                <a style=\"font-weight: 700;\" href=\"" + cartLineInfo.getProduct().getProductID() + "-" + cartLineInfo.getProduct().getProductColorsList().get(0).getColorID() + ".html\">\n"
                         + "                    " + cartLineInfo.getProduct().getProductName() + "\n"
                         + "                </a>\n"
                         + "            </h5>\n"
