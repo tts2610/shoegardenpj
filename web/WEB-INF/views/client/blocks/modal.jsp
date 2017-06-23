@@ -23,7 +23,7 @@
                             <h3 class="fs-product-name"></h3>
                             <span class="product-price">
 <!--                            <div class="ps-price fs-product-price"></div>-->
-                            <small class="cutprice" style="display: inline"></small>&nbsp;<div class="ps-price fs-product-price" style="display: inline"></div>
+                            <small class="cutprice" style="display: inline"></small>&nbsp;<div class="ps-price fs-product-price" style="display: inline"></div>&nbsp;<div class="ps-price fs-product-discount" style="display: inline"></div>
                             </span>
                         </div>
 

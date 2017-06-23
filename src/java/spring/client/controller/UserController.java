@@ -95,7 +95,7 @@ public class UserController {
             @RequestParam("email") String email, @RequestParam("password") String password,
             @RequestParam("firstName") String firstName, @RequestParam("lastName") String lastName,
             @RequestParam("gender") short gender, @RequestParam("birthday") String birthday,
-            @RequestParam(value = "upImage", required = false) MultipartFile image,
+            
             @RequestParam(value = "phoneNumber", required = false) String phoneNumber,
             @RequestParam(value = "address", required = false) String address,
             RedirectAttributes redirectAttributes,
@@ -270,7 +270,7 @@ public class UserController {
     @RequestMapping(value = "account-information/{userID}", method = RequestMethod.POST)
     public String accountinfo(@PathVariable("userID") int userID,
             @ModelAttribute("updateUser") Users updateUser,
-            RedirectAttributes redirectAttributes, @RequestParam("upImage") MultipartFile image) {
+            RedirectAttributes redirectAttributes, HttpSession session) {
         Users oldUser = usersFacade.getUserByID(userID); // thong tin user chua chinh sua
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyyMMdd_HH_mm_ss");
         
@@ -294,6 +294,16 @@ public class UserController {
             DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
             Date date = afterUpdateUser.getBirthday();
             String formattedDate = dateFormat.format(date);
+            
+            //save session
+            session.setAttribute("emailUser", updateUser.getEmail());
+            
+            Users userfindUserID = usersFacade.findUserByEmail(updateUser.getEmail());
+            session.setAttribute("findUsersID", userfindUserID.getUserID());
+            session.setAttribute("USfirstname", userfindUserID.getFirstName() + " " + userfindUserID.getLastName());
+            
+            
+            
             redirectAttributes.addFlashAttribute("formattedDate", formattedDate);
             redirectAttributes.addFlashAttribute("updateUser", afterUpdateUser);
             redirectAttributes.addFlashAttribute("error", "<div class=\"col-md-12  alert alert-success\">Update Account Successfully!</div>");

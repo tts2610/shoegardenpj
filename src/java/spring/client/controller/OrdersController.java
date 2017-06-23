@@ -308,7 +308,7 @@ public class OrdersController {
         model.addAttribute("orderList", orderStateLessBean.getAllOrderByUserID(usersFacade.findUserByEmail(email).getUserID()));
         //2 dòng này thêm để render ra menu chính
         List<Brands> cateList = brandsFacade.findAll();
-        model.addAttribute("cateList", cateList);
+        model.addAttribute("braList", cateList);
         return "client/pages/order-history";
     }
 
@@ -336,7 +336,7 @@ public class OrdersController {
         model.addAttribute("order", orderStateLessBean.getOrderByID(orderID));
         //2 dòng này thêm để render ra menu chính
         List<Brands> cateList = brandsFacade.findAll();
-        model.addAttribute("cateList", cateList);
+        model.addAttribute("braList", cateList);
         return "client/pages/order-history-detail";
     }
 

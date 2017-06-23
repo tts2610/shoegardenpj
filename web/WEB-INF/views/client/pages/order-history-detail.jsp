@@ -66,15 +66,15 @@
                                 <c:forEach items="${orderdetailList}" var="orderdetail">
                                     <tr>
                                         <td class="text-center fs-valign-middle">
-                                            <a href="${orderdetail.getProduct().productID}-${orderdetail.getProduct().productColorList[0].colorID}-${orderdetail.getProduct().productNameNA}.html">
-                                                ${orderdetail.getProduct().productName}
+                                            <a href="${orderdetail.productID.productID}-${orderdetail.productID.productColorsList[0].colorID}.html">
+                                                ${orderdetail.productID.productName}
                                             </a>
                                         </td>
-                                        <td class="text-center fs-valign-middle">${orderdetail.getSize().getColor().getColor()}</td>
-                                        <td class="text-center fs-valign-middle" style="width: 50px;">${orderdetail.getSize().productSize}</td>
+                                        <td class="text-center fs-valign-middle">${orderdetail.sizeID.colorID.color}</td>
+                                        <td class="text-center fs-valign-middle" style="width: 50px;">${orderdetail.sizeID.size}</td>
                                         <td class="text-center fs-valign-middle">${orderdetail.quantity}</td>
                                         <td class="text-center fs-valign-middle">$${orderdetail.price}</td>
-                                        <td class="text-center fs-valign-middle">-$${orderdetail.product.getProductDiscountPrice()}</td>
+                                        <td class="text-center fs-valign-middle">${orderdetail.productID.discountByProduct}%</td>
                                         <td class="text-center fs-valign-middle">$${orderdetail.getSubTotal()}</td>
                                         <td class="text-center fs-valign-middle">
                                             <c:choose>
@@ -87,19 +87,7 @@
                                 </c:forEach>
                             </tbody>
                             <tfoot>
-                                <tr>
-                                    <td colspan="6" style="padding-left: 770px;"><b>Order Discount</b></td>
-                                    <td align="center">
-                                        <c:set value="${order}" var="or"/>
-                                        <%
-                                            Orders orders = (Orders) pageContext.getAttribute("or");
-                                            DecimalFormat df = new DecimalFormat("#.#");
-                                            df.setRoundingMode(RoundingMode.FLOOR);
-                                        %>
-                                        -$<%= df.format(orders.getOrderDiscountPrice())%>
-                                    </td>
-                                    <td></td>
-                                </tr>
+                                
                                 <tr>
                                     <td colspan="6" style="padding-left: 770px;"><b>Order Total</b></td>
                                     <td align="center">$${order.getPaymentTotal()}</td>

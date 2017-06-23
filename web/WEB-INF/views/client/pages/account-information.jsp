@@ -63,11 +63,6 @@
                                         <p class="help-block" style="color: red; text-align: center; margin-top: -10px;" id="fs-birthday-update-user-error"></p>
                                     </div>
                                 </li>
-                                <li class="col-md-12 col-sm-12">
-                                    <label>Avatar <em>*</em></label>
-                                    <input type="file" id="fs-upImage-acc" name="upImage" class="input-text fs-login-file-input">
-                                    <p class="help-block" style="color: red; text-align: center; margin-top: -10px;" id="fs-upfile-update-user-error"></p>
-                                </li>
                             </ul>
                             <div class="buttons-set">
                                 <button class="btn-black fs-button-update-user" type="submit"><span>Update Account</span></button>

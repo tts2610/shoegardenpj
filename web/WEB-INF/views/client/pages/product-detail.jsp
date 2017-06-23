@@ -41,9 +41,8 @@
                                 <c:if test="${targetProduct.productWithDiscount!=targetProduct.price}">
                                 <div class="ps-price">
                                     <h1 style="color: #888888;text-decoration: line-through; display: inline">$${targetProduct.price} </h1>
-                                    <h1 style="display: inline">
-                                    <fmt:formatNumber type="number" maxFractionDigits="2" value="${targetProduct.productWithDiscount}" var="prodPrice"/>
-                                    ${fn:replace(prodPrice, ",", ".")}</h1>
+                                    <h1 style="display: inline"><fmt:formatNumber type="number" maxFractionDigits="2" value="${targetProduct.productWithDiscount}" var="prodPrice"/>$${fn:replace(prodPrice, ",", ".")}</h1>
+                                    &nbsp;&nbsp;<h1 style="display: inline">(-${targetProduct.discountByProduct}%)</h1>
                                 </div>
                                 </c:if>
                                 <c:if test="${targetProduct.productWithDiscount==targetProduct.price}">

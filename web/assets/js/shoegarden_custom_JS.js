@@ -283,7 +283,8 @@ $(document).ready(function () {
                 if (response.productWithDiscount != response.price) {
                     $("small.cutprice").text("$" + response.price + ".00");
                     $("div.fs-product-price").text(" $" + parseFloat(Math.round(response.productWithDiscount * 100) / 100).toFixed(2));
-
+                    $("div.fs-product-discount").text("(-" + response.discountByProduct + "%)");
+                    
                 } else {
                     $("small.cutprice").text("");
                     $("div.fs-product-price").text("$" + response.price + ".00");
@@ -3860,9 +3861,8 @@ $(document).ready(function () {
     }
     ;
 
-    $("body").on("click", "#fs-button-create-user", function (e) {
+    $("#fs-button-create-user").click(function (e) {
         e.preventDefault();
-        console.log("123");
         var email = $("#fs-create-email").val().trim();
         var password = $("#password").val().trim();
         var repassword = $("#Repassword").val().trim();
@@ -3873,14 +3873,13 @@ $(document).ready(function () {
         var phone = $("#fs-create-phone").val().trim();
         var address = $("#fs-create-address").val().trim();
         var formData = new FormData();
-        var mfile = $("#fs-upImage")[0].files[0];
+        
         formData.append("email", email);
         formData.append("password", password);
         formData.append("firstName", firstname);
         formData.append("lastName", lastname);
         formData.append("gender", gender);
         formData.append("birthday", birthday);
-        formData.append("upImage", mfile);
         formData.append("phoneNumber", phone);
         formData.append("address", address);
 
@@ -3904,17 +3903,14 @@ $(document).ready(function () {
             return false;
         }
 
-        if (phone != "") {
+        
             if (!checkPhone(phone)) {
                 return false;
             }
             if (!checkAddress(address)) {
                 return false;
             }
-        } else {
-            $("#fs-phone-create-user-error").text("");
-            $("#fs-address-create-user-error").text("");
-        }
+       
 
         //        else {
         $.ajax({
@@ -3929,7 +3925,7 @@ $(document).ready(function () {
             success: function (response) {
                 console.log(response);
                 if (response == "2") {
-                    $("#fs-error-show-register").html("<div class=\"alert alert-danger\">FAILED!. Account is exists!</div>");
+                    $("#fs-error-show-register").html("<div class=\"alert alert-danger\">FAILED! Duplicate Email!</div>");
                 } else if (response == "0") {
                     $("#fs-error-show-register").html("<div class=\"alert alert-danger\">FAILED!. Error was happened!!</div>");
                 } else {
