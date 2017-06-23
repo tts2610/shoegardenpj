@@ -5,7 +5,7 @@
     <div class="container">        
         <div class="row">
             <div class="col-md-3 widget-footer col-sm-3">                
-                <img src="assets/images/basic/logo_shoe_lite.png"  class="img-responsive space10" alt=""/>
+                <img src="assets/images/basic/logo_shoe_lite.png"  class="img-responsive space10-footer" alt=""/>
                 <p>Shoe Garden is your place for athletic and casual shoes for the whole family from hundreds of name brands. Shoe Garden is a leading family footwear destination for the famous brands you know and love.</p>
             </div>
             <div class="col-md-3 col-sm-3 widget-footer">

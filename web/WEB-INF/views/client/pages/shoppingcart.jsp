@@ -36,7 +36,7 @@
                                     <td><img src="assets/images/products/${item.getProduct().getUrlImg()}" class="img-responsive" alt=""/></td>
                                     <td>
                                         <h4>
-                                            <a href="${item.getProduct().productID}-${item.getProduct().productColorsList[0].colorID}-${item.getProduct().productName}.html">
+                                            <a href="${item.getProduct().productID}-${item.getProduct().productColorsList[0].colorID}.html">
                                                 ${item.getProduct().productName}
                                             </a>
                                         </h4>

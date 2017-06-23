@@ -123,6 +123,9 @@ public class ProductController {
         model.addAttribute("braList", cateList);
         return "client/pages/brands-grid";
     }
+    
+    
+    //Compare
     @RequestMapping(value = "/comparelist")
     public String compareNavigate(){
         return "client/pages/compare";
@@ -200,7 +203,7 @@ public class ProductController {
                         + "        <img src=\"assets/images/products/" + p.getUrlImg() + "\" width=\"90\" alt=\"\"/>\n"
                         + "        <div class=\"ci-item-info\">\n"
                         + "            <h5>\n"
-                        + "                <a style=\"font-weight: 700;\" href=\"" + p.getProductID() + "-" + p.getProductColorsList().get(0).getColorID() + "-" + p.getProductName() + ".html\">\n"
+                        + "                <a style=\"font-weight: 700;\" href=\"" + p.getProductID() + "-" + p.getProductColorsList().get(0).getColorID()  + ".html\">\n"
                         + "                    " + p.getProductName() + "\n"
                         + "                </a>\n"
                         + "            </h5>\n"
@@ -223,6 +226,8 @@ public class ProductController {
     }
     
 
+    
+    
     @RequestMapping(value = "/{brandName:[A-Za-z0-9- ]+}/{catID:[0-9]+}-{catName:[A-Za-z0-9- ]+}")
     public String subCategoryList(ModelMap model,
             @PathVariable("catID") Integer subCateID) {

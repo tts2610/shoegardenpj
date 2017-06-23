@@ -1177,10 +1177,13 @@ footer {
     background: #1e1e1e;
     padding: 15px 0 15px;
 }
-
+.space10-footer {
+    margin-bottom: 10px !important;
+    margin-top: -15px;
+}
 .widget-footer h5 {
     font-family: Montserrat;
-    font-size: 14px;
+    font-size: 16px;
     font-weight: bold;
     text-transform: uppercase;
     color: #eee;
@@ -2775,7 +2778,7 @@ footer {
 .bcrumbs {
     background: #f8f8f8;
     padding: 17px 0;
-    margin-bottom: 45px;
+    margin-bottom: 5px;
 }
 
 .page_header {
