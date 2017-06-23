@@ -18,15 +18,14 @@
 
                 <div class="side-widget">
                     <c:if test="${productsList != null}">
-                        <h3><span>Shop by</span></h3>
                         <h5>Price Options ($)</h5>
                         <div class="col-xs-12"  style="padding: 0">
                             <div class="form-group col-xs-6" style="padding: 0; padding-right: 10px;">
-                                <label for="fs-price-from">From:</label>
+                                <label for="fs-price-from"><h5>From:</h5></label>
                                 <input type="number" fs-subCategory="${subCateID}" class="form-control fs-product-price-filter" id="fs-price-from">
                             </div>
                             <div class="form-group col-xs-6"  style="padding: 0">
-                                <label for="fs-price-to">To:</label>
+                                <label for="fs-price-to"><h5>To:</h5></label>
                                 <input type="number" class="form-control fs-product-price-filter" id="fs-price-to">
                             </div>
                         </div>

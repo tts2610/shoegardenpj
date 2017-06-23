@@ -26,7 +26,6 @@
 
                 <div class="side-widget">
                     <c:if test="${productsList != null}">
-                        <h3><span>Shop by</span></h3>
                         <h5>Price Options ($)</h5>
                         <div class="col-xs-12"  style="padding: 0">
                             <div class="form-group col-xs-6" style="padding: 0; padding-right: 10px;">

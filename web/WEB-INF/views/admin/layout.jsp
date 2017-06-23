@@ -12,6 +12,7 @@
         <meta name="author" content="">
         <base href="${pageContext.servletContext.contextPath}/" />
         <title>ShoeGarden-Admin</title>
+        <link rel="shortcut icon" type="image/png" href="assets/images/basic/rsleaf-icon.png"/>
 
         <!-- Bootstrap Core CSS -->
         <link href="assets/admin/vendor/bootstrap/css/bootstrap.css" rel="stylesheet">
@@ -22,11 +23,11 @@
         <!-- MetisMenu CSS -->
         <link href="assets/admin/vendor/metisMenu/metisMenu.min.css" rel="stylesheet">
 
-<!--         DataTables CSS 
--->        <link href="assets/admin/vendor/datatables-plugins/dataTables.bootstrap.css" rel="stylesheet"><!--
-
-         DataTables Responsive CSS 
--->        <link href="assets/admin/vendor/datatables-responsive/dataTables.responsive.css" rel="stylesheet">
+        <!--         DataTables CSS 
+        -->        <link href="assets/admin/vendor/datatables-plugins/dataTables.bootstrap.css" rel="stylesheet"><!--
+        
+                 DataTables Responsive CSS 
+        -->        <link href="assets/admin/vendor/datatables-responsive/dataTables.responsive.css" rel="stylesheet">
 
         <!-- Custom CSS -->
         <link href="assets/admin/dist/css/sb-admin-2.css" rel="stylesheet">
@@ -77,8 +78,8 @@
         <!-- jQuery -->
         <script src="assets/admin/vendor/jquery/jquery.min.js"></script>
         <script src="assets/admin/vendor/jquery/jQuery.jTableCheckbox.js"></script>
-<!--        <script src="assets/admin/vendor/jquery/jQuery.jTableCheckbox.min.js"></script>-->
-        
+        <!--        <script src="assets/admin/vendor/jquery/jQuery.jTableCheckbox.min.js"></script>-->
+
 
         <script src="assets/js/jquery-ui-1.12.1/jquery-ui.min.js" type="text/javascript"></script>
         <!-- For morris.js chart -->
@@ -117,7 +118,7 @@
         <script src="assets/admin/vendor/flot/jquery.flot.time.js"></script>
         <script src="assets/admin/vendor/flot-tooltip/jquery.flot.tooltip.min.js"></script>
         <script src="assets/admin/vendor/flot/jquery.flot.axislabels.js"></script>
-        
+
         <!-- Page-Level Demo Scripts - Tables - Use for reference -->
         <script src="assets/admin/dist/js/shoegarden_custom_JS.js" type="text/javascript"></script>
 

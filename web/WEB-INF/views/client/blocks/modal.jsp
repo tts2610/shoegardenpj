@@ -5,16 +5,18 @@
             <button type="button" class="close fs-modal-close" data-dismiss="modal" aria-hidden="true">
                 <i class="fa fa-times"></i>
             </button>
-            <div class="row">                
+            <div class="row">
+<!--                <div class="col-md-1 col-sm-6">
+                    <div class="owl-carousel sync2 fs-main-product-img">
+                    </div>  
+                </div>-->
                 <div class="col-md-5 col-sm-6" id="fs-product-modal-slide-img">
                     <div class="owl-carousel sync1 fs-main-product-img">
-
-                    </div>
-
+                    </div>  
                     <div class="owl-carousel sync2 fs-main-product-img">
-
-                    </div>
+                    </div>  
                 </div>
+                
                 <div class="col-md-7 col-sm-6">
                     <div class="product-single fs-modal-product">
                         <div id="error-cart-product-modal">
@@ -22,8 +24,8 @@
                         <div class="ps-header">
                             <h3 class="fs-product-name"></h3>
                             <span class="product-price">
-<!--                            <div class="ps-price fs-product-price"></div>-->
-                            <small class="cutprice" style="display: inline"></small>&nbsp;<div class="ps-price fs-product-price" style="display: inline"></div>&nbsp;<div class="ps-price fs-product-discount" style="display: inline"></div>
+                                <!--                            <div class="ps-price fs-product-price"></div>-->
+                                <small class="cutprice" style="display: inline"></small>&nbsp;<div class="ps-price fs-product-price" style="display: inline"></div>&nbsp;<div class="ps-price fs-product-discount" style="display: inline"></div>
                             </span>
                         </div>
 
@@ -72,7 +74,7 @@
                             <span>
                                 <a class="fa fa-heart-o fs-wl-add-detail"
                                    fs-userID="${sessionScope.findUsersID}" ></a>
-                                   <input type="hidden" name="emailUser" value="${sessionScope.emailUser}" />
+                                <input type="hidden" name="emailUser" value="${sessionScope.emailUser}" />
                                 <a class="fa fa-bar-chart fs-compare-detail"></a>
                             </span>
                             <div class="addthis_native_toolbox"></div>

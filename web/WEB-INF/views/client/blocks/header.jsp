@@ -1,6 +1,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <jsp:include page="loginModal.jsp"></jsp:include>
+<link rel="shortcut icon" type="image/png" href="../../../../assets/images/basic/rsleaf-icon.png"/>
     <!-- TOPBAR -->
     <div class="top_bar">
         <div class="container">
