@@ -26,7 +26,7 @@
 
                 <div class="row">
 
-                    <form:form id="fs-form-update-discount" name="discount-add-form" method="POST" modelAttribute="discount">
+                    <form:form id="fs-form-update-discount" name="discount-add-form" method="POST" modelAttribute="discounts">
 
                         <fieldset class="form-group" id="fs-fieldset-discount">
 

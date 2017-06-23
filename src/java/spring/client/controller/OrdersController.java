@@ -308,7 +308,7 @@ public class OrdersController {
         model.addAttribute("orderList", orderStateLessBean.getAllOrderByUserID(usersFacade.findUserByEmail(email).getUserID()));
         //2 dòng này thêm để render ra menu chính
         List<Brands> cateList = brandsFacade.findAll();
-        model.addAttribute("cateList", cateList);
+        model.addAttribute("braList", cateList);
         return "client/pages/order-history";
     }
 
@@ -336,7 +336,7 @@ public class OrdersController {
         model.addAttribute("order", orderStateLessBean.getOrderByID(orderID));
         //2 dòng này thêm để render ra menu chính
         List<Brands> cateList = brandsFacade.findAll();
-        model.addAttribute("cateList", cateList);
+        model.addAttribute("braList", cateList);
         return "client/pages/order-history-detail";
     }
 
@@ -383,7 +383,9 @@ public class OrdersController {
                         + "        <img src=\"assets/images/products/" + cartLineInfo.getProduct().getUrlImg() + "\" width=\"90\" alt=\"\"/>\n"
                         + "        <div class=\"ci-item-info\">\n"
                         + "            <h5>\n"
-                        + "                <a style=\"font-weight: 700;\" href=\"" + cartLineInfo.getProduct().getProductID() + "-" + cartLineInfo.getProduct().getProductColorsList().get(0).getColorID()  + ".html\">\n"
+
+                        + "                <a style=\"font-weight: 700;\" href=\"" + cartLineInfo.getProduct().getProductID() + "-" + cartLineInfo.getProduct().getProductColorsList().get(0).getColorID() + ".html\">\n"
+
                         + "                    " + cartLineInfo.getProduct().getProductName() + "\n"
                         + "                </a>\n"
                         + "            </h5>\n"
@@ -397,7 +399,7 @@ public class OrdersController {
                         + "                                        </p>"
                         + "<p>Size: " + cartLineInfo.getSizesByColor().getSize()+ "</p>\n"
                         + " <p>Quantity: &nbsp " + cartLineInfo.getQuantity() + "</p>\n"
-                        + "            <p>Price: &nbsp $" + String.format( "%.2f", cartLineInfo.getSubTotal() ) + "</p>\n"
+                        + "            <p>Price: &nbsp $" + String.format( "%.2f", cartLineInfo.getProduct().getPrice() ) + "</p>\n"
                            
                         + "        </div>\n"
                         + "    </div>";

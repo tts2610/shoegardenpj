@@ -1414,6 +1414,7 @@ $(document).ready(function () {
         var eDate = $("#dateEnd").val();
         
         
+        
         var count = 0;
 
         
@@ -1473,19 +1474,8 @@ $(document).ready(function () {
 //            $("#fs-content-error").text("");
 //        }
         if(count==0){
-            $.ajax({
-                url: "admin/discount/ajax/checkDupDiscount.html",
-                method: "POST",
-                data: {discTitle: title},
-                success: function (response) {
-                    if (response == "1") {
-                        $("#fs-discount-title-error").text("Duplicate Discount Title!, Please change another one!");
-                    } else {
-                        $("#fs-discount-title-error").text("");
-                        $("#fs-form-update-discount").submit();
-                    }
-                }
-            });
+            $("#fs-discount-title-error").text("");
+            $("#fs-form-update-discount").submit();
         }
 		
     });

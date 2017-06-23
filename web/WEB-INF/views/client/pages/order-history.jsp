@@ -85,9 +85,9 @@
                                                 <td align="center">
                                                     <c:choose>
                                                         <c:when test="${order.getOrderDetailForOrderHistoryPage() != null}">
-                                                            ${order.getOrderDetailForOrderHistoryPage().product.productName}
-                                                            &nbsp - &nbsp ${order.getOrderDetailForOrderHistoryPage().size.color.color}
-                                                            &nbsp - &nbsp Size: &nbsp ${order.getOrderDetailForOrderHistoryPage().size.productSize}
+                                                            ${order.getOrderDetailForOrderHistoryPage().productID.productName}
+                                                            &nbsp - &nbsp ${order.getOrderDetailForOrderHistoryPage().sizeID.colorID.color}
+                                                            &nbsp - &nbsp Size: &nbsp ${order.getOrderDetailForOrderHistoryPage().sizeID.size}
                                                         </c:when>
                                                         <c:otherwise><span style="font-weight: 700px;">Your order is empty</span></c:otherwise>
                                                     </c:choose>

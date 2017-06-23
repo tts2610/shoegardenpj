@@ -139,11 +139,11 @@
                                         </div>
                                     </li>
 
-                                    <li class="col-md-12 col-sm-12">
+<!--                                    <li class="col-md-12 col-sm-12">
                                         <label>Avatar <em>*</em></label>
                                         <input type="file" id="fs-upImage" name="upImage" class="input-text fs-login-file-input">
                                         <p class="help-block" style="color: red; text-align: center; margin-top: -10px;" id="fs-upfile-create-user-error"></p>
-                                    </li>
+                                    </li>-->
                                 </ul>
                                 <div class="buttons-set text-center">
                                     <button class="btn-black fs-button-login-user" id="fs-button-create-user" type="submit"><span>Create Account</span></button>

@@ -155,7 +155,7 @@ public class Discount_Countroller {
 
         model.addAttribute("addedProductList", allProductByDiscountID);
         model.addAttribute("productList", uList);
-        model.addAttribute("discount", dc);
+        model.addAttribute("discounts", dc);
         return "admin/pages/discount-update";
     }
 
@@ -163,7 +163,7 @@ public class Discount_Countroller {
     public String discountupdate(HttpServletRequest request,
             ModelMap model,
             @RequestParam MultiValueMap<String, String> allRequestParams,
-            RedirectAttributes flashAttr) throws ParseException {
+            RedirectAttributes flashAttr,@ModelAttribute("discounts") Discounts targetCate) throws ParseException {
 
         List<Products> allProductList = new ArrayList<>();
         List<String> deleteproducts = allRequestParams.get("deletecheck[]");
@@ -179,7 +179,7 @@ public class Discount_Countroller {
         Date dateBeginf = df.parse(dateBegin);
         Date dateEndf = df.parse(dateEnd);
 
-        if (deleteproducts == null || addproducts == null) {
+        if (deleteproducts != null || addproducts != null) {
             Discounts dc = discountsFacade.editOR(new Discounts(Integer.parseInt(id), title, content, dateBeginf, dateEndf, Short.parseShort(discount)));
 
             if (deleteproducts != null) {
@@ -208,11 +208,12 @@ public class Discount_Countroller {
             List<Products> uList = discountDetailsFacade.findListByProductListForUpdate(allProductList, productsFacade.getProductWorkingList("admin"));
             model.addAttribute("addedProductList", pList);
             model.addAttribute("productList", uList);
-            model.addAttribute("discount", dc);
+            model.addAttribute("discounts", dc);
             model.addAttribute("error", "<div class=\"alert alert-success\">\n"
                     + "<strong>UPDATE DISCOUNT SUCCESSFULLY</strong>\n"
                     + "</div>");
         }
+        System.err.println("CONCAC");
         return "admin/pages/discount-update";
     }
 
