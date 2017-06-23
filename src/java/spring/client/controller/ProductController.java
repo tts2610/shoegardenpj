@@ -200,7 +200,7 @@ public class ProductController {
                         + "        <img src=\"assets/images/products/" + p.getUrlImg() + "\" width=\"90\" alt=\"\"/>\n"
                         + "        <div class=\"ci-item-info\">\n"
                         + "            <h5>\n"
-                        + "                <a style=\"font-weight: 700;\" href=\"" + p.getProductID() + "-" + p.getProductColorsList().get(0).getColorID() + "-" + p.getProductName() + ".html\">\n"
+                        + "                <a style=\"font-weight: 700;\" href=\"" + p.getProductID() + "-" + p.getProductColorsList().get(0).getColorID()+ ".html\">\n"
                         + "                    " + p.getProductName() + "\n"
                         + "                </a>\n"
                         + "            </h5>\n"
