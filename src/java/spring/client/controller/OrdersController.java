@@ -397,7 +397,7 @@ public class OrdersController {
                         + "                                        </p>"
                         + "<p>Size: " + cartLineInfo.getSizesByColor().getSize()+ "</p>\n"
                         + " <p>Quantity: &nbsp " + cartLineInfo.getQuantity() + "</p>\n"
-                        + "            <p>Price: &nbsp $" + String.format( "%.2f", cartLineInfo.getSubTotal() ) + "</p>\n"
+                        + "            <p>Price: &nbsp $" + String.format( "%.2f", cartLineInfo.getProduct().getPrice() ) + "</p>\n"
                            
                         + "        </div>\n"
                         + "    </div>";
