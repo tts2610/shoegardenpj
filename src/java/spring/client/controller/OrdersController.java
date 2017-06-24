@@ -133,15 +133,17 @@ public class OrdersController {
 
                 int inCartquantity = 0;
 
+                SizesByColor s = sizesByColorFacade.find(sizeID);
+                
                 //lay so luong trong cart
                 List<CartLineInfo> cli = orderStateFullBean.showCart();
                 for (CartLineInfo cartLineInfo1 : cli) {
-                    if (cartLineInfo1.getSizesByColor().getSizeID() == sizeID && cartLineInfo1.getSizesByColor().getColorID().getColorID() == colorID) {
+                    if (cartLineInfo1.getSizesByColor().getSize().equals(s.getSize()) && cartLineInfo1.getSizesByColor().getColorID().getColorID() == colorID) {
                         inCartquantity = cartLineInfo1.getQuantity();
                     }
                 }
 
-                SizesByColor s = sizesByColorFacade.find(sizeID);
+                
 
                 int quantityInDB = sizesByColorFacade.findSizeByColorBySizeIDAndColorID(Integer.parseInt(s.getSize()), colorID).getQuantity();
                 int realQuantity = quantityInDB - inCartquantity;
