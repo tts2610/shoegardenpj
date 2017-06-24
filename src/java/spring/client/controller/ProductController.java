@@ -35,11 +35,14 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import spring.ejb.BrandsFacadeLocal;
 import spring.ejb.CategoriesFacadeLocal;
+import spring.ejb.OrderStateFullBeanLocal;
 
 import spring.ejb.ProductsFacadeLocal;
+import spring.ejb.SizesByColorFacadeLocal;
 import spring.ejb.UsersFacadeLocal;
 
 import spring.entity.Brands;
+import spring.entity.CartLineInfo;
 import spring.entity.Categories;
 import spring.entity.ProductColors;
 
@@ -50,6 +53,10 @@ import spring.entity.SizesByColor;
 
 @Controller
 public class ProductController {
+
+    SizesByColorFacadeLocal sizesByColorFacade = lookupSizesByColorFacadeLocal();
+
+    OrderStateFullBeanLocal orderStateFullBean = lookupOrderStateFullBeanLocal();
 
     CategoriesFacadeLocal categoriesFacade = lookupCategoriesFacadeLocal();
 
@@ -705,11 +712,31 @@ public class ProductController {
     @ResponseBody
     @RequestMapping(value = "ajax/checkquantity", method = RequestMethod.POST)
     public String checkquantity(
-            @RequestParam("sizeID") Integer sizeID
+            @RequestParam("sizeID") Integer sizeID,@RequestParam("colorID") Integer colorID,HttpSession session
     ) {
-        SizesByColor targetSize = productsFacade.getSizeByID(sizeID);
-
-        return "" + targetSize.getQuantity();
+        int inCartquantity = 0;
+        
+        //lay so luong trong cart
+        List<CartLineInfo> cli = orderStateFullBean.showCart();
+        for (CartLineInfo cartLineInfo : cli) {
+            if(cartLineInfo.getSizesByColor().getSizeID()== sizeID&&cartLineInfo.getSizesByColor().getColorID().getColorID()==colorID){
+                inCartquantity = cartLineInfo.getQuantity();
+            }
+        }
+        
+        SizesByColor s = sizesByColorFacade.find(sizeID);
+        
+        int quantityInDB = sizesByColorFacade.findSizeByColorBySizeIDAndColorID(Integer.parseInt(s.getSize()), colorID).getQuantity();
+        int realQuantity = quantityInDB - inCartquantity;
+        
+        
+        String returnValue = "";
+        
+            
+        returnValue = inCartquantity+"-"+realQuantity+"-"+quantityInDB;
+        
+        
+        return returnValue;
     }
 
     @ResponseBody
@@ -766,6 +793,26 @@ public class ProductController {
         try {
             Context c = new InitialContext();
             return (CategoriesFacadeLocal) c.lookup("java:global/ShoeGardenPJ/CategoriesFacade!spring.ejb.CategoriesFacadeLocal");
+        } catch (NamingException ne) {
+            Logger.getLogger(getClass().getName()).log(Level.SEVERE, "exception caught", ne);
+            throw new RuntimeException(ne);
+        }
+    }
+
+    private OrderStateFullBeanLocal lookupOrderStateFullBeanLocal() {
+        try {
+            Context c = new InitialContext();
+            return (OrderStateFullBeanLocal) c.lookup("java:global/ShoeGardenPJ/OrderStateFullBean!spring.ejb.OrderStateFullBeanLocal");
+        } catch (NamingException ne) {
+            Logger.getLogger(getClass().getName()).log(Level.SEVERE, "exception caught", ne);
+            throw new RuntimeException(ne);
+        }
+    }
+
+    private SizesByColorFacadeLocal lookupSizesByColorFacadeLocal() {
+        try {
+            Context c = new InitialContext();
+            return (SizesByColorFacadeLocal) c.lookup("java:global/ShoeGardenPJ/SizesByColorFacade!spring.ejb.SizesByColorFacadeLocal");
         } catch (NamingException ne) {
             Logger.getLogger(getClass().getName()).log(Level.SEVERE, "exception caught", ne);
             throw new RuntimeException(ne);

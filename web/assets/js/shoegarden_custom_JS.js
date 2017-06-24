@@ -284,7 +284,7 @@ $(document).ready(function () {
                     $("small.cutprice").text("$" + response.price + ".00");
                     $("div.fs-product-price").text(" $" + parseFloat(Math.round(response.productWithDiscount * 100) / 100).toFixed(2));
                     $("div.fs-product-discount").text("(-" + response.discountByProduct + "%)");
-                    
+
                 } else {
                     $("small.cutprice").text("");
                     $("div.fs-product-price").text("$" + response.price + ".00");
@@ -375,7 +375,7 @@ $(document).ready(function () {
             });
         }
     });
-    
+
     $("#fs-product-detail-page").on("click", "#fs-product-detail-wl", function () {
         var userID = $(this).attr("fs-userID");
         var input = $("input[name='emailUser']");
@@ -408,6 +408,64 @@ $(document).ready(function () {
 
             $("#fs-modal-mess").modal("show");
 
+            $(".fs-btn-login-wl").click(function () {
+                $("#fs-modal-mess").modal("hide");
+
+                $("#loginModal").modal("show");
+            });
+        }
+    });
+    
+    $("#fs-product-detail-page").on("click", "#fs-recently-detail-wl", function (){
+        var userID = $(this).attr("fs-userID");
+        var productID = $(this).attr("fs-productID");
+        var input = $("input[name='emailUser']");
+        if (input.val() != "") {
+            //Có session
+            //            $(this).addClass("fs-heart-color");
+
+
+            $.ajax({
+                url: "user/ajax/addWishList.html",
+                method: "POST",
+                data: {
+                    userID: userID,
+                    productID: productID
+                },
+                success: function (response) {
+
+                    if (response == "1") {
+                        swal({
+                            title: "<h1 style='color: #31b131;'>Success</h1>",
+                            text: "Add To Wish List Successfully",
+                            timer: 2000,
+                            showConfirmButton: false,
+                            html: true
+                        });
+                    } else if (response == "0") {
+                        swal({
+                            title: "<h1 style='color: #F65D20;' >Error!",
+                            text: "Error",
+                            timer: 2000,
+                            showConfirmButton: false,
+                            html: true
+                        });
+                    } else if (response == "2") {
+                        swal({
+                            title: "<h1 style='color: #F65D20;' >Error!",
+                            text: "This product is available in your wishlist",
+                            timer: 2000,
+                            showConfirmButton: false,
+                            html: true
+                        });
+                    }
+                }
+            });
+
+
+        } else {
+            //Khong có session
+            $("#fs-modal-mess").modal("show");
             $(".fs-btn-login-wl").click(function () {
                 $("#fs-modal-mess").modal("hide");
 
@@ -456,50 +514,100 @@ $(document).ready(function () {
             }
         });
     });
-    
+
     //PRODUCT DETAIL PAGE-COMPARE
-    $("#fs-product-detail-page").on("click","#fs-product-detail-compare", function () {
-                var productID = $(this).attr("fs-productID");
-                $.ajax({
-                url: "ajax/compare.html",
-                        method: "POST",
-                        data: {
+    $("#fs-product-detail-page").on("click", "#fs-product-detail-compare", function () {
+        var productID = $(this).attr("fs-productID");
+        $.ajax({
+            url: "ajax/compare.html",
+            method: "POST",
+            data: {
 
-                        proID: productID
-                        },
-                        success: function (response) {
-                        if (response == "1") {
-                        $('body,html').animate({
+                proID: productID
+            },
+            success: function (response) {
+                if (response == "1") {
+                    $('body,html').animate({
                         scrollTop: 0
-                        }, 500);
-                                $("#error-product-detail").html("<div class=\"alert alert-success\">\n" +
-                                "<strong>ADD PRODUCT TO COMPARELIST SUCCESSFULLY</strong>\n" +
-                                "</div>");
-                                $.ajax({
-                                url: "ajax/comparelist.html",
-                                        method: "GET",
-                                        dataType: 'html',
-                                        success: function (response) {
-                                        $(".compare-info").html(response).fadeIn(1000);
-                                        }
-                                });
-                        } else if (response == "2") {
-                        $("#error-product-detail").html("<div class=\"alert alert-danger\">\n" +
-                                "<strong>THIS PRODUCT IS AVAILABLE IN YOUR COMPARE LIST</strong>\n" +
-                                "</div>");
-                        } else if (response == "0") {
-                        $("#error-product-detail").html("<div class=\"alert alert-danger\">\n" +
-                                "<strong>ERROR</strong>\n" +
-                                "</div>");
-                        } else {
+                    }, 500);
+                    $("#error-product-detail").html("<div class=\"alert alert-success\">\n" +
+                            "<strong>ADD PRODUCT TO COMPARELIST SUCCESSFULLY</strong>\n" +
+                            "</div>");
+                    $.ajax({
+                        url: "ajax/comparelist.html",
+                        method: "GET",
+                        dataType: 'html',
+                        success: function (response) {
+                            $(".compare-info").html(response).fadeIn(1000);
+                        }
+                    });
+                } else if (response == "2") {
+                    $("#error-product-detail").html("<div class=\"alert alert-danger\">\n" +
+                            "<strong>THIS PRODUCT IS AVAILABLE IN YOUR COMPARE LIST</strong>\n" +
+                            "</div>");
+                } else if (response == "0") {
+                    $("#error-product-detail").html("<div class=\"alert alert-danger\">\n" +
+                            "<strong>ERROR</strong>\n" +
+                            "</div>");
+                } else {
 
-                        }
-                        }
-                });
+                }
+            }
         });
+    });
 
+
+    $("#fs-product-detail-page").on("click", "#fs-product-recently-compare", function () {
+        var productID = $(this).attr("fs-productID");
+        alert('concac');
+        $.ajax({
+            url: "ajax/compare.html",
+            method: "POST",
+            data: {
+
+                proID: productID
+            },
+            success: function (response) {
+
+                if (response == "1") {
+                    swal({
+                        title: "<h1 style='color: #31b131;'>Success</h1>",
+                        text: "Add To Compare List Successfully.",
+                        timer: 2000,
+                        showConfirmButton: false,
+                        html: true
+                    });
+                    $.ajax({
+                        url: "ajax/comparelist.html",
+                        method: "GET",
+                        dataType: 'html',
+                        success: function (response) {
+                            $(".compare-info").html(response).fadeIn(1000);
+                        }
+                    });
+
+                } else if (response == "0") {
+                    swal({
+                        title: "<h1 style='color: #F65D20;' >Error!",
+                        text: "Error",
+                        timer: 2000,
+                        showConfirmButton: false,
+                        html: true
+                    });
+                } else if (response == "2") {
+                    swal({
+                        title: "<h1 style='color: #F65D20;' >Error!",
+                        text: "This product is available in your compare list",
+                        timer: 2000,
+                        showConfirmButton: false,
+                        html: true
+                    });
+                }
+            }
+        });
+    });
     //COMPARE PRODUCT MODAL
-    
+
 
     /* MODAL - EVENT CLICK ON COLOR IMG */
     $("div.fs-product-modal-color").on("click", ".fs-product-modal-color-border", function () {
@@ -677,19 +785,26 @@ $(document).ready(function () {
         }
 
         var sizeID = $(this).attr("fs-size");
+        var colorID = $('.fs-product-selected img').attr("fs-color");
+        
 
         $.ajax({
             url: "ajax/checkquantity.html",
             method: "POST",
             data: {
-                sizeID: sizeID
+                sizeID: sizeID,
+                colorID: colorID
             },
             success: function (response) {
                 if (response != 0) {
+                    var res = response.split("-");
                     $(".fs-input-number, .fs-modal-input-number").removeAttr("disabled");
                     $(".fs-btn-quantity-plus, .fs-modal-btn-quantity-plus").removeAttr("disabled");
-                    $(".fs-quantity-in-stock").text("In Stock (" + response + ")");
-                    $(".fs-input-number, .fs-modal-input-number").attr("max", response);
+                    $(".fs-quantity-in-stock").text(res[2]);
+                    $(".fs-modal-input-number").val(1);
+                    $(".fs-quantity-in-cart").text("You have chose "+res[0]+" of this product");
+                    $(".fs-input-number, .fs-modal-input-number").attr("max", res[1]);
+                    $(".fs-input-number, .fs-modal-input-number").attr("disabled", "disabled");
                 }
             }
         });
@@ -779,7 +894,7 @@ $(document).ready(function () {
         theme: 'fontawesome-stars-o',
         initialRating: currentRating,
         showSelectedRating: false,
-        readonly: true,
+        readonly: true
     });
 
     for (var i = 0; i < parseInt($("#fs-number-of-rating").attr("fs-nort")); i++) {
@@ -815,7 +930,7 @@ $(document).ready(function () {
                     setTimeout(function () {
                         $("#fs-ajax-loading-2").css("display", "none");
                         $("#fs-form-rating-review").empty();
-                        $("#fs-form-rating-review").html("<h3>Thank you for your review! </h3>");
+                        $("#fs-form-rating-review").html("<h3>Thank you! Your review is being verified </h3>");
                         $.notify({
                             icon: 'glyphicon glyphicon-ok-sign',
                             title: '<strong>Thank you!</strong>',
@@ -945,7 +1060,7 @@ $(document).ready(function () {
                                     });
                                 }
 
-                                if (prod.discountDetailsList[0].discID == null) {
+                                if (prod.discountDetailsList[0] == null) {
                                     result += "<div class=\"col-md-4 col-sm-6\">\n" +
                                             "     <div class=\"product-item\">\n" +
                                             "          <div class=\"item-thumb\">\n" +
@@ -1226,7 +1341,7 @@ $(document).ready(function () {
                                 });
                             }
 
-                            if (prod.discountDetailsList[0].discID == null) {
+                            if (prod.discountDetailsList[0] == null) {
                                 result += "<div class=\"col-md-4 col-sm-6\">\n" +
                                         "     <div class=\"product-item\">\n" +
                                         "          <div class=\"item-thumb\">\n" +
@@ -1416,7 +1531,7 @@ $(document).ready(function () {
                                             });
                                         }
 
-                                        if (prod.discountDetailsList[0].discID == null) {
+                                        if (prod.discountDetailsList[0] == null) {
 
                                             result += "<div class=\"col-md-4 col-sm-6\">\n" +
                                                     "     <div class=\"product-item\">\n" +
@@ -1915,8 +2030,8 @@ $(document).ready(function () {
                                                 "              title=\"" + color.color + "\"/>";
                                     });
                                 }
-
-                                if (prod.discountDetailsList[0].discID == null) {
+                                //concac
+                                if (prod.discountDetailsList[0] == null) {
                                     result += "<div class=\"col-md-4 col-sm-6\">\n" +
                                             "     <div class=\"product-item\">\n" +
                                             "          <div class=\"item-thumb\">\n" +
@@ -2003,7 +2118,7 @@ $(document).ready(function () {
         var input = $("input[name='emailUser']");
         var userID = $(this).attr("fs-userID");
         var productID = $(this).attr("fs-productID");
-        
+
 
         if (input.val() != "") {
             //Có session
@@ -3304,7 +3419,12 @@ $(document).ready(function () {
                         } else if (response == "1") {
                             $('#error-cart-product-modal').html(errorHead + "NOT ENOUGH STOCK! PLEASE ENTER DIFFERENT QUANTITY" + errorFoot);
                         } else {
+                            var res = response.split("-");
                             $('#error-cart-product-modal').html(errorHeadSuccess + "ADD PRODUCT TO CART SUCCESSFULLY!" + errorFoot);
+                            $(".fs-quantity-in-cart").text("You have chose " + res[0] + " of this product");
+                            $(".fs-input-number, .fs-modal-input-number").attr("max", res[1]);
+                            $(".fs-modal-input-number").val(1);
+                            $(".fs-input-number, .fs-modal-input-number").attr("disabled","disabled");
                             $.ajax({
                                 url: "orders/ajax/cart.html",
                                 method: "GET",
@@ -3873,7 +3993,7 @@ $(document).ready(function () {
         var phone = $("#fs-create-phone").val().trim();
         var address = $("#fs-create-address").val().trim();
         var formData = new FormData();
-        
+
         formData.append("email", email);
         formData.append("password", password);
         formData.append("firstName", firstname);
@@ -3903,14 +4023,14 @@ $(document).ready(function () {
             return false;
         }
 
-        
-            if (!checkPhone(phone)) {
-                return false;
-            }
-            if (!checkAddress(address)) {
-                return false;
-            }
-       
+
+        if (!checkPhone(phone)) {
+            return false;
+        }
+        if (!checkAddress(address)) {
+            return false;
+        }
+
 
         //        else {
         $.ajax({
@@ -4619,44 +4739,44 @@ $(document).ready(function () {
         var input = $("input[name='emailUser']");
         if (input.val() != "") {
             //Có session
-               
-                $.ajax({
-                    url: "user/ajax/addWishList.html",
-                    method: "POST",
-                    data: {
-                        userID: userID,
-                        productID: productID
-                    },
-                    success: function (response) {
-                        if (response == "1") {
-                             
-                            swal({
-                                title: "<h1 style='color: #31b131;'>Success</h1>",
-                                text: "Add To Wish List Successfully",
-                                timer: 2000,
-                                showConfirmButton: false,
-                                html: true
-                            });
-                        } else if (response == "2") {
-                             
-                            swal({
-                                title: "<h1 style='color: #F65D20;' >Error!",
-                                text: "This Product Is Available in You Wish List",
-                                timer: 2000,
-                                showConfirmButton: false,
-                                html: true
-                            });
-                        }
+
+            $.ajax({
+                url: "user/ajax/addWishList.html",
+                method: "POST",
+                data: {
+                    userID: userID,
+                    productID: productID
+                },
+                success: function (response) {
+                    if (response == "1") {
+
+                        swal({
+                            title: "<h1 style='color: #31b131;'>Success</h1>",
+                            text: "Add To Wish List Successfully",
+                            timer: 2000,
+                            showConfirmButton: false,
+                            html: true
+                        });
+                    } else if (response == "2") {
+
+                        swal({
+                            title: "<h1 style='color: #F65D20;' >Error!",
+                            text: "This Product Is Available in You Wish List",
+                            timer: 2000,
+                            showConfirmButton: false,
+                            html: true
+                        });
                     }
-                });
-           
+                }
+            });
+
 
         } else {
             //Khong có session
             $("#fs-modal-mess").modal("show");
             $(".fs-btn-login-wl").click(function () {
                 $("#fs-modal-mess").modal("hide");
-                
+
                 $("#loginModal").modal("show");
             });
         }

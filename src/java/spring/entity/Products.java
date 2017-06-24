@@ -231,7 +231,7 @@ public class Products implements Serializable {
      
     public float getProductWithDiscount(){
         for(DiscountDetails d : this.discountDetailsList){
-            if(Objects.equals(d.getProductID().getProductID(), this.productID)){
+            if(Objects.equals(d.getProductID().getProductID(), this.productID)&&d.getDiscID().getDateBegin().compareTo(new Date())<=0){
                 
                 return (float) (this.price*(1-(float)d.getDiscID().getDiscount()/100));
             }

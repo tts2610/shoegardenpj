@@ -13,6 +13,7 @@ import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -27,6 +28,7 @@ import spring.ejb.OrderStateFullBeanLocal;
 import spring.ejb.OrderStateLessBeanLocal;
 
 import spring.ejb.ProductsFacadeLocal;
+import spring.ejb.SizesByColorFacadeLocal;
 import spring.ejb.UserAddressesStateLessBeanLocal;
 import spring.ejb.UsersFacadeLocal;
 import spring.entity.Brands;
@@ -45,6 +47,8 @@ import spring.entity.Users;
 @RequestMapping(value = "/orders/")
 public class OrdersController {
 
+    SizesByColorFacadeLocal sizesByColorFacade = lookupSizesByColorFacadeLocal();
+
     UserAddressesStateLessBeanLocal userAddressesStateLessBean = lookupUserAddressesStateLessBeanLocal();
 
     OrderStateFullBeanLocal orderStateFullBean = lookupOrderStateFullBeanLocal();
@@ -55,15 +59,9 @@ public class OrdersController {
 
     OrderStateLessBeanLocal orderStateLessBean = lookupOrderStateLessBeanLocal();
 
-    
-
     UsersFacadeLocal usersFacade = lookupUsersFacadeLocal();
 
     ProductsFacadeLocal productsFacade = lookupProductsFacadeLocal();
-    
-    
-    
-    
 
 //    UserAddressesStateLessBeanLocal userAddressesStateLessBean = lookupUserAddressesStateLessBeanLocal();
 //    UsersStateLessBeanLocal usersStateLessBean = lookupUsersStateLessBeanLocal();
@@ -85,11 +83,12 @@ public class OrdersController {
     public String ajaxAddtocart(@RequestParam("productID") Integer productID,
             @RequestParam("sizeID") Integer sizeID,
             @RequestParam("colorID") Integer colorID,
-            @RequestParam("quantity") Integer quantity) {
+            @RequestParam("quantity") Integer quantity,
+            HttpSession session) {
         Products pro = orderStateLessBean.getProductByID(productID);
-        
+
         SizesByColor sizesByColor = orderStateLessBean.getSizesByColorBySizeIDandColorID(sizeID, colorID);
-        
+
         if (pro != null) {
             if (sizesByColor != null) {
                 if (sizesByColor.getQuantity() < quantity) {
@@ -100,7 +99,27 @@ public class OrdersController {
                 cartLineInfo.setSizesByColor(sizesByColor);
                 cartLineInfo.setQuantity(quantity);
                 orderStateFullBean.addProduct(cartLineInfo);
-                return "0"; //Add Product to Cart Successfully!
+
+                int inCartquantity = 0;
+
+                //lay so luong trong cart
+                List<CartLineInfo> cli = orderStateFullBean.showCart();
+                for (CartLineInfo cartLineInfo1 : cli) {
+                    if (cartLineInfo1.getSizesByColor().getSizeID() == sizeID && cartLineInfo1.getSizesByColor().getColorID().getColorID() == colorID) {
+                        inCartquantity = cartLineInfo1.getQuantity();
+                    }
+                }
+
+                SizesByColor s = sizesByColorFacade.find(sizeID);
+
+                int quantityInDB = sizesByColorFacade.findSizeByColorBySizeIDAndColorID(Integer.parseInt(s.getSize()), colorID).getQuantity();
+                int realQuantity = quantityInDB - inCartquantity;
+
+                String returnValue = "";
+
+                returnValue = inCartquantity + "-" + realQuantity + "-" + quantityInDB;
+
+                return returnValue; //Add Product to Cart Successfully!
             }
             return "2"; //Color and Size error!
         }
@@ -149,7 +168,7 @@ public class OrdersController {
             orders.setReceiverLastName(lastname);
             orders.setPhoneNumber(phone);
             orders.setDeliveryAddress(address);
-            
+
             orders.setNote(note);
             orders.setStatus(Short.parseShort("2"));
             success_orderID = orderStateFullBean.completePurchase(orders);
@@ -272,7 +291,7 @@ public class OrdersController {
     public String deleteitemCart(@PathVariable("productid") int productid,
             @PathVariable("sizeID") int sizeid,
             @PathVariable("colorID") int colorid,
-            RedirectAttributes flashAttr) {
+            RedirectAttributes flashAttr, HttpSession session) {
         CartLineInfo cartLineInfo = orderStateFullBean.getProductInListByID(productid, sizeid, colorid);
         if (cartLineInfo != null) {
             orderStateFullBean.deleteProduct(cartLineInfo);
@@ -280,6 +299,7 @@ public class OrdersController {
                 return "redirect:/index.html";
             }
         }
+
         flashAttr.addFlashAttribute("error", "<div class=\"alert alert-success\">\n"
                 + "<strong>DELETE ITEM IN CART SUCCESSFULLY</strong>\n"
                 + "</div>");
@@ -377,7 +397,7 @@ public class OrdersController {
                     + "                                line-height: 33px;\n"
                     + "                                font-weight: 700;\" class=\"btn\">CHECKOUT</button> \n"
                     + "                            </div>";
-            str_subtotal = "<div class=\"ci-total\">Grand Total: $" + String.format( "%.2f", subTotal ) + "</div>";
+            str_subtotal = "<div class=\"ci-total\">Grand Total: $" + String.format("%.2f", subTotal) + "</div>";
             for (CartLineInfo cartLineInfo : orderStateFullBean.showCart()) {
                 str_cart_detail += "<div class=\"ci-item\">\n"
                         + "        <img src=\"assets/images/products/" + cartLineInfo.getProduct().getUrlImg() + "\" width=\"90\" alt=\"\"/>\n"
@@ -395,10 +415,14 @@ public class OrdersController {
                         + "                                                 title=\"" + cartLineInfo.getSizesByColor().getColorID().getColor() + "\"\n"
                         + "                                                 style=\"width: 18px; height: 18px;\"/>\n"
                         + "                                        </p>"
-                        + "<p>Size: " + cartLineInfo.getSizesByColor().getSize()+ "</p>\n"
+                        + "<p>Size: " + cartLineInfo.getSizesByColor().getSize() + "</p>\n"
                         + " <p>Quantity: &nbsp " + cartLineInfo.getQuantity() + "</p>\n"
-                        + "            <p>Price: &nbsp $" + String.format( "%.2f", cartLineInfo.getProduct().getPrice() ) + "</p>\n"
-                           
+                        + "            <p class=\"product-price\">\n"
+                        + "                 Price: &nbsp\n"
+                        + "                 <small class=\"cutprice\" style=\"display: inline\">$" + String.format("%.2f", cartLineInfo.getProduct().getPrice()) + "</small>\n"
+                        + "            <small class=\"ps-price fs-product-price\" style=\"display: inline;color:#e74c3c\">$" + cartLineInfo.getProduct().getProductWithDiscount() + "</small>&nbsp\n"
+                        + "            <small class=\"ps-price fs-product-discount\" style=\"display: inline;color:#e74c3c\">(-" + cartLineInfo.getProduct().getDiscountByProduct() + "%)</small>\n"
+                        + "            </p>\n"
                         + "        </div>\n"
                         + "    </div>";
             }
@@ -548,7 +572,6 @@ public class OrdersController {
 //
 //        return null;
 //    }
-
 //    @ResponseBody
 //    @RequestMapping(value = "ajax/nodiscount", method = RequestMethod.GET)
 //    public String getNoDiscount() {
@@ -566,7 +589,6 @@ public class OrdersController {
 //                + "                                </tr>";
 //        return str_show;
 //    }
-
 //    // <editor-fold defaultstate="collapsed" desc="Look Up Beans Local">
 //    private OrderStateLessBeanLocal lookupOrderStateLessBeanLocal() {
 //        try {
@@ -617,8 +639,6 @@ public class OrdersController {
 //            throw new RuntimeException(ne);
 //        }
 //    }// </editor-fold>
-    
-
     private ProductsFacadeLocal lookupProductsFacadeLocal() {
         try {
             Context c = new InitialContext();
@@ -638,8 +658,6 @@ public class OrdersController {
             throw new RuntimeException(ne);
         }
     }
-
-    
 
     private OrderStateLessBeanLocal lookupOrderStateLessBeanLocal() {
         try {
@@ -685,6 +703,16 @@ public class OrdersController {
         try {
             Context c = new InitialContext();
             return (UserAddressesStateLessBeanLocal) c.lookup("java:global/ShoeGardenPJ/UserAddressesStateLessBean!spring.ejb.UserAddressesStateLessBeanLocal");
+        } catch (NamingException ne) {
+            Logger.getLogger(getClass().getName()).log(Level.SEVERE, "exception caught", ne);
+            throw new RuntimeException(ne);
+        }
+    }
+
+    private SizesByColorFacadeLocal lookupSizesByColorFacadeLocal() {
+        try {
+            Context c = new InitialContext();
+            return (SizesByColorFacadeLocal) c.lookup("java:global/ShoeGardenPJ/SizesByColorFacade!spring.ejb.SizesByColorFacadeLocal");
         } catch (NamingException ne) {
             Logger.getLogger(getClass().getName()).log(Level.SEVERE, "exception caught", ne);
             throw new RuntimeException(ne);

@@ -28,8 +28,12 @@
                         </div>
 
                         <div class="ps-stock">
-                            Available: <span style="color: #d6644a" class="fs-quantity-in-stock">---</span>
+                            Available In Stock: <span style="color: #d6644a" class="fs-quantity-in-stock">---</span>
                             <div class="fs-display-none" id="fs-show-quantity"></div>
+                            
+                        </div>
+                        <div>
+                           <span style="color: #d6644a" class="fs-quantity-in-cart"></span>
                         </div>
                         <div class="sep"></div>
                         <div class="ps-color fs-product-modal-color">

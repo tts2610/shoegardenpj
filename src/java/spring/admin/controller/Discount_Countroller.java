@@ -163,7 +163,7 @@ public class Discount_Countroller {
     public String discountupdate(HttpServletRequest request,
             ModelMap model,
             @RequestParam MultiValueMap<String, String> allRequestParams,
-            RedirectAttributes flashAttr,@ModelAttribute("discounts") Discounts targetCate) throws ParseException {
+            RedirectAttributes flashAttr, @ModelAttribute("discounts") Discounts targetCate) throws ParseException {
 
         List<Products> allProductList = new ArrayList<>();
         List<String> deleteproducts = allRequestParams.get("deletecheck[]");
@@ -179,8 +179,9 @@ public class Discount_Countroller {
         Date dateBeginf = df.parse(dateBegin);
         Date dateEndf = df.parse(dateEnd);
 
+        Discounts dc = discountsFacade.editOR(new Discounts(Integer.parseInt(id), title, content, dateBeginf, dateEndf, Short.parseShort(discount)));
+
         if (deleteproducts != null || addproducts != null) {
-            Discounts dc = discountsFacade.editOR(new Discounts(Integer.parseInt(id), title, content, dateBeginf, dateEndf, Short.parseShort(discount)));
 
             if (deleteproducts != null) {
                 for (String product : deleteproducts) {
@@ -193,27 +194,28 @@ public class Discount_Countroller {
                 }
             }
 
-            //lay nhung san pham theo discountid trong discountdetail
-            List<Integer> idList = discountDetailsFacade.findListByDiscountID(Integer.parseInt(id));
-            List<Products> pList = new ArrayList<>();
-            for (Integer i : idList) {
-                pList.add(productsFacade.findProductByID(i));
-            }
-
-            //lay tat ca nhung san pham da co trong bang discount detail
-            List<DiscountDetails> dList = discountDetailsFacade.findAll();
-            for (DiscountDetails discountDetails : dList) {
-                allProductList.add(discountDetails.getProductID());
-            }
-            List<Products> uList = discountDetailsFacade.findListByProductListForUpdate(allProductList, productsFacade.getProductWorkingList("admin"));
-            model.addAttribute("addedProductList", pList);
-            model.addAttribute("productList", uList);
-            model.addAttribute("discounts", dc);
-            model.addAttribute("error", "<div class=\"alert alert-success\">\n"
-                    + "<strong>UPDATE DISCOUNT SUCCESSFULLY</strong>\n"
-                    + "</div>");
         }
-        System.err.println("CONCAC");
+
+        //lay nhung san pham theo discountid trong discountdetail
+        List<Integer> idList = discountDetailsFacade.findListByDiscountID(Integer.parseInt(id));
+        List<Products> pList = new ArrayList<>();
+        for (Integer i : idList) {
+            pList.add(productsFacade.findProductByID(i));
+        }
+
+        //lay tat ca nhung san pham da co trong bang discount detail
+        List<DiscountDetails> dList = discountDetailsFacade.findAll();
+        for (DiscountDetails discountDetails : dList) {
+            allProductList.add(discountDetails.getProductID());
+        }
+        List<Products> uList = discountDetailsFacade.findListByProductListForUpdate(allProductList, productsFacade.getProductWorkingList("admin"));
+        model.addAttribute("addedProductList", pList);
+        model.addAttribute("productList", uList);
+        model.addAttribute("discounts", dc);
+        model.addAttribute("error", "<div class=\"alert alert-success\">\n"
+                + "<strong>UPDATE DISCOUNT SUCCESSFULLY</strong>\n"
+                + "</div>");
+
         return "admin/pages/discount-update";
     }
 

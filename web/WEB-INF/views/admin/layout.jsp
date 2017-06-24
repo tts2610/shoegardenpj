@@ -5,6 +5,8 @@
 
     <head>
 
+        <link rel="icon" type="image/png" href="assets/images/account.png" sizes="32x32">
+
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -22,11 +24,11 @@
         <!-- MetisMenu CSS -->
         <link href="assets/admin/vendor/metisMenu/metisMenu.min.css" rel="stylesheet">
 
-<!--         DataTables CSS 
--->        <link href="assets/admin/vendor/datatables-plugins/dataTables.bootstrap.css" rel="stylesheet"><!--
-
-         DataTables Responsive CSS 
--->        <link href="assets/admin/vendor/datatables-responsive/dataTables.responsive.css" rel="stylesheet">
+        <!--         DataTables CSS 
+        -->        <link href="assets/admin/vendor/datatables-plugins/dataTables.bootstrap.css" rel="stylesheet"><!--
+        
+                 DataTables Responsive CSS 
+        -->        <link href="assets/admin/vendor/datatables-responsive/dataTables.responsive.css" rel="stylesheet">
 
         <!-- Custom CSS -->
         <link href="assets/admin/dist/css/sb-admin-2.css" rel="stylesheet">
@@ -57,6 +59,7 @@
 
         <!--Bootstrap X-EditAble-->
         <link href="assets/admin/dist/css/bootstrap-editable.css" rel="stylesheet" type="text/css"/>
+        <link href="assets/css/fontawesome-stars.css" rel="stylesheet" type="text/css"/>
         <link href="assets/css/fontawesome-stars-o.css" rel="stylesheet" type="text/css"/>
     </head>
 
@@ -77,8 +80,8 @@
         <!-- jQuery -->
         <script src="assets/admin/vendor/jquery/jquery.min.js"></script>
         <script src="assets/admin/vendor/jquery/jQuery.jTableCheckbox.js"></script>
-<!--        <script src="assets/admin/vendor/jquery/jQuery.jTableCheckbox.min.js"></script>-->
-        
+        <!--        <script src="assets/admin/vendor/jquery/jQuery.jTableCheckbox.min.js"></script>-->
+
 
         <script src="assets/js/jquery-ui-1.12.1/jquery-ui.min.js" type="text/javascript"></script>
         <!-- For morris.js chart -->
@@ -117,11 +120,29 @@
         <script src="assets/admin/vendor/flot/jquery.flot.time.js"></script>
         <script src="assets/admin/vendor/flot-tooltip/jquery.flot.tooltip.min.js"></script>
         <script src="assets/admin/vendor/flot/jquery.flot.axislabels.js"></script>
-        
+
         <!-- Page-Level Demo Scripts - Tables - Use for reference -->
         <script src="assets/admin/dist/js/shoegarden_custom_JS.js" type="text/javascript"></script>
 
         <script src="assets/js/jquery.barrating.min.js" type="text/javascript"></script>
+
+        <script type="text/javascript">
+            $(document).ready(function () {
+
+                var count = document.getElementsByClassName("countcmt");
+
+                for (var i = 1; i <= count.length; i++) {
+                    var currentRating = $('#comment #fs-rating-star-results-' + i).data('current-rating');
+                    $('#comment #fs-rating-star-results-' + i).barrating({
+                        theme: 'fontawesome-stars-o',
+                        initialRating: currentRating,
+                        showSelectedRating: false,
+                        readonly: true
+                    });
+                }
+
+            });
+        </script>
     </body>
 
 </html>

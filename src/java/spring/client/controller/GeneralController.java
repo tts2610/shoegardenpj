@@ -61,9 +61,9 @@ public class GeneralController {
             List<Products> productListByCate = cate.getProductsList();
             Collections.shuffle(productListByCate);
         }
-        List<Object> bestSellerList = productsFacade.getTop3ProductBestSeller();
+        List<Object[]> bestSellerList = productsFacade.getTop3ProductBestSeller();
         List<Products> mostViewList = productsFacade.getTop3ProductMostViewed();
-
+        
         List<Object[]> productTopRateList = productsFacade.getProductTop3Rated();
         List<Object[]> newTopRateList = new ArrayList<>();
 
@@ -74,6 +74,9 @@ public class GeneralController {
             Object[] newObj = new Object[]{product, avgRating};
             newTopRateList.add(newObj);
         }
+        
+        
+        
 
         model.addAttribute("braList", cateList);
         model.addAttribute("latestProducts", productsFacade.productList("client")); //lấy sản phẩm mới nhất

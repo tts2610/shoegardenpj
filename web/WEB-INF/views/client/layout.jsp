@@ -7,6 +7,8 @@
 <!--[if gt IE 9]><!-->	<html> <!--<![endif]-->
     <head>
 
+        <link rel="icon" type="image/png" href="assets/images/shoeprint.png" sizes="32x32">
+        
         <!-- Meta -->
         <meta charset="utf-8">
         <meta name="keywords" content="HTML5 Template" />
