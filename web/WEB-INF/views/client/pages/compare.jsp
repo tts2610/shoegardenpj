@@ -9,6 +9,7 @@
 <c:if test="${empty compareList}">
     <h4 style="font-weight: bold; background-color: #FFFFFF; padding: 30px; text-align: center; font-size: 30px; line-height: 50px;">Please choose some products to compare! <br/><a style="cursor: pointer;" href="index.html">Continue shopping...</a>
     </h4>
+    <div class="clearfix space90"></div>
 </c:if>
 
 <c:if test="${not empty compareList}">

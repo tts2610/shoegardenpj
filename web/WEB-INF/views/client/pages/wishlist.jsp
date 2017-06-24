@@ -39,11 +39,9 @@
                                 </tr>
                             </c:forEach>
                         </tbody>
-                    </table>
-                <div class="table-btn">
-                        <a href="index.html" class="btn-black pull-left">Back Home</a>
-                    </div>
-                <div class="clearfix space30"></div>
+                    </table>               
+                <div class="clearfix space90"></div>
+                <div class="clearfix space90"></div>
             </div>
         </div>
     </div>

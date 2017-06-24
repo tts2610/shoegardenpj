@@ -186,7 +186,9 @@ h1.fs-site-title{
 }
 
 .fs-inner {
-    padding: 30px;
+    padding: 25px 0 0 0;
+    margin-left: -15px;
+    margin-right: -15px;
 }
 
 .fs-page-number {
@@ -387,7 +389,7 @@ input.fs-color-checkbox:checked + label:before, input.fs-size-checkbox:checked +
 
 .form-list li label em {
     color: #e74c3c;
-    font-weight: 700;
+    font-weight: 900;
 }
 
 /* PRODUCT DETAIL */

@@ -7,8 +7,8 @@
 <!-- MY ACCOUNT -->
 <div class="account-wrap">
     <div class="container">
-        <div class="row">
-            <div class="col-md-9 col-sm-8">
+        <div class="row" >
+            <div class="col-md-6 col-sm-6">
                 <!-- HTML -->
                 <div id="accordion">
                     <h4 class="accordion-toggle"><span>01</span>Account</h4>
@@ -16,25 +16,28 @@
                         <div class="details-box">
                             <ul>
                                 <li>                                                
-                                    <a href="user/account-information/${sessionScope.findUsersID}.html"> <i class="fa fa-edit"></i> Edit your account information</a>
+                                    <a href="user/account-information/${sessionScope.findUsersID}.html"> <i class="fa fa-tags"></i> Edit your account information</a>
                                 </li>
                                 <li>                                               
-                                    <a href="user/change-password/${sessionScope.findUsersID}.html"> <i class="fa fa-edit"></i> Change your password</a>
+                                    <a href="user/change-password/${sessionScope.findUsersID}.html"> <i class="fa fa-tags"></i> Change your password</a>
                                 </li>
                                 <li>                                              
-                                    <a href="user/address-list/${sessionScope.findUsersID}.html"> <i class="fa fa-edit"></i> Manage address book entries</a>
+                                    <a href="user/address-list/${sessionScope.findUsersID}.html"> <i class="fa fa-tags"></i> Manage address book</a>
                                 </li>
                             </ul>
                         </div>                                    
                     </div>
                     <div class="clearfix"></div>
                     <h4 class="accordion-toggle"><span>02</span>order and review</h4>
-                    <div class="accordion-content">                                    
+                    <div class="accordion-content default">                                    
                         <div class="details-box">
                             <ul>
-                                <li>
-                                    <a href="orders/order-history.html"> <i class="fa fa-edit"></i> View your order history</a>
+                                <li>                                                
+                                    <a href="orders/order-history.html"> <i class="fa fa-tags"></i> Your order history</a>
                                 </li>
+                                <li>                                               
+                                    <a href="user/wishlist/${sessionScope.findUsersID}.html"> <i class="fa fa-tags"></i> Your wishlist</a>
+                                </li>                                
                             </ul>
                         </div>                                    
                     </div>
@@ -44,7 +47,7 @@
 
             <div class="col-md-3 col-sm-4 checkout-steps">
                 <!-- USER-RIGHT-MENU -->
-                <jsp:include page="../blocks/user-right-menu.jsp" flush="true" />
+                <%--<jsp:include page="../blocks/user-right-menu.jsp" flush="true" />--%>
             </div>
         </div>
     </div>
