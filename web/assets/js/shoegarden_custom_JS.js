@@ -62,7 +62,7 @@ $(document).ready(function () {
             var liProdStr = "";
             $.each(productsArrLocal, function (i, prod) {
                 liProdStr += "<div>\n\
-                                <a href=\"" + prod.productID + "-" + prod.productColorID + "-" + prod.productName + ".html\">\n\
+                                <a href=\"" + prod.productID + "-" + prod.productColorID +  ".html\">\n\
                                     <img style=\"width: 150px\" src=\"assets/images/products/" + prod.productImg + "\" class=\"img-responsive\" alt=\"" + prod.productImg + "\"/>\n\
                                 </a>\n\
                             </div>";

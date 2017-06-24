@@ -1,6 +1,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!-- SLIDER -->
 <section id="slider"><!--slider-->
@@ -231,7 +232,7 @@
             </div>
         </div>
     </div>
-
+    
     <!-- FOOTER WIDGETS -->
     <div class="f-widgets">
         <div class="container">

@@ -16,7 +16,7 @@
         <meta name="author" content="">
         <base href="${pageContext.servletContext.contextPath}/" />
         <title>Shoe Garden</title>
-
+        <link rel="shortcut icon" type="image/png" href="assets/images/basic/rsleaf-icon.png"/>
         <!-- Mobile Metas -->
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
 

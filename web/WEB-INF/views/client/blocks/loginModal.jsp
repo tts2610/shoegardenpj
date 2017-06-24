@@ -34,7 +34,7 @@
 
                                 <ul class="form-list row">
                                     <li class="col-md-12 col-sm-12" style="text-align: left">
-                                        <label ><i class="fa fa-envelope"></i> Email <em>*</em></label>
+                                        <label >Email <em>*</em></label>
                                         <div class="fs-email-user">
                                             <input type="email" id="fs-email-login-user" name="email" class="input-text" autofocus >
                                             <p class="help-block" style="color: red; text-align: center; margin-top: -10px;" id="fs-email-login-user-error"></p>
@@ -42,7 +42,7 @@
 
                                     </li>
                                     <li class="col-md-12 col-sm-12" style="text-align: left">
-                                        <label ><i class="fa fa-key"></i> Your password <em>*</em></label>
+                                        <label >Your password <em>*</em></label>
                                         <div class="fs-pass-user">
                                             <input type="password" id="fs-pass-login-user" name="password" class="input-text" >
                                             <p class="help-block" style="color: red; text-align: center; margin-top: -10px;" id="fs-pass-login-user-error"></p>
@@ -67,7 +67,7 @@
                             <form name="fs-form-create-user" class="form-login" method="post" action="user/register.html" id="fs-form-create-user" enctype="multipart/form-data">    
                                 <ul class="form-list row">
                                     <li class="col-md-12 col-sm-12">
-                                        <label><i class="fa fa-envelope"></i> Email <em>*</em></label>
+                                        <label>Email <em>*</em></label>
                                         <div class="fs-email-create">
                                             <input name="email" id="fs-create-email" class="input-text" type="email" autofocus=""/>
                                             <p class="help-block" style="color: red; text-align: center; margin-top: -10px;" id="fs-email-create-user-error"></p>
@@ -75,14 +75,14 @@
                                         </div>
                                     </li>
                                     <li class="col-md-6 col-sm-12">
-                                        <label><i class="fa fa-key"></i> Password <em>*</em></label>
+                                        <label>Password <em>*</em></label>
                                         <div class="fs-password-create">
                                             <input type="password" id="password" name="password" class="input-text"  />
                                             <p class="help-block" style="color: red; text-align: center; margin-top: -10px;" id="fs-pass-create-user-error"></p>
                                         </div>
                                     </li> 
                                     <li class="col-md-6 col-sm-12">
-                                        <label><i class="fa fa-key"></i> Retype Password <em>*</em></label>
+                                        <label>Retype Password <em>*</em></label>
                                         <div class="fs-repassword-create">
                                             <input type="password" id="Repassword" name="Repassword" class="input-text" />
                                             <p class="help-block" style="color: red; text-align: center; margin-top: -10px;" id="fs-repass-create-user-error"></p>
@@ -103,7 +103,7 @@
                                         </div>
                                     </li>
                                     <li class="col-md-6 col-sm-12">  
-                                        <label><i class="fa fa-venus-mars"></i> Gender</label>
+                                        <label>Gender</label>
                                         <br>
                                         <div class="text-center fs-login-gender">
                                             <label>
@@ -116,7 +116,7 @@
                                         </div>
                                     </li>
                                     <li class="col-md-6 col-sm-12">  
-                                        <label><i class="fa fa-birthday-cake"></i> Birthday</label>
+                                        <label>Birthday <em>*</em></label>
                                         <div class="fs-birthday-create" >
                                             <span id="fs-birthday-create"><input name="birthday" id="txtBirthday" class="input-text" /></span>
                                             <p class="help-block" style="color: red; text-align: center; margin-top: -10px;" id="fs-bday-create-user-error"></p>
@@ -124,7 +124,7 @@
                                     </li>
 
                                     <li class="col-md-12 col-sm-12">
-                                        <label><i class="fa fa-phone"></i> Phone <em>*</em></label>
+                                        <label>Phone <em>*</em></label>
                                         <div class="fs-phone-create">
                                             <input type="text" id="fs-create-phone" name="phoneNumber" />
                                             <p class="help-block" style="color: red; text-align: center; margin-top: -10px;" id="fs-phone-create-user-error"></p>

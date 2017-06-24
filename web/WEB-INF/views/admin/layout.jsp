@@ -14,6 +14,7 @@
         <meta name="author" content="">
         <base href="${pageContext.servletContext.contextPath}/" />
         <title>ShoeGarden-Admin</title>
+        <link rel="shortcut icon" type="image/png" href="assets/images/basic/rsleaf-icon.png"/>
 
         <!-- Bootstrap Core CSS -->
         <link href="assets/admin/vendor/bootstrap/css/bootstrap.css" rel="stylesheet">

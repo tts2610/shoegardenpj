@@ -23,7 +23,7 @@
                             ${error}
                             <ul class="form-list row">
                                 <li class="col-md-12 col-sm-12">
-                                    <label><i class="fa fa-envelope"></i> Email <em>*</em></label>
+                                    <label>Email <em>*</em></label>
                                     <div class="fs-email-update">
                                         <form:input path="email" id="fs-update-email" cssClass="input-text"/>
                                         <p class="help-block" style="color: red; text-align: center; margin-top: -10px;" id="fs-email-update-user-error"></p>
@@ -44,7 +44,7 @@
                                     </div>
                                 </li>
                                 <li class="col-md-6 col-sm-12">  
-                                    <label><i class="fa fa-venus-mars"></i> Gender</label>
+                                    <label>Gender</label>
                                     <br>
                                     <div class="text-center fs-login-gender">
                                         <label>
@@ -57,7 +57,7 @@
                                     </div>
                                 </li>
                                 <li class="col-md-6 col-sm-12">  
-                                    <label><i class="fa fa-birthday-cake"></i> Birthday</label>
+                                    <label>Birthday</label>
                                     <div class="fs-birthday-update">
                                         <form:input path="birthday" id="txtbirthday" cssClass="input-text" />
                                         <p class="help-block" style="color: red; text-align: center; margin-top: -10px;" id="fs-birthday-update-user-error"></p>
@@ -72,7 +72,7 @@
                 </div>
             </div>
 
-            <div class="col-md-3 col-sm-4 checkout-steps">
+            <div class="col-md-3 col-sm-4 checkout-steps">              
                 <!-- USER-RIGHT-MENU -->
                 <jsp:include page="../blocks/user-right-menu.jsp" flush="true" />
             </div>

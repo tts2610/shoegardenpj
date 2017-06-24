@@ -159,10 +159,7 @@ catch(Exception e) {
                 </li>
 
                 <li>
-                    <a href="#"><i class="fa fa-thumb-tack fa-fw"></i> Comments&nbsp;
-                        <%if(ratingFacade.countUnvarifiedRecord()!=0){%>
-                        <span class="badge" style="background: red"><%=ratingFacade.countUnvarifiedRecord()%></span>
-                        <%}%>
+                    <a href="#"><i class="fa fa-thumb-tack fa-fw"></i> Comments                      
                         <span class="fa arrow"></span></a>
                     <ul class="nav nav-second-level">
                         <li>

@@ -1,6 +1,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <jsp:include page="loginModal.jsp"></jsp:include>
+<link rel="shortcut icon" type="image/png" href="../../../../assets/images/basic/rsleaf-icon.png"/>
     <!-- TOPBAR -->
     <div class="top_bar">
         <div class="container">
@@ -22,7 +23,7 @@
                                 <c:if test="${empty sessionScope.emailUser}">
                                     <span class="fa fa-user">
                                         <a class="fs-login-page" href="#loginModal" data-toggle="modal" data-target="#loginModal">
-                                            Login
+                                            Login | Register
                                         </a>
                                     </span>
                                 </c:if>
@@ -47,7 +48,7 @@
         </div>
     </div>
 </div>
-<!--</div>-->
+<!--TOP BAR-->
 
 <!-- HEADER -->
 <header style="z-index: 1000 !important;">

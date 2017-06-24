@@ -23,14 +23,14 @@
                                 </li>
 
                                 <li class="col-md-6 col-sm-6">
-                                    <label ><i class="fa fa-phone"></i> Phone Number <em>*</em></label>
+                                    <label >Phone Number <em>*</em></label>
                                     <form:input path="phoneNumber" id="txt-phone" cssClass="input-text fs-update-phone" />
                                     <p class="help-block" style="color: red; text-align: center; margin-top: -10px;" id="fs-phone-update-user-error"></p>
                                 </li>
                             </ul>
                             <div class="buttons-set">
                                 <button class="btn-black fs-button-update-address" type="submit"><span><span>Update</span></span></button>
-                                <a href="user/address-list/${sessionScope.findUsersID}.html" class="btn btn-black"><span><span>Back</span></span></a>
+<!--                                <a href="user/address-list/${sessionScope.findUsersID}.html" class="btn btn-black"><span><span>Back</span></span></a>-->
                             </div>
                         </form:form>
                     </div>                                    
