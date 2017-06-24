@@ -193,12 +193,13 @@ public class ProductController {
         } else {
             
             cartSize = slist.size();
-            str_cart_button = "<div class=\"cart-btn\">\n"
+            
+            for (Products p : slist) {
+                str_cart_button = "<div class=\"cart-btn\">\n"
                     + "                                <a href=\"comparelist.html\">VIEW COMPARE LIST</a>\n"
                     
                     + "                            </div>";
             
-            for (Products p : slist) {
                 str_cart_detail += "<div class=\"ci-item\">\n"
                         + "        <img src=\"assets/images/products/" + p.getUrlImg() + "\" width=\"90\" alt=\"\"/>\n"
                         + "        <div class=\"ci-item-info\">\n"
@@ -207,7 +208,7 @@ public class ProductController {
                         + "                    " + p.getProductName() + "\n"
                         + "                </a>\n"
                         + "            </h5>\n"
-                        + "            <p>Posted Date: &nbsp $" + p.getPostedDate() + "</p>\n"
+                        + "            <p>Posted Date: &nbsp <date-util format='dd/MM/yyyy'>"+ p.getPostedDate()+ "</date-util></p>\n"
                         + "            <p>Price: &nbsp $" + String.format( "%.2f", p.getPrice() ) + "</p>\n"
                            
                         + "        </div>\n"

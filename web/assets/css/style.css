@@ -1479,6 +1479,7 @@ footer {
 
 .tbr-inner a:hover {
     background: #ddd;
+    color: #32CD32;
 }
 
 .topsearch form input {
