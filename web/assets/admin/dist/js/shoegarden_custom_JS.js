@@ -3929,27 +3929,7 @@ $(document).ready(function () {
         });
     });
     
-    $(".fs-select-comment-status").on("change", function () {
-        var status = $(this).val();
-        var rateID = $(this).attr("fs-comment");
-
-        $.ajax({
-            url: "admin/comments/updateStatus.html",
-            method: "POST",
-            data: {rateID: rateID, status: status},
-            success: function (response) {
-//                swal("UPDATE SUCCESS", response, "success");
-                swal({
-                    type: "success",
-                    title: "UPDATE SUCCESS",
-                    text: response,
-                    timer: 2000,
-                    showConfirmButton: false
-                });
-
-            }
-        });
-    });
+    
 
 
 
@@ -4010,7 +3990,8 @@ $(document).ready(function () {
             }
         });
     });
-
+    
+    
 
     /*
      * FORMATTING FUNCTION FOR ROW DETAIL - MODIFY AS YOU NEED

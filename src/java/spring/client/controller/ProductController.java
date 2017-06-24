@@ -709,35 +709,7 @@ public class ProductController {
         }
     }
 
-    @ResponseBody
-    @RequestMapping(value = "ajax/checkquantity", method = RequestMethod.POST)
-    public String checkquantity(
-            @RequestParam("sizeID") Integer sizeID,@RequestParam("colorID") Integer colorID,HttpSession session
-    ) {
-        int inCartquantity = 0;
-        
-        //lay so luong trong cart
-        List<CartLineInfo> cli = orderStateFullBean.showCart();
-        for (CartLineInfo cartLineInfo : cli) {
-            if(cartLineInfo.getSizesByColor().getSizeID()== sizeID&&cartLineInfo.getSizesByColor().getColorID().getColorID()==colorID){
-                inCartquantity = cartLineInfo.getQuantity();
-            }
-        }
-        
-        SizesByColor s = sizesByColorFacade.find(sizeID);
-        
-        int quantityInDB = sizesByColorFacade.findSizeByColorBySizeIDAndColorID(Integer.parseInt(s.getSize()), colorID).getQuantity();
-        int realQuantity = quantityInDB - inCartquantity;
-        
-        
-        String returnValue = "";
-        
-            
-        returnValue = inCartquantity+"-"+realQuantity+"-"+quantityInDB;
-        
-        
-        return returnValue;
-    }
+    
 
     @ResponseBody
     @RequestMapping(value = "ajax/searchProductByKeyWord", method = RequestMethod.POST)

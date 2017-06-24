@@ -267,6 +267,7 @@ $(document).ready(function () {
         var productModal = $("#productModal");
         $(".fs-modal-input-number").val(1);
         $(".fs-modal-btn-quantity-minus").attr("disabled", "disabled");
+        $(".fs-quantity-in-cart").text("");
         //$(".fs-modal-btn-quantity-plus").removeAttr("disabled");
 
         $.ajax({
@@ -789,7 +790,7 @@ $(document).ready(function () {
         
 
         $.ajax({
-            url: "ajax/checkquantity.html",
+            url: "orders/ajax/checkquantity.html",
             method: "POST",
             data: {
                 sizeID: sizeID,

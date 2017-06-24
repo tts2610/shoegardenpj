@@ -126,23 +126,7 @@
 
         <script src="assets/js/jquery.barrating.min.js" type="text/javascript"></script>
 
-        <script type="text/javascript">
-            $(document).ready(function () {
-
-                var count = document.getElementsByClassName("countcmt");
-
-                for (var i = 1; i <= count.length; i++) {
-                    var currentRating = $('#comment #fs-rating-star-results-' + i).data('current-rating');
-                    $('#comment #fs-rating-star-results-' + i).barrating({
-                        theme: 'fontawesome-stars-o',
-                        initialRating: currentRating,
-                        showSelectedRating: false,
-                        readonly: true
-                    });
-                }
-
-            });
-        </script>
+        <script src="assets/js/admin_comment.js" type="text/javascript"></script>
     </body>
 
 </html>
