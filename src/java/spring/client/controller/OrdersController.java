@@ -451,14 +451,21 @@ public class OrdersController {
                         + "                                                 style=\"width: 18px; height: 18px;\"/>\n"
                         + "                                        </p>"
                         + "<p>Size: " + cartLineInfo.getSizesByColor().getSize() + "</p>\n"
-                        + " <p>Quantity: &nbsp " + cartLineInfo.getQuantity() + "</p>\n"
-                        + "            <p class=\"product-price\">\n"
+                        + " <p>Quantity: &nbsp " + cartLineInfo.getQuantity() + "</p>\n";
+                        if(cartLineInfo.getProduct().getDiscountByProduct()!=0)
+                        str_cart_detail +="  <p class=\"product-price\">\n"
                         + "                 Price: &nbsp\n"
-                        + "                 <small class=\"cutprice\" style=\"display: inline\">$" + String.format("%.2f", cartLineInfo.getProduct().getPrice()) + "</small>\n"
-                        + "            <small class=\"ps-price fs-product-price\" style=\"display: inline;color:#e74c3c\">$" + cartLineInfo.getProduct().getProductWithDiscount() + "</small>&nbsp\n"
-                        + "            <small class=\"ps-price fs-product-discount\" style=\"display: inline;color:#e74c3c\">(-" + cartLineInfo.getProduct().getDiscountByProduct() + "%)</small>\n"
-                        + "            </p>\n"
-                        + "        </div>\n"
+                        + "                 <small class=\"cutprice\" style=\"display: inline;border-bottom:none;\">$" + String.format("%.2f", cartLineInfo.getProduct().getPrice()) + "</small>\n"
+                        + "            <small class=\"ps-price fs-product-price\" style=\"display: inline;color:#e74c3c;border-bottom:none;\">$" + cartLineInfo.getProduct().getProductWithDiscount() + "</small>"
+                        + "            <small class=\"ps-price fs-product-discount\" style=\"display: inline;color:#e74c3c;border-bottom:none;\">(-" + cartLineInfo.getProduct().getDiscountByProduct() + "%)</small>\n"
+                        + "            </p>\n";
+                        else if(cartLineInfo.getProduct().getDiscountByProduct()==0)
+                        str_cart_detail +="  <p class=\"product-price\">\n"
+                        + "                 Price: &nbsp\n"
+                        + "            <small class=\"ps-price fs-product-price\" style=\"display: inline;color:#e74c3c;border-bottom:none;\">$" + String.format("%.2f", cartLineInfo.getProduct().getPrice()) + "</small>&nbsp\n"
+                        + "            </p>\n";
+                        
+                        str_cart_detail+="        </div>\n"
                         + "    </div>";
             }
         }

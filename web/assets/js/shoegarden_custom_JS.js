@@ -803,7 +803,12 @@ $(document).ready(function () {
                     $(".fs-btn-quantity-plus, .fs-modal-btn-quantity-plus").removeAttr("disabled");
                     $(".fs-quantity-in-stock").text(res[2]);
                     $(".fs-modal-input-number").val(1);
-                    $(".fs-quantity-in-cart").text("You have chose "+res[0]+" of "+res[2]+" pairs");
+                    if(res[0]!="0"){
+                    $(".fs-quantity-in-cart").text("This pairs are available in your cart ("+res[0]+" pairs)");
+                    }
+                    if(res[0]=="0"){
+                            $(".fs-quantity-in-cart").text("");
+                    }
                     $(".fs-input-number, .fs-modal-input-number").attr("max", res[1]);
                     $(".fs-input-number, .fs-modal-input-number").attr("disabled", "disabled");
                 }
@@ -3378,6 +3383,25 @@ $(document).ready(function () {
                                     $("#cart").html(response).fadeIn(1000);
                                 }
                             });
+                            var res = response.split("-");
+                            
+                            if(res[0]!="0"){
+                            $(".fs-quantity-in-cart").text("This pairs are available in your cart (" + res[0] +" pairs)");
+                            }
+                            if(res[0]=="0"){
+                            $(".fs-quantity-in-cart").text("");
+                            }
+                            $(".fs-input-number, .fs-modal-input-number").attr("max", res[1]);
+                            $(".fs-modal-input-number").val(1);
+                            $(".fs-input-number, .fs-modal-input-number").attr("disabled","disabled");
+                            $.ajax({
+                                url: "orders/ajax/cart.html",
+                                method: "GET",
+                                dataType: 'html',
+                                success: function (response) {
+                                    $("#cart").html(response).fadeIn(1000);
+                                }
+                            });
                         }
                     }
                 });
@@ -3422,7 +3446,12 @@ $(document).ready(function () {
                         } else {
                             var res = response.split("-");
                             $('#error-cart-product-modal').html(errorHeadSuccess + "ADD PRODUCT TO CART SUCCESSFULLY!" + errorFoot);
-                            $(".fs-quantity-in-cart").text("You have chose " + res[0] + " of "+res[2]+" pairs");
+                            if(res[0]!="0"){
+                            $(".fs-quantity-in-cart").text("This pairs are available in your cart (" + res[0] +" pairs)");
+                            }
+                            if(res[0]=="0"){
+                            $(".fs-quantity-in-cart").text("");
+                            }
                             $(".fs-input-number, .fs-modal-input-number").attr("max", res[1]);
                             $(".fs-modal-input-number").val(1);
                             $(".fs-input-number, .fs-modal-input-number").attr("disabled","disabled");
