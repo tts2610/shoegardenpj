@@ -4885,7 +4885,28 @@ $(document).ready(function () {
         })
     });
     
+    $("#id-status-order").on("change",function () {
+        var status = $(this).val();
+        var order = $(this).attr("fs-order");
 
+        $.ajax({
+            url: "admin/orders/confirmstatusOrder.html",
+            method: "POST",
+            data: {order: order, status: status},
+            success: function (response) {
+//                swal("UPDATE SUCCESS", response, "success");
+                swal({
+                    type: "success",
+                    title: "UPDATE SUCCESS",
+                    text: "update status successfully",
+                    timer: 2000,
+                    showConfirmButton: false
+                });
+                location.reload();
+
+            }
+        });
+    });
 
 
 
