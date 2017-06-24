@@ -23,7 +23,7 @@
                                 <c:if test="${empty sessionScope.emailUser}">
                                     <span class="fa fa-user">
                                         <a class="fs-login-page" href="#loginModal" data-toggle="modal" data-target="#loginModal">
-                                            Login
+                                            Login | Register
                                         </a>
                                     </span>
                                 </c:if>
@@ -48,7 +48,7 @@
         </div>
     </div>
 </div>
-<!--</div>-->
+<!--TOP BAR-->
 
 <!-- HEADER -->
 <header style="z-index: 1000 !important;">
