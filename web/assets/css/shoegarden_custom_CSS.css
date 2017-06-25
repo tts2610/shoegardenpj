@@ -136,7 +136,8 @@ a.fs-product-modal-link-to-detail{
 
 .modal-ku {
     width: 900px !important;
-    margin: auto;
+    margin:60px auto;
+    height: 600px;
 }
 
 .overlay-rmore {

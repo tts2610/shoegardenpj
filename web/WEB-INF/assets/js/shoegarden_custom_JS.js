@@ -655,7 +655,7 @@ $(document).ready(function() {
         theme: 'fontawesome-stars-o',
         initialRating: currentRating,
         showSelectedRating: false,
-        readonly: true,
+        readonly: true
     });
 
     for (var i = 0; i < parseInt($("#fs-number-of-rating").attr("fs-nort")); i++) {
@@ -701,7 +701,7 @@ $(document).ready(function() {
                                 from: 'top',
                                 align: 'right'
                             },
-                            delay: 2500,
+                            delay: 600,
                             timer: 200,
                             mouse_over: 'pause',
                             animate: {
@@ -731,7 +731,7 @@ $(document).ready(function() {
                             from: 'top',
                             align: 'right'
                         },
-                        delay: 3000,
+                        delay: 600,
                         timer: 200,
                         mouse_over: 'pause',
                         animate: {
@@ -827,7 +827,7 @@ $(document).ready(function() {
                                         "               <img src=\"assets/images/products/" + prod.urlImg + "\" \n" +
                                         "                    class=\"img-responsive\" \n" +
                                         "                    alt=\"" + prod.urlImg + "\"\n" +
-                                        "                    fs-product-for-img=\"" + prod.productID + "\"/>\n" +
+                                            "                    fs-product-for-img=\"" + prod.productID + "\"/>\n" +
                                         "                <div class=\"overlay-rmore fa fa-search quickview fs-product-modal\" \n" +
                                         "                     data-toggle=\"modal\" \n" +
                                         "                     fs-product=\"" + prod.productID + "\" \n" +
