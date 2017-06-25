@@ -120,7 +120,7 @@
                                     <span class="product-price">
                                         <c:if test="${product.discountDetailsList[0] != null}">
                                             <small class="cutprice">$ ${product.price}0 </small>  $
-                                            <fmt:formatNumber type="number" maxFractionDigits="2" value="${product.price * (1-product.discountDetailsList[0].discID.discount/100)}" var="prodPrice"/>
+                                            <fmt:formatNumber type="number" maxFractionDigits="2" value="${product.productWithDiscount}" var="prodPrice"/>
                                             ${fn:replace(prodPrice, ",", ".")}
                                         </c:if>
                                         <c:if test="${product.discountDetailsList[0] == null}">
@@ -244,15 +244,15 @@
                             <c:forEach items="${bestSellerList}" var="prod">
                                 <li>
                                     <div class="fw-thumb">
-                                        <img src="assets/images/products/${prod[4]}" alt="${prod[4]}"/>
+                                        <img src="assets/images/products/${prod[3]}" alt="${prod[3]}"/>
                                     </div>
                                     <div class="fw-info">
                                         <h4>
-                                            <a href="${prod[0]}-${prod[5]}.html">
+                                            <a href="${prod[0]}-${prod[4]}.html">
                                                 ${prod[1]}
                                             </a>
                                         </h4>
-                                        <span class="fw-price">$ ${prod[3]}0</span>
+                                        <span class="fw-price">$${prod[2]}0</span>
                                     </div>
                                 </li>
                             </c:forEach>

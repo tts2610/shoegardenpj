@@ -96,7 +96,7 @@
                         </div>
                         <div class="row fs-div-product-list-select-box" > 
                             <div class="col-lg-12">
-                                <table width="100%" class="table table-striped table-bordered table-hover cc" id="tableOrder">
+                                <table width="100%" class="table table-striped table-bordered table-hover cc" id="fs-discount-addnew">
                                     <thead>
                                         <tr>
                                             <th class="text-center fs-valign-middle">ID</th>

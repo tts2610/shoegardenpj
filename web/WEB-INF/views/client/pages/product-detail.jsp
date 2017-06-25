@@ -52,6 +52,9 @@
                                 Availability: <span style="color: #d6644a" class="fs-quantity-in-stock">---</span>
                                 <div class="fs-display-none" id="fs-show-quantity"></div>
                             </div>
+                            <div class="alert alert-warning fs-quantity-in-cart" style="display: none">
+                           
+                            </div>
                             <div class="sep"></div>
                             <div class="ps-color fs-product-color">
                                 <p>Color<span>*</span></p>
@@ -230,9 +233,9 @@
                                                      fs-product-modal-color="${prod.productColorListWorking[0].colorID}" 
                                                      data-toggle="modal" ></div>
                                                 <div class="product-overlay">
-                                                    <a href="#" class="addcart fa fa-shopping-cart"></a>
-                                                    <a class="likeitem fa fa-heart-o fs-wl-add-lsp"
-                                                       fs-userID="${sessionScope.findUsersID}" fs-productID="${prod.productID}" ></a>
+                                                    <a class="fa fa-bar-chart" id="fs-product-recently-compare" fs-productID="${targetProduct.productID}"></a>
+                                                    <a class="likeitem fa fa-heart-o fs-recently-detail-wl" id="fs-recently-detail-wl" fs-userID="${sessionScope.findUsersID}" 
+                                                       fs-productID="${targetProduct.productID}"></a>
                                                     <input type="hidden" name="emailUser" value="${sessionScope.emailUser}" />
                                                 </div>
                                             </div>
@@ -246,7 +249,7 @@
                                                 <span class="product-price">
                                                     <c:if test="${product.discountDetailsList[0]!=null}">
                                                         <small class="cutprice">$ ${prod.price}0 </small>  $
-                                                        <fmt:formatNumber type="number" maxFractionDigits="2" value="${product.price * (1-product.discountDetailsList[0].discID.discount/100)}" var="prodPrice"/>
+                                                        <fmt:formatNumber type="number" maxFractionDigits="2" value="${product.productWithDiscount}" var="prodPrice"/>
                                                         ${fn:replace(prodPrice, ",", ".")}
 
                                                     </c:if>

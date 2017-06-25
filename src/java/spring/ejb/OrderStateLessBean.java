@@ -6,6 +6,7 @@
 package spring.ejb;
 
 import java.util.List;
+import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -26,8 +27,13 @@ import spring.entity.Users;
 @Stateless
 public class OrderStateLessBean implements OrderStateLessBeanLocal {
 
+    @EJB
+    private SizesByColorFacadeLocal sizesByColorFacade;
+
     @PersistenceContext
     private EntityManager em;
+    
+    
 
     public EntityManager getEntityManager() {
         return em;
@@ -165,10 +171,20 @@ public class OrderStateLessBean implements OrderStateLessBeanLocal {
     public boolean confirmStatusOrder(Orders orders, short status) {
         try {
             orders.setStatus(status);
+            List<OrdersDetail> list = orders.getOrderDetailList();
+            for (OrdersDetail ordersDetail : list) {
+                int quantity = ordersDetail.getQuantity();
+                int colorid = ordersDetail.getSizeID().getColorID().getColorID();
+                SizesByColor sbc = sizesByColorFacade.findSizeByColorBySizeIDAndColorID(Integer.parseInt(ordersDetail.getSizeID().getSize()),colorid);
+                
+                sbc.setQuantity(sbc.getQuantity()+quantity);
+                sizesByColorFacade.edit(sbc);
+            }
             getEntityManager().merge(orders);
             getEntityManager().flush();
             return true;
         } catch (Exception ex) {
+            ex.printStackTrace();
             return false;
         }
     }

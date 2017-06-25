@@ -102,24 +102,30 @@ public class OrderStateFullBean implements OrderStateFullBeanLocal, Serializable
                 ordersDetail.setProductID(cartLineInfo.getProduct());
                 ordersDetail.setSizeID(cartLineInfo.getSizesByColor());
                 ordersDetail.setProductDiscount((short) cartLineInfo.getProduct().getDiscountByProduct());
+                
                 ordersDetail.setQuantity(cartLineInfo.getQuantity());
                 ordersDetail.setPrice(cartLineInfo.getProduct().getPrice());
                 ordersDetail.setStatus(Short.parseShort("0"));
                 ordersDetailList.add(ordersDetail);
                 SizesByColor sizesByColor = cartLineInfo.getSizesByColor();
-                sizesByColor.setQuantity(sizesByColor.getQuantity() - cartLineInfo.getQuantity());
+                if(sizesByColor.getQuantity()<=0)
+                    sizesByColor.setQuantity(0);
+                else
+                    sizesByColor.setQuantity(sizesByColor.getQuantity() - cartLineInfo.getQuantity());
+                
+                if(cartLineInfo.getQuantity()>sizesByColor.getQuantity()){ //kiem tra so luong ton kho co > so luong trong cart
+                    checkError = String.valueOf("000");
+                    return checkError;
+                }
+                
                 getEntityManager().merge(sizesByColor);
                 getEntityManager().flush();
+                
+                
             }
             orders.setOrderDetailList(ordersDetailList);
             getEntityManager().persist(orders);
             getEntityManager().flush();
-//            if (orders.getVoucher() != null) {
-//                DiscountVoucher discountVoucher = orders.getVoucher();
-//                discountVoucher.setQuantity(discountVoucher.getQuantity() - 1);
-//                getEntityManager().merge(discountVoucher);
-//                getEntityManager().flush();
-//            }
             checkError = String.valueOf(orders.getOrdersID());
         } catch (Exception e) {
             e.printStackTrace();

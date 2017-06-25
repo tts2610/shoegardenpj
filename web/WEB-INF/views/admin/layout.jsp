@@ -5,6 +5,8 @@
 
     <head>
 
+        <link rel="icon" type="image/png" href="assets/images/account.png" sizes="32x32">
+
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -58,6 +60,7 @@
 
         <!--Bootstrap X-EditAble-->
         <link href="assets/admin/dist/css/bootstrap-editable.css" rel="stylesheet" type="text/css"/>
+        <link href="assets/css/fontawesome-stars.css" rel="stylesheet" type="text/css"/>
         <link href="assets/css/fontawesome-stars-o.css" rel="stylesheet" type="text/css"/>
     </head>
 
@@ -123,6 +126,8 @@
         <script src="assets/admin/dist/js/shoegarden_custom_JS.js" type="text/javascript"></script>
 
         <script src="assets/js/jquery.barrating.min.js" type="text/javascript"></script>
+
+        <script src="assets/js/admin_comment.js" type="text/javascript"></script>
     </body>
 
 </html>

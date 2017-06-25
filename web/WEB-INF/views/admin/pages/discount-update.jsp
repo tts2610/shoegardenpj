@@ -107,12 +107,12 @@
                         </div>
                         <div class="row fs-div-product-list-select-box" > 
                             <div class="col-lg-12">
-                                <table width="100%" class="table table-striped table-bordered table-hover added" id="fs-user-dataTables">
+                                <table cellspacing="0" width="100%" class="table table-striped table-bordered table-hover added" id="fs-discount-added-dataTables">
                                     <thead>
                                         <tr>
                                             <th class="text-center fs-valign-middle">ID</th>
                                             <th class="text-center fs-valign-middle">Status</th>
-                                            <th class="text-center fs-valign-middle">Category - SubCategory</th>
+                                            <th class="text-center fs-valign-middle">Brand - Category</th>
                                             <th class="text-center fs-valign-middle">Product</th>
                                             <th class="text-center fs-valign-middle">Image</th>
                                             <th class="text-center fs-valign-middle">Posted Date</th>
@@ -163,12 +163,12 @@
                         </div>
                         <div class="row fs-div-product-list-select-box" > 
                             <div class="col-lg-12">
-                                <table width="100%" class="table table-striped table-bordered table-hover update" id="tableOrder">
+                                <table width="100%" class="table table-striped table-bordered table-hover update" id="fs-discount-removed-dataTables">
                                     <thead>
                                         <tr>
                                             <th class="text-center fs-valign-middle">ID</th>
                                             <th class="text-center fs-valign-middle">Status</th>
-                                            <th class="text-center fs-valign-middle">Category - SubCategory</th>
+                                            <th class="text-center fs-valign-middle">Brand - Category</th>
                                             <th class="text-center fs-valign-middle">Product</th>
                                             <th class="text-center fs-valign-middle">Image</th>
                                             <th class="text-center fs-valign-middle">Posted Date</th>

@@ -26,7 +26,7 @@ public interface ProductsFacadeLocal {
 
     Products findProductByID(int productID);
 
-    List<Object> getTop3ProductBestSeller();
+    List<Object[]> getTop3ProductBestSeller();
 
     List<Products> getTop3ProductMostViewed();
     

@@ -7,7 +7,10 @@ package spring.client.controller;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import java.text.DateFormat;
 import java.text.DecimalFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -35,11 +38,14 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import spring.ejb.BrandsFacadeLocal;
 import spring.ejb.CategoriesFacadeLocal;
+import spring.ejb.OrderStateFullBeanLocal;
 
 import spring.ejb.ProductsFacadeLocal;
+import spring.ejb.SizesByColorFacadeLocal;
 import spring.ejb.UsersFacadeLocal;
 
 import spring.entity.Brands;
+import spring.entity.CartLineInfo;
 import spring.entity.Categories;
 import spring.entity.ProductColors;
 
@@ -50,6 +56,10 @@ import spring.entity.SizesByColor;
 
 @Controller
 public class ProductController {
+
+    SizesByColorFacadeLocal sizesByColorFacade = lookupSizesByColorFacadeLocal();
+
+    OrderStateFullBeanLocal orderStateFullBean = lookupOrderStateFullBeanLocal();
 
     CategoriesFacadeLocal categoriesFacade = lookupCategoriesFacadeLocal();
 
@@ -178,7 +188,7 @@ public class ProductController {
     }
     @ResponseBody
     @RequestMapping(value = "ajax/comparelist", method = RequestMethod.GET)
-    public String compare(HttpServletRequest request) {
+    public String compare(HttpServletRequest request) throws ParseException {
         String str_cart_detail = "";
         String str_cart_big = "";
         String str_cart_button = "";
@@ -195,6 +205,7 @@ public class ProductController {
             cartSize = slist.size();
             
             for (Products p : slist) {
+                
                 str_cart_button = "<div class=\"cart-btn\">\n"
                     + "                                <a href=\"comparelist.html\">VIEW COMPARE LIST</a>\n"
                     
@@ -207,11 +218,22 @@ public class ProductController {
                         + "                <a style=\"font-weight: 700;\" href=\"" + p.getProductID() + "-" + p.getProductColorsList().get(0).getColorID()+ ".html\">\n"
                         + "                    " + p.getProductName() + "\n"
                         + "                </a>\n"
-                        + "            </h5>\n"
-                        + "            <p>Posted Date: &nbsp <date-util format='dd/MM/yyyy'>"+ p.getPostedDate()+ "</date-util></p>\n"
-                        + "            <p>Price: &nbsp $" + String.format( "%.2f", p.getPrice() ) + "</p>\n"
-                           
-                        + "        </div>\n"
+                        + "            </h5>\n";
+                        
+                       
+                        if(p.getDiscountByProduct()!=0)
+                        str_cart_detail +="  <p class=\"product-price\">\n"
+                        + "                 Price: &nbsp\n"
+                        + "                 <small class=\"cutprice\" style=\"display: inline;border-bottom:none;\">$" + String.format("%.2f", p.getPrice()) + "</small>\n"
+                        + "            <small class=\"ps-price fs-product-price\" style=\"display: inline;color:#e74c3c;border-bottom:none;\">$" + p.getProductWithDiscount() + "</small>"
+                        + "            <small class=\"ps-price fs-product-discount\" style=\"display: inline;color:#e74c3c;border-bottom:none;\">(-" + p.getDiscountByProduct() + "%)</small>\n"
+                        + "            </p>\n";
+                        else if(p.getDiscountByProduct()==0)
+                        str_cart_detail +="  <p class=\"product-price\">\n"
+                        + "                 Price: &nbsp\n"
+                        + "            <small class=\"ps-price fs-product-price\" style=\"display: inline;color:#e74c3c;border-bottom:none;\">$" + String.format("%.2f", p.getPrice()) + "</small>&nbsp\n"
+                        + "            </p>\n";   
+                        str_cart_detail +="        </div>\n"
                         + "    </div>";
             }
         }
@@ -708,15 +730,7 @@ public class ProductController {
         }
     }
 
-    @ResponseBody
-    @RequestMapping(value = "ajax/checkquantity", method = RequestMethod.POST)
-    public String checkquantity(
-            @RequestParam("sizeID") Integer sizeID
-    ) {
-        SizesByColor targetSize = productsFacade.getSizeByID(sizeID);
-
-        return "" + targetSize.getQuantity();
-    }
+    
 
     @ResponseBody
     @RequestMapping(value = "ajax/searchProductByKeyWord", method = RequestMethod.POST)
@@ -772,6 +786,26 @@ public class ProductController {
         try {
             Context c = new InitialContext();
             return (CategoriesFacadeLocal) c.lookup("java:global/ShoeGardenPJ/CategoriesFacade!spring.ejb.CategoriesFacadeLocal");
+        } catch (NamingException ne) {
+            Logger.getLogger(getClass().getName()).log(Level.SEVERE, "exception caught", ne);
+            throw new RuntimeException(ne);
+        }
+    }
+
+    private OrderStateFullBeanLocal lookupOrderStateFullBeanLocal() {
+        try {
+            Context c = new InitialContext();
+            return (OrderStateFullBeanLocal) c.lookup("java:global/ShoeGardenPJ/OrderStateFullBean!spring.ejb.OrderStateFullBeanLocal");
+        } catch (NamingException ne) {
+            Logger.getLogger(getClass().getName()).log(Level.SEVERE, "exception caught", ne);
+            throw new RuntimeException(ne);
+        }
+    }
+
+    private SizesByColorFacadeLocal lookupSizesByColorFacadeLocal() {
+        try {
+            Context c = new InitialContext();
+            return (SizesByColorFacadeLocal) c.lookup("java:global/ShoeGardenPJ/SizesByColorFacade!spring.ejb.SizesByColorFacadeLocal");
         } catch (NamingException ne) {
             Logger.getLogger(getClass().getName()).log(Level.SEVERE, "exception caught", ne);
             throw new RuntimeException(ne);

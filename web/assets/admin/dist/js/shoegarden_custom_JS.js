@@ -1334,6 +1334,8 @@ $(document).ready(function () {
         var bDate = $("#dateBegin").val();
         var eDate = $("#dateEnd").val();
         
+        //validate ckeditor
+        var content = $("#cke_fs-product-description iframe").contents().find("body").text();
         
         var count = 0;
 
@@ -1385,6 +1387,13 @@ $(document).ready(function () {
             count++;
         } else {
             $("#fs-eDate-error").text("");
+        }if (content==""){
+            $("#fs-content-error").text("Content cannot be empty!");
+            $("#cke_fs-product-description iframe").contents().find("body").focus();
+            $('html,body').scrollTop(0);
+            count++;
+        } else {
+            $("#fs-content-error").text("");
         }
         
         if(count==0){
@@ -1413,7 +1422,8 @@ $(document).ready(function () {
         var bDate = $("#dateBegin").val();
         var eDate = $("#dateEnd").val();
         
-        
+        //validate ckeditor
+        var content = $("#cke_fs-product-description iframe").contents().find("body").text();
         
         var count = 0;
 
@@ -1466,13 +1476,14 @@ $(document).ready(function () {
         } else {
             $("#fs-eDate-error").text("");
         }
-//        if (CKEDITOR.instances.fs-product-description.document.getBody().getChild(0).getText()==""){
-//            $("#fs-content-error").text("Content cannot be empty!");
-//            $("#fs-product-description").focus();
-//            count++;
-//        } else {
-//            $("#fs-content-error").text("");
-//        }
+        if (content==""){
+            $("#fs-content-error").text("Content cannot be empty!");
+            $("#cke_fs-product-description iframe").contents().find("body").focus();
+            $('html,body').scrollTop(0);
+            count++;
+        } else {
+            $("#fs-content-error").text("");
+        }
         if(count==0){
             $("#fs-discount-title-error").text("");
             $("#fs-form-update-discount").submit();
@@ -3918,37 +3929,38 @@ $(document).ready(function () {
         });
     });
     
-    $(".fs-select-comment-status").on("change", function () {
-        var status = $(this).val();
-        var rateID = $(this).attr("fs-comment");
-
-        $.ajax({
-            url: "admin/comments/updateStatus.html",
-            method: "POST",
-            data: {rateID: rateID, status: status},
-            success: function (response) {
-//                swal("UPDATE SUCCESS", response, "success");
-                swal({
-                    type: "success",
-                    title: "UPDATE SUCCESS",
-                    text: response,
-                    timer: 2000,
-                    showConfirmButton: false
-                });
-
-            }
-        });
-    });
+    
 
 
 
-    var currentRating = $('#fs-rating-star-result').data('current-rating');
-    $('#fs-rating-star-result').barrating({
+    $('#fs-rating-star').barrating({
         theme: 'fontawesome-stars-o',
-        initialRating: currentRating,
         showSelectedRating: false,
-        readonly: true
+        //readonly: true,
+        onSelect: function (value, text, event) {
+            if (typeof (event) !== 'undefined') {
+                // rating was selected by a user
+                $("#fs-div-vote-value").html("<strong style=\"font-size: 20px; color: #d6644a\">" + value + " </strong>Star");
+                $("#fs-rating-star").val(value);
+            } else {
+                // rating was selected programmatically
+                // by calling `set` method
+            }
+        }
     });
+
+    
+
+    for (var i = 0; i < parseInt($("#fs-number-of-rating").attr("fs-nort")); i++) {
+        var rating = $('#fs-rating-star-' + i).data('current-rating');
+        $('#fs-rating-star-' + i).barrating({
+            theme: 'fontawesome-stars-o',
+            initialRating: rating,
+            showSelectedRating: false,
+            readonly: true
+        });
+    }
+    ;
 //    document.getElementById('fs-status-1').onclick = function(){
 //    swal("Good job!", "You clicked the button!", "success");
 //};
@@ -3978,7 +3990,8 @@ $(document).ready(function () {
             }
         });
     });
-
+    
+    
 
     /*
      * FORMATTING FUNCTION FOR ROW DETAIL - MODIFY AS YOU NEED
@@ -3986,6 +3999,41 @@ $(document).ready(function () {
 
     var fs_user_table = $("#fs-user-dataTables").DataTable({//cấu hình datatable chính chủ.
         responsive: true
+    });
+    
+    
+    $("#fs-discount-added-dataTables").DataTable({
+        responsive: true,
+        "scrollY": '50vh',
+        "scrollCollapse": true,
+        "paging": false
+    });
+    $('#fs-discount-added-dataTables').jTableCheckbox({
+        showTicks: false,
+        checkboxName: 'deletecheck'
+    });
+
+    $("#fs-discount-removed-dataTables").DataTable({
+        responsive: true,
+        "scrollY": '60vh',
+        "scrollCollapse": true,
+        "paging": false
+    });
+
+    $('#fs-discount-removed-dataTables').jTableCheckbox({
+        showTicks: false,
+        checkboxName: 'addcheck'
+    });
+    
+    $("#fs-discount-addnew").DataTable({
+        responsive: true,
+        "scrollY": '50vh',
+        "scrollCollapse": true,
+        "paging": false
+    });
+    $('#fs-discount-addnew').jTableCheckbox({
+        showTicks: false,
+        checkboxName: 'check'
     });
 
     //function load data từ 1 dataSource lên table
@@ -4484,29 +4532,8 @@ $(document).ready(function () {
 //        $('#error-discount-add').html("");
 //    });
     //discount-update.jsp
-    $("#fs-form-update-discount #dateBegin").datepicker({
-        showAnim: "drop",
-        dateFormat: "dd-mm-yy",
-        changeMonth: true,
-        changeYear: true,
-        yearRange: new Date().getFullYear().toString() + ":" + (new Date().getFullYear() + 2).toString(),
-        minDate: new Date(),
-        onSelect: function () {
-            $('#error-discount-update').html("");
-            $("#fs-form-update-discount #endDate").datepicker("option", "minDate", $('input[name=dateBegin]').val());
-        }
-    });
-    $("#fs-form-update-discount #dateEnd").datepicker({
-        showAnim: "drop",
-        dateFormat: "dd-mm-yy",
-        changeMonth: true,
-        changeYear: true,
-        yearRange: new Date().getFullYear().toString() + ":" + (new Date().getFullYear() + 2).toString(),
-        minDate: new Date(),
-        onSelect: function () {
-            $('#error-discount-update').html("");
-        }
-    });
+    $("#fs-form-update-discount #dateBegin").datepicker("option", "disabled", true);
+    $("#fs-form-update-discount #dateEnd").datepicker("option", "disabled", true);
 //    $('#btn-update-discount').on("click", function (e) {
 //        e.preventDefault();
 //        var errorHead = "<div class=\"alert alert-danger\"><strong>";
@@ -4858,18 +4885,30 @@ $(document).ready(function () {
         })
     });
     
-$('table.added').jTableCheckbox({
-    showTicks: false,
-    checkboxName : 'deletecheck'
-});
-$('table.update').jTableCheckbox({
-    showTicks: false,
-    checkboxName : 'addcheck'
-});
-$('table.cc').jTableCheckbox({
-    showTicks: false,
-    checkboxName : 'check'
-});
+    $("#id-status-order").on("change",function () {
+        var status = $(this).val();
+        var order = $(this).attr("fs-order");
+
+        $.ajax({
+            url: "admin/orders/confirmstatusOrder.html",
+            method: "POST",
+            data: {order: order, status: status},
+            success: function (response) {
+//                swal("UPDATE SUCCESS", response, "success");
+                swal({
+                    type: "success",
+                    title: "UPDATE SUCCESS",
+                    text: "update status successfully",
+                    timer: 2000,
+                    showConfirmButton: false
+                });
+                location.reload();
+
+            }
+        });
+    });
+
+
 
     /*==============================END NGAN - ORDER============================*/
 

@@ -74,7 +74,7 @@
                                         <td class="text-center fs-valign-middle" style="width: 50px;">${orderdetail.sizeID.size}</td>
                                         <td class="text-center fs-valign-middle">${orderdetail.quantity}</td>
                                         <td class="text-center fs-valign-middle">$${orderdetail.price}</td>
-                                        <td class="text-center fs-valign-middle">${orderdetail.productID.discountByProduct}%</td>
+                                        <td class="text-center fs-valign-middle">${orderdetail.productDiscount}%</td>
                                         <td class="text-center fs-valign-middle">$${orderdetail.getSubTotal()}</td>
                                         <td class="text-center fs-valign-middle">
                                             <c:choose>

@@ -149,7 +149,7 @@
                                             <span class="product-price">
                                                 <c:if test="${product.discountDetailsList[0]!=null}">
                                                     <small class="cutprice">$ ${product.price}0 </small>  $
-                                                    <fmt:formatNumber type="number" maxFractionDigits="2" value="${product.price * (1-product.discountDetailsList[0].discID.discount/100)}" var="prodPrice"/>
+                                                    <fmt:formatNumber type="number" maxFractionDigits="2" value="${product.productWithDiscount}" var="prodPrice"/>
                                                     ${fn:replace(prodPrice, ",", ".")}
                                                 </c:if>
                                                 <c:if test="${product.discountDetailsList[0]==null}">

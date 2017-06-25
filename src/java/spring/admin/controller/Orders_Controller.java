@@ -277,15 +277,16 @@ public class Orders_Controller {
 
     
 
-    @RequestMapping(value = "confirmstatusOrder/{orderid}/{status}", method = RequestMethod.GET)
-    public String confirmstatusOrder(@PathVariable("orderid") int orderid, @PathVariable("status") short status) {
+    @ResponseBody
+    @RequestMapping(value = "confirmstatusOrder", method = RequestMethod.POST)
+    public String confirmstatusOrder(@RequestParam("order") int orderid, @RequestParam("status") short status) {
         Orders order = orderStateLessBean.getOrderByID(orderid);
         if (order != null) {
             if (orderStateLessBean.confirmStatusOrder(order, status)) {
-                return "redirect:/admin/orders/list.html";
+                return "SUCCESS";
             }
         }
-        return "redirect:/admin/orders/list.html";
+        return "FAILED";
     }
 
     @RequestMapping(value = "orderlistdetail/{orderid}", method = RequestMethod.GET)
