@@ -442,10 +442,10 @@ public class ProductController {
                 model.addAttribute("ratingfor5", ratingfor5);
                 model.addAttribute("checkUserRated", checkUserRated);
             } else {
-                String error = "Product ko có color này!";
+                String error = "Product has not this color!";
             }
         } else {
-            String error = "Product ko có!";
+            String error = "Product isn't exist!";
         }
 
         return "client/pages/product-detail";

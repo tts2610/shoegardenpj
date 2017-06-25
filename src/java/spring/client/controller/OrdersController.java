@@ -89,7 +89,7 @@ public class OrdersController {
         List<CartLineInfo> cli = orderStateFullBean.showCart();
         
         for (CartLineInfo cartLineInfo : cli) {
-            if(cartLineInfo.getSizesByColor().getSize().equals(s.getSize())&&cartLineInfo.getSizesByColor().getColorID().getColorID() == colorID){
+            if(cartLineInfo.getSizesByColor().getSizeID()==sizeID){
                 inCartquantity = cartLineInfo.getQuantity();
             }
         }
@@ -132,7 +132,7 @@ public class OrdersController {
                 if (cli.size() != 0) {
                     for (CartLineInfo cartLineInfo1 : cli) {
 
-                        if (cartLineInfo1.getSizesByColor().getSize().equals(s.getSize())&&cartLineInfo1.getSizesByColor().getColorID().getColorID() == colorID) {
+                        if (cartLineInfo1.getSizesByColor().getSizeID() == sizeID) {
                             inCartquantity += cartLineInfo1.getQuantity();
 
                         }
