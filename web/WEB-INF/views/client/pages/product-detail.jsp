@@ -39,19 +39,22 @@
                             <div class="ps-header fs-product-detail-name" fs-product-id="${targetProduct.productID}">
                                 <h3>${targetProduct.productName}</h3>
                                 <c:if test="${targetProduct.productWithDiscount!=targetProduct.price}">
-                                <div class="ps-price">
-                                    <h1 style="color: #888888;text-decoration: line-through; display: inline">$${targetProduct.price} </h1>
-                                    <h1 style="display: inline"><fmt:formatNumber type="number" maxFractionDigits="2" value="${targetProduct.productWithDiscount}" var="prodPrice"/>$${fn:replace(prodPrice, ",", ".")}</h1>
-                                    &nbsp;&nbsp;<h1 style="display: inline">(-${targetProduct.discountByProduct}%)</h1>
-                                </div>
+                                    <div class="ps-price">
+                                        <h1 style="color: #888888;text-decoration: line-through; display: inline">$${targetProduct.price} </h1>
+                                        <h1 style="display: inline"><fmt:formatNumber type="number" maxFractionDigits="2" value="${targetProduct.productWithDiscount}" var="prodPrice"/>$${fn:replace(prodPrice, ",", ".")}</h1>
+                                        &nbsp;&nbsp;<h1 style="display: inline">(-${targetProduct.discountByProduct}%)</h1>
+                                    </div>
                                 </c:if>
                                 <c:if test="${targetProduct.productWithDiscount==targetProduct.price}">
-                                <div class="ps-price"><h1>$${targetProduct.price} </h1></div>
+                                    <div class="ps-price"><h1>$${targetProduct.price} </h1></div>
                                 </c:if>
-                                </div>
+                            </div>
                             <div class="ps-stock">
                                 Availability: <span style="color: #d6644a" class="fs-quantity-in-stock">---</span>
                                 <div class="fs-display-none" id="fs-show-quantity"></div>
+                            </div>
+                            <div class="alert alert-warning fs-quantity-in-cart" style="display: none">
+                           
                             </div>
                             <div class="alert alert-warning fs-quantity-in-cart" style="display: none">
                            
@@ -107,7 +110,7 @@
                                 <span>
                                     <a class="fa fa-bar-chart" id="fs-product-detail-compare" fs-productID="${targetProduct.productID}"></a>
                                     <a class="likeitem fa fa-heart-o fs-product-detail-wl" id="fs-product-detail-wl" fs-userID="${sessionScope.findUsersID}" 
-                                           fs-productID="${targetProduct.productID}"></a>
+                                       fs-productID="${targetProduct.productID}"></a>
                                     <input type="hidden" name="emailUser" value="${sessionScope.emailUser}" />
                                 </span>
                                 <div class="addthis_native_toolbox"></div>
@@ -222,25 +225,25 @@
                                 <div class="fs-display-none" id="fs-number-of-rating" fs-nort="${numberOfRating}"></div>
                                 <c:forEach items="${targetProduct.ratingList}" var="review" varStatus="no">
                                     <c:if test="${review.status==1}">
-                                    <p>
-                                        <b>${review.user.firstName} ${review.user.lastName}</b>, <fmt:formatDate value="${review.ratingDate}" pattern="dd MMM, yyyy" timeZone="US"/>
-                                    </p>
-                                    <p style="margin-top: 7px; margin-bottom: 7px">
-                                        ${review.review}
-                                    </p>
-                                    <select id="fs-rating-star-${no.index}" name="fs-rating-star-${no.index}" data-current-rating="${review.rating}">
-                                        <option value="1">1</option>
-                                        <option value="2">2</option>
-                                        <option value="3">3</option>
-                                        <option value="4">4</option>
-                                        <option value="5">5</option>
-                                    </select>
-                                    <div class="sep"></div>
+                                        <p>
+                                            <b>${review.user.firstName} ${review.user.lastName}</b>, <fmt:formatDate value="${review.ratingDate}" pattern="dd MMM, yyyy" timeZone="US"/>
+                                        </p>
+                                        <p style="margin-top: 7px; margin-bottom: 7px">
+                                            ${review.review}
+                                        </p>
+                                        <select id="fs-rating-star-${no.index}" name="fs-rating-star-${no.index}" data-current-rating="${review.rating}">
+                                            <option value="1">1</option>
+                                            <option value="2">2</option>
+                                            <option value="3">3</option>
+                                            <option value="4">4</option>
+                                            <option value="5">5</option>
+                                        </select>
+                                        <div class="sep"></div>
                                     </c:if>
                                 </c:forEach>
                                 <c:choose>
                                     <c:when test="${sessionScope.findUsersID != null && checkUserRated == 1}">
-                                        <h3>You already voted for this product! </h3>
+                                        <h3>Thank you! Your review is being verified</h3>
                                     </c:when>
                                     <c:when test="${sessionScope.findUsersID != null && checkUserRated == 0}">
                                         <div id="fs-form-rating-review">
