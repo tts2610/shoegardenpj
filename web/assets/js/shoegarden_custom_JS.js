@@ -268,6 +268,7 @@ $(document).ready(function () {
         $(".fs-modal-input-number").val(1);
         $(".fs-modal-btn-quantity-minus").attr("disabled", "disabled");
         $(".fs-quantity-in-cart").text("");
+        $(".fs-quantity-in-cart").css("display","none")
         //$(".fs-modal-btn-quantity-plus").removeAttr("disabled");
 
         $.ajax({
@@ -776,6 +777,9 @@ $(document).ready(function () {
     });
     /* EVENT CLICK WHEN CHOOSE SIZE */
     $(document).on("click", ".fs-particular-size", function () {
+        var errorHead = "<div class=\"alert alert-danger\"><strong>";
+        var errorHeadSuccess = "<div class=\"alert alert-success\"><strong>";
+        var errorFoot = "</strong></div>";
         $('#error-cart-product-modal').html("");
         $("#error-product-detail").html("");
         var classList = $(this).attr("class").split(" ");
@@ -787,8 +791,6 @@ $(document).ready(function () {
 
         var sizeID = $(this).attr("fs-size");
         var colorID = $('.fs-product-selected img').attr("fs-color");
-        
-
         $.ajax({
             url: "orders/ajax/checkquantity.html",
             method: "POST",
@@ -801,15 +803,31 @@ $(document).ready(function () {
                     var res = response.split("-");
                     $(".fs-input-number, .fs-modal-input-number").removeAttr("disabled");
                     $(".fs-btn-quantity-plus, .fs-modal-btn-quantity-plus").removeAttr("disabled");
-                    $(".fs-quantity-in-stock").text(res[2]);
+                    $(".fs-quantity-in-stock").text(" (In Stock "+res[2]+")");
                     $(".fs-modal-input-number").val(1);
-                    if(res[0]!="0"){
-                    $(".fs-quantity-in-cart").text("This pairs are available in your cart ("+res[0]+" pairs)");
+                    $(".fs-input-number").val(1);
+                    
+                    if(res[1]!=res[2]){
+                        $(".fs-quantity-in-cart").css("display","block")
+                        $(".fs-quantity-in-cart").text("This pairs are available in your cart ("+res[0]+" pairs)");
                     }
-                    if(res[0]=="0"){
+                    if(res[1]==res[2]){
+                            $(".fs-quantity-in-cart").css("display","none")
                             $(".fs-quantity-in-cart").text("");
+                            $("#fs-product-detail-add-to-cart").attr("disabled", false);
+                            $(".fs-modal-btn-addtobag").attr("disabled", false)
                     }
+                    if(res[0]==res[2]){
+                        $(".fs-modal-btn-quantity-plus").attr("disabled", "disabled");
+                        $(".fs-modal-btn-quantity-minus").attr("disabled", "disabled");
+                        $(".fs-modal-btn-addtobag").attr("disabled", "disabled")
+                        $("#fs-product-detail-add-to-cart").attr("disabled", "disabled")
+                        $(".fs-btn-quantity-minus").attr("disabled", "disabled")
+                        $(".fs-btn-quantity-plus").attr("disabled", "disabled")
+                        
+                    }  
                     $(".fs-input-number, .fs-modal-input-number").attr("max", res[1]);
+                    
                     $(".fs-input-number, .fs-modal-input-number").attr("disabled", "disabled");
                 }
             }
@@ -3366,7 +3384,7 @@ $(document).ready(function () {
                                     "</div>");
                         } else if (response == "1") {
                             $("#error-product-detail").html("<div class=\"alert alert-danger\">\n" +
-                                    "<strong>NOT ENOUGH STOCK! PLEASE ENTER DIFFERENT QUANTITY</strong>\n" +
+                                    "<strong>OUT OF STOCK</strong>\n" +
                                     "</div>");
                         } else {
                             $('body,html').animate({
@@ -3384,24 +3402,28 @@ $(document).ready(function () {
                                 }
                             });
                             var res = response.split("-");
-                            
-                            if(res[0]!="0"){
-                            $(".fs-quantity-in-cart").text("This pairs are available in your cart (" + res[0] +" pairs)");
+                            $(".fs-input-number, .fs-modal-input-number").removeAttr("disabled");
+                            $(".fs-btn-quantity-plus, .fs-modal-btn-quantity-plus").removeAttr("disabled");
+                            $(".fs-quantity-in-stock").text(" (In Stock " + res[2] + ")");
+                            $(".fs-modal-input-number").val(1);
+                            $(".fs-input-number").val(1);
+                            if (res[1] != res[2]) {
+                                $(".fs-quantity-in-cart").css("display", "block")
+                                $(".fs-quantity-in-cart").text("This pairs are available in your cart (" + res[0] + " pairs)");
                             }
-                            if(res[0]=="0"){
-                            $(".fs-quantity-in-cart").text("");
+                            if (res[1] == res[2]) {
+                                $(".fs-quantity-in-cart").css("display", "none")
+                                $(".fs-quantity-in-cart").text("");
+                            }
+                            if (res[0] == res[2]) {
+                                $(".fs-modal-btn-quantity-plus").attr("disabled", "disabled");
+                                $(".fs-modal-btn-quantity-minus").attr("disabled", "disabled");
+                                $("#fs-product-detail-add-to-cart").attr("disabled", "disabled")
+                                $(".fs-btn-quantity-minus").attr("disabled", "disabled")
+                                $(".fs-btn-quantity-plus").attr("disabled", "disabled")
                             }
                             $(".fs-input-number, .fs-modal-input-number").attr("max", res[1]);
-                            $(".fs-modal-input-number").val(1);
-                            $(".fs-input-number, .fs-modal-input-number").attr("disabled","disabled");
-                            $.ajax({
-                                url: "orders/ajax/cart.html",
-                                method: "GET",
-                                dataType: 'html',
-                                success: function (response) {
-                                    $("#cart").html(response).fadeIn(1000);
-                                }
-                            });
+                            $(".fs-input-number, .fs-modal-input-number").attr("disabled", "disabled");
                         }
                     }
                 });
@@ -3445,16 +3467,25 @@ $(document).ready(function () {
                             $('#error-cart-product-modal').html(errorHead + "NOT ENOUGH STOCK! PLEASE ENTER DIFFERENT QUANTITY" + errorFoot);
                         } else {
                             var res = response.split("-");
-                            $('#error-cart-product-modal').html(errorHeadSuccess + "ADD PRODUCT TO CART SUCCESSFULLY!" + errorFoot);
-                            if(res[0]!="0"){
-                            $(".fs-quantity-in-cart").text("This pairs are available in your cart (" + res[0] +" pairs)");
+                            $(".fs-input-number, .fs-modal-input-number").removeAttr("disabled");
+                            $(".fs-btn-quantity-plus, .fs-modal-btn-quantity-plus").removeAttr("disabled");
+                            $(".fs-quantity-in-stock").text(" (In Stock " + res[2] + ")");
+                            $(".fs-modal-input-number").val(1);
+                            if (res[1] != res[2]) {
+                                $(".fs-quantity-in-cart").css("display", "block")
+                                $(".fs-quantity-in-cart").text("This pairs are available in your cart (" + res[0] + " pairs)");
                             }
-                            if(res[0]=="0"){
-                            $(".fs-quantity-in-cart").text("");
+                            if (res[1] == res[2]) {
+                                $(".fs-quantity-in-cart").css("display", "none")
+                                $(".fs-quantity-in-cart").text("");
+                            }
+                            if (res[0] == res[2]) {
+                                $(".fs-modal-btn-quantity-plus").attr("disabled", "disabled");
+                                $(".fs-modal-btn-quantity-minus").attr("disabled", "disabled");
+                                $(".fs-modal-btn-addtobag").attr("disabled", "disabled")
                             }
                             $(".fs-input-number, .fs-modal-input-number").attr("max", res[1]);
-                            $(".fs-modal-input-number").val(1);
-                            $(".fs-input-number, .fs-modal-input-number").attr("disabled","disabled");
+                            $(".fs-input-number, .fs-modal-input-number").attr("disabled", "disabled");
                             $.ajax({
                                 url: "orders/ajax/cart.html",
                                 method: "GET",

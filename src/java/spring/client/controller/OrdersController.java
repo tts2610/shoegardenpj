@@ -122,7 +122,7 @@ public class OrdersController {
         if (pro != null) {
             if (sizesByColor != null) {
 
-                int inCartquantity = 1;
+                int inCartquantity = 0;
 
                 SizesByColor s = sizesByColorFacade.find(sizeID);
                 int quantityInDB = sizesByColorFacade.findSizeByColorBySizeIDAndColorID(Integer.parseInt(s.getSize()), colorID).getQuantity();
@@ -149,6 +149,8 @@ public class OrdersController {
                     cartLineInfo.setQuantity(quantity);
                     orderStateFullBean.addProduct(cartLineInfo);
 
+                    inCartquantity = cartLineInfo.getQuantity();
+                    
                     int realQuantity = quantityInDB - inCartquantity;
 
                     String returnValue = "";

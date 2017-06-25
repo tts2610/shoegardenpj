@@ -7,7 +7,10 @@ package spring.client.controller;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import java.text.DateFormat;
 import java.text.DecimalFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -185,7 +188,7 @@ public class ProductController {
     }
     @ResponseBody
     @RequestMapping(value = "ajax/comparelist", method = RequestMethod.GET)
-    public String compare(HttpServletRequest request) {
+    public String compare(HttpServletRequest request) throws ParseException {
         String str_cart_detail = "";
         String str_cart_big = "";
         String str_cart_button = "";
@@ -202,6 +205,7 @@ public class ProductController {
             cartSize = slist.size();
             
             for (Products p : slist) {
+                
                 str_cart_button = "<div class=\"cart-btn\">\n"
                     + "                                <a href=\"comparelist.html\">VIEW COMPARE LIST</a>\n"
                     
@@ -214,11 +218,22 @@ public class ProductController {
                         + "                <a style=\"font-weight: 700;\" href=\"" + p.getProductID() + "-" + p.getProductColorsList().get(0).getColorID()+ ".html\">\n"
                         + "                    " + p.getProductName() + "\n"
                         + "                </a>\n"
-                        + "            </h5>\n"
-                        + "            <p>Posted Date: &nbsp <date-util format='dd/MM/yyyy'>"+ p.getPostedDate()+ "</date-util></p>\n"
-                        + "            <p>Price: &nbsp $" + String.format( "%.2f", p.getPrice() ) + "</p>\n"
-                           
-                        + "        </div>\n"
+                        + "            </h5>\n";
+                        
+                       
+                        if(p.getDiscountByProduct()!=0)
+                        str_cart_detail +="  <p class=\"product-price\">\n"
+                        + "                 Price: &nbsp\n"
+                        + "                 <small class=\"cutprice\" style=\"display: inline;border-bottom:none;\">$" + String.format("%.2f", p.getPrice()) + "</small>\n"
+                        + "            <small class=\"ps-price fs-product-price\" style=\"display: inline;color:#e74c3c;border-bottom:none;\">$" + p.getProductWithDiscount() + "</small>"
+                        + "            <small class=\"ps-price fs-product-discount\" style=\"display: inline;color:#e74c3c;border-bottom:none;\">(-" + p.getDiscountByProduct() + "%)</small>\n"
+                        + "            </p>\n";
+                        else if(p.getDiscountByProduct()==0)
+                        str_cart_detail +="  <p class=\"product-price\">\n"
+                        + "                 Price: &nbsp\n"
+                        + "            <small class=\"ps-price fs-product-price\" style=\"display: inline;color:#e74c3c;border-bottom:none;\">$" + String.format("%.2f", p.getPrice()) + "</small>&nbsp\n"
+                        + "            </p>\n";   
+                        str_cart_detail +="        </div>\n"
                         + "    </div>";
             }
         }
