@@ -87,7 +87,7 @@ public class OrdersController {
         SizesByColor s = sizesByColorFacade.find(sizeID);
         //lay so luong trong cart
         List<CartLineInfo> cli = orderStateFullBean.showCart();
-        System.err.println(cli.size());
+        
         for (CartLineInfo cartLineInfo : cli) {
             if(cartLineInfo.getSizesByColor().getSize().equals(s.getSize())&&cartLineInfo.getSizesByColor().getColorID().getColorID()==colorID){
                 inCartquantity = cartLineInfo.getQuantity();
@@ -102,6 +102,7 @@ public class OrdersController {
         
         String returnValue = "";
         
+        System.err.println("CCCCC " + inCartquantity + " " + realQuantity +" "+quantityInDB);
             
         returnValue = inCartquantity+"-"+realQuantity+"-"+quantityInDB;
         
@@ -149,10 +150,14 @@ public class OrdersController {
                 int realQuantity = quantityInDB - inCartquantity;
 
                 String returnValue = "";
+                
+                if(inCartquantity>quantityInDB)
+                    return "1";
+               
+                    returnValue = inCartquantity + "-" + realQuantity + "-" + quantityInDB;
 
-                returnValue = inCartquantity + "-" + realQuantity + "-" + quantityInDB;
-
-                return returnValue; //Add Product to Cart Successfully!
+                    return returnValue; //Add Product to Cart Successfully!
+                
             }
             return "2"; //Color and Size error!
         }
