@@ -89,7 +89,7 @@ public class OrdersController {
         List<CartLineInfo> cli = orderStateFullBean.showCart();
         
         for (CartLineInfo cartLineInfo : cli) {
-            if(cartLineInfo.getSizesByColor().getSize().equals(s.getSize())&&cartLineInfo.getSizesByColor().getColorID().getColorID()==colorID){
+            if(cartLineInfo.getSizesByColor().getSizeID()==sizeID){
                 inCartquantity = cartLineInfo.getQuantity();
             }
         }
@@ -101,8 +101,6 @@ public class OrdersController {
         
         
         String returnValue = "";
-        
-        System.err.println("CCCCC " + inCartquantity + " " + realQuantity +" "+quantityInDB);
             
         returnValue = inCartquantity+"-"+realQuantity+"-"+quantityInDB;
         
@@ -123,40 +121,44 @@ public class OrdersController {
 
         if (pro != null) {
             if (sizesByColor != null) {
-                if (sizesByColor.getQuantity() < quantity) {
-                    return "1"; //Not enough stock! Please enter different quantity.
-                }
-                CartLineInfo cartLineInfo = new CartLineInfo();
-                cartLineInfo.setProduct(pro);
-                cartLineInfo.setSizesByColor(sizesByColor);
-                cartLineInfo.setQuantity(quantity);
-                orderStateFullBean.addProduct(cartLineInfo);
 
-                int inCartquantity = 0;
+                int inCartquantity = 1;
 
                 SizesByColor s = sizesByColorFacade.find(sizeID);
-                
+                int quantityInDB = sizesByColorFacade.findSizeByColorBySizeIDAndColorID(Integer.parseInt(s.getSize()), colorID).getQuantity();
+
                 //lay so luong trong cart
                 List<CartLineInfo> cli = orderStateFullBean.showCart();
-                for (CartLineInfo cartLineInfo1 : cli) {
-                    if (cartLineInfo1.getSizesByColor().getSize().equals(s.getSize()) && cartLineInfo1.getSizesByColor().getColorID().getColorID() == colorID) {
-                        inCartquantity = cartLineInfo1.getQuantity();
+                if (cli.size() != 0) {
+                    for (CartLineInfo cartLineInfo1 : cli) {
+
+                        if (cartLineInfo1.getSizesByColor().getSizeID() == sizeID) {
+                            inCartquantity += cartLineInfo1.getQuantity();
+
+                        }
                     }
                 }
 
-                
-
-                int quantityInDB = sizesByColorFacade.findSizeByColorBySizeIDAndColorID(Integer.parseInt(s.getSize()), colorID).getQuantity();
-                int realQuantity = quantityInDB - inCartquantity;
-
-                String returnValue = "";
-                
-                if(inCartquantity>quantityInDB)
+                if (inCartquantity > quantityInDB) {
                     return "1";
-               
+                } else {
+
+                    CartLineInfo cartLineInfo = new CartLineInfo();
+                    cartLineInfo.setProduct(pro);
+                    cartLineInfo.setSizesByColor(sizesByColor);
+                    cartLineInfo.setQuantity(quantity);
+                    orderStateFullBean.addProduct(cartLineInfo);
+
+                    int realQuantity = quantityInDB - inCartquantity;
+
+                    String returnValue = "";
+
                     returnValue = inCartquantity + "-" + realQuantity + "-" + quantityInDB;
 
+//                System.err.println(returnValue);
                     return returnValue; //Add Product to Cart Successfully!
+                }
+                
                 
             }
             return "2"; //Color and Size error!
