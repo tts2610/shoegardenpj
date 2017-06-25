@@ -1,7 +1,4 @@
 ﻿USE master
-
-GO
-
 IF db_id ('ShoeGarden2017') is not null
 	drop database ShoeGarden2017
 
