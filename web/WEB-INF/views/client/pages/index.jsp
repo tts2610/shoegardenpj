@@ -323,7 +323,7 @@
             <button type="button" class="close fs-modal-close" data-dismiss="modal" aria-hidden="true">
                 <i class="fa fa-times"></i>
             </button>
-            <p class="text-center fs-wl-text"><b>Login to add wishlist !</b></p>
+            <p class="text-center fs-wl-text"><b>Please login to add wishlist !</b></p>
             <div class="modal-body fs-modal-wl-body">
                 <a class="btn fs-btn-wl fs-btn-login-wl text-center">Login</a>
             </div>
