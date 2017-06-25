@@ -622,7 +622,7 @@ $(document).ready(function () {
                     swal({
                         title: "<h1 style='color: #F65D20;' >Error!",
                         text: "Error",
-                        timer: 1000,
+                        timer: 2000,
                         showConfirmButton: false,
                         html: true
                     });
@@ -1053,7 +1053,6 @@ $(document).ready(function () {
         var review = $("#fs-review-product").val();
         var userID = $(this).attr("fs-user-id");
         var productID = $(this).attr("fs-product-id");
-        
         $.ajax({
             url: "ajax/submitReviewRating.html",
             method: "POST",
@@ -1065,9 +1064,9 @@ $(document).ready(function () {
             },
             beforeSend: function (xhr) {
                 $("#fs-ajax-loading-2").css("display", "block");
-            },            
-            success: function (response) {                
-                if (response==="ok") {
+            },
+            success: function (response) {
+                if (response == "ok") {
                     setTimeout(function () {
                         $("#fs-ajax-loading-2").css("display", "none");
                         $("#fs-form-rating-review").empty();
@@ -1082,7 +1081,7 @@ $(document).ready(function () {
                                 from: 'top',
                                 align: 'right'
                             },
-                            delay: 1000,
+                            delay: 2500,
                             timer: 200,
                             mouse_over: 'pause',
                             animate: {
