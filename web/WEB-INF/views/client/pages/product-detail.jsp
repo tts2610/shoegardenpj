@@ -17,15 +17,14 @@
                 </div>
                 <div class="row">
                     <div class="col-md-5 col-sm-6" id="fs-product-detail-slide-img">                                    
-                        <div class="owl-carousel prod-slider sync1" >
+                        <div class="owl-carousel prod-slider sync1"  >
                             <c:forEach items="${targetColor.productSubImgsList}" var="subImg">
-                                <div class="item">
+                                <div class="item" id="gallery_01" data-zoom-image="assets/images/products/subImg/${subImg.urlImg}" alt="${subImg.urlImg}">
                                     <img src="assets/images/products/subImg/${subImg.urlImg}" alt="${subImg.urlImg}">
-                                    <a href="assets/images/products/subImg/${subImg.urlImg}" rel="prettyPhoto[gallery2]" title="Product" class="caption-link"><i class="fa fa-arrows-alt"></i></a>
+<!--                                    <a href="assets/images/products/subImg/${subImg.urlImg}" rel="prettyPhoto[gallery2]" title="Product" class="caption-link"><i class="fa fa-arrows-alt"></i></a>-->
                                 </div>
                             </c:forEach>
                         </div>
-
                         <div  class="owl-carousel sync2">
                             <c:forEach items="${targetColor.productSubImgsList}" var="subImg">
                                 <div class="item">
@@ -37,7 +36,16 @@
                     <div class="col-md-7 col-sm-6">
                         <div class="product-single">
                             <div class="ps-header fs-product-detail-name" fs-product-id="${targetProduct.productID}">
-                                <h3>${targetProduct.productName}</h3>
+                                <h1>${targetProduct.productName}</h1>
+                                <div class="ps-price">                                     
+                                    <select id="fs-rating-star-result" name="fs-rating-star-result" data-current-rating="${ratingAVR}">
+                                        <option value="1">1</option>
+                                        <option value="2">2</option>
+                                        <option value="3">3</option>
+                                        <option value="4">4</option>
+                                        <option value="5">5</option>
+                                    </select>                            
+                                </div>
                                 <c:if test="${targetProduct.productWithDiscount!=targetProduct.price}">
                                     <div class="ps-price">
                                         <h1 style="color: #888888;text-decoration: line-through; display: inline">$${targetProduct.price} </h1>
@@ -54,7 +62,7 @@
                                 <div class="fs-display-none" id="fs-show-quantity"></div>
                             </div>
                             <div class="alert alert-warning fs-quantity-in-cart" style="display: none">
-                           
+
                             </div>
                             <div class="sep"></div>
                             <div class="ps-color fs-product-color">
@@ -119,174 +127,91 @@
                     </div>
                 </div>
                 <div class="clearfix space40"></div>
-                <div role="tabpanel">
-                    <!-- Nav tabs -->
-                    <ul class="nav nav-tabs" role="tablist">
-                        <li class="active">
-                            <a href="#fs-menu-tab-1" data-toggle="tab">
-                                Product Description
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#fs-menu-tab-2" data-toggle="tab">
-                                Customer Review
-                            </a>
-                        </li>
-                    </ul>
-                    <!-- Tab panes -->
-                    <div class="tab-content">
-                        <div class="tab-pane active" id="fs-menu-tab-1">
-                            ${targetProduct.productDes}
-                        </div>
-                        <div class="tab-pane" id="fs-menu-tab-2">
-                            <div class="reviews-tab">
-                                <div class="row">
-                                    <div class="col-xs-5 col-sm-3 col-sm-offset-3">
-                                        <div class="rating-block text-center">
-                                            <h4>Average user rating</h4>
-                                            <h2 class="bold padding-bottom-7">${ratingAVR} <small>/ 5</small></h2>
-                                            <select id="fs-rating-star-result" name="fs-rating-star-result" data-current-rating="${ratingAVR}">
-                                                <option value="1">1</option>
-                                                <option value="2">2</option>
-                                                <option value="3">3</option>
-                                                <option value="4">4</option>
-                                                <option value="5">5</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <div class="col-xs-5">
-                                        <h4>Rating breakdown</h4>
-                                        <div class="pull-left">
-                                            <div class="pull-left" style="width:35px; line-height:1;">
-                                                <div style="height:9px; margin:5px 0;">5 <span class="glyphicon glyphicon-star"></span></div>
-                                            </div>
-                                            <div class="pull-left" style="width:180px;">
-                                                <div class="progress" style="height:9px; margin:8px 0;">
-                                                    <div class="progress-bar progress-bar-success" aria-valuenow="5" aria-valuemin="0" aria-valuemax="5" style="width: ${(ratingfor5/numberOfRating)*100}%">
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="pull-right" style="margin-left:10px;">${ratingfor5}</div>
-                                        </div>
-                                        <div class="pull-left">
-                                            <div class="pull-left" style="width:35px; line-height:1;">
-                                                <div style="height:9px; margin:5px 0;">4 <span class="glyphicon glyphicon-star"></span></div>
-                                            </div>
-                                            <div class="pull-left" style="width:180px;">
-                                                <div class="progress" style="height:9px; margin:8px 0;">
-                                                    <div class="progress-bar progress-bar-primary" aria-valuenow="4" aria-valuemin="0" aria-valuemax="5" style="width: ${(ratingfor4/numberOfRating)*100}%">
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="pull-right" style="margin-left:10px;">${ratingfor4}</div>
-                                        </div>
-                                        <div class="pull-left">
-                                            <div class="pull-left" style="width:35px; line-height:1;">
-                                                <div style="height:9px; margin:5px 0;">3 <span class="glyphicon glyphicon-star"></span></div>
-                                            </div>
-                                            <div class="pull-left" style="width:180px;">
-                                                <div class="progress" style="height:9px; margin:8px 0;">
-                                                    <div class="progress-bar progress-bar-info" aria-valuenow="3" aria-valuemin="0" aria-valuemax="5" style="width: ${(ratingfor3/numberOfRating)*100}%">
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="pull-right" style="margin-left:10px;">${ratingfor3}</div>
-                                        </div>
-                                        <div class="pull-left">
-                                            <div class="pull-left" style="width:35px; line-height:1;">
-                                                <div style="height:9px; margin:5px 0;">2 <span class="glyphicon glyphicon-star"></span></div>
-                                            </div>
-                                            <div class="pull-left" style="width:180px;">
-                                                <div class="progress" style="height:9px; margin:8px 0;">
-                                                    <div class="progress-bar progress-bar-warning" aria-valuenow="2" aria-valuemin="0" aria-valuemax="5" style="width: ${(ratingfor2/numberOfRating)*100}%">
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="pull-right" style="margin-left:10px;">${ratingfor2}</div>
-                                        </div>
-                                        <div class="pull-left">
-                                            <div class="pull-left" style="width:35px; line-height:1;">
-                                                <div style="height:9px; margin:5px 0;">1 <span class="glyphicon glyphicon-star"></span></div>
-                                            </div>
-                                            <div class="pull-left" style="width:180px;">
-                                                <div class="progress" style="height:9px; margin:8px 0;">
-                                                    <div class="progress-bar progress-bar-danger" aria-valuenow="1" aria-valuemin="0" aria-valuemax="5" style="width: ${(ratingfor1/numberOfRating)*100}%">
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="pull-right" style="margin-left:10px;">${ratingfor1}</div>
-                                        </div>
-                                    </div>			
-                                </div>	
-                                <div class="sep"></div>
-                                <div class="fs-display-none" id="fs-number-of-rating" fs-nort="${numberOfRating}"></div>
-                                <c:forEach items="${targetProduct.ratingList}" var="review" varStatus="no">
-                                    <c:if test="${review.status==1}">
-                                        <p>
-                                            <b>${review.user.firstName} ${review.user.lastName}</b>, <fmt:formatDate value="${review.ratingDate}" pattern="dd MMM, yyyy" timeZone="US"/>
-                                        </p>
-                                        <p style="margin-top: 7px; margin-bottom: 7px">
-                                            ${review.review}
-                                        </p>
-                                        <select id="fs-rating-star-${no.index}" name="fs-rating-star-${no.index}" data-current-rating="${review.rating}">
-                                            <option value="1">1</option>
-                                            <option value="2">2</option>
-                                            <option value="3">3</option>
-                                            <option value="4">4</option>
-                                            <option value="5">5</option>
-                                        </select>
-                                        <div class="sep"></div>
-                                    </c:if>
-                                </c:forEach>
-                                <c:choose>
-                                    <c:when test="${sessionScope.findUsersID != null && checkUserRated == 1}">
-                                        <h3>Thank you! Your review is being verified</h3>
-                                    </c:when>
-                                    <c:when test="${sessionScope.findUsersID != null && checkUserRated == 0}">
-                                        <div id="fs-form-rating-review">
-                                            <h2 style="font-weight: 400">Write a Review</h2>
-                                            <form>
-                                                <div>Rating *:
-                                                    <span id="fs-div-vote-value">
-                                                        <strong style="font-size: 20px; color: #d6644a">1 </strong>Star
-                                                    </span>
-                                                </div>
-                                                <div class="clearfix space10"></div>
-                                                <select id="fs-rating-star" name="fs-rating-star">
-                                                    <option value="1">1</option>
-                                                    <option value="2">2</option>
-                                                    <option value="3">3</option>
-                                                    <option value="4">4</option>
-                                                    <option value="5">5</option>
-                                                </select>
 
-                                                <div class="clearfix space20"></div>
-                                                <label>Your Review *</label>
-                                                <textarea id="fs-review-product"></textarea>
-                                                <br>
-                                                <div class="clearfix space20"></div>
-                                                <button type="button" 
-                                                        id="fs-btn-rating-review" 
-                                                        fs-user-id="${sessionScope.findUsersID}" 
-                                                        fs-product-id="${targetProduct.productID}"
-                                                        class="btn-black pull-left">
-                                                    Submit
-                                                </button>
-                                                <div style="position: relative; width: 50px; height: 50px; float: left">
-                                                    <span id="fs-ajax-loading-2"></span>
-                                                </div>   
-                                                <div class="clearfix space10"></div>
-                                            </form>
-                                        </div>
-                                    </c:when>    
-                                    <c:otherwise>
-                                        <button type="button" id="fs-btn-login-to-review">Login to Write a Review</button>
-                                    </c:otherwise>
-                                </c:choose>
-                            </div>
-                        </div>
+
+
+                <!-- REVIEW -->
+
+
+                <div> 
+                    <div class="sep"></div>
+                    <div class="row">                        
+                        <div class="col-md-9">
+                            <h2 style="font-weight: 400">Product Descriptions</h2>
+                            ${targetProduct.productDes}
+                        </div>                        
                     </div>
+                    <div class="sep"></div>
+                    <div class="fs-display-none" id="fs-number-of-rating" fs-nort="${numberOfRating}"></div>
+                    <h2 style="font-weight: 400">Product Reviews</h2> 
+                    <c:forEach items="${targetProduct.ratingList}" var="review" varStatus="no">
+                        <c:if test="${review.status==1}">                            
+                            <p>
+                                <b>${review.user.firstName} ${review.user.lastName}</b><span style="color: #444"> on <fmt:formatDate value="${review.ratingDate}" pattern="dd MMM, yyyy" timeZone="US"/></span>
+                            </p>
+                            <p style="margin-top: 7px; margin-bottom: 7px">
+                                ${review.review}
+                            </p>
+                            <select id="fs-rating-star-${no.index}" name="fs-rating-star-${no.index}" data-current-rating="${review.rating}">
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                                <option value="5">5</option>
+                            </select>                          
+                        </c:if>
+                    </c:forEach>
+                    <c:choose>
+                        <c:when test="${sessionScope.findUsersID != null && checkUserRated == 1}">
+                            <!--<h3>You already voted for this product! </h3>-->
+                        </c:when>
+                        <c:when test="${sessionScope.findUsersID != null && checkUserRated == 0}">
+                            <div class="sep"></div>
+                            <div id="fs-form-rating-review">
+                                <h2 style="font-weight: 400">Write Your Review</h2>
+                                <form>
+                                    <div>Rating *:
+                                        <span id="fs-div-vote-value">
+                                            <strong style="font-size: 20px; color: #d6644a">1 </strong>Star
+                                        </span>
+                                    </div>
+                                    <div class="clearfix space10"></div>
+                                    <select id="fs-rating-star" name="fs-rating-star"> 
+                                        <option value="1">1</option>
+                                        <option value="2">2</option>
+                                        <option value="3">3</option>
+                                        <option value="4">4</option>
+                                        <option value="5">5</option>
+                                    </select>
+
+                                    <div class="clearfix space20"></div>
+                                    <label>Your Review</label>
+                                    <br>
+                                    <textarea style="width: 400px; height: 100px;" id="fs-review-product"></textarea>
+                                    <br>
+                                    <div class="clearfix space20"></div>
+                                    <button type="button" 
+                                            id="fs-btn-rating-review" 
+                                            fs-user-id="${sessionScope.findUsersID}" 
+                                            fs-product-id="${targetProduct.productID}"
+                                            class="btn-black pull-left">
+                                        Submit
+                                    </button>
+                                    <div style="position: relative; width: 50px; height: 50px; float: left">
+                                        <span id="fs-ajax-loading-2"></span>
+                                    </div>   
+                                    <div class="clearfix space10"></div>
+                                </form>
+                            </div>
+                        </c:when>    
+                        <c:otherwise>
+                            <button type="button" id="fs-btn-login-to-review">Login to Write a Review</button>
+                        </c:otherwise>
+                    </c:choose>
                 </div>
+
+
+
                 <div class="clearfix space40"></div>
                 <div class="row">
                     <div class="col-md-12 col-sm-12">
@@ -309,9 +234,9 @@
                                                      fs-product-modal-color="${prod.productColorListWorking[0].colorID}" 
                                                      data-toggle="modal" ></div>
                                                 <div class="product-overlay">
-                                                    <a class="fa fa-bar-chart" id="fs-product-recently-compare" fs-productID="${targetProduct.productID}"></a>
-                                                    <a class="likeitem fa fa-heart-o fs-recently-detail-wl" id="fs-recently-detail-wl" fs-userID="${sessionScope.findUsersID}" 
-                                                       fs-productID="${targetProduct.productID}"></a>
+                                                    <a href="#" class="addcart fa fa-shopping-cart"></a>
+                                                    <a class="likeitem fa fa-heart-o fs-wl-add-lsp"
+                                                       fs-userID="${sessionScope.findUsersID}" fs-productID="${prod.productID}" ></a>
                                                     <input type="hidden" name="emailUser" value="${sessionScope.emailUser}" />
                                                 </div>
                                             </div>
@@ -325,7 +250,7 @@
                                                 <span class="product-price">
                                                     <c:if test="${product.discountDetailsList[0]!=null}">
                                                         <small class="cutprice">$ ${prod.price}0 </small>  $
-                                                        <fmt:formatNumber type="number" maxFractionDigits="2" value="${product.productWithDiscount}" var="prodPrice"/>
+                                                        <fmt:formatNumber type="number" maxFractionDigits="2" value="${product.price * (1-product.discountDetailsList[0].discID.discount/100)}" var="prodPrice"/>
                                                         ${fn:replace(prodPrice, ",", ".")}
 
                                                     </c:if>
