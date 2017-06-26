@@ -15,6 +15,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
+import spring.ejb.OrderStateFullBeanLocal;
 import spring.ejb.UsersFacadeLocal;
 
 import spring.entity.Users;
@@ -25,7 +26,10 @@ import spring.entity.Users;
  */
 public class CheckCookieUser extends HandlerInterceptorAdapter {
 
+    OrderStateFullBeanLocal orderStateFullBean = lookupOrderStateFullBeanLocal();
+
     UsersFacadeLocal usersFacade = lookupUsersFacadeLocal();
+    
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
@@ -58,6 +62,8 @@ public class CheckCookieUser extends HandlerInterceptorAdapter {
                     session.setAttribute("findUsersID", userfindUserID.getUserID());
                     session.setAttribute("USfirstname", userfindUserID.getFirstName() + " " + userfindUserID.getLastName());
                 }
+            }else{
+                
             }
         }
         return true;
@@ -67,6 +73,16 @@ public class CheckCookieUser extends HandlerInterceptorAdapter {
         try {
             Context c = new InitialContext();
             return (UsersFacadeLocal) c.lookup("java:global/ShoeGardenPJ/UsersFacade!spring.ejb.UsersFacadeLocal");
+        } catch (NamingException ne) {
+            Logger.getLogger(getClass().getName()).log(Level.SEVERE, "exception caught", ne);
+            throw new RuntimeException(ne);
+        }
+    }
+
+    private OrderStateFullBeanLocal lookupOrderStateFullBeanLocal() {
+        try {
+            Context c = new InitialContext();
+            return (OrderStateFullBeanLocal) c.lookup("java:global/ShoeGardenPJ/OrderStateFullBean!spring.ejb.OrderStateFullBeanLocal");
         } catch (NamingException ne) {
             Logger.getLogger(getClass().getName()).log(Level.SEVERE, "exception caught", ne);
             throw new RuntimeException(ne);

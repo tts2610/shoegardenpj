@@ -12,8 +12,10 @@ import java.util.logging.Logger;
 import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
+import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -24,6 +26,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import spring.ejb.BrandsFacadeLocal;
 import spring.ejb.CategoriesFacadeLocal;
+import spring.ejb.OrderStateFullBean;
 import spring.ejb.OrderStateFullBeanLocal;
 import spring.ejb.OrderStateLessBeanLocal;
 
@@ -45,13 +48,13 @@ import spring.entity.Users;
 
 @Controller
 @RequestMapping(value = "/orders/")
-public class OrdersController {
+public class OrdersController{
 
     SizesByColorFacadeLocal sizesByColorFacade = lookupSizesByColorFacadeLocal();
 
     UserAddressesStateLessBeanLocal userAddressesStateLessBean = lookupUserAddressesStateLessBeanLocal();
 
-    OrderStateFullBeanLocal orderStateFullBean = lookupOrderStateFullBeanLocal();
+    private @Autowired HttpServletRequest request;
 
     BrandsFacadeLocal brandsFacade = lookupBrandsFacadeLocal();
 
@@ -81,8 +84,18 @@ public class OrdersController {
     @ResponseBody
     @RequestMapping(value = "ajax/checkquantity", method = RequestMethod.POST)
     public String checkquantity(
-            @RequestParam("sizeID") Integer sizeID,@RequestParam("colorID") Integer colorID,HttpSession session
+            @RequestParam("sizeID") Integer sizeID,@RequestParam("colorID") Integer colorID
     ) {
+        
+        OrderStateFullBeanLocal orderStateFullBean = (OrderStateFullBeanLocal) request.getSession().getAttribute("cart");
+        
+        
+        if(orderStateFullBean==null){
+            System.err.println("quantity");
+            orderStateFullBean = lookupOrderStateFullBeanLocal();
+            request.getSession().setAttribute("cart", orderStateFullBean);
+        }
+        
         int inCartquantity = 0;
         SizesByColor s = sizesByColorFacade.find(sizeID);
         //lay so luong trong cart
@@ -113,12 +126,20 @@ public class OrdersController {
     public String ajaxAddtocart(@RequestParam("productID") Integer productID,
             @RequestParam("sizeID") Integer sizeID,
             @RequestParam("colorID") Integer colorID,
-            @RequestParam("quantity") Integer quantity,
-            HttpSession session) {
+            @RequestParam("quantity") Integer quantity) {
         Products pro = orderStateLessBean.getProductByID(productID);
 
         SizesByColor sizesByColor = orderStateLessBean.getSizesByColorBySizeIDandColorID(sizeID, colorID);
 
+        OrderStateFullBeanLocal orderStateFullBean = (OrderStateFullBeanLocal) request.getSession().getAttribute("cart");
+        
+        
+        if(orderStateFullBean==null){
+            System.err.println("add");
+            orderStateFullBean = lookupOrderStateFullBeanLocal();
+            
+        }
+        
         if (pro != null) {
             if (sizesByColor != null) {
 
@@ -157,6 +178,8 @@ public class OrdersController {
 
                     returnValue = inCartquantity + "-" + realQuantity + "-" + quantityInDB;
 
+                    request.getSession().setAttribute("cart", orderStateFullBean);
+                    
 //                System.err.println(returnValue);
                     return returnValue; //Add Product to Cart Successfully!
                 }
@@ -169,8 +192,15 @@ public class OrdersController {
     }
 
     @RequestMapping(value = "checkout", method = RequestMethod.GET)
-    public String checkout(ModelMap model, HttpServletRequest request) {
+    public String checkout(ModelMap model) {
         String email = (String) request.getSession().getAttribute("emailUser");
+        OrderStateFullBeanLocal orderStateFullBean = (OrderStateFullBeanLocal) request.getSession().getAttribute("cart");
+        
+        
+        if(orderStateFullBean==null){
+            orderStateFullBean = lookupOrderStateFullBeanLocal();
+            request.getSession().setAttribute("cart", orderStateFullBean);
+        }
         if (email == null || orderStateFullBean.showCart().size() == 0) {
             return "redirect:/index.html";
         } else {
@@ -191,7 +221,12 @@ public class OrdersController {
     }
 
     @RequestMapping(value = "checkout", method = RequestMethod.POST)
-    public String checkoutPost(ModelMap model, HttpServletRequest request, RedirectAttributes flashAttr) {
+    public String checkoutPost(ModelMap model, RedirectAttributes flashAttr) {
+        OrderStateFullBeanLocal orderStateFullBean = (OrderStateFullBeanLocal) request.getSession().getAttribute("cart");
+        
+        
+        if(orderStateFullBean==null)
+            orderStateFullBean = lookupOrderStateFullBeanLocal();
         String addressChoice = request.getParameter("address-chose");
         String success_orderID = "";
         String email = (String) request.getSession().getAttribute("emailUser");
@@ -282,7 +317,16 @@ public class OrdersController {
     }
 
     @RequestMapping(value = "shoppingcart")
-    public String shoppingcart(ModelMap model, HttpServletRequest request) {
+    public String shoppingcart(ModelMap model) {
+        
+        OrderStateFullBeanLocal orderStateFullBean = (OrderStateFullBeanLocal) request.getSession().getAttribute("cart");
+        
+        
+        if(orderStateFullBean==null){
+            orderStateFullBean = lookupOrderStateFullBeanLocal();
+            request.getSession().setAttribute("cart", orderStateFullBean);
+        }
+        
         if (orderStateFullBean.showCart().size() == 0 || orderStateFullBean.showCart() == null) {
             return "redirect:/index.html";
         }
@@ -297,8 +341,15 @@ public class OrdersController {
     }
 
     @RequestMapping(value = "updatecart", method = RequestMethod.POST)
-    public String updatecart(ModelMap model, HttpServletRequest request, RedirectAttributes flashAttr) {
+    public String updatecart(ModelMap model, RedirectAttributes flashAttr) {
         String error = "";
+        OrderStateFullBeanLocal orderStateFullBean = (OrderStateFullBeanLocal) request.getSession().getAttribute("cart");
+        
+        
+        if(orderStateFullBean==null){
+            orderStateFullBean = lookupOrderStateFullBeanLocal();
+            
+        }
         for (CartLineInfo cartLineInfo : orderStateFullBean.showCart()) {
             String codeIdentify = cartLineInfo.getProduct().getProductID() + "-"
                     + cartLineInfo.getSizesByColor().getSizeID() + "-"
@@ -320,6 +371,7 @@ public class OrdersController {
             flashAttr.addFlashAttribute("error", "<div class=\"alert alert-success\">\n"
                     + "<strong>UPDATE CART SUCCESSFULLY</strong>\n"
                     + "</div>");
+            request.getSession().setAttribute("cart", orderStateFullBean);
             return "redirect:/orders/shoppingcart.html";
         } else {
             flashAttr.addFlashAttribute("error", "<div class=\"alert alert-danger\">\n"
@@ -333,11 +385,19 @@ public class OrdersController {
     public String deleteitemCart(@PathVariable("productid") int productid,
             @PathVariable("sizeID") int sizeid,
             @PathVariable("colorID") int colorid,
-            RedirectAttributes flashAttr, HttpSession session) {
+            RedirectAttributes flashAttr) {
+        OrderStateFullBeanLocal orderStateFullBean = (OrderStateFullBeanLocal) request.getSession().getAttribute("cart");
+        
+        
+        if(orderStateFullBean==null){
+            orderStateFullBean = lookupOrderStateFullBeanLocal();
+            request.getSession().setAttribute("cart", orderStateFullBean);
+        }
         CartLineInfo cartLineInfo = orderStateFullBean.getProductInListByID(productid, sizeid, colorid);
         if (cartLineInfo != null) {
             orderStateFullBean.deleteProduct(cartLineInfo);
             if (orderStateFullBean.showCart().size() == 0 || orderStateFullBean.showCart() == null) {
+                request.getSession().setAttribute("cart", orderStateFullBean);
                 return "redirect:/index.html";
             }
         }
@@ -353,9 +413,17 @@ public class OrdersController {
     public String deleteitemCartInHeader(@RequestParam("productID") Integer productid,
             @RequestParam("sizeID") Integer sizeid,
             @RequestParam("colorID") Integer colorid) {
+        OrderStateFullBeanLocal orderStateFullBean = (OrderStateFullBeanLocal) request.getSession().getAttribute("cart");
+        
+        
+        if(orderStateFullBean==null){
+            orderStateFullBean = lookupOrderStateFullBeanLocal();
+            request.getSession().setAttribute("cart", orderStateFullBean);
+        }
         CartLineInfo cartLineInfo = orderStateFullBean.getProductInListByID(productid, sizeid, colorid);
         if (cartLineInfo != null) {
             orderStateFullBean.deleteProduct(cartLineInfo);
+            request.getSession().setAttribute("cart", orderStateFullBean);
         }
         return getCart();
     }
@@ -416,6 +484,13 @@ public class OrdersController {
     @ResponseBody
     @RequestMapping(value = "ajax/cart", method = RequestMethod.GET)
     public String getCart() {
+        OrderStateFullBeanLocal orderStateFullBean = (OrderStateFullBeanLocal) request.getSession().getAttribute("cart");
+        
+        
+        if(orderStateFullBean==null){
+            orderStateFullBean = lookupOrderStateFullBeanLocal();
+            request.getSession().setAttribute("cart", orderStateFullBean);
+        }
         String str_cart_detail = "";
         String str_cart_big = "";
         String str_cart_button = "";

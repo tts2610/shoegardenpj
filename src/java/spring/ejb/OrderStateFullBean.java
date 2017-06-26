@@ -8,9 +8,12 @@ package spring.ejb;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
+import javax.ejb.Remove;
 import javax.ejb.Stateful;
+import javax.ejb.StatefulTimeout;
 import javax.ejb.TransactionAttribute;
 import javax.ejb.TransactionAttributeType;
 import javax.persistence.EntityManager;
@@ -45,7 +48,7 @@ public class OrderStateFullBean implements OrderStateFullBeanLocal, Serializable
     private List<CartLineInfo> cart;
 
     @PostConstruct
-    private void init() {
+    public void init() {
         cart = new ArrayList<>();
     }
 
@@ -96,7 +99,12 @@ public class OrderStateFullBean implements OrderStateFullBeanLocal, Serializable
         String checkError;
         try {
             List<OrdersDetail> ordersDetailList = new ArrayList<>();
+            
+            
             for (CartLineInfo cartLineInfo : cart) {
+                
+                SizesByColor sbc = orderStateLessBean.getSizesByColorBySizeIDandColorID(cartLineInfo.getSizesByColor().getSizeID(), cartLineInfo.getSizesByColor().getColorID().getColorID());
+                
                 OrdersDetail ordersDetail = new OrdersDetail();
                 ordersDetail.setOrdersID(orders);
                 ordersDetail.setProductID(cartLineInfo.getProduct());
@@ -107,18 +115,15 @@ public class OrderStateFullBean implements OrderStateFullBeanLocal, Serializable
                 ordersDetail.setPrice(cartLineInfo.getProduct().getPrice());
                 ordersDetail.setStatus(Short.parseShort("0"));
                 ordersDetailList.add(ordersDetail);
-                SizesByColor sizesByColor = cartLineInfo.getSizesByColor();
-                if(sizesByColor.getQuantity()<=0)
-                    sizesByColor.setQuantity(0);
-                else
-                    sizesByColor.setQuantity(sizesByColor.getQuantity() - cartLineInfo.getQuantity());
                 
-                if(cartLineInfo.getQuantity()>sizesByColor.getQuantity()){ //kiem tra so luong ton kho co > so luong trong cart
+                if(sbc.getQuantity()<=0||cartLineInfo.getQuantity()>sbc.getQuantity()){//kiem tra so luong ton kho co > so luong trong cart
+                    sbc.setQuantity(0);
                     checkError = String.valueOf("000");
                     return checkError;
-                }
+                }else
+                    sbc.setQuantity(sbc.getQuantity() - cartLineInfo.getQuantity());
                 
-                getEntityManager().merge(sizesByColor);
+                getEntityManager().merge(sbc);
                 getEntityManager().flush();
                 
                 
@@ -152,5 +157,10 @@ public class OrderStateFullBean implements OrderStateFullBeanLocal, Serializable
         } catch (Exception e) {
             return false;
         }
+    }
+    
+    @Remove
+    public void remove() {
+        cart = new ArrayList<>();
     }
 }

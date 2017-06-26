@@ -56,9 +56,6 @@
                             <div class="alert alert-warning fs-quantity-in-cart" style="display: none">
                            
                             </div>
-                            <div class="alert alert-warning fs-quantity-in-cart" style="display: none">
-                           
-                            </div>
                             <div class="sep"></div>
                             <div class="ps-color fs-product-color">
                                 <p>Color<span>*</span></p>
