@@ -23,4 +23,6 @@ public interface OrderStateFullBeanLocal {
     CartLineInfo getProductInListByID(int productid, int sizeid, int colorid);
     String completePurchase(Orders orders);
     float subTotal();
+    void remove();
+    void init();
 }

@@ -52,6 +52,9 @@
                                 Availability: <span style="color: #d6644a" class="fs-quantity-in-stock">---</span>
                                 <div class="fs-display-none" id="fs-show-quantity"></div>
                             </div>
+                            <div class="alert alert-warning fs-quantity-in-cart" style="display: none">
+                           
+                            </div>
                             <div class="sep"></div>
                             <div class="ps-color fs-product-color">
                                 <p>Color<span>*</span></p>
@@ -116,7 +119,9 @@
                 </div>
                 <div class="clearfix space40"></div>
 
-                <!-- Tab panes -->
+                
+                
+                <!-- REVIEW -->
 
 
                 <div> 
