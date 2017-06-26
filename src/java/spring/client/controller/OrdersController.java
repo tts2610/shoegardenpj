@@ -403,7 +403,7 @@ public class OrdersController{
         }
 
         flashAttr.addFlashAttribute("error", "<div class=\"alert alert-success\">\n"
-                + "<strong>DELETE ITEM IN CART SUCCESSFULLY</strong>\n"
+                + "<strong>DELETE ITEM SUCCESSFULLY</strong>\n"
                 + "</div>");
         return "redirect:/orders/shoppingcart.html";
     }
@@ -464,6 +464,7 @@ public class OrdersController{
         }
         model.addAttribute("orderdetailList", orderStateLessBean.getAllOrderDetailByOrderID(orderID));
         model.addAttribute("order", orderStateLessBean.getOrderByID(orderID));
+       
         //2 dòng này thêm để render ra menu chính
         List<Brands> cateList = brandsFacade.findAll();
         model.addAttribute("braList", cateList);

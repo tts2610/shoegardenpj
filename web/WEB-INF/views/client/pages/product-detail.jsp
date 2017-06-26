@@ -36,7 +36,16 @@
                     <div class="col-md-7 col-sm-6">
                         <div class="product-single">
                             <div class="ps-header fs-product-detail-name" fs-product-id="${targetProduct.productID}">
-                                <h3>${targetProduct.productName}</h3>
+                                <h1>${targetProduct.productName}</h1>
+                                <div class="ps-price">                                     
+                                    <select id="fs-rating-star-result" name="fs-rating-star-result" data-current-rating="${ratingAVR}">
+                                        <option value="1">1</option>
+                                        <option value="2">2</option>
+                                        <option value="3">3</option>
+                                        <option value="4">4</option>
+                                        <option value="5">5</option>
+                                    </select>                            
+                                </div>
                                 <c:if test="${targetProduct.productWithDiscount!=targetProduct.price}">
                                     <div class="ps-price">
                                         <h1 style="color: #888888;text-decoration: line-through; display: inline">$${targetProduct.price} </h1>
@@ -53,7 +62,7 @@
                                 <div class="fs-display-none" id="fs-show-quantity"></div>
                             </div>
                             <div class="alert alert-warning fs-quantity-in-cart" style="display: none">
-                           
+
                             </div>
                             <div class="sep"></div>
                             <div class="ps-color fs-product-color">
@@ -119,24 +128,14 @@
                 </div>
                 <div class="clearfix space40"></div>
 
-                
-                
+
+
                 <!-- REVIEW -->
 
 
                 <div> 
                     <div class="sep"></div>
-                    <div class="row">
-                        <div class="col-md-9"> 
-                            <h2 class="bold">${ratingAVR} <small>/ 5</small></h2>
-                            <select id="fs-rating-star-result" name="fs-rating-star-result" data-current-rating="${ratingAVR}">
-                                <option value="1">1</option>
-                                <option value="2">2</option>
-                                <option value="3">3</option>
-                                <option value="4">4</option>
-                                <option value="5">5</option>
-                            </select>                            
-                        </div>
+                    <div class="row">                        
                         <div class="col-md-9">
                             <h2 style="font-weight: 400">Product Descriptions</h2>
                             ${targetProduct.productDes}

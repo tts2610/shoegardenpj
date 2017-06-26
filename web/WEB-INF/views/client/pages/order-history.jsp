@@ -62,7 +62,6 @@
                             <thead>
                                 <tr>
                                     <th style="font-weight: 700;">Order ID</th>
-                                    <th style="font-weight: 700;">Product(s)</th>
                                     <th style="font-weight: 700;">Total</th>
                                     <th style="font-weight: 700;">Order Date</th>
                                     <th style="font-weight: 700;">Status</th>
@@ -82,16 +81,7 @@
                                         <c:forEach items="${orderList}" var="order">
                                             <tr>
                                                 <td align="center"><a href="orders/order-history-detail/${order.ordersID}.html">Order No.${order.ordersID}</a></td>
-                                                <td align="center">
-                                                    <c:choose>
-                                                        <c:when test="${order.getOrderDetailForOrderHistoryPage() != null}">
-                                                            ${order.getOrderDetailForOrderHistoryPage().productID.productName}
-                                                            &nbsp - &nbsp ${order.getOrderDetailForOrderHistoryPage().sizeID.colorID.color}
-                                                            &nbsp - &nbsp Size: &nbsp ${order.getOrderDetailForOrderHistoryPage().sizeID.size}
-                                                        </c:when>
-                                                        <c:otherwise><span style="font-weight: 700px;">Your order is empty</span></c:otherwise>
-                                                    </c:choose>
-                                                </td>
+                                                
                                                 <td style="width: 100px;">
                                                     <div class="item-price">$${order.getPaymentTotal()}</div>
                                                 </td>

@@ -87,9 +87,13 @@
                                 </c:forEach>
                             </tbody>
                             <tfoot>
-                                
                                 <tr>
-                                    <td colspan="6" style="padding-left: 770px;"><b>Order Total</b></td>
+                                    <td colspan="6" style="padding-left: 770px;"><b>Quantity Total</b></td>
+                                    <td align="center">$${order.getPaymentTotal()}</td>
+                                    <td></td>   
+                                </tr>
+                                <tr>
+                                    <td colspan="6" style="padding-left: 770px;"><b>Payment Total</b></td>
                                     <td align="center">$${order.getPaymentTotal()}</td>
                                     <td></td>   
                                 </tr>
