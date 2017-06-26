@@ -10,6 +10,7 @@ import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.PostPersist;
 import javax.persistence.Query;
 import spring.entity.DiscountDetails;
 import spring.entity.Discounts;
@@ -66,6 +67,7 @@ public class DiscountDetailsFacade extends AbstractFacade<DiscountDetails> imple
     public void removeByDiscountidAndProductID(int d, int pro) {
         Query q = em.createNativeQuery("Delete DiscountDetails where discID = "+d+" and productID = "+pro);
         q.executeUpdate();
+        
     }
     @Override
     public void updateByDiscountidAndProductID(int d, int pro){
@@ -77,6 +79,16 @@ public class DiscountDetailsFacade extends AbstractFacade<DiscountDetails> imple
     public void removeOR(int discountid) {
         Query q = em.createNativeQuery("Delete DiscountDetails where discID = "+discountid);
         q.executeUpdate();
+    }
+    @Override
+    public void createOR(DiscountDetails discountDetails){
+        create(discountDetails);
+    }
+    
+    @PostPersist
+    public void insertEntity(Object entity) {
+        em.flush();
+        em.refresh(entity);
     }
     
     

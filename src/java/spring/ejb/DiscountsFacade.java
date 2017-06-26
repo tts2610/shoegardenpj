@@ -8,6 +8,7 @@ package spring.ejb;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.PostPersist;
 import javax.persistence.Query;
 import spring.entity.Discounts;
 
@@ -46,6 +47,13 @@ public class DiscountsFacade extends AbstractFacade<Discounts> implements Discou
     public void removeOR(int discounts) {
         Query q = em.createNativeQuery("DELETE discounts where discID = "+discounts);
         q.executeUpdate();
+    }
+    
+    @PostPersist
+    public void insertEntity(Object entity) {
+        System.err.println("CONCACACACAC");
+        em.flush();
+        em.refresh(entity);
     }
     
 }

@@ -40,5 +40,6 @@ public interface DiscountDetailsFacadeLocal {
     public void removeByDiscountidAndProductID(int d, int pro);
     public void updateByDiscountidAndProductID(int d, int pro);
     public void removeOR(int discountid);
+    public void createOR(DiscountDetails discountDetails);
     
 }

@@ -43,7 +43,6 @@ public class ProductsFacade extends AbstractFacade<Products> implements Products
         } else {
             q = getEntityManager().createQuery("SELECT p FROM Products p ORDER BY p.productID DESC", Products.class);
         }
-
         return q.getResultList();
     }
 
@@ -190,6 +189,7 @@ public class ProductsFacade extends AbstractFacade<Products> implements Products
             double fromPrice, double toPrice,
             String filterColor, String filterSize, int sortBy) {
         String sql;
+        
         if (sortBy == 1) {//1: Newest; 2: Low to High Price; 3: High to Low Price
             sql = "SELECT DISTINCT"
                     + "         p.productID, p.price\n"
@@ -226,6 +226,7 @@ public class ProductsFacade extends AbstractFacade<Products> implements Products
                     + "AND p.status = 1 ORDER BY p.price DESC";
         }
         int firstResult = (page - 1) * itemPerPage;
+        em.flush();
         Query q = getEntityManager().createQuery(sql,Products.class);
         q.setParameter("cateID", cateID);
         q.setParameter("fromPrice", fromPrice);

@@ -480,6 +480,12 @@ public class OrdersController{
         }
         return "redirect:/orders/order-history.html";
     }
+    @ResponseBody
+    @RequestMapping(value = "ajax/cartdeleteall", method = RequestMethod.GET)
+    public String deleteAll(){
+        request.getSession().removeAttribute("cart");
+        return "1";
+    }
 
     @ResponseBody
     @RequestMapping(value = "ajax/cart", method = RequestMethod.GET)
@@ -513,7 +519,17 @@ public class OrdersController{
                     + "                                padding: 0 17px;\n"
                     + "                                line-height: 33px;\n"
                     + "                                font-weight: 700;\" class=\"btn\">CHECKOUT</button> \n"
+                    
+                    + "                                <button onclick=\"cartClearAllClick();\" style=\"background: #fe980f;\n"
+                    + "                                font-size: 11px;\n"
+                    + "                                color: #fff;\n"
+                    + "                                text-transform: none;\n"
+                    + "                                height: 33px;\n"
+                    + "                                padding: 0 17px;\n"
+                    + "                                line-height: 33px;\n"
+                    + "                                font-weight: 700;\" class=\"btn\">CLEAR ALL</button> \n"
                     + "                            </div>";
+            
             str_subtotal = "<div class=\"ci-total\">Grand Total: $" + String.format("%.2f", subTotal) + "</div>";
             for (CartLineInfo cartLineInfo : orderStateFullBean.showCart()) {
                 str_cart_detail += "<div class=\"ci-item\">\n"

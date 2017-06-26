@@ -113,7 +113,7 @@ public class Discount_Countroller {
         } else {
             Discounts dc = discountsFacade.createOR(new Discounts(title, content, dateBeginf, dateEndf, new Short(discount)));
             for (String product : products) {
-                discountDetailsFacade.create(new DiscountDetails(dc, new Products(Integer.parseInt(product))));
+                discountDetailsFacade.createOR(new DiscountDetails(dc, new Products(Integer.parseInt(product))));
             }
             //lay tat ca nhung san pham co trong discountDetail
             List<Products> pList = new ArrayList<>();

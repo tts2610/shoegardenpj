@@ -4,67 +4,72 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!-- SLIDER -->
-<section id="slider"><!--slider-->
-    <div class="container">
-        <div class="row">           
-            <div id="slider-carousel" class="carousel slide" data-ride="carousel">
-                <ol class="carousel-indicators">
-                    <li data-target="#slider-carousel" data-slide-to="0" class="active"></li>
-                    <li data-target="#slider-carousel" data-slide-to="1"></li>
-                    <li data-target="#slider-carousel" data-slide-to="2"></li>
-                </ol>
-
-                <div class="carousel-inner">
-                    <div class="item active">
-                        <div class="col-sm-6">
-                            <h1><span>ADIDAS</span> CLIMACOOL</h1>
-                            <h2>New summer - New shoes</h2>
-                            <p>Run strong when the weather heats up in shoes that give you a burst of energy with every step.  </p>
-                            <button type="button" class="btn btn-default get">Get it now</button>
-                        </div>
-                        <div class="col-sm-6">
-                            <img src="assets/images/slides/adidas_alphabounce.jpg" class="girl img-responsive" alt="" />
-                            <!--                            <img src="assets/images/slides/pricing.png"  class="pricing" alt="" />-->
-                        </div>
-                    </div>
-                    <div class="item">
-                        <div class="col-sm-6">
-                            <h1><span>NIKE</span> AIR MAX</h1>
-                            <h2>Run run run...</h2>
-                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. </p>
-                            <button type="button" class="btn btn-default get">Get it now</button>
-                        </div>
-                        <div class="col-sm-6">
-                            <img src="assets/images/slides/air-max-2017-mens-running-shoe.jpg" class="girl img-responsive" alt="" />
-                            <!--                            <img src="assets/images/slides/pricing.png"  class="pricing" alt="" />-->
-                        </div>
-                    </div>
-
-                    <div class="item">
-                        <div class="col-sm-6">
-                            <h1><span>VANS</span> OLD SKOOL</h1>
-                            <h2>Shopping Now</h2>
-                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. </p>
-                            <button type="button" class="btn btn-default get">Get it now</button>
-                        </div>
-                        <div class="col-sm-6">
-                            <img src="assets/images/slides/vans-era.jpg" class="girl img-responsive" alt="" />
-                            <!--                            <img src="assets/images/slides/pricing.png" class="pricing" alt="" />-->
-                        </div>
-                    </div>
-
-                </div>
-
-                <a href="#slider-carousel" class="left control-carousel hidden-xs" data-slide="prev">
-                    <i class="fa fa-angle-left"></i>
-                </a>
-                <a href="#slider-carousel" class="right control-carousel hidden-xs" data-slide="next">
-                    <i class="fa fa-angle-right"></i>
-                </a>
-            </div>
-        </div>
-    </div>
-</section><!--/slider-->
+<div id="myCarousel" class="carousel slide" data-ride="carousel">
+		<!-- Indicators -->
+		<ol class="carousel-indicators">
+			<li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+			<li data-target="#myCarousel" data-slide-to="1" class=""></li>
+			<li data-target="#myCarousel" data-slide-to="2" class=""></li>
+			<li data-target="#myCarousel" data-slide-to="3" class=""></li>
+			<li data-target="#myCarousel" data-slide-to="4" class=""></li> 
+		</ol>
+		<div class="carousel-inner" role="listbox">
+			<div class="item active"> 
+				<div class="container">
+					<div class="carousel-caption">
+						<h3>The Biggest <span>Sale</span></h3>
+						<p>Special for today</p>
+						<a class="hvr-outline-out button2" href="mens.html">Shop Now </a>
+					</div>
+				</div>
+			</div>
+			<div class="item item2"> 
+				<div class="container">
+					<div class="carousel-caption">
+						<h3>Summer <span>Collection</span></h3>
+						<p>New Arrivals On Sale</p>
+						<a class="hvr-outline-out button2" href="mens.html">Shop Now </a>
+					</div>
+				</div>
+			</div>
+			<div class="item item3"> 
+				<div class="container">
+					<div class="carousel-caption">
+						<h3>The Biggest <span>Sale</span></h3>
+						<p>Special for today</p>
+						<a class="hvr-outline-out button2" href="mens.html">Shop Now </a>
+					</div>
+				</div>
+			</div>
+			<div class="item item4"> 
+				<div class="container">
+					<div class="carousel-caption">
+						<h3>Summer <span>Collection</span></h3>
+						<p>New Arrivals On Sale</p>
+						<a class="hvr-outline-out button2" href="mens.html">Shop Now </a>
+					</div>
+				</div>
+			</div>
+			<div class="item item5"> 
+				<div class="container">
+					<div class="carousel-caption">
+						<h3>The Biggest <span>Sale</span></h3>
+						<p>Special for today</p>
+						<a class="hvr-outline-out button2" href="mens.html">Shop Now </a>
+					</div>
+				</div>
+			</div> 
+		</div>
+		<a class="left carousel-control" href="#myCarousel" role="button" data-slide="prev">
+			<span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+			<span class="sr-only">Previous</span>
+		</a>
+		<a class="right carousel-control" href="#myCarousel" role="button" data-slide="next">
+			<span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+			<span class="sr-only">Next</span>
+		</a>
+		<!-- The Modal -->
+    </div> <!--/slider-->
 
 
 
@@ -82,7 +87,7 @@
                     <li>
                         <a href="#" data-option-value=".${bra.braName}">${bra.braName}</a>
                     </li>
-                </c:forEach>
+                    </c:forEach>
             </ul>
             <div id="isotope" class="isotope">
                 <c:forEach items="${braList}" var="bra">

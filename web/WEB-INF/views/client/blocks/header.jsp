@@ -148,6 +148,37 @@
         } else {
             window.location = "orders/checkout.html";
         }
+    };
+    function cartClearAllClick(){
+        $.ajax({
+            url: "orders/ajax/cartdeleteall.html",
+            method: "GET",
+            success: function (response) {
+                $.ajax({
+                    url: "orders/ajax/cart.html",
+                    method: "GET",
+                    dataType: 'html',
+                    success: function (response) {
+                    $("#cart").html(response).fadeIn(1000);
+                    }
+                });
+            }
+        });
     }
-    ;
+    function compareClearAllClick(){
+        $.ajax({
+            url: "compare/deleteAll.html",
+            method: "GET",
+            success: function (response) {
+                $.ajax({
+                        url: "ajax/comparelist.html",
+                        method: "GET",
+                        dataType: 'html',
+                        success: function (response) {
+                            $(".compare-info").html(response).fadeIn(1000);
+                        }
+                });
+            }
+        });
+    }
 </script>

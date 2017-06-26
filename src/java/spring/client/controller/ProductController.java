@@ -208,7 +208,14 @@ public class ProductController {
                 
                 str_cart_button = "<div class=\"cart-btn\">\n"
                     + "                                <a href=\"comparelist.html\">VIEW COMPARE LIST</a>\n"
-                    
+                    + "                                <button onclick=\"compareClearAllClick();\" style=\"background: #fe980f;\n"
+                    + "                                font-size: 11px;\n"
+                    + "                                color: #fff;\n"
+                    + "                                text-transform: none;\n"
+                    + "                                height: 33px;\n"
+                    + "                                padding: 0 17px;\n"
+                    + "                                line-height: 33px;\n"
+                    + "                                font-weight: 700;\" class=\"btn\">CLEAR ALL</button> \n"
                     + "                            </div>";
             
                 str_cart_detail += "<div class=\"ci-item\">\n"

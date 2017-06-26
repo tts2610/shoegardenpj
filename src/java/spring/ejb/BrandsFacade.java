@@ -34,6 +34,7 @@ public class BrandsFacade extends AbstractFacade<Brands>implements BrandsFacadeL
     @Override
     public Brands findBrandsByName(String braName) {
         try {
+            
             Query q = getEntityManager().createQuery("SELECT c FROM Brands c WHERE c.braName LIKE :cateName", Brands.class);
             q.setParameter("cateName", braName);
             return (Brands) q.getSingleResult();

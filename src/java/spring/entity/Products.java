@@ -20,6 +20,7 @@ import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.persistence.Basic;
+import javax.persistence.Cacheable;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -47,6 +48,7 @@ import spring.ejb.DiscountDetailsFacadeLocal;
  * @author tuan
  */
 @Entity
+@Cacheable(false)
 @Table(name = "products")
 @XmlRootElement
 @NamedQueries({
@@ -231,7 +233,7 @@ public class Products implements Serializable {
      
     public float getProductWithDiscount(){
         for(DiscountDetails d : this.discountDetailsList){
-            if(Objects.equals(d.getProductID().getProductID(), this.productID)&&d.getDiscID().getDateBegin().compareTo(new Date())<=0){
+            if(!d.getDiscID().getDateBegin().after(new Date())&&!d.getDiscID().getDateEnd().before(new Date())){
                 
                 return (float) (this.price*(1-(float)d.getDiscID().getDiscount()/100));
             }
