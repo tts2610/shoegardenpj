@@ -220,9 +220,7 @@ h1.fs-site-title{
 }
 
 .fs-ul-color, .fs-ul-size {
-    column-count:2;
     -moz-column-count:2;
-    -webkit-column-count:2;
 }
 
 input.fs-color-checkbox, input.fs-size-checkbox { display:none; }
@@ -336,7 +334,7 @@ input.fs-color-checkbox:checked + label:before, input.fs-size-checkbox:checked +
 /* CSS FOR USER-LOGIN-MODAL: */
 
 .fs-login-page:link, .fs-login-page:visited, .fs-login-page:hover, .fs-login-page:active {
-    color: #333 !important;
+    color: #fffbfb !important;
 }
 
 .fs-login-page{

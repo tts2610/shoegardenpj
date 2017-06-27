@@ -22,54 +22,7 @@
 
     <div class="container">
         <div class="row">
-            <aside class="col-md-3 col-sm-4">
-
-                <div class="side-widget">
-                    <c:if test="${productsList != null}">
-                        <h5>Price Options ($)</h5>
-                        <div class="col-xs-12"  style="padding: 0">
-                            <div class="form-group col-xs-6" style="padding: 0; padding-right: 10px;">
-                                <label for="fs-price-from">From:</label>
-                                <input type="number" fs-category="${braID}" class="form-control fs-product-price-filter" id="fs-price-from">
-                            </div>
-                            <div class="form-group col-xs-6"  style="padding: 0">
-                                <label for="fs-price-to">To:</label>
-                                <input type="number" class="form-control fs-product-price-filter" id="fs-price-to">
-                            </div>
-                        </div>
-                        <p style="color: red" id="fs-filter-price-error"></p>
-                        <p>
-                            <button type="button" id="fs-btn-filter-price" class="btn-black pull-left">Filter Now</button>
-                            <span class="pull-right fs-sc-range">
-                                <b>$<span fs-min-price="${minPrice}" id="fs-price-from-text">${minPrice}</span> - $<span fs-max-price="${maxPrice}" id="fs-price-to-text">${maxPrice}</span> </b>
-                            </span>
-                        </p>
-                        <div class="clearfix space30"></div>
-
-                        <h5 style="border-bottom: 1px solid #cccccc; padding-bottom: 10px">Color Options</h5>
-                        <ul class="fs-ul-color">
-                            <c:forEach items="${colorList}" var="color" varStatus="i">
-                                <li style="margin-bottom: 15px;">
-                                    <input id="fs-color-checkbox-${i.index + 1}" class="fs-color-checkbox" type="checkbox" value="${color}"/>
-                                    <label style="font-weight: normal" for="fs-color-checkbox-${i.index + 1}">${color}</label>
-                                </li>
-                            </c:forEach>
-                        </ul>
-                        <div class="clearfix space20"></div>
-
-                        <h5 style="border-bottom: 1px solid #cccccc; padding-bottom: 10px">Size Options</h5>
-                        <ul class="fs-ul-size">
-                            <c:forEach items="${sizeList}" var="size" varStatus="i">
-                                <li style="margin-bottom: 10px;">
-                                    <input id="fs-size-checkbox-${i.index + 1}" class="fs-size-checkbox" type="checkbox" value="${size}"/>
-                                    <label style="font-weight: normal" for="fs-size-checkbox-${i.index + 1}">${size}</label>
-                                </li>
-                            </c:forEach>
-                        </ul>
-                    </c:if>
-                </div>
-                <div class="clearfix space30"></div>
-            </aside>
+            
             <div class="col-md-9 col-sm-8">
                 <c:if test="${productsList != null}">
                     <div class="filter-wrap">
@@ -197,6 +150,54 @@
                     <h1>We are coming...</h1>
                 </c:if>
             </div>
+            <aside class="col-md-3 col-sm-4">
+
+                <div class="side-widget">
+                    <c:if test="${productsList != null}">
+                        <h5>Price Options ($)</h5>
+                        <div class="col-xs-12"  style="padding: 0">
+                            <div class="form-group col-xs-6" style="padding: 0; padding-right: 10px;">
+                                <label for="fs-price-from">From:</label>
+                                <input type="number" fs-category="${braID}" class="form-control fs-product-price-filter" id="fs-price-from" placeholder="($)">
+                            </div>
+                            <div class="form-group col-xs-6"  style="padding: 0">
+                                <label for="fs-price-to">To:</label>
+                                <input type="number" class="form-control fs-product-price-filter" id="fs-price-to" placeholder="($)">
+                            </div>
+                        </div>
+                        <p style="color: red" id="fs-filter-price-error"></p>
+                        <p>
+                            <button type="button" id="fs-btn-filter-price" class="btn-black pull-left">Filter Now</button>
+                            <span class="pull-right fs-sc-range">
+                                <b>$<span fs-min-price="${minPrice}" id="fs-price-from-text">${minPrice}</span> - $<span fs-max-price="${maxPrice}" id="fs-price-to-text">${maxPrice}</span> </b>
+                            </span>
+                        </p>
+                        <div class="clearfix space30"></div>
+
+                        <h5 style="border-bottom: 1px solid #cccccc; padding-bottom: 10px">Color Options</h5>
+                        <ul class="fs-ul-color">
+                            <c:forEach items="${colorList}" var="color" varStatus="i">
+                               
+                                    
+                                    <label style="font-weight: normal" for="fs-color-checkbox-${i.index + 1}"><img src="assets/images/products/colors/${color.urlColorImg}" style="width:30px; height: 30px;border-radius: 50%; margin-bottom: 10px; margin-right: 10px " id="fs-color-checkbox" name="${color.color}"></label>
+                                
+                            </c:forEach>
+                        </ul>
+                        <div class="clearfix space20"></div>
+
+                        <h5 style="border-bottom: 1px solid #cccccc; padding-bottom: 10px">Size Options</h5>
+                        <ul class="fs-ul-size">
+                            <c:forEach items="${sizeList}" var="size" varStatus="i">
+                                <li style="margin-bottom: 10px;">
+                                    <input id="fs-size-checkbox-${i.index + 1}" class="fs-size-checkbox" type="checkbox" value="${size}"/>
+                                    <label style="font-weight: normal" for="fs-size-checkbox-${i.index + 1}">${size}</label>
+                                </li>
+                            </c:forEach>
+                        </ul>
+                    </c:if>
+                </div>
+                <div class="clearfix space30"></div>
+            </aside>
         </div>
         <div class="space50"></div>
         <div class="row">

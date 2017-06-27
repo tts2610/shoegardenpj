@@ -90,9 +90,9 @@ a:focus{
 
 .top_bar {
     height: 40px;
-    background: #f8f8f8;
+    background: #333;
     border-top: 1px solid #2f2e2a;
-    border-bottom: 1px solid #8fb14b;
+    border-bottom: 1px solid white;
     position: relative;
     z-index: 9999999;
 }
@@ -1349,7 +1349,7 @@ footer {
 }
 
 .top_bar p {
-    color: #333333;
+    color: #fffbfb;
 }
 
 .tb_left {
@@ -1385,7 +1385,7 @@ footer {
 }
 
 .tb_center ul li a {
-    color: #333;
+    color: #fffbfb;
 }
 
 .tbr-inner {
@@ -2801,8 +2801,8 @@ footer {
 
 .bcrumbs {
     background: #f8f8f8;
-    padding: 17px 0;
-    margin-bottom: 5px;
+    padding: 28px 0;
+    margin-bottom: 42px;
 }
 
 .page_header {
@@ -10751,6 +10751,9 @@ p.w3ls_para {
       left: 68% !important;
     }
 }
+
+.checked {border:solid 3px red;}
+
 
 
 /*-- //responsive media queries --*/

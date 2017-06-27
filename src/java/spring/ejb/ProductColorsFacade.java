@@ -8,6 +8,7 @@ package spring.ejb;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 import spring.entity.ProductColors;
 
 /**
@@ -27,6 +28,11 @@ public class ProductColorsFacade extends AbstractFacade<ProductColors> implement
 
     public ProductColorsFacade() {
         super(ProductColors.class);
+    }
+    
+    public ProductColors findTop1ByColorName(String name){
+        Query q = getEntityManager().createNativeQuery("SELECT TOP 1 * FROM productColors p where p.color = '"+name+"'",ProductColors.class);
+        return (ProductColors) q.getSingleResult();
     }
     
 }

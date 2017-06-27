@@ -30,4 +30,6 @@ public interface ProductColorsFacadeLocal {
 
     int count();
     
+    ProductColors findTop1ByColorName(String name);
+    
 }

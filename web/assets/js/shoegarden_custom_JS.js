@@ -1641,11 +1641,13 @@ $(document).ready(function () {
     });
 
     /* FILTER PRODUCT BY COLOR */
-    $("#fs-shop-content").on("change", ".fs-color-checkbox", function () {
-        if (this.checked) { //Check
-            colorFilterArr.push($(this).val());
-        } else { //Bỏ Check
-            var index = colorFilterArr.indexOf($(this).val());
+    $("#fs-shop-content").on("click", "#fs-color-checkbox", function () {
+        if( !$(this).is('.checked')){
+            $(this).addClass('checked');
+            colorFilterArr.push($(this).attr("name"));
+        } else {
+            $(this).removeClass('checked');
+            var index = colorFilterArr.indexOf($(this).attr("name"));
             if (index > -1) {
                 colorFilterArr.splice(index, 1);
             }
@@ -1797,7 +1799,7 @@ $(document).ready(function () {
                                                 "              </a>\n" +
                                                 "          </h4>\n" +
                                                 "          <span class=\"product-price\">\n" +
-                                                "               <small class=\"cutprice\">$ " + prod.price + ".00 </small>  $ " + (prod.price * (1 - prod.discountDetailsList[0].discID.discount / 100)) +
+                                                "               <small class=\"cutprice\">$ " + prod.price + ".00 </small>  $ " + ((prod.price * (1 - prod.discountDetailsList[0].discID.discount / 100))).toFixed(2) +
                                                 "          </span>\n" +
                                                 "          <div class=\"item-colors\" style=\"height: 25px;\">\n" +
                                                 renderColor +
@@ -2672,11 +2674,13 @@ $(document).ready(function () {
         }
     });
     /* FILTER PRODUCT BY COLOR */
-    $("#fs-shop-content-sub-category").on("change", ".fs-color-checkbox", function () {
-        if (this.checked) { //Check
-            colorFilterArrSubCate.push($(this).val());
-        } else { //Bỏ Check
-            var index = colorFilterArrSubCate.indexOf($(this).val());
+    $("#fs-shop-content-sub-category").on("click", "#fs-color-checkbox", function () {
+        if( !$(this).is('.checked')){
+            $(this).addClass('checked');
+            colorFilterArrSubCate.push($(this).attr("name"));
+        } else {
+            $(this).removeClass('checked');
+            var index = colorFilterArrSubCate.indexOf($(this).attr("name"));
             if (index > -1) {
                 colorFilterArrSubCate.splice(index, 1);
             }
@@ -2823,7 +2827,7 @@ $(document).ready(function () {
                                                 "              </a>\n" +
                                                 "          </h4>\n" +
                                                 "          <span class=\"product-price\">\n" +
-                                                "               <small class=\"cutprice\">$ " + prod.price + ".00 </small>  $ " + prod.price * (1 - prod.discountDetailsList[0].discID.discount / 100) +
+                                                "               <small class=\"cutprice\">$ " + prod.price + ".00 </small>  $ " + ((prod.price * (1 - prod.discountDetailsList[0].discID.discount / 100))).toFixed(2) +
                                                 "          <div class=\"item-colors\" style=\"height: 25px;\">\n" +
                                                 renderColor +
                                                 "          </div>\n" +

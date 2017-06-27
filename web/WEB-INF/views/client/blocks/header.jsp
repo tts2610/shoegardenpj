@@ -99,6 +99,7 @@
                 </div>
                 <!-- Navmenu -->
                 <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                    <nav class="stroke">
                     <ul class="nav navbar-nav navbar-right">
                         <li>
                             <a href="index.html" class="active">Home</a>
@@ -118,6 +119,7 @@
                         </c:forEach>
 
                     </ul>
+                    </nav>
                 </div>
             </div>
         </div>

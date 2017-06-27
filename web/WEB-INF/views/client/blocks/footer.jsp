@@ -3,7 +3,7 @@
 
 <footer>
     <div class="container">        
-        <div class="row">
+        <div class="row"  style="padding-bottom: 15px;">
             <div class="col-md-3 widget-footer col-sm-3">                
                 <img src="assets/images/basic/rslogo_shoe_lite.png"  class="img-responsive space10-footer" alt=""/>
                 <p>Shoe Garden is your place for athletic and casual shoes for the whole family from hundreds of name brands. Shoe Garden is a leading family footwear destination for the famous brands you know and love.</p>

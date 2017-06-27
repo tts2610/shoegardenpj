@@ -39,6 +39,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import spring.ejb.BrandsFacadeLocal;
 import spring.ejb.CategoriesFacadeLocal;
 import spring.ejb.OrderStateFullBeanLocal;
+import spring.ejb.ProductColorsFacadeLocal;
 
 import spring.ejb.ProductsFacadeLocal;
 import spring.ejb.SizesByColorFacadeLocal;
@@ -57,6 +58,8 @@ import spring.entity.SizesByColor;
 @Controller
 public class ProductController {
 
+    ProductColorsFacadeLocal productColorsFacade = lookupProductColorsFacadeLocal();
+
     SizesByColorFacadeLocal sizesByColorFacade = lookupSizesByColorFacadeLocal();
 
     OrderStateFullBeanLocal orderStateFullBean = lookupOrderStateFullBeanLocal();
@@ -68,6 +71,8 @@ public class ProductController {
     ProductsFacadeLocal productsFacade = lookupProductsFacadeLocal();
 
     UsersFacadeLocal usersFacade = lookupUsersFacadeLocal();
+    
+    
 
     
     
@@ -105,20 +110,23 @@ public class ProductController {
                 Products product = productsFacade.findProductByID((Integer) prod[0]);
                 finalProductList.add(product);
             }
-            Set<String> colorSet = new HashSet<>();
+            List<ProductColors> colorSet = new ArrayList<>();
             Set<String> sizeSet = new HashSet<>();
-
+            Set<String> colorNameSet = new HashSet<>();
+            
             //get List of Color
             for (Products p : allProductByCate) {
                 for (ProductColors pc : p.getProductColorsList()) {
-                    colorSet.add(pc.getColor());
+                    colorNameSet.add(pc.getColor());
                     for (SizesByColor size : pc.getSizesByColorList()) {
                         sizeSet.add(size.getSize());
                     }
                 }
             }
 
-            
+            for (String name : colorNameSet) {
+                    colorSet.add(productColorsFacade.findTop1ByColorName(name));
+            }
            
             
             model.addAttribute("numberOfProducts", numberOfProducts);
@@ -288,22 +296,25 @@ public class ProductController {
                     Products product = productsFacade.findProductByID((Integer) prod[0]);
                     finalProductList.add(product);
                 }
-                Set<String> colorSet = new HashSet<>();
+                Set<String> colorNameSet = new HashSet<>();
                 Set<String> sizeSet = new HashSet<>();
+                List<ProductColors> colorSet = new ArrayList<>();
 
-                //get List of Color
-                for (Products p : allProductBySubCate) {
-                    for (ProductColors pc : p.getProductColorsList()) {
-                        colorSet.add(pc.getColor());
-                        for (SizesByColor size : pc.getSizesByColorList()) {
-                            sizeSet.add(size.getSize());
-                        }
+            //get List of Color
+            for (Products p : allProductBySubCate) {
+                for (ProductColors pc : p.getProductColorsList()) {
+                    colorNameSet.add(pc.getColor());
+                    for (SizesByColor size : pc.getSizesByColorList()) {
+                        sizeSet.add(size.getSize());
                     }
                 }
-
+            }
+            
+                for (String name : colorNameSet) {
+                    colorSet.add(productColorsFacade.findTop1ByColorName(name));
+                }
                 
 
-                
                 model.addAttribute("subCateID", subCateID);
                 model.addAttribute("numberOfProducts", numberOfProducts);
                 model.addAttribute("currentProductPageInfo", currentProductPageInfo);
@@ -813,6 +824,16 @@ public class ProductController {
         try {
             Context c = new InitialContext();
             return (SizesByColorFacadeLocal) c.lookup("java:global/ShoeGardenPJ/SizesByColorFacade!spring.ejb.SizesByColorFacadeLocal");
+        } catch (NamingException ne) {
+            Logger.getLogger(getClass().getName()).log(Level.SEVERE, "exception caught", ne);
+            throw new RuntimeException(ne);
+        }
+    }
+
+    private ProductColorsFacadeLocal lookupProductColorsFacadeLocal() {
+        try {
+            Context c = new InitialContext();
+            return (ProductColorsFacadeLocal) c.lookup("java:global/ShoeGardenPJ/ProductColorsFacade!spring.ejb.ProductColorsFacadeLocal");
         } catch (NamingException ne) {
             Logger.getLogger(getClass().getName()).log(Level.SEVERE, "exception caught", ne);
             throw new RuntimeException(ne);

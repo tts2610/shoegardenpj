@@ -50,15 +50,6 @@
 					</div>
 				</div>
 			</div>
-			<div class="item item5"> 
-				<div class="container">
-					<div class="carousel-caption">
-						<h3>The Biggest <span>Sale</span></h3>
-						<p>Special for today</p>
-						<a class="hvr-outline-out button2" href="mens.html">Shop Now </a>
-					</div>
-				</div>
-			</div> 
 		</div>
 		<a class="left carousel-control" href="#myCarousel" role="button" data-slide="prev">
 			<span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
@@ -70,6 +61,32 @@
 		</a>
 		<!-- The Modal -->
     </div> <!--/slider-->
+    
+    <div class="banner_bottom_agile_info">
+	    <div class="container">
+            <div class="banner_bottom_agile_info_inner_w3ls">
+    	           <div class="col-md-6 wthree_banner_bottom_grid_three_left1 grid">
+						<figure class="effect-roxy">
+							<img src="assets/images/bottom1.jpg" alt=" " class="img-responsive" />
+							<figcaption>
+								<h3><span>F</span>all Ahead</h3>
+								<p>New Arrivals</p>
+							</figcaption>			
+						</figure>
+					</div>
+					 <div class="col-md-6 wthree_banner_bottom_grid_three_left1 grid">
+						<figure class="effect-roxy">
+							<img src="assets/images/bottom2.jpg" alt=" " class="img-responsive" />
+							<figcaption>
+								<h3><span>F</span>all Ahead</h3>
+								<p>New Arrivals</p>
+							</figcaption>			
+						</figure>
+					</div>
+					<div class="clearfix"></div>
+		    </div> 
+		 </div> 
+    </div>
 
 
 
@@ -82,7 +99,7 @@
         <div class="row">
             <h5 class="heading"><span>Featured Products</span></h5>
             <ul class="filter" data-option-key="filter">
-                <li><a class="selected" href="#filter" data-option-value=".isotope_to_all">All</a></li>
+<!--                <li><a class="selected" href="#filter" data-option-value=".isotope_to_all">All</a></li>-->
                     <c:forEach items="${braList}" var="bra" varStatus="no"> 
                     <li>
                         <a href="#" data-option-value=".${bra.braName}">${bra.braName}</a>
@@ -232,7 +249,8 @@
     <div class="clients">
         <div class="container">
             <div class="row">
-                <div class="col-md-12 col-sm-12"> 
+                <div class="col-md-12 col-sm-12">
+                    
                 </div>
             </div>
         </div>
