@@ -30,19 +30,19 @@
         <div align="center" id="toPrint">
             <table border="0" style="border-collapse: collapse; width: 800px;">
                 <tr>
-                    <td align="left" style="padding-left: 10px"><img src="assets/images/basic/logo.png" class="img-responsive" alt=""></img></td>
+                    <td align="left" style="padding-left: 10px"><img src="assets/images/basic/logo_shoe.png" class="img-responsive" alt=""></img></td>
                     <td align="left"><b style="font-size: 50px;">INVOICE</b></td>
                 </tr>
                 <tr>
-                    <td><br></br><br/></td>
+                    <td></br><br/></td>
                 </tr>
                 <tr>
-                    <td align="right"><b>Order No:</b></td>
-                    <td># ${orders.ordersID}</td>
+                    <td><b>Order No: # ${orders.ordersID}</b></td>
+                    <td></td>
                 </tr>
                 <tr>
-                    <td align="right"><b>Order Date:</b></td>
-                    <td><fmt:formatDate value="${orders.ordersDate}" pattern="dd-MM-yyyy hh:mm:ss"/></td>
+                    <td><b>Order Date: <fmt:formatDate value="${orders.ordersDate}" pattern="dd-MM-yyyy hh:mm:ss"/></b></td>
+                    <td></td>
                 </tr>
             </table>
             <br/>
