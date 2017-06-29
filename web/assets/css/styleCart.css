@@ -34,15 +34,7 @@ main {
   padding: 2em 5%;
 }
 
-h1 {
-  font-size: 2rem;
-  padding: 3em 0 .8em;
-}
-@media only screen and (min-width: 768px) {
-  h1 {
-    font-size: 3.2rem;
-  }
-}
+
 
 .cd-add-to-cart {
   display: inline-block;
