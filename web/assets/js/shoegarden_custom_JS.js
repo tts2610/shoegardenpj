@@ -941,9 +941,9 @@ $(document).ready(function () {
         var productID = $(this).attr("fs-product-id");
 
         if (review == "") {
-            $("#fs-review-product-error").text("Content cannot be empty!");
-            //$("#cke_fs-product-description iframe").contents().find("body").focus();
-            //$('html,body').scrollTop(0);          
+            $("#fs-review-product-error").text("Content cannot be empty!");            
+//            $("#cke_fs-product-description iframe").contents().find("body").focus();
+//            $('html,body').scrollTop(0);          
         } else if (review.length < 5 || review.length > 25) {
             $("#fs-review-product-error").text("Content must have 5 - 500 characters!");
             $("#fs-review-product").focus();

@@ -467,6 +467,7 @@ public class ProductController {
                 model.addAttribute("ratingfor3", ratingfor3);
                 model.addAttribute("ratingfor4", ratingfor4);
                 model.addAttribute("ratingfor5", ratingfor5);
+                
                 model.addAttribute("checkUserRated", checkUserRated);
             } else {
                 String error = "Product has not this color!";

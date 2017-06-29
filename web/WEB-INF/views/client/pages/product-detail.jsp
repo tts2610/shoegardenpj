@@ -147,27 +147,27 @@
                     <c:forEach items="${targetProduct.ratingList}" var="review" varStatus="no">
                         <c:if test="${review.status==1}">                            
                             <p>
-                                <b>${review.user.firstName} ${review.user.lastName}</b><span style="color: #444"> on <fmt:formatDate value="${review.ratingDate}" pattern="dd MMM, yyyy" timeZone="US"/></span>
-                            </p>
+                                <b>${review.user.firstName} ${review.user.lastName}</b>
+                                <span style="color: #444"> on <fmt:formatDate value="${review.ratingDate}" pattern="dd MMM, yyyy" timeZone="US"/></span>
+                            </p>                            
+                            <c:if test="${review.rating!=0}">
+                                <select id="fs-rating-star-${no.index}" name="fs-rating-star-${no.index}" data-current-rating="${review.rating}">
+
+                                    <option value="1">1</option>
+                                    <option value="2">2</option>
+                                    <option value="3">3</option>
+                                    <option value="4">4</option>
+                                    <option value="5">5</option>
+                                </select>
+                            </c:if>
                             <p style="margin-top: 7px; margin-bottom: 7px">
                                 ${review.review}
                             </p>
-                            <c:if test="${review.rating!=0}">
-                            <select id="fs-rating-star-${no.index}" name="fs-rating-star-${no.index}" data-current-rating="${review.rating}">
-                                
-                                <option value="1">1</option>
-                                <option value="2">2</option>
-                                <option value="3">3</option>
-                                <option value="4">4</option>
-                                <option value="5">5</option>
-                            </select>
-                            </c:if>
                         </c:if>
-                    </c:forEach>
-                            <h1>${checkUserRated}</h1>
+                    </c:forEach>                            
                     <c:choose>
                         <c:when test="${sessionScope.findUsersID != null && checkUserRated != 0}">
-                            <h3>Thank you! Your review is being verified</h3>
+                            <!--<h3>Thank you! Your review is being verified</h3>-->
                         </c:when>
                         <c:when test="${sessionScope.findUsersID != null && checkUserRated == 0}">
                             <div id="fs-form-rating-review">
@@ -175,7 +175,7 @@
                                 <form>
                                     <div>
                                         <span id="fs-div-vote-value">
-                                            
+
                                         </span>
                                     </div>
                                     <div class="clearfix space10"></div>
@@ -195,7 +195,7 @@
                                     <textarea style="width: 400px; height: 100px;" id="fs-review-product"></textarea>
                                     <br>
                                     <div class="clearfix space20"></div>
-                                    
+
                                     <button type="button" 
                                             id="fs-btn-rating-review" 
                                             fs-user-id="${sessionScope.findUsersID}" 
