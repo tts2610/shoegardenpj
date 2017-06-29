@@ -31,8 +31,8 @@ public class RatingFacade extends AbstractFacade<Rating> implements RatingFacade
     }
 
     @Override
-    public int countUnvarifiedRecord() {
-        Query q = getEntityManager().createNativeQuery("SELECT COUNT(*) FROM rating r where r.status = 0 ");
+    public int countPendingRecord() {
+        Query q = getEntityManager().createNativeQuery("SELECT COUNT(*) FROM rating r where r.status = 2 ");
         try{
         return (int) q.getSingleResult();
         }catch(Exception e){

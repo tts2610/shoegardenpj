@@ -73,8 +73,8 @@
                                 <div class="col-md-4 col-sm-6">
                                     <div class="product-item">
                                         <div class="item-thumb">
-                                            <c:if test="${product.discountDetailsList[0]!=null}">
-                                                <span class="badge offer">-${product.discountDetailsList[0].discID.discount}%</span>
+                                            <c:if test="${product.productWithDiscount!=product.price}">
+                                                <span class="badge offer">-${product.discountByProduct}%</span>
                                             </c:if>
                                             <img src="assets/images/products/${product.urlImg}" 
                                                  class="img-responsive" 
@@ -100,12 +100,12 @@
                                                 </a>
                                             </h4>
                                             <span class="product-price">
-                                                <c:if test="${product.discountDetailsList[0]!=null}">
+                                                <c:if test="${product.productWithDiscount!=product.price}">
                                                     <small class="cutprice">$ ${product.price}0 </small>  $
                                                     <fmt:formatNumber type="number" maxFractionDigits="2" value="${product.productWithDiscount}" var="prodPrice"/>
                                                     ${fn:replace(prodPrice, ",", ".")}
                                                 </c:if>
-                                                <c:if test="${product.discountDetailsList[0]==null}">
+                                                <c:if test="${product.productWithDiscount==product.price}">
                                                     $ ${product.price}0
                                                 </c:if>
                                             </span>
@@ -220,6 +220,8 @@
 </div>
 
 <div class="clearfix space20"></div>
+
+<jsp:include page="../blocks/cart.jsp" flush="true"/>
 
 <!-- MODAL -->
 <jsp:include page="../blocks/modal.jsp" flush="true" />

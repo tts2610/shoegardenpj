@@ -62,7 +62,7 @@ $(document).ready(function () {
             var liProdStr = "";
             $.each(productsArrLocal, function (i, prod) {
                 liProdStr += "<div>\n\
-                                <a href=\"" + prod.productID + "-" + prod.productColorID +  ".html\">\n\
+                                <a href=\"" + prod.productID + "-" + prod.productColorID + ".html\">\n\
                                     <img style=\"width: 150px\" src=\"assets/images/products/" + prod.productImg + "\" class=\"img-responsive\" alt=\"" + prod.productImg + "\"/>\n\
                                 </a>\n\
                             </div>";
@@ -268,7 +268,7 @@ $(document).ready(function () {
         $(".fs-modal-input-number").val(1);
         $(".fs-modal-btn-quantity-minus").attr("disabled", "disabled");
         $(".fs-quantity-in-cart").text("");
-        $(".fs-quantity-in-cart").css("display","none")
+        $(".fs-quantity-in-cart").css("display", "none")
         //$(".fs-modal-btn-quantity-plus").removeAttr("disabled");
 
         $.ajax({
@@ -417,8 +417,8 @@ $(document).ready(function () {
             });
         }
     });
-    
-    $("#fs-product-detail-page").on("click", "#fs-recently-detail-wl", function (){
+
+    $("#fs-product-detail-page").on("click", "#fs-recently-detail-wl", function () {
         var userID = $(this).attr("fs-userID");
         var productID = $(this).attr("fs-productID");
         var input = $("input[name='emailUser']");
@@ -803,31 +803,31 @@ $(document).ready(function () {
                     var res = response.split("-");
                     $(".fs-input-number, .fs-modal-input-number").removeAttr("disabled");
                     $(".fs-btn-quantity-plus, .fs-modal-btn-quantity-plus").removeAttr("disabled");
-                    $(".fs-quantity-in-stock").text(" (In Stock "+res[2]+")");
+                    $(".fs-quantity-in-stock").text(" (In Stock " + res[2] + ")");
                     $(".fs-modal-input-number").val(1);
                     $(".fs-input-number").val(1);
-                    
-                    if(res[1]!=res[2]){
-                        $(".fs-quantity-in-cart").css("display","block")
-                        $(".fs-quantity-in-cart").text("This pairs are available in your cart ("+res[0]+" pairs)");
+
+                    if (res[1] != res[2]) {
+                        $(".fs-quantity-in-cart").css("display", "block")
+                        $(".fs-quantity-in-cart").text("This pairs are available in your cart (" + res[0] + " pairs)");
                     }
-                    if(res[1]==res[2]){
-                            $(".fs-quantity-in-cart").css("display","none")
-                            $(".fs-quantity-in-cart").text("");
-                            $("#fs-product-detail-add-to-cart").attr("disabled", false);
-                            $(".fs-modal-btn-addtobag").attr("disabled", false)
+                    if (res[1] == res[2]) {
+                        $(".fs-quantity-in-cart").css("display", "none")
+                        $(".fs-quantity-in-cart").text("");
+                        $("#fs-product-detail-add-to-cart").attr("disabled", false);
+                        $(".fs-modal-btn-addtobag").attr("disabled", false)
                     }
-                    if(res[0]==res[2]){
+                    if (res[0] == res[2]) {
                         $(".fs-modal-btn-quantity-plus").attr("disabled", "disabled");
                         $(".fs-modal-btn-quantity-minus").attr("disabled", "disabled");
                         $(".fs-modal-btn-addtobag").attr("disabled", "disabled")
                         $("#fs-product-detail-add-to-cart").attr("disabled", "disabled")
                         $(".fs-btn-quantity-minus").attr("disabled", "disabled")
                         $(".fs-btn-quantity-plus").attr("disabled", "disabled")
-                        
-                    }  
+
+                    }
                     $(".fs-input-number, .fs-modal-input-number").attr("max", res[1]);
-                    
+
                     $(".fs-input-number, .fs-modal-input-number").attr("disabled", "disabled");
                 }
             }
@@ -900,6 +900,8 @@ $(document).ready(function () {
     $('#fs-rating-star').barrating({
         theme: 'fontawesome-stars-o',
         showSelectedRating: false,
+        initialRating: 0,
+        allowEmpty: true,
         //readonly: true,
         onSelect: function (value, text, event) {
             if (typeof (event) !== 'undefined') {
@@ -937,35 +939,167 @@ $(document).ready(function () {
         var review = $("#fs-review-product").val();
         var userID = $(this).attr("fs-user-id");
         var productID = $(this).attr("fs-product-id");
-        $.ajax({
-            url: "ajax/submitReviewRating.html",
-            method: "POST",
-            data: {
-                productID: productID,
-                userID: userID,
-                ratingVal: ratingVal,
-                review: review
-            },
-            beforeSend: function (xhr) {
-                $("#fs-ajax-loading-2").css("display", "block");
-            },
-            success: function (response) {
-                if (response == "ok") {
-                    setTimeout(function () {
-                        $("#fs-ajax-loading-2").css("display", "none");
-                        $("#fs-form-rating-review").empty();
-                        $("#fs-form-rating-review").html("<h3>Thank you! Your review is being verified </h3>");
+        if (ratingVal == "") {
+            ratingVal = 0;
+            bootbox.confirm({
+                title: "Review without rating stars?",
+                message: "Are you sure to continue?",
+                buttons: {
+                    cancel: {
+                        label: '<i class="fa fa-times"></i> Cancel'
+                    },
+                    confirm: {
+                        label: '<i class="fa fa-check"></i> Confirm'
+                    }
+                },
+                callback: function (result) {
+
+                    if (result) {//neu confirm
+
+                        
+                        $.ajax({
+                            url: "ajax/submitReviewRating.html",
+                            method: "POST",
+                            data: {
+                                productID: productID,
+                                userID: userID,
+                                ratingVal: ratingVal,
+                                review: review
+                            },
+                            beforeSend: function (xhr) {
+                                $("#fs-ajax-loading-2").css("display", "block");
+                            },
+                            success: function (response) {
+                                if (response == "ok") {
+                                    setTimeout(function () {
+                                        $("#fs-ajax-loading-2").css("display", "none");
+                                        $("#fs-form-rating-review").empty();
+                                        $("#fs-form-rating-review").html("<h3>Thank you! Your review is being verified </h3>");
+                                        $.notify({
+                                            icon: 'glyphicon glyphicon-ok-sign',
+                                            title: '<strong>Thank you!</strong>',
+                                            message: "You voted " + ratingVal + " Star for this Product!."
+                                        }, {
+                                            type: 'success',
+                                            placement: {
+                                                from: 'top',
+                                                align: 'right'
+                                            },
+                                            delay: 2500,
+                                            timer: 200,
+                                            mouse_over: 'pause',
+                                            animate: {
+                                                enter: 'animated fadeInRight',
+                                                exit: 'animated fadeOutRight'
+                                            },
+                                            template: '<div data-notify="container" class="col-xs-11 col-sm-6 col-md-5 col-lg-3 alert alert-{0}" role="alert">' +
+                                                    '<button type="button" aria-hidden="true" class="close" data-notify="dismiss">×</button>' +
+                                                    '<span data-notify="icon"></span> ' +
+                                                    '<span data-notify="title">{1}</span> ' +
+                                                    '<span data-notify="message">{2}</span>' +
+                                                    '<div class="progress" data-notify="progressbar">' +
+                                                    '<div class="progress-bar progress-bar-{0}" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 0%;"></div>' +
+                                                    '</div>' +
+                                                    '<a href="{3}" target="{4}" data-notify="url"></a>' +
+                                                    '</div>'
+                                        });
+                                    }, 600);
+                                } else {
+                                    $.notify({
+                                        icon: 'glyphicon glyphicon-warning-sign',
+                                        title: '<strong>Error!</strong>',
+                                        message: 'Something was wrong! Please try again later!.'
+                                    }, {
+                                        type: 'danger',
+                                        placement: {
+                                            from: 'top',
+                                            align: 'right'
+                                        },
+                                        delay: 3000,
+                                        timer: 200,
+                                        mouse_over: 'pause',
+                                        animate: {
+                                            enter: 'animated fadeInRight',
+                                            exit: 'animated fadeOutRight'
+                                        },
+                                        template: '<div data-notify="container" class="col-xs-11 col-sm-6 col-md-5 col-lg-3 alert alert-{0}" role="alert">' +
+                                                '<button type="button" aria-hidden="true" class="close" data-notify="dismiss">×</button>' +
+                                                '<span data-notify="icon"></span> ' +
+                                                '<span data-notify="title">{1}</span> ' +
+                                                '<span data-notify="message">{2}</span>' +
+                                                '<div class="progress" data-notify="progressbar">' +
+                                                '<div class="progress-bar progress-bar-{0}" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 0%;"></div>' +
+                                                '</div>' +
+                                                '<a href="{3}" target="{4}" data-notify="url"></a>' +
+                                                '</div>'
+                                    });
+                                }
+                            }
+                        });
+                    }
+                }
+            });
+        } else if (ratingVal != "") {
+            
+            $.ajax({
+                url: "ajax/submitReviewRating.html",
+                method: "POST",
+                data: {
+                    productID: productID,
+                    userID: userID,
+                    ratingVal: ratingVal,
+                    review: review
+                },
+                beforeSend: function (xhr) {
+                    $("#fs-ajax-loading-2").css("display", "block");
+                },
+                success: function (response) {
+                    if (response == "ok") {
+                        setTimeout(function () {
+                            $("#fs-ajax-loading-2").css("display", "none");
+                            $("#fs-form-rating-review").empty();
+                            $("#fs-form-rating-review").html("<h3>Thank you! Your review is being verified </h3>");
+                            $.notify({
+                                icon: 'glyphicon glyphicon-ok-sign',
+                                title: '<strong>Thank you!</strong>',
+                                message: "You voted " + ratingVal + " Star for this Product!."
+                            }, {
+                                type: 'success',
+                                placement: {
+                                    from: 'top',
+                                    align: 'right'
+                                },
+                                delay: 2500,
+                                timer: 200,
+                                mouse_over: 'pause',
+                                animate: {
+                                    enter: 'animated fadeInRight',
+                                    exit: 'animated fadeOutRight'
+                                },
+                                template: '<div data-notify="container" class="col-xs-11 col-sm-6 col-md-5 col-lg-3 alert alert-{0}" role="alert">' +
+                                        '<button type="button" aria-hidden="true" class="close" data-notify="dismiss">×</button>' +
+                                        '<span data-notify="icon"></span> ' +
+                                        '<span data-notify="title">{1}</span> ' +
+                                        '<span data-notify="message">{2}</span>' +
+                                        '<div class="progress" data-notify="progressbar">' +
+                                        '<div class="progress-bar progress-bar-{0}" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 0%;"></div>' +
+                                        '</div>' +
+                                        '<a href="{3}" target="{4}" data-notify="url"></a>' +
+                                        '</div>'
+                            });
+                        }, 600);
+                    } else {
                         $.notify({
-                            icon: 'glyphicon glyphicon-ok-sign',
-                            title: '<strong>Thank you!</strong>',
-                            message: "You voted " + ratingVal + " Star for this Product!."
+                            icon: 'glyphicon glyphicon-warning-sign',
+                            title: '<strong>Error!</strong>',
+                            message: 'Something was wrong! Please try again later!.'
                         }, {
-                            type: 'success',
+                            type: 'danger',
                             placement: {
                                 from: 'top',
                                 align: 'right'
                             },
-                            delay: 2500,
+                            delay: 3000,
                             timer: 200,
                             mouse_over: 'pause',
                             animate: {
@@ -983,39 +1117,10 @@ $(document).ready(function () {
                                     '<a href="{3}" target="{4}" data-notify="url"></a>' +
                                     '</div>'
                         });
-                    }, 600);
-                } else {
-                    $.notify({
-                        icon: 'glyphicon glyphicon-warning-sign',
-                        title: '<strong>Error!</strong>',
-                        message: 'Something was wrong! Please try again later!.'
-                    }, {
-                        type: 'danger',
-                        placement: {
-                            from: 'top',
-                            align: 'right'
-                        },
-                        delay: 3000,
-                        timer: 200,
-                        mouse_over: 'pause',
-                        animate: {
-                            enter: 'animated fadeInRight',
-                            exit: 'animated fadeOutRight'
-                        },
-                        template: '<div data-notify="container" class="col-xs-11 col-sm-6 col-md-5 col-lg-3 alert alert-{0}" role="alert">' +
-                                '<button type="button" aria-hidden="true" class="close" data-notify="dismiss">×</button>' +
-                                '<span data-notify="icon"></span> ' +
-                                '<span data-notify="title">{1}</span> ' +
-                                '<span data-notify="message">{2}</span>' +
-                                '<div class="progress" data-notify="progressbar">' +
-                                '<div class="progress-bar progress-bar-{0}" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 0%;"></div>' +
-                                '</div>' +
-                                '<a href="{3}" target="{4}" data-notify="url"></a>' +
-                                '</div>'
-                    });
+                    }
                 }
-            }
-        });
+            });
+        }
     });
 
     $("#fs-product-detail-page").on("click", "#fs-btn-login-to-review", function () {
@@ -1642,7 +1747,7 @@ $(document).ready(function () {
 
     /* FILTER PRODUCT BY COLOR */
     $("#fs-shop-content").on("click", "#fs-color-checkbox", function () {
-        if( !$(this).is('.checked')){
+        if (!$(this).is('.checked')) {
             $(this).addClass('checked');
             colorFilterArr.push($(this).attr("name"));
         } else {
@@ -2675,7 +2780,7 @@ $(document).ready(function () {
     });
     /* FILTER PRODUCT BY COLOR */
     $("#fs-shop-content-sub-category").on("click", "#fs-color-checkbox", function () {
-        if( !$(this).is('.checked')){
+        if (!$(this).is('.checked')) {
             $(this).addClass('checked');
             colorFilterArrSubCate.push($(this).attr("name"));
         } else {
@@ -3017,16 +3122,36 @@ $(document).ready(function () {
 
     /*========================================NGAN - ORDER====================================================*/
     $("select#select-quantity-shoppingcart").selectBoxIt();
-    //Load cart in header
+    //Load cart
+    var cartWrapper = $('.cd-cart-container');
+    var cartBody = cartWrapper.find('.body')
+    var cartList = cartBody.find('ul').eq(0);
+    var cartTrigger = cartWrapper.children('.cd-cart-trigger');
+    var cartCount = cartTrigger.children('.count')
+    var productCount;
     $.ajax({
         url: "orders/ajax/cart.html",
         method: "GET",
         dataType: 'html',
         success: function (response) {
-            $("#cart").html(response).fadeIn(1000);
+            var info = response.split("*");
+            var productAdded = $(response);
+            var productCount = info[1];
+            updateCartCount(productCount);
+            cartList.html(productAdded);
         }
     });
 
+    function updateCartCount(quantity) {
+
+        var actual = Number(quantity);
+        var next = actual + 1;
+
+        cartCount.find('li').eq(0).text(actual);
+        cartCount.find('li').eq(1).text(next);
+
+
+    }
     $.ajax({
         url: "ajax/comparelist.html",
         method: "GET",
@@ -3347,163 +3472,163 @@ $(document).ready(function () {
         $(this).find('.btn-cancel-order-ok').attr('href', $(e.relatedTarget).data('href'));
     });
 
-    //Add to cart in product-detail.jsp
-    $("#fs-product-detail-add-to-cart").on("click", function () {
-        var colorID = $(".fs-product-color .fs-product-selected").find("img").attr("fs-color");
-        var sizeID = $("#fs-product-size .fs-product-selected").attr("fs-size");
-        var productID = $(".fs-product-detail-name").attr("fs-product-id");
-        var quantity = $(".fs-input-number").val();
-        if (colorID == null && sizeID == null) {
-            $("#error-product-detail").html("<div class=\"alert alert-danger\">\n" +
-                    "<strong>YOU MUST CHOOSE COLOR AND SIZE</strong>\n" +
-                    "</div>");
-        } else {
-            if (colorID == null) {
-                $("#error-product-detail").html("<div class=\"alert alert-danger\">\n" +
-                        "<strong>YOU MUST CHOOSE COLOR</strong>\n" +
-                        "</div>");
-            } else if (sizeID == null) {
-                $("#error-product-detail").html("<div class=\"alert alert-danger\">\n" +
-                        "<strong>YOU MUST CHOOSE SIZE</strong>\n" +
-                        "</div>");
-            } else {
-                $.ajax({
-                    url: "orders/ajax/addtocart.html",
-                    method: "POST",
-                    data: {
-                        productID: productID,
-                        sizeID: sizeID,
-                        colorID: colorID,
-                        quantity: quantity
-                    },
-                    dataType: 'html',
-                    success: function (response) {
-                        if (response == "3") {
-                            $("#error-product-detail").html("<div class=\"alert alert-danger\">\n" +
-                                    "<strong>PRODUCT ERROR</strong>\n" +
-                                    "</div>");
-                        } else if (response == "2") {
-                            $("#error-product-detail").html("<div class=\"alert alert-danger\">\n" +
-                                    "<strong>COLOR AND SIZE ERROR</strong>\n" +
-                                    "</div>");
-                        } else if (response == "1") {
-                            $("#error-product-detail").html("<div class=\"alert alert-danger\">\n" +
-                                    "<strong>OUT OF STOCK</strong>\n" +
-                                    "</div>");
-                        } else {
-                            $('body,html').animate({
-                                scrollTop: 0
-                            }, 500);
-                            $("#error-product-detail").html("<div class=\"alert alert-success\">\n" +
-                                    "<strong>ADD PRODUCT TO CART SUCCESSFULLY</strong>\n" +
-                                    "</div>");
-                            $.ajax({
-                                url: "orders/ajax/cart.html",
-                                method: "GET",
-                                dataType: 'html',
-                                success: function (response) {
-                                    $("#cart").html(response).fadeIn(1000);
-                                }
-                            });
-                            var res = response.split("-");
-                            $(".fs-input-number, .fs-modal-input-number").removeAttr("disabled");
-                            $(".fs-btn-quantity-plus, .fs-modal-btn-quantity-plus").removeAttr("disabled");
-                            $(".fs-quantity-in-stock").text(" (In Stock " + res[2] + ")");
-                            $(".fs-modal-input-number").val(1);
-                            $(".fs-input-number").val(1);
-                            if (res[1] != res[2]) {
-                                $(".fs-quantity-in-cart").css("display", "block")
-                                $(".fs-quantity-in-cart").text("This pairs are available in your cart (" + res[0] + " pairs)");
-                            }
-                            if (res[1] == res[2]) {
-                                $(".fs-quantity-in-cart").css("display", "none")
-                                $(".fs-quantity-in-cart").text("");
-                            }
-                            if (res[0] == res[2]) {
-                                $(".fs-modal-btn-quantity-plus").attr("disabled", "disabled");
-                                $(".fs-modal-btn-quantity-minus").attr("disabled", "disabled");
-                                $("#fs-product-detail-add-to-cart").attr("disabled", "disabled")
-                                $(".fs-btn-quantity-minus").attr("disabled", "disabled")
-                                $(".fs-btn-quantity-plus").attr("disabled", "disabled")
-                            }
-                            $(".fs-input-number, .fs-modal-input-number").attr("max", res[1]);
-                            $(".fs-input-number, .fs-modal-input-number").attr("disabled", "disabled");
-                        }
-                    }
-                });
-            }
-        }
-    });
+//    //Add to cart in product-detail.jsp
+//    $("#fs-product-detail-add-to-cart").on("click", function () {
+//        var colorID = $(".fs-product-color .fs-product-selected").find("img").attr("fs-color");
+//        var sizeID = $("#fs-product-size .fs-product-selected").attr("fs-size");
+//        var productID = $(".fs-product-detail-name").attr("fs-product-id");
+//        var quantity = $(".fs-input-number").val();
+//        if (colorID == null && sizeID == null) {
+//            $("#error-product-detail").html("<div class=\"alert alert-danger\">\n" +
+//                    "<strong>YOU MUST CHOOSE COLOR AND SIZE</strong>\n" +
+//                    "</div>");
+//        } else {
+//            if (colorID == null) {
+//                $("#error-product-detail").html("<div class=\"alert alert-danger\">\n" +
+//                        "<strong>YOU MUST CHOOSE COLOR</strong>\n" +
+//                        "</div>");
+//            } else if (sizeID == null) {
+//                $("#error-product-detail").html("<div class=\"alert alert-danger\">\n" +
+//                        "<strong>YOU MUST CHOOSE SIZE</strong>\n" +
+//                        "</div>");
+//            } else {
+//                $.ajax({
+//                    url: "orders/ajax/addtocart.html",
+//                    method: "POST",
+//                    data: {
+//                        productID: productID,
+//                        sizeID: sizeID,
+//                        colorID: colorID,
+//                        quantity: quantity
+//                    },
+//                    dataType: 'html',
+//                    success: function (response) {
+//                        if (response == "3") {
+//                            $("#error-product-detail").html("<div class=\"alert alert-danger\">\n" +
+//                                    "<strong>PRODUCT ERROR</strong>\n" +
+//                                    "</div>");
+//                        } else if (response == "2") {
+//                            $("#error-product-detail").html("<div class=\"alert alert-danger\">\n" +
+//                                    "<strong>COLOR AND SIZE ERROR</strong>\n" +
+//                                    "</div>");
+//                        } else if (response == "1") {
+//                            $("#error-product-detail").html("<div class=\"alert alert-danger\">\n" +
+//                                    "<strong>OUT OF STOCK</strong>\n" +
+//                                    "</div>");
+//                        } else {
+//                            $('body,html').animate({
+//                                scrollTop: 0
+//                            }, 500);
+//                            $("#error-product-detail").html("<div class=\"alert alert-success\">\n" +
+//                                    "<strong>ADD PRODUCT TO CART SUCCESSFULLY</strong>\n" +
+//                                    "</div>");
+//                            $.ajax({
+//                                url: "orders/ajax/cart.html",
+//                                method: "GET",
+//                                dataType: 'html',
+//                                success: function (response) {
+//                                    $("#cart").html(response).fadeIn(1000);
+//                                }
+//                            });
+//                            var res = response.split("-");
+//                            $(".fs-input-number, .fs-modal-input-number").removeAttr("disabled");
+//                            $(".fs-btn-quantity-plus, .fs-modal-btn-quantity-plus").removeAttr("disabled");
+//                            $(".fs-quantity-in-stock").text(" (In Stock " + res[2] + ")");
+//                            $(".fs-modal-input-number").val(1);
+//                            $(".fs-input-number").val(1);
+//                            if (res[1] != res[2]) {
+//                                $(".fs-quantity-in-cart").css("display", "block")
+//                                $(".fs-quantity-in-cart").text("This pairs are available in your cart (" + res[0] + " pairs)");
+//                            }
+//                            if (res[1] == res[2]) {
+//                                $(".fs-quantity-in-cart").css("display", "none")
+//                                $(".fs-quantity-in-cart").text("");
+//                            }
+//                            if (res[0] == res[2]) {
+//                                $(".fs-modal-btn-quantity-plus").attr("disabled", "disabled");
+//                                $(".fs-modal-btn-quantity-minus").attr("disabled", "disabled");
+//                                $("#fs-product-detail-add-to-cart").attr("disabled", "disabled")
+//                                $(".fs-btn-quantity-minus").attr("disabled", "disabled")
+//                                $(".fs-btn-quantity-plus").attr("disabled", "disabled")
+//                            }
+//                            $(".fs-input-number, .fs-modal-input-number").attr("max", res[1]);
+//                            $(".fs-input-number, .fs-modal-input-number").attr("disabled", "disabled");
+//                        }
+//                    }
+//                });
+//            }
+//        }
+//    });
 
-    //Add to cart in modal.jsp
-    $(".fs-modal-btn-addtobag").on("click", function () {
-        var errorHead = "<div class=\"alert alert-danger\"><strong>";
-        var errorHeadSuccess = "<div class=\"alert alert-success\"><strong>";
-        var errorFoot = "</strong></div>";
-        var colorID = $(".fs-product-modal-color .fs-product-selected").find("img").attr("fs-color");
-        var sizeID = $("#fs-product-modal-size .fs-product-selected").attr("fs-size");
-        var productID = $(".fs-product-name").attr("fs-product-modal-id");
-        var quantity = $(".fs-modal-input-number").val();
-        if (colorID == null && sizeID == null) {
-            $('#error-cart-product-modal').html(errorHead + "YOU MUST CHOOSE COLOR AND SIZE" + errorFoot);
-        } else {
-            if (colorID == null) {
-                $('#error-cart-product-modal').html(errorHead + "YOU MUST CHOOSE COLOR" + errorFoot);
-            } else if (sizeID == null) {
-                $('#error-cart-product-modal').html(errorHead + "YOU MUST CHOOSE SIZE" + errorFoot);
-            } else {
-                $.ajax({
-                    url: "orders/ajax/addtocart.html",
-                    method: "POST",
-                    data: {
-                        productID: productID,
-                        sizeID: sizeID,
-                        colorID: colorID,
-                        quantity: quantity
-                    },
-                    dataType: 'html',
-                    success: function (response) {
-                        if (response == "3") {
-                            $('#error-cart-product-modal').html(errorHead + "PRODUCT ERROR!" + errorFoot);
-                        } else if (response == "2") {
-                            $('#error-cart-product-modal').html(errorHead + "COLOR AND SIZE ERROR!" + errorFoot);
-                        } else if (response == "1") {
-                            $('#error-cart-product-modal').html(errorHead + "NOT ENOUGH STOCK! PLEASE ENTER DIFFERENT QUANTITY" + errorFoot);
-                        } else {
-                            var res = response.split("-");
-                            $(".fs-input-number, .fs-modal-input-number").removeAttr("disabled");
-                            $(".fs-btn-quantity-plus, .fs-modal-btn-quantity-plus").removeAttr("disabled");
-                            $(".fs-quantity-in-stock").text(" (In Stock " + res[2] + ")");
-                            $(".fs-modal-input-number").val(1);
-                            if (res[1] != res[2]) {
-                                $(".fs-quantity-in-cart").css("display", "block")
-                                $(".fs-quantity-in-cart").text("This pairs are available in your cart (" + res[0] + " pairs)");
-                            }
-                            if (res[1] == res[2]) {
-                                $(".fs-quantity-in-cart").css("display", "none")
-                                $(".fs-quantity-in-cart").text("");
-                            }
-                            if (res[0] == res[2]) {
-                                $(".fs-modal-btn-quantity-plus").attr("disabled", "disabled");
-                                $(".fs-modal-btn-quantity-minus").attr("disabled", "disabled");
-                                $(".fs-modal-btn-addtobag").attr("disabled", "disabled")
-                            }
-                            $(".fs-input-number, .fs-modal-input-number").attr("max", res[1]);
-                            $(".fs-input-number, .fs-modal-input-number").attr("disabled", "disabled");
-                            $.ajax({
-                                url: "orders/ajax/cart.html",
-                                method: "GET",
-                                dataType: 'html',
-                                success: function (response) {
-                                    $("#cart").html(response).fadeIn(1000);
-                                }
-                            });
-                        }
-                    }
-                });
-            }
-        }
-    });
+//    //Add to cart in modal.jsp
+//    $(".fs-modal-btn-addtobag").on("click", function () {
+//        var errorHead = "<div class=\"alert alert-danger\"><strong>";
+//        var errorHeadSuccess = "<div class=\"alert alert-success\"><strong>";
+//        var errorFoot = "</strong></div>";
+//        var colorID = $(".fs-product-modal-color .fs-product-selected").find("img").attr("fs-color");
+//        var sizeID = $("#fs-product-modal-size .fs-product-selected").attr("fs-size");
+//        var productID = $(".fs-product-name").attr("fs-product-modal-id");
+//        var quantity = $(".fs-modal-input-number").val();
+//        if (colorID == null && sizeID == null) {
+//            $('#error-cart-product-modal').html(errorHead + "YOU MUST CHOOSE COLOR AND SIZE" + errorFoot);
+//        } else {
+//            if (colorID == null) {
+//                $('#error-cart-product-modal').html(errorHead + "YOU MUST CHOOSE COLOR" + errorFoot);
+//            } else if (sizeID == null) {
+//                $('#error-cart-product-modal').html(errorHead + "YOU MUST CHOOSE SIZE" + errorFoot);
+//            } else {
+//                $.ajax({
+//                    url: "orders/ajax/addtocart.html",
+//                    method: "POST",
+//                    data: {
+//                        productID: productID,
+//                        sizeID: sizeID,
+//                        colorID: colorID,
+//                        quantity: quantity
+//                    },
+//                    dataType: 'html',
+//                    success: function (response) {
+//                        if (response == "3") {
+//                            $('#error-cart-product-modal').html(errorHead + "PRODUCT ERROR!" + errorFoot);
+//                        } else if (response == "2") {
+//                            $('#error-cart-product-modal').html(errorHead + "COLOR AND SIZE ERROR!" + errorFoot);
+//                        } else if (response == "1") {
+//                            $('#error-cart-product-modal').html(errorHead + "NOT ENOUGH STOCK! PLEASE ENTER DIFFERENT QUANTITY" + errorFoot);
+//                        } else {
+//                            var res = response.split("-");
+//                            $(".fs-input-number, .fs-modal-input-number").removeAttr("disabled");
+//                            $(".fs-btn-quantity-plus, .fs-modal-btn-quantity-plus").removeAttr("disabled");
+//                            $(".fs-quantity-in-stock").text(" (In Stock " + res[2] + ")");
+//                            $(".fs-modal-input-number").val(1);
+//                            if (res[1] != res[2]) {
+//                                $(".fs-quantity-in-cart").css("display", "block")
+//                                $(".fs-quantity-in-cart").text("This pairs are available in your cart (" + res[0] + " pairs)");
+//                            }
+//                            if (res[1] == res[2]) {
+//                                $(".fs-quantity-in-cart").css("display", "none")
+//                                $(".fs-quantity-in-cart").text("");
+//                            }
+//                            if (res[0] == res[2]) {
+//                                $(".fs-modal-btn-quantity-plus").attr("disabled", "disabled");
+//                                $(".fs-modal-btn-quantity-minus").attr("disabled", "disabled");
+//                                $(".fs-modal-btn-addtobag").attr("disabled", "disabled")
+//                            }
+//                            $(".fs-input-number, .fs-modal-input-number").attr("max", res[1]);
+//                            $(".fs-input-number, .fs-modal-input-number").attr("disabled", "disabled");
+//                            $.ajax({
+//                                url: "orders/ajax/cart.html",
+//                                method: "GET",
+//                                dataType: 'html',
+//                                success: function (response) {
+//                                    $("#cart").html(response).fadeIn(1000);
+//                                }
+//                            });
+//                        }
+//                    }
+//                });
+//            }
+//        }
+//    });
     $(".fs-modal-close").on("click", function () {
         $('#error-cart-product-modal').html("");
     });

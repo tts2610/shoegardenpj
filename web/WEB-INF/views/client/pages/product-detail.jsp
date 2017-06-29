@@ -143,7 +143,7 @@
                     </div>
                     <div class="sep"></div>
                     <div class="fs-display-none" id="fs-number-of-rating" fs-nort="${numberOfRating}"></div>
-                    <h2 style="font-weight: 400">Product Reviews</h2> 
+                    <h2>Product Reviews</h2>
                     <c:forEach items="${targetProduct.ratingList}" var="review" varStatus="no">
                         <c:if test="${review.status==1}">                            
                             <p>
@@ -152,31 +152,34 @@
                             <p style="margin-top: 7px; margin-bottom: 7px">
                                 ${review.review}
                             </p>
+                            <c:if test="${review.rating!=0}">
                             <select id="fs-rating-star-${no.index}" name="fs-rating-star-${no.index}" data-current-rating="${review.rating}">
+                                
                                 <option value="1">1</option>
                                 <option value="2">2</option>
                                 <option value="3">3</option>
                                 <option value="4">4</option>
                                 <option value="5">5</option>
-                            </select>                          
+                            </select>
+                            </c:if>
                         </c:if>
                     </c:forEach>
                     <c:choose>
                         <c:when test="${sessionScope.findUsersID != null && checkUserRated == 1}">
-                            <!--<h3>You already voted for this product! </h3>-->
+                            <h3>Thank you! Your review is being verified</h3>
                         </c:when>
                         <c:when test="${sessionScope.findUsersID != null && checkUserRated == 0}">
-                            <div class="sep"></div>
                             <div id="fs-form-rating-review">
-                                <h2 style="font-weight: 400">Write Your Review</h2>
+                                <h2>Write Your Review</h2>
                                 <form>
                                     <div>Rating *:
                                         <span id="fs-div-vote-value">
-                                            <strong style="font-size: 20px; color: #d6644a">1 </strong>Star
+                                            
                                         </span>
                                     </div>
                                     <div class="clearfix space10"></div>
-                                    <select id="fs-rating-star" name="fs-rating-star"> 
+                                    <select id="fs-rating-star" name="fs-rating-star">
+                                        <option value=""></option>
                                         <option value="1">1</option>
                                         <option value="2">2</option>
                                         <option value="3">3</option>
@@ -222,8 +225,8 @@
                                     <div class="pc-wrap">
                                         <div class="product-item">
                                             <div class="item-thumb">
-                                                <c:if test="${product.discountDetailsList[0]!=null}">
-                                                    <div class="badge offer">-${product.discountDetailsList[0].discID.discount}%</div>
+                                                <c:if test="${product.productWithDiscount!=product.price}">
+                                                    <div class="badge offer">-${product.discountByProduct}%</div>
                                                 </c:if>
                                                 <img src="assets/images/products/${prod.urlImg}" 
                                                      class="img-responsive" 
@@ -248,13 +251,13 @@
                                                 </h4>
 
                                                 <span class="product-price">
-                                                    <c:if test="${product.discountDetailsList[0]!=null}">
+                                                    <c:if test="${product.productWithDiscount!=product.price}">
                                                         <small class="cutprice">$ ${prod.price}0 </small>  $
-                                                        <fmt:formatNumber type="number" maxFractionDigits="2" value="${product.price * (1-product.discountDetailsList[0].discID.discount/100)}" var="prodPrice"/>
+                                                        <fmt:formatNumber type="number" maxFractionDigits="2" value="${product.productWithDiscount}" var="prodPrice"/>
                                                         ${fn:replace(prodPrice, ",", ".")}
 
                                                     </c:if>
-                                                    <c:if test="${product.discountDetailsList[0]==null}">
+                                                    <c:if test="${product.productWithDiscount==product.price}">
                                                         $ ${prod.price}0
                                                     </c:if>
                                                 </span>
@@ -287,7 +290,7 @@
 
 <div class="clearfix space20"></div>
 
-<!-- BREADCRUMBS -->
+<jsp:include page="../blocks/cart.jsp" flush="true"/>
 
 <!-- MODAL -->
 <jsp:include page="../blocks/modal.jsp" flush="true" />

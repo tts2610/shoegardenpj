@@ -23,7 +23,7 @@
         <!-- /.row -->
         <table width="100%" class="table table-striped table-bordered table-hover">
             <tr>
-                <th class="text-center fs-valign-middle" style="background: lightblue;" colspan="4">Order Status Statistics</th>
+                <th class="text-center fs-valign-middle" style="background: #5cb85c;" colspan="4">Order Status Statistics</th>
             </tr>
             <tr>
                 <th colspan="2" width="50%" class="text-center fs-valign-middle">Total Order</th>
@@ -42,7 +42,7 @@
                 <td class="text-center fs-valign-middle">${cancelOrders}</td>
             </tr>
             <tr>
-                <th class="text-center fs-valign-middle" style="background: lightblue;" colspan="4">Average Statistics</th>
+                <th class="text-center fs-valign-middle" style="background: #5cb85c;" colspan="4">Average Statistics</th>
             </tr>
             <tr>
                 <th colspan="2" class="text-center fs-valign-middle">Average orders per user daily in month (${thisMonth})</th>

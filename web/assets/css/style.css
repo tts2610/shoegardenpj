@@ -435,10 +435,12 @@ h5.heading2 span {
 
 .product-item {
     margin-bottom: 38px;
+    box-shadow: 0px 0px 15px 0px #D6D6D6
 }
 
 .product-info {
     text-align: center;
+    padding-bottom: 11px;
 }
 
 .product-title {

@@ -7,6 +7,7 @@ package spring.client.controller;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import static java.lang.Float.NaN;
 import java.text.DateFormat;
 import java.text.DecimalFormat;
 import java.text.ParseException;
@@ -359,9 +360,13 @@ public class ProductController {
             int ratingfor4 = 0;
             int ratingfor5 = 0;
             int checkUserRated = 0;
+            int ratecount = 0;
             if (ratingList.size() > 0) {
                 for (Rating rating : ratingList) {
-                    ratingSum += rating.getRating();
+                    if(rating.getRating()!=0){
+                        ratingSum += rating.getRating();
+                        ratecount++;
+                    }
                     if (rating.getRating() == 1) {
                         ratingfor1++;
                     }
@@ -388,8 +393,12 @@ public class ProductController {
                         }
                     }
                 }
-                ratingAVR = ratingSum / (float) ratingList.size();
+                ratingAVR = ratingSum / (float) ratecount;
             }
+            if (Float.isNaN(ratingAVR)) {
+                ratingAVR = 0;
+            }
+            
             DecimalFormat decimalformat = new DecimalFormat("#.#");
             decimalformat.format(ratingAVR);
 
@@ -739,7 +748,7 @@ public class ProductController {
         newRating.setRating(ratingVal);
         newRating.setRatingDate(new Date());
         newRating.setReview(review);
-        newRating.setStatus((short) 0);
+        newRating.setStatus((short) 2);//2: pending
 
         if (productsFacade.createNewProductRating(productID, newRating)) {
             return "ok";

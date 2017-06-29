@@ -2,6 +2,7 @@ package spring.client.controller;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.google.gson.Gson;
 import java.math.RoundingMode;
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
@@ -135,9 +136,7 @@ public class OrdersController{
         
         
         if(orderStateFullBean==null){
-            System.err.println("add");
             orderStateFullBean = lookupOrderStateFullBeanLocal();
-            
         }
         
         if (pro != null) {
@@ -180,7 +179,6 @@ public class OrdersController{
 
                     request.getSession().setAttribute("cart", orderStateFullBean);
                     
-//                System.err.println(returnValue);
                     return returnValue; //Add Product to Cart Successfully!
                 }
                 
@@ -487,99 +485,87 @@ public class OrdersController{
         request.getSession().removeAttribute("cart");
         return "1";
     }
+    
+    @ResponseBody
+    @RequestMapping(value = "ajax/deletecartitem", method = RequestMethod.POST)
+    public String deleteItem(@RequestParam("cartInfo") int cartInfo){
+        OrderStateFullBeanLocal orderStateFullBean = (OrderStateFullBeanLocal) request.getSession().getAttribute("cart");
+        
+        if(orderStateFullBean==null){
+            orderStateFullBean = lookupOrderStateFullBeanLocal();
+            request.getSession().setAttribute("cart", orderStateFullBean);
+        }
+        
+        
+        if(orderStateFullBean.deleteItem(cartInfo))
+            return "1";
+        return "0";
+    }
 
     @ResponseBody
     @RequestMapping(value = "ajax/cart", method = RequestMethod.GET)
     public String getCart() {
         OrderStateFullBeanLocal orderStateFullBean = (OrderStateFullBeanLocal) request.getSession().getAttribute("cart");
         
-        
         if(orderStateFullBean==null){
             orderStateFullBean = lookupOrderStateFullBeanLocal();
             request.getSession().setAttribute("cart", orderStateFullBean);
         }
-        String str_cart_detail = "";
-        String str_cart_big = "";
-        String str_cart_button = "";
-        String str_subtotal = "";
-        float subTotal = 0;
-        int cartSize = 0;
-        if (orderStateFullBean.showCart().size() == 0) {
-            subTotal = 0;
-            cartSize = 0;
-        } else {
-            subTotal = orderStateFullBean.subTotal();
-            cartSize = orderStateFullBean.showCart().size();
-            str_cart_button = "<div class=\"cart-btn\">\n"
-                    + "                                <a href=\"orders/shoppingcart.html\">VIEW BAG</a>\n"
-                    + "                                <button onclick=\"checkoutClick();\" style=\"background: #d6644a;\n"
-                    + "                                font-size: 11px;\n"
-                    + "                                color: #fff;\n"
-                    + "                                text-transform: none;\n"
-                    + "                                height: 33px;\n"
-                    + "                                padding: 0 17px;\n"
-                    + "                                line-height: 33px;\n"
-                    + "                                font-weight: 700;\" class=\"btn\">CHECKOUT</button> \n"
-                    
-                    + "                                <button onclick=\"cartClearAllClick();\" style=\"background: #fe980f;\n"
-                    + "                                font-size: 11px;\n"
-                    + "                                color: #fff;\n"
-                    + "                                text-transform: none;\n"
-                    + "                                height: 33px;\n"
-                    + "                                padding: 0 17px;\n"
-                    + "                                line-height: 33px;\n"
-                    + "                                font-weight: 700;\" class=\"btn\">CLEAR ALL</button> \n"
-                    + "                            </div>";
-            
-            str_subtotal = "<div class=\"ci-total\">Grand Total: $" + String.format("%.2f", subTotal) + "</div>";
-            for (CartLineInfo cartLineInfo : orderStateFullBean.showCart()) {
-                str_cart_detail += "<div class=\"ci-item\">\n"
-                        + "        <img src=\"assets/images/products/" + cartLineInfo.getProduct().getUrlImg() + "\" width=\"90\" alt=\"\"/>\n"
-                        + "        <div class=\"ci-item-info\">\n"
-                        + "            <h5>\n"
-
-                        + "                <a style=\"font-weight: 700;\" href=\"" + cartLineInfo.getProduct().getProductID() + "-" + cartLineInfo.getProduct().getProductColorsList().get(0).getColorID() + ".html\">\n"
-
-                        + "                    " + cartLineInfo.getProduct().getProductName() + "\n"
-                        + "                </a>\n"
-                        + "            </h5>\n"
-                        + "<p>&nbsp Color: " + cartLineInfo.getSizesByColor().getColorID().getColor() + "\n"
-                        + "                                            <img fs-color=\"" + cartLineInfo.getSizesByColor().getColorID().getColorID() + "\" \n"
-                        + "                                                 src=\"assets/images/products/colors/" + cartLineInfo.getSizesByColor().getColorID().getUrlColorImg() + "\" \n"
-                        + "                                                 class=\"img-responsive\" \n"
-                        + "                                                 alt=\"" + cartLineInfo.getSizesByColor().getColorID().getUrlColorImg() + "\" \n"
-                        + "                                                 title=\"" + cartLineInfo.getSizesByColor().getColorID().getColor() + "\"\n"
-                        + "                                                 style=\"width: 18px; height: 18px;\"/>\n"
-                        + "                                        </p>"
-                        + "<p>Size: " + cartLineInfo.getSizesByColor().getSize() + "</p>\n"
-                        + " <p>Quantity: &nbsp " + cartLineInfo.getQuantity() + "</p>\n";
-                        if(cartLineInfo.getProduct().getDiscountByProduct()!=0)
-                        str_cart_detail +="  <p class=\"product-price\">\n"
-                        + "                 Price: &nbsp\n"
-                        + "                 <small class=\"cutprice\" style=\"display: inline;border-bottom:none;\">$" + String.format("%.2f", cartLineInfo.getProduct().getPrice()) + "</small>\n"
-                        + "            <small class=\"ps-price fs-product-price\" style=\"display: inline;color:#e74c3c;border-bottom:none;\">$" + cartLineInfo.getProduct().getProductWithDiscount() + "</small>"
-                        + "            <small class=\"ps-price fs-product-discount\" style=\"display: inline;color:#e74c3c;border-bottom:none;\">(-" + cartLineInfo.getProduct().getDiscountByProduct() + "%)</small>\n"
-                        + "            </p>\n";
-                        else if(cartLineInfo.getProduct().getDiscountByProduct()==0)
-                        str_cart_detail +="  <p class=\"product-price\">\n"
-                        + "                 Price: &nbsp\n"
-                        + "            <small class=\"ps-price fs-product-price\" style=\"display: inline;color:#e74c3c;border-bottom:none;\">$" + String.format("%.2f", cartLineInfo.getProduct().getPrice()) + "</small>&nbsp\n"
-                        + "            </p>\n";
-                        
-                        str_cart_detail+="        </div>\n"
-                        + "    </div>";
+        int size = orderStateFullBean.showCart().size();
+        String cart_info = "";
+        float subtotal = orderStateFullBean.subTotal();
+        for (CartLineInfo cartLineInfo : orderStateFullBean.showCart()) {
+            cart_info += "<li class=\"product\" fs-cartInfo=\""+orderStateFullBean.showCart().indexOf(cartLineInfo)+"\" >"
+                + "<div class=\"product-image\">"
+                + "<a href=\"#0\">"
+                + "<img src=\"assets/images/products/"+cartLineInfo.getProduct().getUrlImg()+"\" alt=\""+cartLineInfo.getProduct().getProductName()+"\">"
+                + "</a>"
+                + "</div>"
+                + "<div class=\"product-details\">"
+                + "<h3><a href=\""+ cartLineInfo.getProduct().getProductID() + "-" + cartLineInfo.getProduct().getProductColorsList().get(0).getColorID() + ".html\"></a>"+cartLineInfo.getProduct().getProductName()+"</h3>"
+                + "<div class=\"actions\"><a href=\"#0\" style=\"margin-left:13px;margin-right:0px;\" class=\"delete-item\">Delete</a>";
+            if(cartLineInfo.getProduct().getDiscountByProduct()==0)
+                cart_info += "<span style=\"color:#1a5996;\" class=\"price\">$"+String.format("%.2f", cartLineInfo.getProduct().getPrice())+"</span>";
+                        else{
+                cart_info +="<span class=\"price\" style=\"\n" +
+                            "    text-decoration: line-through;\n" +
+                            "    color: gray;\n" +
+                            "    font-size: medium;\n" +
+                            "\">$"+String.format("%.2f", cartLineInfo.getProduct().getPrice())+"</span>";
             }
+                
+                cart_info += "<div class=\"quantity\"><label for=\"cd-product-'+ productId +'\">Quantity: "+cartLineInfo.getQuantity()+"</label>"
+                + "</div> "
+                + "<div class=\"quantity\"><label for=\"cd-product-'+ productId +'\">/ Size: "+cartLineInfo.getSizesByColor().getSize()+"</label>"
+                + "</div>\n\n"
+                + "<div class=\"quantity\"><label for=\"cd-product-'+ productId +'\">Color:</label><img fs-color=\"" + cartLineInfo.getSizesByColor().getColorID().getColorID() + "\" \n"
+                + "                                                 src=\"assets/images/products/colors/" + cartLineInfo.getSizesByColor().getColorID().getUrlColorImg() + "\" \n"
+                + "                                                 class=\"img-responsive\" \n"
+                + "                                                 alt=\"" + cartLineInfo.getSizesByColor().getColorID().getUrlColorImg() + "\" \n"
+                + "                                                 title=\"" + cartLineInfo.getSizesByColor().getColorID().getColor() + "\"\n"
+                + "                                                 style=\"width: 18px; height: 18px;display:inline;\"/>\n"
+                + "</div>";
+                if(cartLineInfo.getProduct().getDiscountByProduct()!=0)
+                    cart_info += "<div class=\"quantity\" style=\"\n" +
+                                 "    float: right;\n" +
+                                 "    color: #1a5996;font-size:large;\n" +
+                                 "\"><label style=\"margin-right:0px;\" for=\"cd-product-'+ productId +'\">$"+String.format("%.2f", cartLineInfo.getProduct().getProductWithDiscount())+"(-"+cartLineInfo.getProduct().getDiscountByProduct()+"%)</label>\n" +
+                "</div>";
+                cart_info+= "</div>"
+                + "</div>"
+                + "</li>";
+            
         }
-        //"
-        str_cart_big = "<span><i class=\"fa fa-shopping-cart\"></i></span>\n"
-                + "<div class=\"cart-info\">\n"
-                + "<small>You have <em class=\"highlight\">" + cartSize + " item(s)</em> in your shopping bag</small>\n"
-                + str_cart_detail
-                + str_subtotal
-                + str_cart_button
-                + "                        </div>";
-
-        return str_cart_big;
+        
+        
+        if(size>0)
+        cart_info+="<li class=\"product\">Grand Total: <div style=\"color:#1a5996;display:inline;font-weight:700;\">$"+subtotal+"</div>"
+                 +"</li><li></li><a style=\"padding-left:118px;cursor:pointer;\" id=\"removeallbtn\">Remove All</a>&nbsp;&nbsp;|&nbsp;\n" +
+"                <a href=\"orders/shoppingcart.html\">View Cart</a>";
+        else
+            cart_info+="<h2 style=\"text-align:center;\">EMPTY CART</h2>";
+        
+        return cart_info+"*"+size;
     }
 
 //    @ResponseBody

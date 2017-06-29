@@ -42,6 +42,7 @@
                                 <td class="text-center fs-valign-middle">${rating.user.firstName}&nbsp;${rating.user.lastName}</td>
                                 <td class="text-center fs-valign-middle">
                                     <select id="fs-rating-star-results-${no.index + 1}" name="fs-rating-star-results-${no.index + 1}" data-current-rating="${rating.rating}">
+                                        <option value=""></option>
                                         <option value="1">1</option>
                                         <option value="2">2</option>
                                         <option value="3">3</option>
@@ -55,6 +56,7 @@
                                     <select name="status" fs-comment="${rating.ratingID}" class="fs-select-comment-status form-control input-sm" id="fs-status-select">
                                         <option id="fs-status-1" value="1" <c:if test="${rating.status == 1}">selected</c:if>>VERIFIED</option>
                                         <option id="fs-status-2" value="0" <c:if test="${rating.status == 0}">selected</c:if>>NOT VERIFIED</option>
+                                        <option id="fs-status-2" value="0" <c:if test="${rating.status == 2}">selected</c:if>>PENDING</option>
                                         </select>
                                     </td>
                                 </tr>

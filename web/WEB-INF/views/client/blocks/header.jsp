@@ -75,12 +75,12 @@
                             </div>
                         </div>
                     </div>
-                    <div class="topcart">
+<!--                    <div class="topcart">
                         <div id="cart">
 
                         </div>
                         <input id="order-emailUser" name="order-emailUser" type="hidden" value="${sessionScope.emailUser}"/>
-                    </div>
+                    </div>-->
                     <div class="topsearch">
                         <span>
                             <i class="fa fa-search"></i>
@@ -151,22 +151,8 @@
             window.location = "orders/checkout.html";
         }
     };
-    function cartClearAllClick(){
-        $.ajax({
-            url: "orders/ajax/cartdeleteall.html",
-            method: "GET",
-            success: function (response) {
-                $.ajax({
-                    url: "orders/ajax/cart.html",
-                    method: "GET",
-                    dataType: 'html',
-                    success: function (response) {
-                    $("#cart").html(response).fadeIn(1000);
-                    }
-                });
-            }
-        });
-    }
+    
+    
     function compareClearAllClick(){
         $.ajax({
             url: "compare/deleteAll.html",

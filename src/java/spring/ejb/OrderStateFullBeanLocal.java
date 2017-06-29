@@ -18,6 +18,7 @@ import spring.entity.Orders;
 public interface OrderStateFullBeanLocal {
     void addProduct(CartLineInfo cartLineInfo);
     boolean deleteProduct(CartLineInfo cartLineInfo);
+    boolean deleteItem(int cartLineInfo);
     boolean updateProduct(CartLineInfo oldCartLineInfo, CartLineInfo cartLineInfo);
     List<CartLineInfo> showCart();
     CartLineInfo getProductInListByID(int productid, int sizeid, int colorid);

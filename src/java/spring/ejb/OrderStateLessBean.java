@@ -415,8 +415,8 @@ public class OrderStateLessBean implements OrderStateLessBeanLocal {
     @Override
     public Integer countAllUsersByRole() {
         try {
-            Query u = getEntityManager().createQuery("SELECT COUNT(u.userID) FROM Users u WHERE u.roleID.roleID = :roleID AND u.status = :status", Users.class);
-            u.setParameter("roleID", 3);
+            Query u = getEntityManager().createQuery("SELECT COUNT(u.userID) FROM Users u WHERE u.status = :status", Users.class);
+//            u.setParameter("roleID", 3);
             u.setParameter("status", 1);
             return Integer.parseInt(u.getSingleResult().toString());
         } catch (Exception e) {

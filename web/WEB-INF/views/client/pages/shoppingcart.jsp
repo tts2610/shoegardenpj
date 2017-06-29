@@ -107,8 +107,8 @@
                                 <div class="pc-wrap">
                                     <div class="product-item">
                                         <div class="item-thumb">
-                                            <c:if test="${product.discountDetailsList[0]!=null}">
-                                                <div class="badge offer">-${product.discountDetailsList[0].discID.discount}%</div>
+                                            <c:if test="${product.productWithDiscount!=product.price}">
+                                                <div class="badge offer">-${product.discountByProduct}%</div>
                                             </c:if>
                                             <img src="assets/images/products/${product.urlImg}"
                                                  class="img-responsive" 
@@ -134,12 +134,12 @@
                                                     ${product.productName}
                                                 </a></h4>
                                             <span class="product-price">
-                                                <c:if test="${product.discountDetailsList[0] != null}">
+                                                <c:if test="${product.productWithDiscount!=product.price}">
                                                     <small class="cutprice">$ ${product.price}0 </small>  $
                                                     <fmt:formatNumber type="number" maxFractionDigits="2" value="${product.productWithDiscount}" var="prodPrice"/>
                                                     ${fn:replace(prodPrice, ",", ".")}
                                                 </c:if>
-                                                <c:if test="${product.discountDetailsList[0] == null}">
+                                                <c:if test="${product.productWithDiscount==product.price}">
                                                     $ ${product.price}0
                                                 </c:if>
                                             </span>

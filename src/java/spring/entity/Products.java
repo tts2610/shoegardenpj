@@ -8,7 +8,11 @@ package spring.entity;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import java.io.Serializable;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.Date;
@@ -233,7 +237,17 @@ public class Products implements Serializable {
      
     public float getProductWithDiscount(){
         for(DiscountDetails d : this.discountDetailsList){
-            if(!d.getDiscID().getDateBegin().after(new Date())&&!d.getDiscID().getDateEnd().before(new Date())){
+
+            Date beginDate = d.getDiscID().getDateBegin();
+            Date endDate = d.getDiscID().getDateEnd();
+           
+            Calendar cal = Calendar.getInstance();  
+            cal.setTime(new Date());  
+            cal.set(Calendar.HOUR_OF_DAY, 0);  
+            cal.set(Calendar.MINUTE, 0);  
+            cal.set(Calendar.SECOND, 0);  
+            cal.set(Calendar.MILLISECOND, 0);
+            if(Objects.equals(d.getProductID().getProductID(), this.productID)&&!beginDate.after(cal.getTime())&&!endDate.before(cal.getTime())){
                 
                 return (float) (this.price*(1-(float)d.getDiscID().getDiscount()/100));
             }
@@ -243,7 +257,16 @@ public class Products implements Serializable {
     
     public short getDiscountByProduct(){
         for(DiscountDetails d : this.discountDetailsList){
-            if(Objects.equals(d.getProductID().getProductID(), this.productID)){
+            Date beginDate = d.getDiscID().getDateBegin();
+            Date endDate = d.getDiscID().getDateEnd();
+           
+            Calendar cal = Calendar.getInstance();  
+            cal.setTime(new Date());  
+            cal.set(Calendar.HOUR_OF_DAY, 0);  
+            cal.set(Calendar.MINUTE, 0);  
+            cal.set(Calendar.SECOND, 0);  
+            cal.set(Calendar.MILLISECOND, 0);
+            if(Objects.equals(d.getProductID().getProductID(), this.productID)&&!beginDate.after(cal.getTime())&&!endDate.before(cal.getTime())){
                 
                 return d.getDiscID().getDiscount();
             }

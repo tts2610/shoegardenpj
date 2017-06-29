@@ -74,6 +74,14 @@ public class OrderStateFullBean implements OrderStateFullBeanLocal, Serializable
         }
         return false;
     }
+    @Override
+    public boolean deleteItem(int cartLineInfo) {
+        if (cartLineInfo != -1) {
+            cart.remove(cartLineInfo);
+            return true;
+        }
+        return false;
+    }
 
     @Override
     public List<CartLineInfo> showCart() {

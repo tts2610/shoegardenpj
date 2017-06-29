@@ -38,6 +38,7 @@
         <link rel="stylesheet" href="assets/css/style.css">
         <link rel="stylesheet" href="assets/js/jquery-ui-1.12.1/jquery-ui.min.css"/>
         <link rel="stylesheet" href="assets/css/shoegarden_custom_CSS.css">
+        <link rel="stylesheet" href="assets/css/styleCart.css">
         <link href="assets/css/fontawesome-stars.css" rel="stylesheet" type="text/css"/>
         <link href="assets/css/fontawesome-stars-o.css" rel="stylesheet" type="text/css"/>
 <!--        <link href="assets/css/comparetb.css" rel="stylesheet" type="text/css"/>-->
@@ -93,7 +94,8 @@
         <script src="assets/js/bootstrap-notify.js" type="text/javascript"></script>
 <!--        <script src="assets/js/modernizr.js" type="text/javascript"></script>-->
         <script src="assets/js/shoegarden_custom_JS.js" type="text/javascript"></script>
-        
+        <script src="assets/js/styleCart.js" type="text/javascript"></script>
+        <script src="assets/js/bootbox.min.js" type="text/javascript"></script>
         <script src="assets/plugin/elevatezoom/jquery.elevatezoom.js" type="text/javascript"></script>        
         <script src="assets/plugin/elevatezoom/jquery.elevateZoom-3.0.8.min.js" type="text/javascript"></script>
         

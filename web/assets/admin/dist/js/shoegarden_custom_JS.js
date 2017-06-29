@@ -3936,6 +3936,8 @@ $(document).ready(function () {
     $('#fs-rating-star').barrating({
         theme: 'fontawesome-stars-o',
         showSelectedRating: false,
+        initialRating: 0,
+        allowEmpty: true,
         //readonly: true,
         onSelect: function (value, text, event) {
             if (typeof (event) !== 'undefined') {
@@ -4788,7 +4790,15 @@ $(document).ready(function () {
             success: function (response) {
                 Morris.Donut({
                     element: 'donut-chart-subcategory',
-                    data: response
+                    data: response,
+                    colors: [
+                        '#7CCD7C',
+                        '#548B54',
+                        '#32CD32',
+                        '#00FF00',
+                        '#6E8B3D',
+                        '#556B2F'
+                    ]
                 });
             },
             error: function (jqXHR, textStatus, errorThrown) {
@@ -4802,7 +4812,15 @@ $(document).ready(function () {
             success: function (response) {
                 Morris.Donut({
                     element: 'donut-chart-category',
-                    data: response
+                    data: response,
+                    colors: [
+                        '#7CCD7C',
+                        '#548B54',
+                        '#32CD32',
+                        '#00FF00',
+                        '#6E8B3D',
+                        '#556B2F'
+                    ]
                 });
             },
             error: function (jqXHR, textStatus, errorThrown) {
@@ -4817,6 +4835,14 @@ $(document).ready(function () {
                 Morris.Donut({
                     element: 'donut-chart-category-money',
                     data: response,
+                    colors: [
+                        '#7CCD7C',
+                        '#548B54',
+                        '#32CD32',
+                        '#00FF00',
+                        '#6E8B3D',
+                        '#556B2F'
+                    ],
                     formatter: function (y, data) {
                         return '$' + y
                     }
@@ -4834,6 +4860,14 @@ $(document).ready(function () {
                 Morris.Donut({
                     element: 'donut-chart-subcategory-money',
                     data: response,
+                    colors: [
+                        '#7CCD7C',
+                        '#548B54',
+                        '#32CD32',
+                        '#00FF00',
+                        '#6E8B3D',
+                        '#556B2F'
+                    ],
                     formatter: function (y, data) {
                         return '$' + y
                     }

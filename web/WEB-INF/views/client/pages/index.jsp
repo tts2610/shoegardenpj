@@ -11,7 +11,6 @@
 			<li data-target="#myCarousel" data-slide-to="1" class=""></li>
 			<li data-target="#myCarousel" data-slide-to="2" class=""></li>
 			<li data-target="#myCarousel" data-slide-to="3" class=""></li>
-			<li data-target="#myCarousel" data-slide-to="4" class=""></li> 
 		</ol>
 		<div class="carousel-inner" role="listbox">
 			<div class="item active"> 
@@ -113,8 +112,8 @@
                         <div class="isotope-item ${bra.braName} <c:if test="${no.index % 2 == 0}">isotope_to_all</c:if>">
                                 <div class="product-item">
                                     <div class="item-thumb">
-                                    <c:if test="${product.discountDetailsList[0]!=null}">
-                                        <div class="badge offer">-${product.discountDetailsList[0].discID.discount}%</div>
+                                    <c:if test="${product.productWithDiscount!=product.price}">
+                                        <div class="badge offer">-${product.discountByProduct}%</div>
                                     </c:if>
                                     <img src="assets/images/products/${product.urlImg}"
                                          class="img-responsive" 
@@ -140,12 +139,12 @@
                                         </a>
                                     </h4>
                                     <span class="product-price">
-                                        <c:if test="${product.discountDetailsList[0] != null}">
+                                        <c:if test="${product.productWithDiscount!=product.price}">
                                             <small class="cutprice">$ ${product.price}0 </small>  $
                                             <fmt:formatNumber type="number" maxFractionDigits="2" value="${product.productWithDiscount}" var="prodPrice"/>
                                             ${fn:replace(prodPrice, ",", ".")}
                                         </c:if>
-                                        <c:if test="${product.discountDetailsList[0] == null}">
+                                        <c:if test="${product.productWithDiscount==product.price}">
                                             $ ${product.price}0
                                         </c:if>
                                     </span>
@@ -185,8 +184,8 @@
                         <div class="pc-wrap">
                             <div class="product-item">
                                 <div class="item-thumb">
-                                    <c:if test="${ltp.discountDetailsList[0].discID.discount > 0}">
-                                        <div class="badge offer">-${ltp.discountDetailsList[0].discID.discount}%</div>
+                                    <c:if test="${ltp.productWithDiscount!=ltp.price}">
+                                        <div class="badge offer">-${ltp.discountByProduct}%</div>
                                     </c:if>
                                     <img src="assets/images/products/${ltp.urlImg}" 
                                          class="img-responsive" 
@@ -211,13 +210,13 @@
                                     </h4>
 
                                     <span class="product-price">
-                                        <c:if test="${ltp.discountDetailsList[0]!=null}">
+                                        <c:if test="${ltp.productWithDiscount!=ltp.price}">
                                             <small class="cutprice">$ ${ltp.price}0 </small>  $
-                                            <fmt:formatNumber type="number" maxFractionDigits="2" value="${ltp.price * (1-ltp.discountDetailsList[0].discID.discount/100)}" var="ltpPrice"/>
+                                            <fmt:formatNumber type="number" maxFractionDigits="2" value="${ltp.productWithDiscount}" var="ltpPrice"/>
                                             ${fn:replace(ltpPrice, ",", ".")}
 
                                         </c:if>
-                                        <c:if test="${ltp.discountDetailsList[0]==null}">
+                                        <c:if test="${ltp.productWithDiscount==ltp.price}">
                                             $ ${ltp.price}0
                                         </c:if>
                                     </span>
@@ -337,6 +336,8 @@
             </div>
         </div>
     </div>
+    
+    <jsp:include page="../blocks/cart.jsp" flush="true"/>
 
     <!-- Modal -->
     <jsp:include page="../blocks/modal.jsp" flush="true"/>
