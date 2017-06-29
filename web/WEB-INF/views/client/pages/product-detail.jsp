@@ -164,15 +164,16 @@
                             </c:if>
                         </c:if>
                     </c:forEach>
+                            <h1>${checkUserRated}</h1>
                     <c:choose>
-                        <c:when test="${sessionScope.findUsersID != null && checkUserRated == 1}">
+                        <c:when test="${sessionScope.findUsersID != null && checkUserRated != 0}">
                             <h3>Thank you! Your review is being verified</h3>
                         </c:when>
                         <c:when test="${sessionScope.findUsersID != null && checkUserRated == 0}">
                             <div id="fs-form-rating-review">
                                 <h2>Write Your Review</h2>
                                 <form>
-                                    <div>Rating *:
+                                    <div>
                                         <span id="fs-div-vote-value">
                                             
                                         </span>
@@ -188,11 +189,13 @@
                                     </select>
 
                                     <div class="clearfix space20"></div>
+                                    <p style="color: red" class="help-block" id="fs-review-product-error"></p>
                                     <label>Your Review</label>
                                     <br>
                                     <textarea style="width: 400px; height: 100px;" id="fs-review-product"></textarea>
                                     <br>
                                     <div class="clearfix space20"></div>
+                                    
                                     <button type="button" 
                                             id="fs-btn-rating-review" 
                                             fs-user-id="${sessionScope.findUsersID}" 

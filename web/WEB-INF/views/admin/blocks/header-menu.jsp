@@ -138,7 +138,7 @@ catch(Exception e) {
                 </li>
 
                 <li>
-                    <a href="#"><i class="fa fa-thumb-tack fa-fw"></i> Comments&nbsp;
+                    <a href="#"><i class="fa fa-thumb-tack fa-fw"></i> Reviews&nbsp;
                         <%if(ratingFacade.countPendingRecord()!=0){%>
                         <span class="badge" style="background: red"><%=ratingFacade.countPendingRecord()%></span>
                         <%}%>

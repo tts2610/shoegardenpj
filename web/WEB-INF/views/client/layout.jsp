@@ -28,6 +28,7 @@
         <!-- CSS -->
         <link rel="stylesheet" href="assets/css/font-awesome/css/font-awesome.css" type='text/css'>
         <link rel="stylesheet" href="assets/css/bootstrap.min.css">
+        <!--<link rel="stylesheet" href="assets/css/bootstrap.css">-->
         <link rel="stylesheet" href="assets/js/vendors/isotope/isotope.css">
         <link rel="stylesheet" href="assets/js/vendors/slick/slick.css">
         <link rel="stylesheet" href="assets/js/vendors/rs-plugin/css/settings.css">
@@ -77,7 +78,7 @@
         <script src="assets/js/jquery-ui-1.12.1/external/jquery/jquery.js"></script>
         <script src="assets/js/jquery.barrating.min.js" type="text/javascript"></script>
         <script src="assets/js/jquery-ui-1.12.1/jquery-ui.min.js"></script>
-        <script src="assets/js/bootstrap.min.js"></script>        
+        <script src="assets/js/bootstrap.min.js"></script>         
         <script src="assets/plugin/owl-carousel/owl.carousel.min.js"></script>
         <script src="assets/plugin/prettyphoto/js/jquery.prettyPhoto.js"></script>
         <script src="assets/js/bs-navbar.js"></script>
