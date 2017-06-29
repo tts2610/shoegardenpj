@@ -273,7 +273,7 @@ $(document).ready(function () {
     $("#fs-discount-add-page").on("keyup", "#fs-discount", function (){
         var discount = $(this).val().trim();
         if (discount == "") {
-            $("#fs-discount-error").text("Dicount cannot be empty!");
+            $("#fs-discount-error").text("Discount cannot be empty!");
             $("#fs-discount").focus();
             
         } else if (isNaN(discount)) {
@@ -282,6 +282,10 @@ $(document).ready(function () {
             
         } else if (discount <= 0) {
             $("#fs-discount-error").text("Dicount must be >0");
+            $("#fs-discount").focus();
+            
+        }else if (discount >50) {
+            $("#fs-discount-error").text("Dicount must be <=50");
             $("#fs-discount").focus();
             
         } else {
@@ -1364,7 +1368,11 @@ $(document).ready(function () {
             $("#fs-discount").focus();
             count++;
         } else if (discount <= 0) {
-            $("#fs-discount-error").text("Dicount must be >0");
+            $("#fs-discount-error").text("Discount must be >0");
+            $("#fs-discount").focus();
+            count++;
+        } else if (discount > 50) {
+            $("#fs-discount-error").text("Discount must be <=50");
             $("#fs-discount").focus();
             count++;
         } else {
@@ -1455,7 +1463,11 @@ $(document).ready(function () {
             $("#fs-discount-error").text("Dicount must be >0");
             $("#fs-discount").focus();
             count++;
-        } else {
+        } else if (discount > 50) {
+            $("#fs-discount-error").text("Dicount must be <=50");
+            $("#fs-discount").focus();
+            count++;
+        }else {
             $("#fs-discount-error").text("");
         }
         if (bDate == "") {
