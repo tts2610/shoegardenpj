@@ -66,7 +66,7 @@
             <div class="banner_bottom_agile_info_inner_w3ls">
     	           <div class="col-md-6 wthree_banner_bottom_grid_three_left1 grid">
 						<figure class="effect-roxy">
-							<img src="assets/images/bottom1.jpg" alt=" " class="img-responsive" />
+							<img src="assets/images/imgstore.jpg" alt=" " class="img-responsive" />
 							<figcaption>
 								<h3><span>F</span>all Ahead</h3>
 								<p>New Arrivals</p>
@@ -75,7 +75,7 @@
 					</div>
 					 <div class="col-md-6 wthree_banner_bottom_grid_three_left1 grid">
 						<figure class="effect-roxy">
-							<img src="assets/images/bottom2.jpg" alt=" " class="img-responsive" />
+							<img src="assets/images/imgstore1.jpg" alt=" " class="img-responsive" />
 							<figcaption>
 								<h3><span>F</span>all Ahead</h3>
 								<p>New Arrivals</p>
@@ -90,6 +90,50 @@
 
 
 <div class="clearfix"></div>
+<div class="banner-bootom-w3-agileits">
+	<div class="container">
+		<h3 class="wthree_text_info">What's <span>Trending</span></h3>
+	
+		<div class="col-md-5 bb-grids bb-left-agileits-w3layouts">
+			<a href="womens.html">
+			   <div class="bb-left-agileits-w3layouts-inner grid">
+					<figure class="effect-roxy">
+							<img src="assets/images/img1.jpg" alt=" " class="img-responsive" />
+							<figcaption>
+								<h3><span>S</span>ale </h3>
+								<p>Upto 55%</p>
+							</figcaption>			
+						</figure>
+			    </div>
+			</a>
+		</div>
+		<div class="col-md-7 bb-grids bb-middle-agileits-w3layouts">
+		      <a href="mens.html">
+		       <div class="bb-middle-agileits-w3layouts grid">
+			           <figure class="effect-roxy">
+							<img src="assets/images/img2.jpg" alt=" " class="img-responsive" />
+							<figcaption>
+								<h3><span>S</span>ale </h3>
+								<p>Upto 55%</p>
+							</figcaption>			
+						</figure>
+		        </div>
+				</a>
+				<a href="mens.html">
+		      <div class="bb-middle-agileits-w3layouts forth grid">
+						<figure class="effect-roxy">
+							<img src="assets/images/img3.jpg" alt=" " class="img-responsive">
+							<figcaption>
+								<h3><span>S</span>ale </h3>
+								<p>Upto 65%</p>
+							</figcaption>		
+						</figure>
+					</div>
+					</a>
+		<div class="clearfix"></div>
+	</div>
+	</div>
+    </div>
 
 
 <!-- FEATURED PRODUCTS -->
