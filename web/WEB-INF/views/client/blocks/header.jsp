@@ -23,7 +23,7 @@
                                 <c:if test="${empty sessionScope.emailUser}">
                                     <span class="fa fa-user">
                                         <a class="fs-login-page" href="#loginModal" data-toggle="modal" data-target="#loginModal">
-                                            Login | Register
+                                            My Account
                                         </a>
                                     </span>
                                 </c:if>
