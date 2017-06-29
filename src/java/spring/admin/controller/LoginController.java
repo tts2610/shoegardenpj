@@ -60,7 +60,7 @@ public class LoginController {
         if (error == 1) {
             session.setAttribute("email", email);
             int id = usersFacade.findUserByEmail(email).getUserID();
-            session.setAttribute("uid",id );
+            session.setAttribute("uid",id );         
             if(remember != null && remember == 1){
                 Cookie ckEmail = new Cookie("emailA", email);
                 ckEmail.setMaxAge(24*60*60);

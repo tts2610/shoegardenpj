@@ -6,7 +6,7 @@
         <div class="row">
             <div class="col-xs-12 text-center">
                 <h2 style="border-bottom: 1px solid #cccccc; padding-bottom: 10px; margin-top: 50px; margin-bottom: 50px"> 
-                    <b>SMILE - FASHION STORE</b> <span style="font-size: 0.8em">ADMIN PAGE</span>
+                    <b>SHOE GARDEN STORE</b> <span style="font-size: 0.8em">ADMIN PAGE</span>
                 </h2>
             </div>
         </div>
