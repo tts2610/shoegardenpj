@@ -96,8 +96,6 @@
         <script src="assets/js/shoegarden_custom_JS.js" type="text/javascript"></script>
         <script src="assets/js/styleCart.js" type="text/javascript"></script>
         <script src="assets/js/bootbox.min.js" type="text/javascript"></script>
-        <script src="assets/plugin/elevatezoom/jquery.elevatezoom.js" type="text/javascript"></script>        
-        <script src="assets/plugin/elevatezoom/jquery.elevateZoom-3.0.8.min.js" type="text/javascript"></script>
         
     </body>
 </html>
