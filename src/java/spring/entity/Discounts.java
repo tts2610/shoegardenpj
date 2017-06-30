@@ -60,7 +60,7 @@ public class Discounts implements Serializable {
     private String discTitle;
     @Basic(optional = false)
     @NotNull
-    @Size(min = 1, max = 255)
+    @Size(min = 1, max = Integer.MAX_VALUE)
     @Column(name = "discContent")
     private String discContent;
     @Basic(optional = false)

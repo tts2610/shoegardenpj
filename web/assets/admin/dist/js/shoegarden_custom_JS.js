@@ -227,8 +227,8 @@ $(document).ready(function () {
             $("#fs-discount-title-error").text("Title cannot begin with a number!");
             $("fs-discount-title").focus();
             
-        } else if (title.length < 5 || title.length > 25) {
-            $("#fs-discount-title-error").text("Title must have 5 - 25 characters!");
+        } else if (title.length < 5 || title.length > 255) {
+            $("#fs-discount-title-error").text("Title must have 5 - 255 characters!");
             $("#fs-discount-title").focus();
             
         }else {
@@ -258,8 +258,8 @@ $(document).ready(function () {
             $("#fs-discount-title-error").text("Title cannot begin with a number!");
             $("fs-discount-title").focus();
             
-        } else if (title.length < 5 || title.length > 25) {
-            $("#fs-discount-title-error").text("Title must have 5 - 25 characters!");
+        } else if (title.length < 5 || title.length > 255) {
+            $("#fs-discount-title-error").text("Title must have 5 - 255 characters!");
             $("#fs-discount-title").focus();
             
         }else {
@@ -273,7 +273,7 @@ $(document).ready(function () {
     $("#fs-discount-add-page").on("keyup", "#fs-discount", function (){
         var discount = $(this).val().trim();
         if (discount == "") {
-            $("#fs-discount-error").text("Dicount cannot be empty!");
+            $("#fs-discount-error").text("Discount cannot be empty!");
             $("#fs-discount").focus();
             
         } else if (isNaN(discount)) {
@@ -282,6 +282,10 @@ $(document).ready(function () {
             
         } else if (discount <= 0) {
             $("#fs-discount-error").text("Dicount must be >0");
+            $("#fs-discount").focus();
+            
+        }else if (discount >50) {
+            $("#fs-discount-error").text("Dicount must be <=50");
             $("#fs-discount").focus();
             
         } else {
@@ -1348,15 +1352,15 @@ $(document).ready(function () {
             $("#fs-discount-title-error").text("Title cannot begin with a number!");
             $("fs-discount-title").focus();
             count++;
-        } else if (title.length < 5 || title.length > 25) {
-            $("#fs-discount-title-error").text("Title must have 5 - 25 characters!");
+        } else if (title.length < 5 || title.length > 255) {
+            $("#fs-discount-title-error").text("Title must have 5 - 255 characters!");
             $("#fs-discount-title").focus();
             count++;
         } else {
             $("#fs-discount-title-error").text("");
         }
         if (discount == "") {
-            $("#fs-discount-error").text("Dicount cannot be empty!");
+            $("#fs-discount-error").text("Discount cannot be empty!");
             $("#fs-discount").focus();
             count++;
         } else if (isNaN(discount)) {
@@ -1364,7 +1368,11 @@ $(document).ready(function () {
             $("#fs-discount").focus();
             count++;
         } else if (discount <= 0) {
-            $("#fs-discount-error").text("Dicount must be >0");
+            $("#fs-discount-error").text("Discount must be >0");
+            $("#fs-discount").focus();
+            count++;
+        } else if (discount > 50) {
+            $("#fs-discount-error").text("Discount must be <=50");
             $("#fs-discount").focus();
             count++;
         } else {
@@ -1382,8 +1390,7 @@ $(document).ready(function () {
             
             count++;
         }else if (eDate < bDate) {
-            $("#fs-eDate-error").text("End Date must be greater than Begin Date!");
-            
+            $("#fs-eDate-error").text("End Date must be greater than Begin Date!");            
             count++;
         } else {
             $("#fs-eDate-error").text("");
@@ -1436,8 +1443,8 @@ $(document).ready(function () {
             $("#fs-discount-title-error").text("Title cannot begin with a number!");
             $("fs-discount-title").focus();
             count++;
-        } else if (title.length < 5 || title.length > 25) {
-            $("#fs-discount-title-error").text("Title must have 5 - 25 characters!");
+        } else if (title.length < 5 || title.length > 255) {
+            $("#fs-discount-title-error").text("Title must have 5 - 255 characters!");
             $("#fs-discount-title").focus();
             count++;
         } else {
@@ -1455,7 +1462,11 @@ $(document).ready(function () {
             $("#fs-discount-error").text("Dicount must be >0");
             $("#fs-discount").focus();
             count++;
-        } else {
+        } else if (discount > 50) {
+            $("#fs-discount-error").text("Dicount must be <=50");
+            $("#fs-discount").focus();
+            count++;
+        }else {
             $("#fs-discount-error").text("");
         }
         if (bDate == "") {

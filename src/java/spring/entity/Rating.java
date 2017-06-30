@@ -54,7 +54,7 @@ public class Rating implements Serializable {
     @Column(name = "ratingDate")
     private Date ratingDate;
     @Lob
-    @Size(max = 2147483647)
+    @Size(max = Integer.MAX_VALUE)
     @Column(name = "review")
     private String review;
     @Column(name = "status")
