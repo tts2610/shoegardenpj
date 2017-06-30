@@ -11,12 +11,10 @@
 <div id="page-wrapper">
     <div class="container-fluid">
         <div class="row">
-            <div class="col-lg-12">
-                <h1 class="page-header"> 
-                    <strong>Orders</strong> 
-                    <i class="fa fa-caret-right fa-style" aria-hidden="true" style="color: #337ab7"></i> 
-                    <span style="font-size: 0.9em">Report</span>
-                </h1>
+            <div class="col-xs-12 text-center">
+                <h2 style="border-bottom: 1px solid #cccccc; padding-bottom: 10px; margin-top: 50px; margin-bottom: 50px"> 
+                    <b>SHOE GARDEN STORE</b> <span style="font-size: 0.8em">ADMIN PAGE</span>
+                </h2>
             </div>
             <!-- /.col-lg-12 -->
         </div>

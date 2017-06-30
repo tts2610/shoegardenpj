@@ -90,7 +90,7 @@ public class GeneralController {
     @RequestMapping(value = "/admin/index")
     public String admin(ModelMap model) {
         
-        return "admin/pages/index";
+        return "redirect:/admin/orders/orderchart.html";
     }
 
     @ResponseBody

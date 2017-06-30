@@ -37,7 +37,7 @@
                         <div class="product-single">
                             <div class="ps-header fs-product-detail-name" fs-product-id="${targetProduct.productID}">
                                 <h1>${targetProduct.productName}</h1>
-                                <div class="ps-price">                                     
+                                <div class="ps-price" style="margin-top: 11px;">                                     
                                     <select id="fs-rating-star-result" name="fs-rating-star-result" data-current-rating="${ratingAVR}">
                                         <option value="1">1</option>
                                         <option value="2">2</option>

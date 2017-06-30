@@ -89,14 +89,20 @@
                                             <option value="0">Canceled</option>
                                         </select>
                                     </c:if>
+                                    <c:if test="${order.status == 3}">
+                                        <select name="status-order" id="id-status-order" class="form-control input-sm" fs-order="${order.ordersID}">
+                                            <option value="1">Completed</option>
+                                            <option value="2">Pending</option>
+                                            <option value="3"<c:out value="selected"/>>Confirmed</option>
+                                            <option value="0">Canceled</option>
+                                        </select>
+                                    </c:if>
                                     <c:if test="${order.status != 2}">
                                         <c:choose>
                                             <c:when test="${order.status == 1}">
                                                 Completed
                                             </c:when>
-                                            <c:when test="${order.status == 3}">
-                                                Confirmed
-                                            </c:when>
+                                            
                                             <c:otherwise>
                                                 Canceled
                                             </c:otherwise>
