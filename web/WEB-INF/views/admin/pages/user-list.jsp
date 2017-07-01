@@ -40,8 +40,8 @@
                             <tr class="odd gradeX" >
 
                                 <td class="center fs-detail-user text-center" fs-userID="${users.userID}" data-toggle="modal">${no.index + 1}</td>
-                                <c:if test="${sessionScope.uid==1}">
-                                    <c:if test="${users.userID != 1}">
+                                <c:if test="${sessionScope.rid==1}">
+                                    <c:if test="${users.roleID.roleID != 1}">
                                         <td align="center">
                                             <select name="status" fs-user="${users.userID}" class="fs-select-user-status form-control input-sm" id="fs-status-select">
                                                 <option id="fs-status-1" value="1" <c:if test="${users.status == 1}">selected</c:if>>WORKING</option>
@@ -49,14 +49,14 @@
                                                 </select>
                                             </td>
                                     </c:if>
-                                    <c:if test="${users.userID == 1}">
+                                    <c:if test="${users.roleID.roleID == 1}">
                                         <td class="center" align="center">
                                             <c:if test="${users.status == 1}">
                                                 WORKING
                                             </c:if>
                                         </td>
                                     </c:if>
-                                    <c:if test="${users.userID != 1}">
+                                    <c:if test="${users.roleID.roleID != 1}">
                                         <td class="center" align="center">
                                             <select class="fs-select-user-role form-control input-sm" fs-user="${users.userID}" >
                                                 <c:forEach items="${roles}" var="role">
@@ -65,25 +65,46 @@
                                             </select>   
                                         </td>
                                     </c:if>
-                                    <c:if test="${users.userID == 1}">
+                                    <c:if test="${users.roleID.roleID == 1}">
                                         <td class="center" align="center">
                                             ${users.roleID.roleName}
                                         </td>
                                     </c:if>
                                 </c:if>
-                                <c:if test="${sessionScope.uid!=1}">
+                                
+                                <c:if test="${sessionScope.rid!=1}">
+                                    
+                                    <c:if test="${users.roleID.roleID == 2||users.roleID.roleID==1}">
                                         <td class="center" align="center">
                                             <c:if test="${users.status == 1}">
                                                 WORKING
                                             </c:if>
-                                            <c:if test="${users.status != 1}">
-                                                BANNED
-                                            </c:if>
                                         </td>
-                                    
+                                    </c:if>
+                                    <c:if test="${users.roleID.roleID != 2&&users.roleID.roleID!=1}">
+                                        <td align="center">
+                                            <select name="status" fs-user="${users.userID}" class="fs-select-user-status form-control input-sm" id="fs-status-select">
+                                                <option id="fs-status-1" value="1" <c:if test="${users.status == 1}">selected</c:if>>WORKING</option>
+                                                <option id="fs-status-2" value="0" <c:if test="${users.status == 0}">selected</c:if>>BANNED</option>
+                                                </select>
+                                            </td>
+                                    </c:if>
+                                    <c:if test="${users.roleID.roleID == 2||users.roleID.roleID == 1}">
                                         <td class="center" align="center">
                                             ${users.roleID.roleName}
                                         </td>
+                                    </c:if>
+                                    <c:if test="${users.roleID.roleID != 2&&users.roleID.roleID != 1}">
+                                        <td class="center" align="center">
+                                            <select class="fs-select-user-role form-control input-sm" fs-user="${users.userID}" >
+                                                <c:forEach items="${roles}" var="role">
+                                                    <option <c:if test="${users.roleID.roleID == role.roleID}">selected</c:if> value="${role.roleID}">${role.roleName}</option>
+                                                </c:forEach>
+                                            </select> 
+                                        </td>
+                                    </c:if>
+                                    
+                                        
                                 </c:if>
                                 <td class="center" align="center">${users.email}</td>
                                 <td class="center" align="center">${users.firstName}</td>
