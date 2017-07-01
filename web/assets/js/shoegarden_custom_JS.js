@@ -258,6 +258,7 @@ $(document).ready(function () {
     var proID;
     /* AJAX CALL MODAL */
     $("body").on("click", ".fs-product-modal", function () {
+        $('#discountModal').modal('hide')
         $(".fs-quantity-in-stock").text("---");
         $('#error-cart-product-modal').html("");
         var productID = $(this).attr("fs-product");
@@ -3152,6 +3153,11 @@ $(document).ready(function () {
             cartList.html(productAdded);
         }
     });
+    //enable checkoutbtn
+        if(cartCount.find('li').eq(0).text()=="0"){
+        cartWrapper.find('.checkout').prop('disabled', true)
+        }
+        
 
     function updateCartCount(quantity) {
 
@@ -5332,12 +5338,20 @@ $(document).ready(function () {
 
 $('#discountModal').on('show.bs.modal', function (event) {
   var button = $(event.relatedTarget) // Button that triggered the modal
-  var recipient = button.data('whatever') // Extract info from data-* attributes
-  // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
-  // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
+  var discount = button.data('whatever') // discountdetail list
   var modal = $(this)
-  modal.find('.modal-title').text('New message to ' + recipient)
-  modal.find('.modal-body input').val(recipient)
+  $.ajax({
+            url: "ajax/discountProduct.html",
+            method: "POST",
+            dataType: 'html',
+            data: {
+                discountID: discount
+            },
+            success: function (response) {
+                modal.find('#dynamic-content').html(''); // blank before load.
+                modal.find('#dynamic-content').html(response); // load here
+            }
+        });
 })
 
 });
