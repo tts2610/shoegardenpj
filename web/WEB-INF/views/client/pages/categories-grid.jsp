@@ -171,7 +171,7 @@
                         <ul class="fs-ul-color">
                             <c:forEach items="${colorList}" var="color" varStatus="i">
                                 
-                                    <label style="font-weight: normal" for="fs-color-checkbox-${i.index + 1}"><img src="assets/images/products/colors/${color.urlColorImg}" style="width:30px; height: 30px;border-radius: 50%; margin-bottom: 10px; margin-right: 10px " id="fs-color-checkbox" name="${color.color}"></label>
+                                    <label style="font-weight: normal" for="fs-color-checkbox-${i.index + 1}"><img src="assets/images/products/colors/${color.urlColorImg}" style="width:30px; height: 30px;border-radius: 50%; margin-bottom: 10px; margin-right: 10px " id="fs-color-checkbox" name="${color.color}" title="${color.color}"></label>
                                 
                             </c:forEach>
                         </ul>
