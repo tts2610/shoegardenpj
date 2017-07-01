@@ -1916,7 +1916,7 @@ $(document).ready(function () {
                                                 "              </a>\n" +
                                                 "          </h4>\n" +
                                                 "          <span class=\"product-price\">\n" +
-                                                "               <small class=\"cutprice\">$ " + prod.price + ".00 </small>  $ " + ((((prod.productWithDiscount)).toFixed(2))).toFixed(2) +
+                                                "               <small class=\"cutprice\">$ " + prod.price + ".00 </small>  $ " + (prod.productWithDiscount).toFixed(2) +
                                                 "          </span>\n" +
                                                 "          <div class=\"item-colors\" style=\"height: 25px;\">\n" +
                                                 renderColor +
@@ -2944,7 +2944,7 @@ $(document).ready(function () {
                                                 "              </a>\n" +
                                                 "          </h4>\n" +
                                                 "          <span class=\"product-price\">\n" +
-                                                "               <small class=\"cutprice\">$ " + prod.price + ".00 </small>  $ " + ((((prod.productWithDiscount)).toFixed(2))).toFixed(2) +
+                                                "               <small class=\"cutprice\">$ " + prod.price + ".00 </small>  $ " + (prod.productWithDiscount).toFixed(2) +
                                                 "          <div class=\"item-colors\" style=\"height: 25px;\">\n" +
                                                 renderColor +
                                                 "          </div>\n" +
