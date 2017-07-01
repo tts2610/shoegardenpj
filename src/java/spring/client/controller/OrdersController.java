@@ -110,7 +110,7 @@ public class OrdersController{
         
         
         
-        int quantityInDB = sizesByColorFacade.findSizeByColorBySizeIDAndColorID(Integer.parseInt(s.getSize()), colorID).getQuantity();
+        int quantityInDB = sizesByColorFacade.findSizeByColorBySizeIDAndColorID(s.getSize(), colorID).getQuantity();
         int realQuantity = quantityInDB - inCartquantity;
         
         
@@ -145,7 +145,7 @@ public class OrdersController{
                 int inCartquantity = 0;
 
                 SizesByColor s = sizesByColorFacade.find(sizeID);
-                int quantityInDB = sizesByColorFacade.findSizeByColorBySizeIDAndColorID(Integer.parseInt(s.getSize()), colorID).getQuantity();
+                int quantityInDB = sizesByColorFacade.findSizeByColorBySizeIDAndColorID(s.getSize(), colorID).getQuantity();
 
                 //lay so luong trong cart
                 List<CartLineInfo> cli = orderStateFullBean.showCart();

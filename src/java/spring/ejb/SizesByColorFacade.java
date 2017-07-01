@@ -30,9 +30,9 @@ public class SizesByColorFacade extends AbstractFacade<SizesByColor> implements 
         super(SizesByColor.class);
     }
     
-    public SizesByColor findSizeByColorBySizeIDAndColorID(int size,int color){
+    public SizesByColor findSizeByColorBySizeIDAndColorID(String size,int color){
         
-        Query q = getEntityManager().createNativeQuery("SELECT * FROM SizesByColor s where s.size = "+size+" AND s.colorID="+color,SizesByColor.class);
+        Query q = getEntityManager().createNativeQuery("SELECT * FROM sizesByColor s where s.size = '"+size+"' AND s.colorID="+color,SizesByColor.class);
         return (SizesByColor) q.getSingleResult();
     }
     

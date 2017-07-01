@@ -30,6 +30,6 @@ public interface SizesByColorFacadeLocal {
 
     int count();
     
-    SizesByColor findSizeByColorBySizeIDAndColorID(int size,int color);
+    SizesByColor findSizeByColorBySizeIDAndColorID(String size,int color);
     
 }

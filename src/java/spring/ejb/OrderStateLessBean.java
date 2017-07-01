@@ -175,7 +175,7 @@ public class OrderStateLessBean implements OrderStateLessBeanLocal {
             for (OrdersDetail ordersDetail : list) {
                 int quantity = ordersDetail.getQuantity();
                 int colorid = ordersDetail.getSizeID().getColorID().getColorID();
-                SizesByColor sbc = sizesByColorFacade.findSizeByColorBySizeIDAndColorID(Integer.parseInt(ordersDetail.getSizeID().getSize()),colorid);
+                SizesByColor sbc = sizesByColorFacade.findSizeByColorBySizeIDAndColorID(ordersDetail.getSizeID().getSize(),colorid);
                 
                 sbc.setQuantity(sbc.getQuantity()+quantity);
                 sizesByColorFacade.edit(sbc);
