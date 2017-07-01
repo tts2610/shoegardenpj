@@ -41,5 +41,8 @@ public interface DiscountDetailsFacadeLocal {
     public void updateByDiscountidAndProductID(int d, int pro);
     public void removeOR(int discountid);
     public void createOR(DiscountDetails discountDetails);
+    List<DiscountDetails> findListByDiscID(int disid);
+    float getProductWithDiscount(Products pro);
+    float getDiscountByProduct(Products pro);
     
 }

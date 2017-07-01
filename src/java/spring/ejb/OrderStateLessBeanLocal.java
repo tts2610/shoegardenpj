@@ -60,4 +60,6 @@ public interface OrderStateLessBeanLocal {
     public Integer averageOrdersPerUserByMonth(String date);
     public Integer countAllOrdersByMonthYear(String date);
     public Integer countAllUsersByRole();
+    
+    public Integer countPendingOrder();
 }

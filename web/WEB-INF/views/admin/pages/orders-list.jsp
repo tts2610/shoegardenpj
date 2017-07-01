@@ -97,7 +97,7 @@
                                             <option value="0">Canceled</option>
                                         </select>
                                     </c:if>
-                                    <c:if test="${order.status != 2}">
+                                    <c:if test="${order.status != 2&&order.status !=3}">
                                         <c:choose>
                                             <c:when test="${order.status == 1}">
                                                 Completed

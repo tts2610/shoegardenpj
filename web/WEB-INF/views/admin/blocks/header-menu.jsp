@@ -1,3 +1,4 @@
+<%@page import="spring.ejb.OrderStateLessBeanLocal"%>
 <%@page import="spring.ejb.RatingFacadeLocal"%>
 <%@page import="javax.naming.InitialContext"%>
 <%@page import="javax.naming.Context"%>
@@ -7,11 +8,13 @@
 <!-- Navigation -->
 <%!
     RatingFacadeLocal ratingFacade;
+    OrderStateLessBeanLocal orderFacade;
 %>
 <%
 try {
 Context context = new InitialContext();
 ratingFacade = (RatingFacadeLocal) context.lookup("java:global/ShoeGardenPJ/RatingFacade!spring.ejb.RatingFacadeLocal");
+orderFacade = (OrderStateLessBeanLocal) context.lookup("java:global/ShoeGardenPJ/OrderStateLessBean!spring.ejb.OrderStateLessBeanLocal");
 }
 catch(Exception e) {
     e.printStackTrace();
@@ -101,7 +104,11 @@ catch(Exception e) {
                 </li>
 
                 <li>
-                    <a href="#"><i class="fa fa-shopping-cart fa-fw"></i> Orders<span class="fa arrow"></span></a>
+                    <a href="#"><i class="fa fa-shopping-cart fa-fw"></i> Orders&nbsp;
+                        <%if(orderFacade.countPendingOrder()!=0){%>
+                        <span class="badge" style="background: red"><%=orderFacade.countPendingOrder()%></span>
+                        <%}%>
+                        <span class="fa arrow"></span></a>
                     <ul class="nav nav-second-level">
                         <li>
                             <a href="admin/orders/list.html"><i class="fa fa-list" aria-hidden="true"></i> List</a>

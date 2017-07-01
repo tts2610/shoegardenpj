@@ -1,5 +1,6 @@
 package spring.client.controller;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -22,6 +23,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import spring.ejb.BrandsFacadeLocal;
 import spring.ejb.CategoriesFacadeLocal;
+import spring.ejb.DiscountDetailsFacadeLocal;
 import spring.ejb.DiscountsFacadeLocal;
 import spring.ejb.ProductsFacadeLocal;
 import spring.ejb.RatingFacadeLocal;
@@ -29,13 +31,17 @@ import spring.ejb.UsersFacadeLocal;
 import spring.entity.Brands;
 
 import spring.entity.Categories;
+import spring.entity.DiscountDetails;
 import spring.entity.Discounts;
+import spring.entity.ProductColors;
 import spring.entity.Products;
 import spring.entity.Users;
 import spring.functions.SharedFunctions;
 
 @Controller
 public class GeneralController {
+
+    DiscountDetailsFacadeLocal discountDetailsFacade = lookupDiscountDetailsFacadeLocal();
 
     DiscountsFacadeLocal discountsFacade = lookupDiscountsFacadeLocal();
 
@@ -48,10 +54,6 @@ public class GeneralController {
     CategoriesFacadeLocal categoriesFacade = lookupCategoriesFacadeLocal();
 
     ProductsFacadeLocal productsFacade = lookupProductsFacadeLocal();
-    
-    
-    
-    
 
 //    ProductStateLessBeanLocal productStateLessBean = lookupProductStateLessBeanLocal();
 //    BlogsSBLocal blogsSB = lookupBlogsSBLocal();
@@ -69,7 +71,7 @@ public class GeneralController {
         }
         List<Object[]> bestSellerList = productsFacade.getTop3ProductBestSeller();
         List<Products> mostViewList = productsFacade.getTop3ProductMostViewed();
-        
+
         List<Object[]> productTopRateList = productsFacade.getProductTop3Rated();
         List<Object[]> newTopRateList = new ArrayList<>();
 
@@ -80,9 +82,8 @@ public class GeneralController {
             Object[] newObj = new Object[]{product, avgRating};
             newTopRateList.add(newObj);
         }
-        
+
         List<Discounts> discount = discountsFacade.selectTop3Discount();
-        
 
         model.addAttribute("braList", cateList);
         model.addAttribute("latestProducts", productsFacade.productList("client")); //lấy sản phẩm mới nhất
@@ -96,7 +97,7 @@ public class GeneralController {
 
     @RequestMapping(value = "/admin/index")
     public String admin(ModelMap model) {
-        
+
         return "redirect:/admin/orders/orderchart.html";
     }
 
@@ -159,6 +160,68 @@ public class GeneralController {
             }
         }
         return "redirect:/index.html";
+    }
+
+    @ResponseBody
+    @RequestMapping(value = "ajax/discountProduct", method = RequestMethod.POST)
+    public String getProductWithDiscount(@RequestParam("discountID") Integer discID, HttpSession session) {
+        List<DiscountDetails> list = discountDetailsFacade.findListByDiscID(discID);
+        String dynamicContent = "";
+        DecimalFormat df = new DecimalFormat("#.00"); 
+        dynamicContent += "<div class=\"row\" style=\"position: relative;\"><div id=\"fs-change-data-here\">";
+        for (DiscountDetails discountDetails : list) {
+            Products product = discountDetails.getProductID();
+            dynamicContent += "<div class=\"col-md-4 col-sm-6\"><div class=\"product-item\">\n"
+                    + "                                <div class=\"item-thumb\">\n";
+            if (discountDetailsFacade.getProductWithDiscount(product) != product.getPrice()) {
+                dynamicContent += "<div class=\"badge offer\" style=\"\n"
+                        + "    width: 59px;\n"
+                        + "    height: 52px;\n"
+                        + "\">-" + discountDetailsFacade.getDiscountByProduct(product) + "%</div>\n";
+            }
+            dynamicContent += "<img src=\"assets/images/products/" + product.getUrlImg() + "\"\n"
+                    + "                                         class=\"img-responsive\" \n"
+                    + "                                         alt=\"${product.urlImg}\"\n"
+                    + "                                         fs-product-for-img=\"" + product.getProductID() + "\"/>\n"
+                    + "                                    <div class=\"overlay-rmore fa fa-search quickview fs-product-modal\" \n"
+                    + "                                         fs-product=\"" + product.getProductID() + "\" \n"
+                    + "                                         fs-product-modal-color=\"" + product.getProductColorListWorking().get(0).getColorID() + "\" \n"
+                    + "                                         data-toggle=\"modal\" >\n"
+                    + "                                    </div>\n"
+                    
+                    + "                                </div>\n"
+                    + "                                <div class=\"product-info\">\n"
+                    + "                                    <h4 class=\"product-title\">\n"
+                    + "                                        <a href=\"" + product.getProductID() + "-" + product.getProductColorListWorking().get(0).getColorID() + ".html\">\n"
+                    + "                                            " + product.getProductName() + "\n"
+                    + "                                        </a>\n"
+                    + "                                    </h4>\n"
+                    + "                                    <span class=\"product-price\">\n";
+            if (discountDetailsFacade.getProductWithDiscount(product) != product.getPrice()) {
+
+                dynamicContent += "<small class=\"cutprice\">$" + product.getPrice() + "0 </small>"
+                        + "$"+df.format(discountDetailsFacade.getProductWithDiscount(product))+"\n";
+            } else if (discountDetailsFacade.getProductWithDiscount(product) == product.getPrice()) {
+                dynamicContent += "$ " + product.getPrice() + "0\n";
+            }
+            dynamicContent += "</span>\n"
+                    + "                                    <div class=\"item-colors\" style=\"height: 25px;\">\n";
+            if (product.getProductColorListWorking().size() > 1) {
+                for (ProductColors color : product.getProductColorListWorking()) {
+                    dynamicContent += "<img src=\"assets/images/products/colors/" + color.getUrlColorImg() + "\" \n"
+                            + "                                                     class=\"img-responsive fs-index-color-img\" \n"
+                            + "                                                     fs-index-color-img=\""+color.getColorID()+"\" \n"
+                            + "                                                     fs-product=\"" + product.getProductID() + "\" \n"
+                            + "                                                     alt=\"" + color.getUrlColorImg() + "\" \n"
+                            + "                                                     title=\"" + color.getColor() + "\"/>\n";
+                }
+            }
+            dynamicContent += "</div>\n"
+                    + "                                </div>\n"
+                    + "                            </div></div>";
+        }
+        dynamicContent += "</div></div>";
+        return dynamicContent;
     }
 
 //    private ProductStateLessBeanLocal lookupProductStateLessBeanLocal() {
@@ -244,6 +307,16 @@ public class GeneralController {
         try {
             Context c = new InitialContext();
             return (DiscountsFacadeLocal) c.lookup("java:global/ShoeGardenPJ/DiscountsFacade!spring.ejb.DiscountsFacadeLocal");
+        } catch (NamingException ne) {
+            Logger.getLogger(getClass().getName()).log(Level.SEVERE, "exception caught", ne);
+            throw new RuntimeException(ne);
+        }
+    }
+
+    private DiscountDetailsFacadeLocal lookupDiscountDetailsFacadeLocal() {
+        try {
+            Context c = new InitialContext();
+            return (DiscountDetailsFacadeLocal) c.lookup("java:global/ShoeGardenPJ/DiscountDetailsFacade!spring.ejb.DiscountDetailsFacadeLocal");
         } catch (NamingException ne) {
             Logger.getLogger(getClass().getName()).log(Level.SEVERE, "exception caught", ne);
             throw new RuntimeException(ne);

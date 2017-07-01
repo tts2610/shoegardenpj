@@ -445,4 +445,15 @@ public class OrderStateLessBean implements OrderStateLessBeanLocal {
             return null;
         }
     }
+    
+    public Integer countPendingOrder(){
+        Query q = getEntityManager().createNativeQuery("SELECT COUNT(*) FROM orders o where o.status = 2 ");
+        try{
+        return (int) q.getSingleResult();
+        }catch(Exception e){
+            e.printStackTrace();
+            return 0;
+        }
+    }
+    
 }

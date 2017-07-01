@@ -17,6 +17,7 @@ jQuery(document).ready(function ($) {
         var undo = cartWrapper.find('.undo');
         var undoTimeoutId;
         var productCount;
+        
 
         //remove all button
         cartWrapper.on('click', '#removeallbtn', function (e) {
@@ -36,6 +37,7 @@ jQuery(document).ready(function ($) {
                             cartList.html(productAdded);
                         }
                     });
+                    cartWrapper.find('.checkout').prop('disabled', true);
                 }
             });
         });
@@ -80,6 +82,15 @@ jQuery(document).ready(function ($) {
 
     function toggleCart(bool) {
         var cartIsOpen = (typeof bool === 'undefined') ? cartWrapper.hasClass('cart-open') : bool;
+
+
+        //enable checkoutbtn
+        if(cartCount.find('li').eq(0).text()!="0"){
+        cartWrapper.find('.checkout').prop('disabled', false)
+        }
+        if(cartCount.find('li').eq(0).text()=="0"){
+        cartWrapper.find('.checkout').prop('disabled', true)
+        }
 
         if (cartIsOpen) {
             cartWrapper.removeClass('cart-open');

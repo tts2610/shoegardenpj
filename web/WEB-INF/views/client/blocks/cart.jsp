@@ -27,7 +27,7 @@
             </div>
 
             <div id="cartft">
-                <a onclick="return checkoutClick();" class="checkout btn" style="border-radius: 0px;"><em>Checkout</em></a>
+                <button onclick="return checkoutClick();" disabled="true" class="checkout btn" style="border-radius: 0px;width: 367px"><em>Checkout</em></button>
                 <input type="hidden" name="order-emailUser" value="${sessionScope.emailUser}" />
             </div>
         </div>

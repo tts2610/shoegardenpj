@@ -215,23 +215,23 @@ $(document).ready(function () {
             });
         }
     });
-    
+
     //key up cho trang discount
     $("#fs-discount-add-page").on("keyup", "#fs-discount-title", function () {
         var title = $(this).val().trim();
         if (title == "") {
             $("#fs-discount-title-error").text("Title cannot be empty!");
             $("#fs-discount-title").focus();
-            
+
         } else if (!isNaN(title.charAt(0))) {
             $("#fs-discount-title-error").text("Title cannot begin with a number!");
             $("fs-discount-title").focus();
-            
+
         } else if (title.length < 5 || title.length > 255) {
             $("#fs-discount-title-error").text("Title must have 5 - 255 characters!");
             $("#fs-discount-title").focus();
-            
-        }else {
+
+        } else {
             $("#fs-discount-title-error").text("");
             $.ajax({
                 url: "admin/discount/ajax/checkDupDiscount.html",
@@ -247,65 +247,65 @@ $(document).ready(function () {
             });
         }
     });
-    
+
     $("#fs-discount-update-page").on("keyup", "#fs-discount-title", function () {
         var title = $(this).val().trim();
         if (title == "") {
             $("#fs-discount-title-error").text("Title cannot be empty!");
             $("#fs-discount-title").focus();
-            
+
         } else if (!isNaN(title.charAt(0))) {
             $("#fs-discount-title-error").text("Title cannot begin with a number!");
             $("fs-discount-title").focus();
-            
+
         } else if (title.length < 5 || title.length > 255) {
             $("#fs-discount-title-error").text("Title must have 5 - 255 characters!");
             $("#fs-discount-title").focus();
-            
-        }else {
+
+        } else {
             $("#fs-discount-title-error").text("");
-            
+
         }
     });
-    
-    
-    
-    $("#fs-discount-add-page").on("keyup", "#fs-discount", function (){
+
+
+
+    $("#fs-discount-add-page").on("keyup", "#fs-discount", function () {
         var discount = $(this).val().trim();
         if (discount == "") {
             $("#fs-discount-error").text("Discount cannot be empty!");
             $("#fs-discount").focus();
-            
+
         } else if (isNaN(discount)) {
             $("#fs-discount-error").text("Discount must be a number!");
             $("#fs-discount").focus();
-            
+
         } else if (discount <= 0) {
             $("#fs-discount-error").text("Dicount must be >0");
             $("#fs-discount").focus();
-            
-        }else if (discount >50) {
+
+        } else if (discount > 50) {
             $("#fs-discount-error").text("Dicount must be <=50");
             $("#fs-discount").focus();
-            
+
         } else {
             $("#fs-discount-error").text("");
         }
     });
-    $("#fs-discount-update-page").on("keyup", "#fs-discount", function (){
+    $("#fs-discount-update-page").on("keyup", "#fs-discount", function () {
         var discount = $(this).val().trim();
         if (discount == "") {
             $("#fs-discount-error").text("Dicount cannot be empty!");
             $("#fs-discount").focus();
-            
+
         } else if (isNaN(discount)) {
             $("#fs-discount-error").text("Discount must be a number!");
             $("#fs-discount").focus();
-            
+
         } else if (discount <= 0) {
             $("#fs-discount-error").text("Dicount must be >0");
             $("#fs-discount").focus();
-            
+
         } else {
             $("#fs-discount-error").text("");
         }
@@ -713,7 +713,7 @@ $(document).ready(function () {
         var productName = $("#fs-product-name").val();
         var price = $("#fs-product-price").val();
         var mainImg = $("#fs-product-main-img").val();
-        
+
         var count = 0;
 
 
@@ -1329,7 +1329,7 @@ $(document).ready(function () {
             $("#fs-form-product-create-new").submit();
         }
     });
-    
+
     //Xu ly an vao nut creat discount
     $("#fs-btn-create-new-discount").click(function (e) {
         e.preventDefault();
@@ -1337,13 +1337,13 @@ $(document).ready(function () {
         var discount = $("#fs-discount").val();
         var bDate = $("#dateBegin").val();
         var eDate = $("#dateEnd").val();
-        
+
         //validate ckeditor
         var content = $("#cke_fs-product-description iframe").contents().find("body").text();
-        
+
         var count = 0;
 
-        
+
         if (title == "") {
             $("#fs-discount-title-error").text("Title cannot be empty!");
             $("#fs-discount-title").focus();
@@ -1380,21 +1380,22 @@ $(document).ready(function () {
         }
         if (bDate == "") {
             $("#fs-bDate-error").text("Begin Date cannot be empty!");
-            
+
             count++;
         } else {
             $("#fs-bDate-error").text("");
         }
         if (eDate == "") {
             $("#fs-eDate-error").text("End Date cannot be empty!");
-            
+
             count++;
-        }else if (eDate < bDate) {
-            $("#fs-eDate-error").text("End Date must be greater than Begin Date!");            
+        } else if (eDate < bDate) {
+            $("#fs-eDate-error").text("End Date must be greater than Begin Date!");
             count++;
         } else {
             $("#fs-eDate-error").text("");
-        }if (content==""){
+        }
+        if (content == "") {
             $("#fs-content-error").text("Content cannot be empty!");
             $("#cke_fs-product-description iframe").contents().find("body").focus();
             $('html,body').scrollTop(0);
@@ -1402,8 +1403,8 @@ $(document).ready(function () {
         } else {
             $("#fs-content-error").text("");
         }
-        
-        if(count==0){
+
+        if (count == 0) {
             $.ajax({
                 url: "admin/discount/ajax/checkDupDiscount.html",
                 method: "POST",
@@ -1417,9 +1418,9 @@ $(document).ready(function () {
                     }
                 }
             });
-            
+
         }
-		
+
     });
     //Xu ly an vao nut update discount
     $("#fs-btn-update-new-discount").click(function (e) {
@@ -1428,13 +1429,13 @@ $(document).ready(function () {
         var discount = $("#fs-discount").val();
         var bDate = $("#dateBegin").val();
         var eDate = $("#dateEnd").val();
-        
+
         //validate ckeditor
         var content = $("#cke_fs-product-description iframe").contents().find("body").text();
-        
+
         var count = 0;
 
-        
+
         if (title == "") {
             $("#fs-discount-title-error").text("Title cannot be empty!");
             $("#fs-discount-title").focus();
@@ -1466,28 +1467,28 @@ $(document).ready(function () {
             $("#fs-discount-error").text("Dicount must be <=50");
             $("#fs-discount").focus();
             count++;
-        }else {
+        } else {
             $("#fs-discount-error").text("");
         }
         if (bDate == "") {
             $("#fs-bDate-error").text("Begin Date cannot be empty!");
-            
+
             count++;
         } else {
             $("#fs-bDate-error").text("");
         }
         if (eDate == "") {
             $("#fs-eDate-error").text("End Date cannot be empty!");
-            
+
             count++;
-        }else if (eDate < bDate) {
+        } else if (eDate < bDate) {
             $("#fs-eDate-error").text("End Date must be greater than Begin Date!");
-            
+
             count++;
         } else {
             $("#fs-eDate-error").text("");
         }
-        if (content==""){
+        if (content == "") {
             $("#fs-content-error").text("Content cannot be empty!");
             $("#cke_fs-product-description iframe").contents().find("body").focus();
             $('html,body').scrollTop(0);
@@ -1495,11 +1496,11 @@ $(document).ready(function () {
         } else {
             $("#fs-content-error").text("");
         }
-        if(count==0){
+        if (count == 0) {
             $("#fs-discount-title-error").text("");
             $("#fs-form-update-discount").submit();
         }
-		
+
     });
 
     $("#fs-fieldset-detail").on("keyup", ".fs-product-color-name", function () {
@@ -3651,8 +3652,7 @@ $(document).ready(function () {
             $("#fs-blog-category-error").text("Category cannot be empty!");
         } else if (blogCateVal.length < 5 || blogCateVal.length > 20) {
             $("#fs-blog-category-error").text("Category has 5 - 20 characters!");
-        }
-        else {
+        } else {
             $("#fs-blog-category-error").text("");
         }
     });
@@ -3712,23 +3712,17 @@ $(document).ready(function () {
             $("#fs-select-box-blog-category-error").text("Please select a Category!.");
         } else if (blogTitle == "" || blogTitle == (" ") < 0) {
             $("#fs-blog-title-error").text("Title cannot be empty!");
-        }
-        else if (blogTitle.length < 5 || blogTitle.length > 100) {
+        } else if (blogTitle.length < 5 || blogTitle.length > 100) {
             $("#fs-blog-title-error").text("Title has 5 - 100 characters!");
-        }
-        else if (blogCateValSummary.length < 15 || blogCateValSummary.length > 1000) {
+        } else if (blogCateValSummary.length < 15 || blogCateValSummary.length > 1000) {
             $("#fs-blog-summary-error").text("Summary has 15 - 1000 characters!");
-        }
-        else if (blogCateValSummary == "" || blogCateValSummary == (" ") < 0) {
+        } else if (blogCateValSummary == "" || blogCateValSummary == (" ") < 0) {
             $("#fs-blog-summary-error").text("Summary cannot be empty!");
-        }
-        else if (blogImg == "") {
+        } else if (blogImg == "") {
             $("#fs-error-mess-blog-img").text("Image cannot be empty!");
-        }
-        else if (blogContent == "") {
+        } else if (blogContent == "") {
             $("#fs-blog-content-error").text("Content cannot be empty!");
-        }
-        else {
+        } else {
             $("#fs-form-create-blog").submit();
         }
     });
@@ -3774,17 +3768,13 @@ $(document).ready(function () {
             $("#fs-select-box-blog-category-error").text("Please select a Category!.");
         } else if (blogTitle == "" || blogTitle == (" ") < 0) {
             $("#fs-blog-title-error").text("Title cannot be empty!");
-        }
-        else if (blogTitle.length < 5 || blogTitle.length > 100) {
+        } else if (blogTitle.length < 5 || blogTitle.length > 100) {
             $("#fs-blog-title-error").text("Title has 5 - 100 characters!");
-        }
-        else if (blogCateValSummary == "" || blogCateValSummary == (" ") < 0) {
+        } else if (blogCateValSummary == "" || blogCateValSummary == (" ") < 0) {
             $("#fs-blog-summary-error").text("Summary cannot be empty!");
-        }
-        else if (blogCateValSummary.length < 15 || blogCateValSummary.length > 1000) {
+        } else if (blogCateValSummary.length < 15 || blogCateValSummary.length > 1000) {
             $("#fs-blog-summary-error").text("Summary has 15 - 1000 characters!");
-        }
-        else {
+        } else {
             $("#fs-form-update-blog").submit();
         }
     });
@@ -3850,8 +3840,7 @@ $(document).ready(function () {
             };
             image_holder.show();
             reader.readAsDataURL($(this)[0].files[0]);
-        }
-        else {
+        } else {
             alert("Your Browser does not support FileReader!.");
         }
     });
@@ -3939,8 +3928,8 @@ $(document).ready(function () {
             }
         });
     });
-    
-    
+
+
 
 
 
@@ -3962,7 +3951,7 @@ $(document).ready(function () {
         }
     });
 
-    
+
 
     for (var i = 0; i < parseInt($("#fs-number-of-rating").attr("fs-nort")); i++) {
         var rating = $('#fs-rating-star-' + i).data('current-rating');
@@ -4003,8 +3992,8 @@ $(document).ready(function () {
             }
         });
     });
-    
-    
+
+
 
     /*
      * FORMATTING FUNCTION FOR ROW DETAIL - MODIFY AS YOU NEED
@@ -4013,8 +4002,8 @@ $(document).ready(function () {
     var fs_user_table = $("#fs-user-dataTables").DataTable({//cấu hình datatable chính chủ.
         responsive: true
     });
-    
-    
+
+
     $("#fs-discount-added-dataTables").DataTable({
         responsive: true,
         "scrollY": '50vh',
@@ -4037,7 +4026,7 @@ $(document).ready(function () {
         showTicks: false,
         checkboxName: 'addcheck'
     });
-    
+
     $("#fs-discount-addnew").DataTable({
         responsive: true,
         "scrollY": '50vh',
@@ -4095,7 +4084,8 @@ $(document).ready(function () {
         });
 
         return beginStr + dataStr + endStr;
-    };
+    }
+    ;
 
     function UserIDTableFromJson(json) {
         var beginStr = '<table class="heavyTable" style="width: 40%;border: 1px solid #38678f;max-width: 380px; height: 20px; border-collapse: collapse;background: white;" >' +
@@ -4128,7 +4118,8 @@ $(document).ready(function () {
         });
 
         return beginStr + dataStr + endStr;
-    };
+    }
+    ;
 
     $("#fs-user-dataTables").on("click", ".fs-user-dataTable-control-button", function () {
         var userID = $(this).attr("fs-userID");
@@ -4138,8 +4129,7 @@ $(document).ready(function () {
             // This row is already open - close it
             row.child.hide();
             tr.removeClass('shown');
-        }
-        else {
+        } else {
             //Gọi Ajax
             $.ajax({
                 url: "admin/user/ajax/getUserAddress.html",
@@ -4233,8 +4223,7 @@ $(document).ready(function () {
             div.addClass("has-error has-feedback");
             div.append('<span id="glypcn-fs-roleName-create" class="glyphicon glyphicon-remove form-control-feedback"></span>');
             return false;
-        }
-        else {
+        } else {
             $("#fs-form-create-role").submit();
             var div = $("#fs-roleName-create").closest("div.fs-aaa");
             div.removeClass("has-error");
@@ -4348,8 +4337,7 @@ $(document).ready(function () {
             div.addClass("has-error has-feedback");
             div.append('<span id="glypcn-fs-roleName-update" class="glyphicon glyphicon-remove form-control-feedback"></span>');
             return false;
-        }
-        else {
+        } else {
             $("#fs-form-update-role").submit();
             var div = $("#fs-roleName-update").closest("div.fa-ccc");
             div.removeClass("has-error");
@@ -4431,26 +4419,26 @@ $(document).ready(function () {
             cancelButtonText: "No, cancel!",
             closeOnConfirm: false
         },
-        function (isConfirm) {
-            if (!isConfirm)
-                return;
-            $("#fs-role-list-id-" + roleID).remove();
-            $.ajax({
-                url: "admin/user/role/delete/" + roleID + ".html",
-                type: "POST",
-                data: {
-                    roleID: roleID
-                },
+                function (isConfirm) {
+                    if (!isConfirm)
+                        return;
+                    $("#fs-role-list-id-" + roleID).remove();
+                    $.ajax({
+                        url: "admin/user/role/delete/" + roleID + ".html",
+                        type: "POST",
+                        data: {
+                            roleID: roleID
+                        },
 //            dataType: "html",
-                success: function (response) {
-                    swal("Done!", "It was succesfully deleted!", "success");
+                        success: function (response) {
+                            swal("Done!", "It was succesfully deleted!", "success");
 //                window.location = window.location.href
-                },
-                error: function (xhr, ajaxOptions, thrownError) {
-                    swal("Error deleting!", "Please try again", "error");
-                }
-            });
-        });
+                        },
+                        error: function (xhr, ajaxOptions, thrownError) {
+                            swal("Error deleting!", "Please try again", "error");
+                        }
+                    });
+                });
     });
 //    $(".fs-button-detele-role").prop('disable', true);
 
@@ -4462,7 +4450,7 @@ $(document).ready(function () {
     //Thiết lập cho bảng order list
     $('#tableOrder').DataTable({
         responsive: true,
-        order: [[4, "desc"]],
+        order: [[0, "desc"]],
         columnDefs: [{"orderable": false, "targets": [2, 3, 5]}] //,{"targets":4,render: $.fn.dataTable.render.moment(dd/mm/yyyy)}
     });
 
@@ -4929,28 +4917,45 @@ $(document).ready(function () {
             }
         })
     });
-    
-    $("#id-status-order").on("change",function () {
+
+    $("#id-status-order").on("change", function () {
         var status = $(this).val();
         var order = $(this).attr("fs-order");
 
-        $.ajax({
-            url: "admin/orders/confirmstatusOrder.html",
-            method: "POST",
-            data: {order: order, status: status},
-            success: function (response) {
+        bootbox.confirm({
+            title: "Review without rating stars?",
+            message: "Are you sure to continue?",
+            buttons: {
+                cancel: {
+                    label: '<i class="fa fa-times"></i> Cancel'
+                },
+                confirm: {
+                    label: '<i class="fa fa-check"></i> Confirm'
+                }
+            },
+            callback: function (result) {
+                if(result)
+                $.ajax({
+                    url: "admin/orders/confirmstatusOrder.html",
+                    method: "POST",
+                    data: {order: order, status: status},
+                    success: function (response) {
 //                swal("UPDATE SUCCESS", response, "success");
-                swal({
-                    type: "success",
-                    title: "UPDATE SUCCESS",
-                    text: "update status successfully",
-                    timer: 2000,
-                    showConfirmButton: false
+                        swal({
+                            type: "success",
+                            title: "UPDATE SUCCESS",
+                            text: "update status successfully",
+                            timer: 2000,
+                            showConfirmButton: true
+                        });
+
+                    }
                 });
-                location.reload();
 
             }
         });
+
+
     });
 
 

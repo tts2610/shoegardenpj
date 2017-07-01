@@ -128,6 +128,8 @@
         <script src="assets/js/jquery.barrating.min.js" type="text/javascript"></script>
 
         <script src="assets/js/admin_comment.js" type="text/javascript"></script>
+        
+        <script src="assets/js/bootbox.min.js" type="text/javascript"></script>
     </body>
 
 </html>

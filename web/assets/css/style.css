@@ -9320,6 +9320,9 @@ p.w3ls_para {
 	.bb-grids.bb-left-agileits-w3layouts {
 		margin-bottom: 1em;
 	}
+        .bb-grids.bb-right-agileits-w3layouts {
+		margin-bottom: 1em;
+	}
 	.contact-form {
 		padding: 4em 3em;
 		margin-top: 2em;
@@ -10541,6 +10544,10 @@ p.w3ls_para {
 		margin-bottom: 1em;
 	}
 	.bb-grids.bb-left-agileits-w3layouts {
+		margin-bottom: 1em;
+		padding: 0;
+	}
+        .bb-grids.bb-right-agileits-w3layouts {
 		margin-bottom: 1em;
 		padding: 0;
 	}
