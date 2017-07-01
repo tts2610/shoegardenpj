@@ -872,7 +872,7 @@ $(document).ready(function() {
                                         "          </div>\n" +
                                         "      <div class=\"product-info\">\n" +
                                         "          <h4 class=\"product-title\">\n" +
-                                        "              <a href=\"" + prod.productID + "-" + prod.productColorListWorking[0].colorID + "-" + prod.productName + ".html\">\n" +
+                                        "              <a href=\"" + prod.productID + "-" + prod.productColorListWorking[0].colorID + ".html\">\n" +
                                         "                 " + prod.productName + "\n" +
                                         "              </a>\n" +
                                         "          </h4>\n" +
