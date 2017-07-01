@@ -1201,7 +1201,7 @@ $(document).ready(function () {
                                     });
                                 }
 
-                                if (prod.discountDetailsList[0] == null) {
+                                if (prod.productWithDiscount == prod.price) {
                                     result += "<div class=\"col-md-4 col-sm-6\">\n" +
                                             "     <div class=\"product-item\">\n" +
                                             "          <div class=\"item-thumb\">\n" +
@@ -1237,7 +1237,7 @@ $(document).ready(function () {
                                     result += "<div class=\"col-md-4 col-sm-6\">\n" +
                                             "     <div class=\"product-item\">\n" +
                                             "          <div class=\"item-thumb\">\n" +
-                                            "               <span class=\"badge offer\">-" + prod.discountDetailsList[0].discID.discount + "%</span>\n" +
+                                            "               <span class=\"badge offer\">-" + prod.discountByProduct + "%</span>\n" +
                                             "               <img src=\"assets/images/products/" + prod.urlImg + "\" \n" +
                                             "                    class=\"img-responsive\" \n" +
                                             "                    alt=\"" + prod.urlImg + "\"\n" +
@@ -1260,7 +1260,7 @@ $(document).ready(function () {
                                             "              </a>\n" +
                                             "          </h4>\n" +
                                             "          <span class=\"product-price\">\n" +
-                                            "               <small class=\"cutprice\">$ " + prod.price + ".00 </small>  $ " + prod.price * (1 - prod.discountDetailsList[0].discID.discount / 100) +
+                                            "               <small class=\"cutprice\">$ " + prod.price + ".00 </small>  $ " + ((prod.productWithDiscount)).toFixed(2) +
                                             "          </span>\n" +
                                             "          <div class=\"item-colors\" style=\"height: 25px;\">\n" +
                                             renderColor +
@@ -1335,7 +1335,7 @@ $(document).ready(function () {
                                 });
                             }
 
-                            if (prod.discountDetailsList[0] == null) {
+                            if (prod.productWithDiscount == prod.price) {
                                 result += "<div class=\"col-md-4 col-sm-6\">\n" +
                                         "     <div class=\"product-item\">\n" +
                                         "          <div class=\"item-thumb\">\n" +
@@ -1371,7 +1371,7 @@ $(document).ready(function () {
                                 result += "<div class=\"col-md-4 col-sm-6\">\n" +
                                         "     <div class=\"product-item\">\n" +
                                         "          <div class=\"item-thumb\">\n" +
-                                        "               <span class=\"badge offer\">-" + prod.discountDetailsList[0].discID.discount + "%</span>\n" +
+                                        "               <span class=\"badge offer\">-" + prod.discountByProduct + "%</span>\n" +
                                         "               <img src=\"assets/images/products/" + prod.urlImg + "\" \n" +
                                         "                    class=\"img-responsive\" \n" +
                                         "                    alt=\"" + prod.urlImg + "\"\n" +
@@ -1394,7 +1394,7 @@ $(document).ready(function () {
                                         "              </a>\n" +
                                         "          </h4>\n" +
                                         "          <span class=\"product-price\">\n" +
-                                        "               <small class=\"cutprice\">$ " + prod.price + ".00 </small>  $ " + prod.price * (1 - prod.discountDetailsList[0].discID.discount / 100) +
+                                        "               <small class=\"cutprice\">$ " + prod.price + ".00 </small>  $ " + ((prod.productWithDiscount)).toFixed(2) +
                                         "          </span>\n" +
                                         "          <div class=\"item-colors\" style=\"height: 25px;\">\n" +
                                         renderColor +
@@ -1482,7 +1482,7 @@ $(document).ready(function () {
                                 });
                             }
 
-                            if (prod.discountDetailsList[0] == null) {
+                            if (prod.productWithDiscount == prod.price) {
                                 result += "<div class=\"col-md-4 col-sm-6\">\n" +
                                         "     <div class=\"product-item\">\n" +
                                         "          <div class=\"item-thumb\">\n" +
@@ -1518,7 +1518,7 @@ $(document).ready(function () {
                                 result += "<div class=\"col-md-4 col-sm-6\">\n" +
                                         "     <div class=\"product-item\">\n" +
                                         "          <div class=\"item-thumb\">\n" +
-                                        "               <span class=\"badge offer\">-" + prod.discountDetailsList[0].discID.discount + "%</span>\n" +
+                                        "               <span class=\"badge offer\">-" + prod.discountByProduct + "%</span>\n" +
                                         "               <img src=\"assets/images/products/" + prod.urlImg + "\" \n" +
                                         "                    class=\"img-responsive\" \n" +
                                         "                    alt=\"" + prod.urlImg + "\"\n" +
@@ -1541,7 +1541,7 @@ $(document).ready(function () {
                                         "              </a>\n" +
                                         "          </h4>\n" +
                                         "          <span class=\"product-price\">\n" +
-                                        "               <small class=\"cutprice\">$ " + prod.price + ".00 </small>  $ " + prod.price * (1 - prod.discountDetailsList[0].discID.discount / 100) +
+                                        "               <small class=\"cutprice\">$ " + prod.price + ".00 </small>  $ " + ((prod.productWithDiscount)).toFixed(2) +
                                         "          </span>\n" +
                                         "          <div class=\"item-colors\" style=\"height: 25px;\">\n" +
                                         renderColor +
@@ -1672,7 +1672,7 @@ $(document).ready(function () {
                                             });
                                         }
 
-                                        if (prod.discountDetailsList[0] == null) {
+                                        if (prod.productWithDiscount == prod.price) {
 
                                             result += "<div class=\"col-md-4 col-sm-6\">\n" +
                                                     "     <div class=\"product-item\">\n" +
@@ -1709,7 +1709,7 @@ $(document).ready(function () {
                                             result += "<div class=\"col-md-4 col-sm-6\">\n" +
                                                     "     <div class=\"product-item\">\n" +
                                                     "          <div class=\"item-thumb\">\n" +
-                                                    "               <span class=\"badge offer\">-" + prod.discountDetailsList[0].discID.discount + "%</span>\n" +
+                                                    "               <span class=\"badge offer\">-" + prod.discountByProduct + "%</span>\n" +
                                                     "               <img src=\"assets/images/products/" + prod.urlImg + "\" \n" +
                                                     "                    class=\"img-responsive\" \n" +
                                                     "                    alt=\"" + prod.urlImg + "\"\n" +
@@ -1732,7 +1732,7 @@ $(document).ready(function () {
                                                     "              </a>\n" +
                                                     "          </h4>\n" +
                                                     "          <span class=\"product-price\">\n" +
-                                                    "               <small class=\"cutprice\">$ " + prod.price + ".00 </small>  $ " + prod.price * (1 - prod.discountDetailsList[0].discID.discount / 100) +
+                                                    "               <small class=\"cutprice\">$ " + prod.price + ".00 </small>  $ " + ((prod.productWithDiscount)).toFixed(2) +
                                                     "          </span>\n" +
                                                     "          <div class=\"item-colors\" style=\"height: 25px;\">\n" +
                                                     renderColor +
@@ -1857,7 +1857,7 @@ $(document).ready(function () {
                                         });
                                     }
 
-                                    if (prod.discountDetailsList[0] == null) {
+                                    if (prod.productWithDiscount == prod.price) {
                                         result += "<div class=\"col-md-4 col-sm-6\">\n" +
                                                 "     <div class=\"product-item\">\n" +
                                                 "          <div class=\"item-thumb\">\n" +
@@ -1893,7 +1893,7 @@ $(document).ready(function () {
                                         result += "<div class=\"col-md-4 col-sm-6\">\n" +
                                                 "     <div class=\"product-item\">\n" +
                                                 "          <div class=\"item-thumb\">\n" +
-                                                "               <span class=\"badge offer\">-" + prod.discountDetailsList[0].discID.discount + "%</span>\n" +
+                                                "               <span class=\"badge offer\">-" + prod.discountByProduct + "%</span>\n" +
                                                 "               <img src=\"assets/images/products/" + prod.urlImg + "\" \n" +
                                                 "                    class=\"img-responsive\" \n" +
                                                 "                    alt=\"" + prod.urlImg + "\"\n" +
@@ -1916,7 +1916,7 @@ $(document).ready(function () {
                                                 "              </a>\n" +
                                                 "          </h4>\n" +
                                                 "          <span class=\"product-price\">\n" +
-                                                "               <small class=\"cutprice\">$ " + prod.price + ".00 </small>  $ " + ((prod.price * (1 - prod.discountDetailsList[0].discID.discount / 100))).toFixed(2) +
+                                                "               <small class=\"cutprice\">$ " + prod.price + ".00 </small>  $ " + ((((prod.productWithDiscount)).toFixed(2))).toFixed(2) +
                                                 "          </span>\n" +
                                                 "          <div class=\"item-colors\" style=\"height: 25px;\">\n" +
                                                 renderColor +
@@ -2032,7 +2032,7 @@ $(document).ready(function () {
                                         });
                                     }
 
-                                    if (prod.discountDetailsList[0] == null) {
+                                    if (prod.productWithDiscount == prod.price) {
                                         result += "<div class=\"col-md-4 col-sm-6\">\n" +
                                                 "     <div class=\"product-item\">\n" +
                                                 "          <div class=\"item-thumb\">\n" +
@@ -2068,7 +2068,7 @@ $(document).ready(function () {
                                         result += "<div class=\"col-md-4 col-sm-6\">\n" +
                                                 "     <div class=\"product-item\">\n" +
                                                 "          <div class=\"item-thumb\">\n" +
-                                                "               <span class=\"badge offer\">-" + prod.discountDetailsList[0].discID.discount + "%</span>\n" +
+                                                "               <span class=\"badge offer\">-" + prod.discountByProduct + "%</span>\n" +
                                                 "               <img src=\"assets/images/products/" + prod.urlImg + "\" \n" +
                                                 "                    class=\"img-responsive\" \n" +
                                                 "                    alt=\"" + prod.urlImg + "\"\n" +
@@ -2091,7 +2091,7 @@ $(document).ready(function () {
                                                 "              </a>\n" +
                                                 "          </h4>\n" +
                                                 "          <span class=\"product-price\">\n" +
-                                                "               <small class=\"cutprice\">$ " + prod.price + ".00 </small>  $ " + prod.price * (1 - prod.discountDetailsList[0].discID.discount / 100) +
+                                                "               <small class=\"cutprice\">$ " + prod.price + ".00 </small>  $ " + ((prod.productWithDiscount)).toFixed(2) +
                                                 "          </span>\n" +
                                                 "          <div class=\"item-colors\" style=\"height: 25px;\">\n" +
                                                 renderColor +
@@ -2174,7 +2174,7 @@ $(document).ready(function () {
                                     });
                                 }
                                 //concac
-                                if (prod.discountDetailsList[0] == null) {
+                                if (prod.productWithDiscount == prod.price) {
                                     result += "<div class=\"col-md-4 col-sm-6\">\n" +
                                             "     <div class=\"product-item\">\n" +
                                             "          <div class=\"item-thumb\">\n" +
@@ -2212,7 +2212,7 @@ $(document).ready(function () {
                                     result += "<div class=\"col-md-4 col-sm-6\">\n" +
                                             "     <div class=\"product-item\">\n" +
                                             "          <div class=\"item-thumb\">\n" +
-                                            "               <span class=\"badge offer\">-" + prod.discountDetailsList[0].discID.discount + "%</span>\n" +
+                                            "               <span class=\"badge offer\">-" + prod.discountByProduct + "%</span>\n" +
                                             "               <img src=\"assets/images/products/" + prod.urlImg + "\" \n" +
                                             "                    class=\"img-responsive\" \n" +
                                             "                    alt=\"" + prod.urlImg + "\"\n" +
@@ -2237,7 +2237,7 @@ $(document).ready(function () {
                                             "              </a>\n" +
                                             "          </h4>\n" +
                                             "          <span class=\"product-price\">\n" +
-                                            "               <small class=\"cutprice\">$ " + prod.price + ".00 </small>  $ " + prod.price * (1 - prod.discountDetailsList[0].discID.discount / 100) +
+                                            "               <small class=\"cutprice\">$ " + prod.price + ".00 </small>  $ " + ((prod.productWithDiscount)).toFixed(2) +
                                             "          </span>\n" +
                                             "          <div class=\"item-colors\" style=\"height: 25px;\">\n" +
                                             renderColor +
@@ -2385,7 +2385,7 @@ $(document).ready(function () {
                                 });
                             }
 
-                            if (prod.discountDetailsList[0] == null) {
+                            if (prod.productWithDiscount == prod.price) {
                                 result += "<div class=\"col-md-4 col-sm-6\">\n" +
                                         "     <div class=\"product-item\">\n" +
                                         "          <div class=\"item-thumb\">\n" +
@@ -2421,7 +2421,7 @@ $(document).ready(function () {
                                 result += "<div class=\"col-md-4 col-sm-6\">\n" +
                                         "     <div class=\"product-item\">\n" +
                                         "          <div class=\"item-thumb\">\n" +
-                                        "               <span class=\"badge offer\">-" + prod.discountDetailsList[0].discID.discount + "%</span>\n" +
+                                        "               <span class=\"badge offer\">-" + prod.discountByProduct + "%</span>\n" +
                                         "               <img src=\"assets/images/products/" + prod.urlImg + "\" \n" +
                                         "                    class=\"img-responsive\" \n" +
                                         "                    alt=\"" + prod.urlImg + "\"\n" +
@@ -2444,7 +2444,7 @@ $(document).ready(function () {
                                         "              </a>\n" +
                                         "          </h4>\n" +
                                         "          <span class=\"product-price\">\n" +
-                                        "               <small class=\"cutprice\">$ " + prod.price + ".00 </small>  $ " + prod.price * (1 - prod.discountDetailsList[0].discID.discount / 100) +
+                                        "               <small class=\"cutprice\">$ " + prod.price + ".00 </small>  $ " + ((prod.productWithDiscount)).toFixed(2) +
                                         "          </span>\n" +
                                         "          <div class=\"item-colors\" style=\"height: 25px;\">\n" +
                                         renderColor +
@@ -2526,7 +2526,7 @@ $(document).ready(function () {
                                 });
                             }
 
-                            if (prod.discountDetailsList[0] == null) {
+                            if (prod.productWithDiscount == prod.price) {
                                 result += "<div class=\"col-md-4 col-sm-6\">\n" +
                                         "     <div class=\"product-item\">\n" +
                                         "          <div class=\"item-thumb\">\n" +
@@ -2562,7 +2562,7 @@ $(document).ready(function () {
                                 result += "<div class=\"col-md-4 col-sm-6\">\n" +
                                         "     <div class=\"product-item\">\n" +
                                         "          <div class=\"item-thumb\">\n" +
-                                        "               <span class=\"badge offer\">-" + prod.discountDetailsList[0].discID.discount + "%</span>\n" +
+                                        "               <span class=\"badge offer\">-" + prod.discountByProduct + "%</span>\n" +
                                         "               <img src=\"assets/images/products/" + prod.urlImg + "\" \n" +
                                         "                    class=\"img-responsive\" \n" +
                                         "                    alt=\"" + prod.urlImg + "\"\n" +
@@ -2585,7 +2585,7 @@ $(document).ready(function () {
                                         "              </a>\n" +
                                         "          </h4>\n" +
                                         "          <span class=\"product-price\">\n" +
-                                        "               <small class=\"cutprice\">$ " + prod.price + ".00 </small>  $ " + prod.price * (1 - prod.discountDetailsList[0].discID.discount / 100) +
+                                        "               <small class=\"cutprice\">$ " + prod.price + ".00 </small>  $ " + ((prod.productWithDiscount)).toFixed(2) +
                                         "          </span>\n" +
                                         "          <div class=\"item-colors\" style=\"height: 25px;\">\n" +
                                         renderColor +
@@ -2709,7 +2709,7 @@ $(document).ready(function () {
                                             });
                                         }
 
-                                        if (prod.discountDetailsList[0] == null) {
+                                        if (prod.productWithDiscount == prod.price) {
                                             result += "<div class=\"col-md-4 col-sm-6\">\n" +
                                                     "     <div class=\"product-item\">\n" +
                                                     "          <div class=\"item-thumb\">\n" +
@@ -2745,7 +2745,7 @@ $(document).ready(function () {
                                             result += "<div class=\"col-md-4 col-sm-6\">\n" +
                                                     "     <div class=\"product-item\">\n" +
                                                     "          <div class=\"item-thumb\">\n" +
-                                                    "               <span class=\"badge offer\">-" + prod.discountDetailsList[0].discID.discount + "%</span>\n" +
+                                                    "               <span class=\"badge offer\">-" + prod.discountByProduct + "%</span>\n" +
                                                     "               <img src=\"assets/images/products/" + prod.urlImg + "\" \n" +
                                                     "                    class=\"img-responsive\" \n" +
                                                     "                    alt=\"" + prod.urlImg + "\"\n" +
@@ -2768,7 +2768,7 @@ $(document).ready(function () {
                                                     "              </a>\n" +
                                                     "          </h4>\n" +
                                                     "          <span class=\"product-price\">\n" +
-                                                    "               <small class=\"cutprice\">$ " + prod.price + ".00 </small>  $ " + prod.price * (1 - prod.discountDetailsList[0].discID.discount / 100) +
+                                                    "               <small class=\"cutprice\">$ " + prod.price + ".00 </small>  $ " + ((prod.productWithDiscount)).toFixed(2) +
                                                     "          </span>\n" +
                                                     "          <div class=\"item-colors\" style=\"height: 25px;\">\n" +
                                                     renderColor +
@@ -2885,7 +2885,7 @@ $(document).ready(function () {
                                         });
                                     }
 
-                                    if (prod.discountDetailsList[0] == null) {
+                                    if (prod.productWithDiscount == prod.price) {
                                         result += "<div class=\"col-md-4 col-sm-6\">\n" +
                                                 "     <div class=\"product-item\">\n" +
                                                 "          <div class=\"item-thumb\">\n" +
@@ -2921,7 +2921,7 @@ $(document).ready(function () {
                                         result += "<div class=\"col-md-4 col-sm-6\">\n" +
                                                 "     <div class=\"product-item\">\n" +
                                                 "          <div class=\"item-thumb\">\n" +
-                                                "               <span class=\"badge offer\">-" + prod.discountDetailsList[0].discID.discount + "%</span>\n" +
+                                                "               <span class=\"badge offer\">-" + prod.discountByProduct + "%</span>\n" +
                                                 "               <img src=\"assets/images/products/" + prod.urlImg + "\" \n" +
                                                 "                    class=\"img-responsive\" \n" +
                                                 "                    alt=\"" + prod.urlImg + "\"\n" +
@@ -2944,7 +2944,7 @@ $(document).ready(function () {
                                                 "              </a>\n" +
                                                 "          </h4>\n" +
                                                 "          <span class=\"product-price\">\n" +
-                                                "               <small class=\"cutprice\">$ " + prod.price + ".00 </small>  $ " + ((prod.price * (1 - prod.discountDetailsList[0].discID.discount / 100))).toFixed(2) +
+                                                "               <small class=\"cutprice\">$ " + prod.price + ".00 </small>  $ " + ((((prod.productWithDiscount)).toFixed(2))).toFixed(2) +
                                                 "          <div class=\"item-colors\" style=\"height: 25px;\">\n" +
                                                 renderColor +
                                                 "          </div>\n" +
@@ -3053,7 +3053,7 @@ $(document).ready(function () {
                                         });
                                     }
 
-                                    if (prod.discountDetailsList[0] == null) {
+                                    if (prod.productWithDiscount == prod.price) {
                                         result += "<div class=\"col-md-4 col-sm-6\">\n" +
                                                 "     <div class=\"product-item\">\n" +
                                                 "          <div class=\"item-thumb\">\n" +
@@ -3089,7 +3089,7 @@ $(document).ready(function () {
                                         result += "<div class=\"col-md-4 col-sm-6\">\n" +
                                                 "     <div class=\"product-item\">\n" +
                                                 "          <div class=\"item-thumb\">\n" +
-                                                "               <span class=\"badge offer\">-" + prod.discountDetailsList[0].discID.discount + "%</span>\n" +
+                                                "               <span class=\"badge offer\">-" + prod.discountByProduct + "%</span>\n" +
                                                 "               <img src=\"assets/images/products/" + prod.urlImg + "\" \n" +
                                                 "                    class=\"img-responsive\" \n" +
                                                 "                    alt=\"" + prod.urlImg + "\"\n" +
@@ -3112,7 +3112,7 @@ $(document).ready(function () {
                                                 "              </a>\n" +
                                                 "          </h4>\n" +
                                                 "          <span class=\"product-price\">\n" +
-                                                "               <small class=\"cutprice\">$ " + prod.price + ".00 </small>  $ " + prod.price * (1 - prod.discountDetailsList[0].discID.discount / 100) +
+                                                "               <small class=\"cutprice\">$ " + prod.price + ".00 </small>  $ " + ((prod.productWithDiscount)).toFixed(2) +
                                                 "          </span>\n" +
                                                 "          <div class=\"item-colors\" style=\"height: 25px;\">\n" +
                                                 renderColor +
