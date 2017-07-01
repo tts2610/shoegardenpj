@@ -96,11 +96,7 @@
                                     </c:if>
                                     <c:if test="${users.roleID.roleID != 2&&users.roleID.roleID != 1}">
                                         <td class="center" align="center">
-                                            <select class="fs-select-user-role form-control input-sm" fs-user="${users.userID}" >
-                                                <c:forEach items="${roles}" var="role">
-                                                    <option <c:if test="${users.roleID.roleID == role.roleID}">selected</c:if> value="${role.roleID}">${role.roleName}</option>
-                                                </c:forEach>
-                                            </select> 
+                                            ${users.roleID.roleName}
                                         </td>
                                     </c:if>
                                     
