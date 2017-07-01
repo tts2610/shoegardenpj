@@ -5,6 +5,7 @@
  */
 package spring.ejb;
 
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -54,6 +55,11 @@ public class DiscountsFacade extends AbstractFacade<Discounts> implements Discou
         System.err.println("CONCACACACAC");
         em.flush();
         em.refresh(entity);
+    }
+    
+    public List<Discounts> selectTop3Discount(){
+        Query q = getEntityManager().createNativeQuery("SELECT TOP 3 * FROM discounts",Discounts.class);
+        return q.getResultList();
     }
     
 }

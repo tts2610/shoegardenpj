@@ -5,135 +5,135 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!-- SLIDER -->
 <div id="myCarousel" class="carousel slide" data-ride="carousel">
-		<!-- Indicators -->
-		<ol class="carousel-indicators">
-			<li data-target="#myCarousel" data-slide-to="0" class="active"></li>
-			<li data-target="#myCarousel" data-slide-to="1" class=""></li>
-			<li data-target="#myCarousel" data-slide-to="2" class=""></li>
-			<li data-target="#myCarousel" data-slide-to="3" class=""></li>
-		</ol>
-		<div class="carousel-inner" role="listbox">
-			<div class="item active"> 
-				<div class="container">
-					<div class="carousel-caption">
-						<h3>The Biggest <span>Sale</span></h3>
-						<p>Special for today</p>
-						<a class="hvr-outline-out button2" href="mens.html">Shop Now </a>
-					</div>
-				</div>
-			</div>
-			<div class="item item2"> 
-				<div class="container">
-					<div class="carousel-caption">
-						<h3>Summer <span>Collection</span></h3>
-						<p>New Arrivals On Sale</p>
-						<a class="hvr-outline-out button2" href="mens.html">Shop Now </a>
-					</div>
-				</div>
-			</div>
-			<div class="item item3"> 
-				<div class="container">
-					<div class="carousel-caption">
-						<h3>The Biggest <span>Sale</span></h3>
-						<p>Special for today</p>
-						<a class="hvr-outline-out button2" href="mens.html">Shop Now </a>
-					</div>
-				</div>
-			</div>
-			<div class="item item4"> 
-				<div class="container">
-					<div class="carousel-caption">
-						<h3>Summer <span>Collection</span></h3>
-						<p>New Arrivals On Sale</p>
-						<a class="hvr-outline-out button2" href="mens.html">Shop Now </a>
-					</div>
-				</div>
-			</div>
-		</div>
-		<a class="left carousel-control" href="#myCarousel" role="button" data-slide="prev">
-			<span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
-			<span class="sr-only">Previous</span>
-		</a>
-		<a class="right carousel-control" href="#myCarousel" role="button" data-slide="next">
-			<span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
-			<span class="sr-only">Next</span>
-		</a>
-		<!-- The Modal -->
-    </div> <!--/slider-->
-    
-    <div class="banner_bottom_agile_info">
-	    <div class="container">
-            <div class="banner_bottom_agile_info_inner_w3ls">
-    	           <div class="col-md-6 wthree_banner_bottom_grid_three_left1 grid">
-						<figure class="effect-roxy">
-							<img src="assets/images/imgstore.jpg" alt=" " class="img-responsive" />
-							<figcaption>
-								<h3><span>F</span>all Ahead</h3>
-								<p>New Arrivals</p>
-							</figcaption>			
-						</figure>
-					</div>
-					 <div class="col-md-6 wthree_banner_bottom_grid_three_left1 grid">
-						<figure class="effect-roxy">
-							<img src="assets/images/imgstore1.jpg" alt=" " class="img-responsive" />
-							<figcaption>
-								<h3><span>F</span>all Ahead</h3>
-								<p>New Arrivals</p>
-							</figcaption>			
-						</figure>
-					</div>
-					<div class="clearfix"></div>
-		    </div> 
-		 </div> 
+    <!-- Indicators -->
+    <ol class="carousel-indicators">
+        <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+        <li data-target="#myCarousel" data-slide-to="1" class=""></li>
+        <li data-target="#myCarousel" data-slide-to="2" class=""></li>
+        <li data-target="#myCarousel" data-slide-to="3" class=""></li>
+    </ol>
+    <div class="carousel-inner" role="listbox">
+        <div class="item active"> 
+            <div class="container">
+                <div class="carousel-caption">
+                    <h3>The Biggest <span>Sale</span></h3>
+                    <p>Special for today</p>
+                    <a class="hvr-outline-out button2" href="mens.html">Shop Now </a>
+                </div>
+            </div>
+        </div>
+        <div class="item item2"> 
+            <div class="container">
+                <div class="carousel-caption">
+                    <h3>Summer <span>Collection</span></h3>
+                    <p>New Arrivals On Sale</p>
+                    <a class="hvr-outline-out button2" href="mens.html">Shop Now </a>
+                </div>
+            </div>
+        </div>
+        <div class="item item3"> 
+            <div class="container">
+                <div class="carousel-caption">
+                    <h3>The Biggest <span>Sale</span></h3>
+                    <p>Special for today</p>
+                    <a class="hvr-outline-out button2" href="mens.html">Shop Now </a>
+                </div>
+            </div>
+        </div>
+        <div class="item item4"> 
+            <div class="container">
+                <div class="carousel-caption">
+                    <h3>Summer <span>Collection</span></h3>
+                    <p>New Arrivals On Sale</p>
+                    <a class="hvr-outline-out button2" href="mens.html">Shop Now </a>
+                </div>
+            </div>
+        </div>
     </div>
+    <a class="left carousel-control" href="#myCarousel" role="button" data-slide="prev">
+        <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+        <span class="sr-only">Previous</span>
+    </a>
+    <a class="right carousel-control" href="#myCarousel" role="button" data-slide="next">
+        <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+        <span class="sr-only">Next</span>
+    </a>
+    <!-- The Modal -->
+</div> <!--/slider-->
+
+<div class="banner_bottom_agile_info">
+    <div class="container">
+        <div class="banner_bottom_agile_info_inner_w3ls">
+            <div class="col-md-6 wthree_banner_bottom_grid_three_left1 grid">
+                <figure class="effect-roxy">
+                    <img src="assets/images/imgstore.jpg" alt=" " class="img-responsive" />
+                    <figcaption>
+                        <h3><span>F</span>all Ahead</h3>
+                        <p>New Arrivals</p>
+                    </figcaption>			
+                </figure>
+            </div>
+            <div class="col-md-6 wthree_banner_bottom_grid_three_left1 grid">
+                <figure class="effect-roxy">
+                    <img src="assets/images/imgstore1.jpg" alt=" " class="img-responsive" />
+                    <figcaption>
+                        <h3><span>F</span>all Ahead</h3>
+                        <p>New Arrivals</p>
+                    </figcaption>			
+                </figure>
+            </div>
+            <div class="clearfix"></div>
+        </div> 
+    </div> 
+</div>
 
 
 
 <div class="clearfix"></div>
 <div class="banner-bootom-w3-agileits">
-	<div class="container">
-		<h3 class="wthree_text_info">What's <span>Trending</span></h3>
-	
-		<div class="col-md-5 bb-grids bb-left-agileits-w3layouts">
-			<a href="womens.html">
-			   <div class="bb-left-agileits-w3layouts-inner grid">
-					<figure class="effect-roxy">
-							<img src="assets/images/img1.jpg" alt=" " class="img-responsive" />
-							<figcaption>
-								<h3><span>S</span>ale </h3>
-								<p>Upto 55%</p>
-							</figcaption>			
-						</figure>
-			    </div>
-			</a>
-		</div>
-		<div class="col-md-7 bb-grids bb-middle-agileits-w3layouts">
-		      <a href="mens.html">
-		       <div class="bb-middle-agileits-w3layouts grid">
-			           <figure class="effect-roxy">
-							<img src="assets/images/img2.jpg" alt=" " class="img-responsive" />
-							<figcaption>
-								<h3><span>S</span>ale </h3>
-								<p>Upto 55%</p>
-							</figcaption>			
-						</figure>
-		        </div>
-				</a>
-				<a href="mens.html">
-		      <div class="bb-middle-agileits-w3layouts forth grid">
-						<figure class="effect-roxy">
-							<img src="assets/images/img3.jpg" alt=" " class="img-responsive">
-							<figcaption>
-								<h3><span>S</span>ale </h3>
-								<p>Upto 65%</p>
-							</figcaption>		
-						</figure>
-					</div>
-					</a>
-		<div class="clearfix"></div>
-	</div>
-	</div>
+    <div class="container">
+        <h3 class="wthree_text_info">What's <span>Trending</span></h3>
+
+        <div class="col-md-5 bb-grids bb-left-agileits-w3layouts">
+            <a data-toggle="modal" data-target="#discountModal" data-whatever="${discount[0].discount}">
+                <div class="bb-left-agileits-w3layouts-inner grid">
+                    <figure class="effect-roxy">
+                        <img src="assets/images/img1.jpg" alt=" " class="img-responsive" />
+                        <figcaption>
+                            <h3><span>S</span>ale </h3>
+                            <p>Upto ${discount[0].discount}%</p>
+                        </figcaption>			
+                    </figure>
+                </div>
+            </a>
+        </div>
+        <div class="col-md-7 bb-grids bb-middle-agileits-w3layouts">
+            <a data-toggle="modal" data-target="#discountModal" data-whatever="${discount[1].discount}">
+                <div class="bb-middle-agileits-w3layouts grid">
+                    <figure class="effect-roxy">
+                        <img src="assets/images/img2.jpg" alt=" " class="img-responsive" />
+                        <figcaption>
+                            <h3><span>S</span>ale </h3>
+                            <p>Upto ${discount[1].discount}%</p>
+                        </figcaption>			
+                    </figure>
+                </div>
+            </a>
+            <a data-toggle="modal" data-target="#discountModal" data-whatever="${discount[2].discount}">
+                <div class="bb-middle-agileits-w3layouts forth grid">
+                    <figure class="effect-roxy">
+                        <img src="assets/images/img3.jpg" alt=" " class="img-responsive">
+                        <figcaption>
+                            <h3><span>S</span>ale </h3>
+                            <p>Upto ${discount[2].discount}%</p>
+                        </figcaption>		
+                    </figure>
+                </div>
+            </a>
+            <div class="clearfix"></div>
+        </div>
     </div>
+</div>
 
 
 <!-- FEATURED PRODUCTS -->
@@ -142,20 +142,27 @@
         <div class="row">
             <h5 class="heading"><span>Featured Products</span></h5>
             <ul class="filter" data-option-key="filter">
-<!--                <li><a class="selected" href="#filter" data-option-value=".isotope_to_all">All</a></li>-->
-                    <c:forEach items="${braList}" var="bra" varStatus="no"> 
-                    <li>
-                        <a href="#" data-option-value=".${bra.braName}">${bra.braName}</a>
-                    </li>
-                    </c:forEach>
+                <!--                <li><a class="selected" href="#filter" data-option-value=".isotope_to_all">All</a></li>-->
+                <c:forEach items="${braList}" var="bra" varStatus="no">
+                    <c:if test="${bra.braID==1}">
+                        <li>
+                            <a href="#" data-option-value=".${bra.braName}" class="selected">${bra.braName}</a>
+                        </li>
+                    </c:if>
+                    <c:if test="${bra.braID!=1}">
+                        <li>
+                            <a href="#" data-option-value=".${bra.braName}">${bra.braName}</a>
+                        </li>
+                    </c:if>
+                </c:forEach>
             </ul>
             <div id="isotope" class="isotope">
                 <c:forEach items="${braList}" var="bra">
                     <c:forEach items="${bra.productListWorking}" var="product" begin="0" end="7" varStatus="no">
 
-                        <div class="isotope-item ${bra.braName} <c:if test="${no.index % 2 == 0}">isotope_to_all</c:if>">
-                                <div class="product-item">
-                                    <div class="item-thumb">
+                        <div class="isotope-item ${bra.braName}" data-sort="${bra.braID}">
+                            <div class="product-item">
+                                <div class="item-thumb">
                                     <c:if test="${product.productWithDiscount!=product.price}">
                                         <div class="badge offer">-${product.discountByProduct}%</div>
                                     </c:if>
@@ -293,12 +300,12 @@
         <div class="container">
             <div class="row">
                 <div class="col-md-12 col-sm-12">
-                    
+
                 </div>
             </div>
         </div>
     </div>
-    
+
     <!-- FOOTER WIDGETS -->
     <div class="f-widgets">
         <div class="container">
@@ -380,11 +387,12 @@
             </div>
         </div>
     </div>
-    
+
     <jsp:include page="../blocks/cart.jsp" flush="true"/>
 
     <!-- Modal -->
     <jsp:include page="../blocks/modal.jsp" flush="true"/>
+    <jsp:include page="../blocks/discountModal.jsp" flush="true"/>
     <!--Modal thong bao dang nhap-->
     <div id="fs-modal-mess" class="modal fade fs-modal-wl-mess" tabindex="-1" role="dialog" aria-labelledby="messlodalLabel" aria-hidden="true" data-backdrop="static" data-keyboard="false">
         <div class="modal-content fs-modal-wl-content">

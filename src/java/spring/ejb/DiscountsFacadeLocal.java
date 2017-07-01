@@ -29,5 +29,6 @@ public interface DiscountsFacadeLocal {
     List<Discounts> findRange(int[] range);
 
     int count();
+    List<Discounts> selectTop3Discount();
     
 }

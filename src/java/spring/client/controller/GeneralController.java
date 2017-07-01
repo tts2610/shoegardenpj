@@ -22,18 +22,22 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import spring.ejb.BrandsFacadeLocal;
 import spring.ejb.CategoriesFacadeLocal;
+import spring.ejb.DiscountsFacadeLocal;
 import spring.ejb.ProductsFacadeLocal;
 import spring.ejb.RatingFacadeLocal;
 import spring.ejb.UsersFacadeLocal;
 import spring.entity.Brands;
 
 import spring.entity.Categories;
+import spring.entity.Discounts;
 import spring.entity.Products;
 import spring.entity.Users;
 import spring.functions.SharedFunctions;
 
 @Controller
 public class GeneralController {
+
+    DiscountsFacadeLocal discountsFacade = lookupDiscountsFacadeLocal();
 
     RatingFacadeLocal ratingFacade = lookupRatingFacadeLocal();
 
@@ -44,6 +48,8 @@ public class GeneralController {
     CategoriesFacadeLocal categoriesFacade = lookupCategoriesFacadeLocal();
 
     ProductsFacadeLocal productsFacade = lookupProductsFacadeLocal();
+    
+    
     
     
 
@@ -75,7 +81,7 @@ public class GeneralController {
             newTopRateList.add(newObj);
         }
         
-        
+        List<Discounts> discount = discountsFacade.selectTop3Discount();
         
 
         model.addAttribute("braList", cateList);
@@ -83,6 +89,7 @@ public class GeneralController {
         model.addAttribute("bestSellerList", bestSellerList); //lấy sản phẩm bán chạy nhất
         model.addAttribute("mostViewList", mostViewList); //lấy sản phẩm xem nhiều nhất
         model.addAttribute("productTopRateList", newTopRateList); //lấy sản phẩm được rate nhiều nhất
+        model.addAttribute("discount", discount);
 //        model.addAttribute("blogListIndex", blogListIndex);
         return "client/pages/index";
     }
@@ -227,6 +234,16 @@ public class GeneralController {
         try {
             Context c = new InitialContext();
             return (RatingFacadeLocal) c.lookup("java:global/ShoeGardenPJ/RatingFacade!spring.ejb.RatingFacadeLocal");
+        } catch (NamingException ne) {
+            Logger.getLogger(getClass().getName()).log(Level.SEVERE, "exception caught", ne);
+            throw new RuntimeException(ne);
+        }
+    }
+
+    private DiscountsFacadeLocal lookupDiscountsFacadeLocal() {
+        try {
+            Context c = new InitialContext();
+            return (DiscountsFacadeLocal) c.lookup("java:global/ShoeGardenPJ/DiscountsFacade!spring.ejb.DiscountsFacadeLocal");
         } catch (NamingException ne) {
             Logger.getLogger(getClass().getName()).log(Level.SEVERE, "exception caught", ne);
             throw new RuntimeException(ne);
