@@ -59,8 +59,8 @@ public class LoginController {
         int error = usersFacade.login(email, sharedFunc.encodePassword(password));
         if (error == 1) {
             session.setAttribute("email", email);
-            int id = usersFacade.findUserByEmail(email).getUserID();
-            session.setAttribute("uid",id );         
+            int id = usersFacade.findUserByEmail(email).getRoleID().getRoleID();
+            session.setAttribute("rid",id );         
             if(remember != null && remember == 1){
                 Cookie ckEmail = new Cookie("emailA", email);
                 ckEmail.setMaxAge(24*60*60);

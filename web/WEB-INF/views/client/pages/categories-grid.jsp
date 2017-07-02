@@ -149,7 +149,7 @@
                 <div class="side-widget">
                     <c:if test="${productsList != null}">
                         <h5>Price Options ($)</h5>
-                        <div class="col-xs-12"  style="padding: 0">
+<!--                        <div class="col-xs-12"  style="padding: 0">
                             <div class="form-group col-xs-6" style="padding: 0; padding-right: 10px;">
                                 <label for="fs-price-from"><h5>From:</h5></label>
                                 <input type="number" fs-subCategory="${subCateID}" class="form-control fs-product-price-filter" id="fs-price-from">
@@ -158,10 +158,15 @@
                                 <label for="fs-price-to"><h5>To:</h5></label>
                                 <input type="number" class="form-control fs-product-price-filter" id="fs-price-to">
                             </div>
-                        </div>
+                        </div>-->
+                            <div id="slider">
+                                <input type="hidden" id="fs-price-from" fs-subCategory="${subCateID}">
+                                <input type="hidden" id="fs-price-to">
+                            </div>
                         <p style="color: red" id="fs-filter-price-error"></p>
                         <p>
                             <button type="button" id="fs-btn-filter-price" class="btn-black pull-left">Filter Now</button>
+                            <span class="fa fa-refresh refresh-btn" style="margin-top: 16px;margin-left: 5px;cursor: pointer;"></span>
                             <span class="pull-right fs-sc-range">
                                 <b> $<span fs-min-price="${minPrice}" id="fs-price-from-text">${minPrice}</span> - $<span fs-max-price="${maxPrice}" id="fs-price-to-text">${maxPrice}</span> </b>
                             </span>
