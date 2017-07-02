@@ -517,12 +517,12 @@ public class OrdersController{
         for (CartLineInfo cartLineInfo : orderStateFullBean.showCart()) {
             cart_info += "<li class=\"product\" fs-cartInfo=\""+orderStateFullBean.showCart().indexOf(cartLineInfo)+"\" >"
                 + "<div class=\"product-image\">"
-                + "<a href=\"#0\">"
+                + "<a href=\""+ cartLineInfo.getProduct().getProductID() + "-" + cartLineInfo.getProduct().getProductColorsList().get(0).getColorID() + ".html\">"
                 + "<img src=\"assets/images/products/"+cartLineInfo.getProduct().getUrlImg()+"\" alt=\""+cartLineInfo.getProduct().getProductName()+"\">"
                 + "</a>"
                 + "</div>"
                 + "<div class=\"product-details\">"
-                + "<h3><a href=\""+ cartLineInfo.getProduct().getProductID() + "-" + cartLineInfo.getProduct().getProductColorsList().get(0).getColorID() + ".html\"></a>"+cartLineInfo.getProduct().getProductName()+"</h3>"
+                + "<h3><a href=\""+ cartLineInfo.getProduct().getProductID() + "-" + cartLineInfo.getProduct().getProductColorsList().get(0).getColorID() + ".html\">"+cartLineInfo.getProduct().getProductName()+"</a></h3>"
                 + "<div class=\"actions\"><a href=\"#0\" style=\"margin-left:13px;margin-right:0px;\" class=\"delete-item\">Delete</a>";
             if(cartLineInfo.getProduct().getDiscountByProduct()==0)
                 cart_info += "<span style=\"color:#1a5996;\" class=\"price\">$"+String.format("%.2f", cartLineInfo.getProduct().getPrice())+"</span>";
