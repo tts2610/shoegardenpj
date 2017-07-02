@@ -1,33 +1,33 @@
 $(document).ready(function () {
-    
+
     var minPrice = $("#fs-shop-content , #fs-shop-content-sub-category").find("#fs-price-from-text").text();
     var maxPrice = $("#fs-shop-content , #fs-shop-content-sub-category").find("#fs-price-to-text").text();
-    
-    
+
+
     $("#fs-shop-content #slider , #fs-shop-content-sub-category #slider ").rangeSlider({
         bounds: {min: Number(minPrice), max: Number(maxPrice)},
-        formatter:function(val){
-        var value = Math.round(val * 100) / 100,
-          decimal = value - Math.round(val);
-        return decimal == 0 ? value.toString() + ".0" : value.toString();
-      },
-      defaultValues:{min: Number(minPrice), max: Number(maxPrice)}
+        formatter: function (val) {
+            var value = Math.round(val * 100) / 100,
+                    decimal = value - Math.round(val);
+            return decimal == 0 ? value.toString() + ".0" : value.toString();
+        },
+        defaultValues: {min: Number(minPrice), max: Number(maxPrice)}
     });
-    
+
     var fromPrice;
     var toPrice;
-    
-    $("#fs-shop-content #slider , #fs-shop-content-sub-category #slider").bind("valuesChanging", function(e, data){
+
+    $("#fs-shop-content #slider , #fs-shop-content-sub-category #slider").bind("valuesChanging", function (e, data) {
         fromPrice = data.values.min;
         toPrice = data.values.max;
         $(this).find("#fs-price-from").val(fromPrice)
         $(this).find("#fs-price-to").val(toPrice);
     });
-    
+
     //REFRESH BUTTON
     $("#fs-shop-content .refresh-btn").click(function () {
-         
-         $("#fs-shop-content #slider").rangeSlider("values", minPrice, maxPrice);
+
+        $("#fs-shop-content #slider").rangeSlider("values", minPrice, maxPrice);
         $(this).attr("fs-filter", "yes");
         var page = 1;
         var fromPrice = minPrice
@@ -36,363 +36,363 @@ $(document).ready(function () {
         var sortBy = $("#fs-sort-product-by").val(); //1: Newest; 2: Low to High Price; 3: High to Low Price
         var itemPerPage = $("#fs-number-of-item-on-page").val();
 
-        
-
-       if (fromPrice != "") {
-                $("#fs-price-from-text").text(Math.round(fromPrice * 100) / 100);
-            }
-
-            if (toPrice != "") {
-                $("#fs-price-to-text").text(Math.round(toPrice * 100) / 100);
-            }
 
 
-        
-            
-            $("#fs-filter-price-error").text("");
-            $.ajax({
-                url: "ajax/getNumberOfProductsByFilter_OfACategory.html",
-                method: "POST",
-                data: {
-                    cateID: cateID,
-                    fromPrice: fromPrice,
-                    toPrice: toPrice,
-                    colorFilterArr: colorFilterArr,
-                    sizeFilterArr: sizeFilterArr
-                },
-                success: function (numberOfProducts) {
+        if (fromPrice != "") {
+            $("#fs-price-from-text").text(Math.round(fromPrice * 100) / 100);
+        }
 
-                    $.ajax({
-                        url: "ajax/productPagination.html",
-                        method: "POST",
-                        data: {
-                            cateID: cateID,
-                            page: page,
-                            itemPerPage: itemPerPage,
-                            sortBy: sortBy,
-                            fromPrice: fromPrice,
-                            toPrice: toPrice,
-                            colorFilterArr: colorFilterArr,
-                            sizeFilterArr: sizeFilterArr
-                        },
-                        dataType: 'JSON',
-                        beforeSend: function () {
-                            $("#fs-ajax-loading").css("display", "block");
-                        },
-                        success: function (response) {
-                            setTimeout(function () {
-                                $("#fs-ajax-loading").css("display", "none");
-                                if (response.length == 0) {
-                                    $("#fs-change-data-here").html("<div class='col-xs-12'><h1>Nothing To Show!</h1></div>");
-                                    //change productPageInfo
-                                    var from = 0;
-                                    var to = 0;
-                                    var currentProductPageInfo = from + " - " + to;
-                                    $(".fs-change-currentProductPageInfo").text(currentProductPageInfo);
-                                    $(".fs-number-of-products").text(numberOfProducts);
-                                } else {
-                                    //Tổng số sản phẩm
-                                    var numberOfPages = Math.ceil(parseInt(numberOfProducts) / itemPerPage);
+        if (toPrice != "") {
+            $("#fs-price-to-text").text(Math.round(toPrice * 100) / 100);
+        }
 
-                                    //Change pagination
-                                    var pagination = "<li><span class=\"fs-page-number fs-page-number-active\" fs-page-number=\"1\" fs-category=\"" + cateID + "\">1</span></li>";
-                                    if (numberOfPages > 1) {
-                                        for (var i = 2; i <= numberOfPages; i++) {
-                                            pagination += "<li><span class=\"fs-page-number\" fs-page-number=\"" + i + "\" fs-category=\"" + cateID + "\">" + i + "</span></li>";
-                                        }
+
+
+
+        $("#fs-filter-price-error").text("");
+        $.ajax({
+            url: "ajax/getNumberOfProductsByFilter_OfACategory.html",
+            method: "POST",
+            data: {
+                cateID: cateID,
+                fromPrice: fromPrice,
+                toPrice: toPrice,
+                colorFilterArr: colorFilterArr,
+                sizeFilterArr: sizeFilterArr
+            },
+            success: function (numberOfProducts) {
+
+                $.ajax({
+                    url: "ajax/productPagination.html",
+                    method: "POST",
+                    data: {
+                        cateID: cateID,
+                        page: page,
+                        itemPerPage: itemPerPage,
+                        sortBy: sortBy,
+                        fromPrice: fromPrice,
+                        toPrice: toPrice,
+                        colorFilterArr: colorFilterArr,
+                        sizeFilterArr: sizeFilterArr
+                    },
+                    dataType: 'JSON',
+                    beforeSend: function () {
+                        $("#fs-ajax-loading").css("display", "block");
+                    },
+                    success: function (response) {
+                        setTimeout(function () {
+                            $("#fs-ajax-loading").css("display", "none");
+                            if (response.length == 0) {
+                                $("#fs-change-data-here").html("<div class='col-xs-12'><h1>Nothing To Show!</h1></div>");
+                                //change productPageInfo
+                                var from = 0;
+                                var to = 0;
+                                var currentProductPageInfo = from + " - " + to;
+                                $(".fs-change-currentProductPageInfo").text(currentProductPageInfo);
+                                $(".fs-number-of-products").text(numberOfProducts);
+                            } else {
+                                //Tổng số sản phẩm
+                                var numberOfPages = Math.ceil(parseInt(numberOfProducts) / itemPerPage);
+
+                                //Change pagination
+                                var pagination = "<li><span class=\"fs-page-number fs-page-number-active\" fs-page-number=\"1\" fs-category=\"" + cateID + "\">1</span></li>";
+                                if (numberOfPages > 1) {
+                                    for (var i = 2; i <= numberOfPages; i++) {
+                                        pagination += "<li><span class=\"fs-page-number\" fs-page-number=\"" + i + "\" fs-category=\"" + cateID + "\">" + i + "</span></li>";
                                     }
-
-                                    $(".fs-ul-page-nav").html(pagination);
-
-                                    //change productPageInfo
-                                    var from = (page - 1) * itemPerPage + 1;
-                                    var to = (page - 1) * itemPerPage + parseInt(itemPerPage);
-                                    if (to > parseInt(numberOfProducts)) {
-                                        to = parseInt(numberOfProducts);
-                                    }
-                                    var currentProductPageInfo = from + " - " + to;
-                                    $(".fs-change-currentProductPageInfo").text(currentProductPageInfo);
-                                    $(".fs-number-of-products").text(numberOfProducts);
-
-                                    //Change product content
-                                    var result = "";
-                                    $.each(response, function (i, prod) {
-                                        var renderColor = "";
-                                        if (prod.productColorListWorking.length > 1) {
-                                            $.each(prod.productColorListWorking, function (j, color) {
-                                                renderColor += "<img src=\"assets/images/products/colors/" + color.urlColorImg + "\" \n" +
-                                                        "              class=\"img-responsive fs-index-color-img\" \n" +
-                                                        "              fs-index-color-img=\"" + color.colorID + "\" \n" +
-                                                        "              fs-product=\"" + prod.productID + "\" \n" +
-                                                        "              alt=\"" + color.urlColorImg + "\" \n" +
-                                                        "              title=\"" + color.color + "\"/>";
-                                            });
-                                        }
-
-                                        if (prod.productWithDiscount == prod.price) {
-
-                                            result += "<div class=\"col-md-4 col-sm-6\">\n" +
-                                                    "     <div class=\"product-item\">\n" +
-                                                    "          <div class=\"item-thumb\">\n" +
-                                                    "               <img src=\"assets/images/products/" + prod.urlImg + "\" \n" +
-                                                    "                    class=\"img-responsive\" \n" +
-                                                    "                    alt=\"" + prod.urlImg + "\"\n" +
-                                                    "                    fs-product-for-img=\"" + prod.productID + "\"/>\n" +
-                                                    "                <div class=\"overlay-rmore fa fa-search quickview fs-product-modal\" \n" +
-                                                    "                     data-toggle=\"modal\" \n" +
-                                                    "                     fs-product=\"" + prod.productID + "\" \n" +
-                                                    "                     fs-product-modal-color=\"" + prod.productColorListWorking[0].colorID + "\">\n" +
-                                                    "                </div>\n" +
-                                                    "                <div class=\"product-overlay\">\n" +
-                                                    "                     <a href=\"#\" class=\"addcart fa fa-shopping-cart\"></a>\n" +
-                                                    "<a href=\"#\" class=\"compare fa fa-signal\"></a>" +
-                                                    "                     <a href=\"#\" class=\"likeitem fa fa-heart-o\"></a>\n" +
-                                                    "                </div>\n" +
-                                                    "          </div>\n" +
-                                                    "      <div class=\"product-info\">\n" +
-                                                    "          <h4 class=\"product-title\">\n" +
-                                                    "              <a href=\"" + prod.productID + "-" + prod.productColorListWorking[0].colorID + ".html\">\n" +
-                                                    "                 " + prod.productName + "\n" +
-                                                    "              </a>\n" +
-                                                    "          </h4>\n" +
-                                                    "          <span class=\"product-price\">$" + prod.price + ".00</span>\n" +
-                                                    "          <div class=\"item-colors\" style=\"height: 25px;\">\n" +
-                                                    renderColor +
-                                                    "          </div>\n" +
-                                                    "      </div>\n" +
-                                                    "    </div>\n" +
-                                                    "</div>";
-                                        } else {
-                                            result += "<div class=\"col-md-4 col-sm-6\">\n" +
-                                                    "     <div class=\"product-item\">\n" +
-                                                    "          <div class=\"item-thumb\">\n" +
-                                                    "               <span class=\"badge offer\">-" + prod.discountByProduct + "%</span>\n" +
-                                                    "               <img src=\"assets/images/products/" + prod.urlImg + "\" \n" +
-                                                    "                    class=\"img-responsive\" \n" +
-                                                    "                    alt=\"" + prod.urlImg + "\"\n" +
-                                                    "                    fs-product-for-img=\"" + prod.productID + "\"/>\n" +
-                                                    "                <div class=\"overlay-rmore fa fa-search quickview fs-product-modal\" \n" +
-                                                    "                     data-toggle=\"modal\" \n" +
-                                                    "                     fs-product=\"" + prod.productID + "\" \n" +
-                                                    "                     fs-product-modal-color=\"" + prod.productColorListWorking[0].colorID + "\">\n" +
-                                                    "                </div>\n" +
-                                                    "                <div class=\"product-overlay\">\n" +
-                                                    "                     <a href=\"#\" class=\"addcart fa fa-shopping-cart\"></a>\n" +
-                                                    "                     <a href=\"#\" class=\"compare fa fa-signal\"></a>" +
-                                                    "                     <a href=\"#\" class=\"likeitem fa fa-heart-o\"></a>\n" +
-                                                    "                </div>\n" +
-                                                    "          </div>\n" +
-                                                    "      <div class=\"product-info\">\n" +
-                                                    "          <h4 class=\"product-title\">\n" +
-                                                    "              <a href=\"" + prod.productID + "-" + prod.productColorListWorking[0].colorID +  ".html\">\n" +
-                                                    "                 " + prod.productName + "\n" +
-                                                    "              </a>\n" +
-                                                    "          </h4>\n" +
-                                                    "          <span class=\"product-price\">\n" +
-                                                    "               <small class=\"cutprice\">$ " + prod.price + ".00 </small>  $ " + ((prod.productWithDiscount)).toFixed(2) +
-                                                    "          </span>\n" +
-                                                    "          <div class=\"item-colors\" style=\"height: 25px;\">\n" +
-                                                    renderColor +
-                                                    "          </div>\n" +
-                                                    "      </div>\n" +
-                                                    "    </div>\n" +
-                                                    "</div>";
-                                        }
-                                    });
-                                    $("#fs-change-data-here").html(result);
-
-                                    $("#fs-price-from").val("");
-                                    $("#fs-price-to").val("");
                                 }
-                            }, 400);
-                        }
-                    });
-                }
 
-            });
+                                $(".fs-ul-page-nav").html(pagination);
 
-        
-    
+                                //change productPageInfo
+                                var from = (page - 1) * itemPerPage + 1;
+                                var to = (page - 1) * itemPerPage + parseInt(itemPerPage);
+                                if (to > parseInt(numberOfProducts)) {
+                                    to = parseInt(numberOfProducts);
+                                }
+                                var currentProductPageInfo = from + " - " + to;
+                                $(".fs-change-currentProductPageInfo").text(currentProductPageInfo);
+                                $(".fs-number-of-products").text(numberOfProducts);
+
+                                //Change product content
+                                var result = "";
+                                $.each(response, function (i, prod) {
+                                    var renderColor = "";
+                                    if (prod.productColorListWorking.length > 1) {
+                                        $.each(prod.productColorListWorking, function (j, color) {
+                                            renderColor += "<img src=\"assets/images/products/colors/" + color.urlColorImg + "\" \n" +
+                                                    "              class=\"img-responsive fs-index-color-img\" \n" +
+                                                    "              fs-index-color-img=\"" + color.colorID + "\" \n" +
+                                                    "              fs-product=\"" + prod.productID + "\" \n" +
+                                                    "              alt=\"" + color.urlColorImg + "\" \n" +
+                                                    "              title=\"" + color.color + "\"/>";
+                                        });
+                                    }
+
+                                    if (prod.productWithDiscount == prod.price) {
+
+                                        result += "<div class=\"col-md-4 col-sm-6\">\n" +
+                                                "     <div class=\"product-item\">\n" +
+                                                "          <div class=\"item-thumb\">\n" +
+                                                "               <img src=\"assets/images/products/" + prod.urlImg + "\" \n" +
+                                                "                    class=\"img-responsive\" \n" +
+                                                "                    alt=\"" + prod.urlImg + "\"\n" +
+                                                "                    fs-product-for-img=\"" + prod.productID + "\"/>\n" +
+                                                "                <div class=\"overlay-rmore fa fa-search quickview fs-product-modal\" \n" +
+                                                "                     data-toggle=\"modal\" \n" +
+                                                "                     fs-product=\"" + prod.productID + "\" \n" +
+                                                "                     fs-product-modal-color=\"" + prod.productColorListWorking[0].colorID + "\">\n" +
+                                                "                </div>\n" +
+                                                "                <div class=\"product-overlay\">\n" +
+                                                "                     <a href=\"#\" class=\"addcart fa fa-shopping-cart\"></a>\n" +
+                                                "<a href=\"#\" class=\"compare fa fa-signal\"></a>" +
+                                                "                     <a href=\"#\" class=\"likeitem fa fa-heart-o\"></a>\n" +
+                                                "                </div>\n" +
+                                                "          </div>\n" +
+                                                "      <div class=\"product-info\">\n" +
+                                                "          <h4 class=\"product-title\">\n" +
+                                                "              <a href=\"" + prod.productID + "-" + prod.productColorListWorking[0].colorID + ".html\">\n" +
+                                                "                 " + prod.productName + "\n" +
+                                                "              </a>\n" +
+                                                "          </h4>\n" +
+                                                "          <span class=\"product-price\">$" + prod.price + ".00</span>\n" +
+                                                "          <div class=\"item-colors\" style=\"height: 25px;\">\n" +
+                                                renderColor +
+                                                "          </div>\n" +
+                                                "      </div>\n" +
+                                                "    </div>\n" +
+                                                "</div>";
+                                    } else {
+                                        result += "<div class=\"col-md-4 col-sm-6\">\n" +
+                                                "     <div class=\"product-item\">\n" +
+                                                "          <div class=\"item-thumb\">\n" +
+                                                "               <span class=\"badge offer\">-" + prod.discountByProduct + "%</span>\n" +
+                                                "               <img src=\"assets/images/products/" + prod.urlImg + "\" \n" +
+                                                "                    class=\"img-responsive\" \n" +
+                                                "                    alt=\"" + prod.urlImg + "\"\n" +
+                                                "                    fs-product-for-img=\"" + prod.productID + "\"/>\n" +
+                                                "                <div class=\"overlay-rmore fa fa-search quickview fs-product-modal\" \n" +
+                                                "                     data-toggle=\"modal\" \n" +
+                                                "                     fs-product=\"" + prod.productID + "\" \n" +
+                                                "                     fs-product-modal-color=\"" + prod.productColorListWorking[0].colorID + "\">\n" +
+                                                "                </div>\n" +
+                                                "                <div class=\"product-overlay\">\n" +
+                                                "                     <a href=\"#\" class=\"addcart fa fa-shopping-cart\"></a>\n" +
+                                                "                     <a href=\"#\" class=\"compare fa fa-signal\"></a>" +
+                                                "                     <a href=\"#\" class=\"likeitem fa fa-heart-o\"></a>\n" +
+                                                "                </div>\n" +
+                                                "          </div>\n" +
+                                                "      <div class=\"product-info\">\n" +
+                                                "          <h4 class=\"product-title\">\n" +
+                                                "              <a href=\"" + prod.productID + "-" + prod.productColorListWorking[0].colorID + ".html\">\n" +
+                                                "                 " + prod.productName + "\n" +
+                                                "              </a>\n" +
+                                                "          </h4>\n" +
+                                                "          <span class=\"product-price\">\n" +
+                                                "               <small class=\"cutprice\">$ " + prod.price + ".00 </small>  $ " + ((prod.productWithDiscount)).toFixed(2) +
+                                                "          </span>\n" +
+                                                "          <div class=\"item-colors\" style=\"height: 25px;\">\n" +
+                                                renderColor +
+                                                "          </div>\n" +
+                                                "      </div>\n" +
+                                                "    </div>\n" +
+                                                "</div>";
+                                    }
+                                });
+                                $("#fs-change-data-here").html(result);
+
+                                $("#fs-price-from").val("");
+                                $("#fs-price-to").val("");
+                            }
+                        }, 400);
+                    }
+                });
+            }
+
+        });
+
+
+
     });
-    
-    $("#fs-shop-content-sub-category .refresh-btn").click(function(){
+
+    $("#fs-shop-content-sub-category .refresh-btn").click(function () {
         $("#fs-shop-content-sub-category #slider").rangeSlider("values", minPrice, maxPrice);
-    $(this).attr("fs-filter", "yes");
+        $(this).attr("fs-filter", "yes");
         var page = 1;
         var fromPrice = minPrice
         var toPrice = maxPrice
         var subCateID = $("#fs-shop-content-sub-category").find("#slider #fs-price-from").attr("fs-subCategory");
         var sortBy = $("#fs-sort-product-by").val(); //1: Newest; 2: Low to High Price; 3: High to Low Price
         var itemPerPage = $("#fs-number-of-item-on-page").val();
-        
 
-        
-            if (fromPrice != "") {
-                $("#fs-price-from-text").text(Math.round(fromPrice * 100) / 100);
-            }
 
-            if (toPrice != "") {
-                $("#fs-price-to-text").text(Math.round(toPrice * 100) / 100);
-            }
-            $("#fs-filter-price-error").text("");
-            $.ajax({
-                url: "ajax/getNumberOfProductsByFilter_OfASubCategory.html",
-                method: "POST",
-                data: {
-                    subCateID: subCateID,
-                    fromPrice: fromPrice,
-                    toPrice: toPrice,
-                    colorFilterArrSubCate: colorFilterArrSubCate,
-                    sizeFilterArrSubCate: sizeFilterArrSubCate
-                },
-                success: function (numberOfProducts) {
-                    $.ajax({
-                        url: "ajax/productPaginationForSubCate.html",
-                        method: "POST",
-                        data: {
-                            subCateID: subCateID,
-                            page: page,
-                            itemPerPage: itemPerPage,
-                            sortBy: sortBy,
-                            fromPrice: fromPrice,
-                            toPrice: toPrice,
-                            colorFilterArrSubCate: colorFilterArrSubCate,
-                            sizeFilterArrSubCate: sizeFilterArrSubCate
-                        },
-                        dataType: 'JSON',
-                        beforeSend: function () {
-                            $("#fs-ajax-loading").css("display", "block");
-                        },
-                        success: function (response) {
-                            setTimeout(function () {
-                                $("#fs-ajax-loading").css("display", "none");
-                                if (response.length == 0) {
-                                    $("#fs-change-data-here").html("<div class='col-xs-12'><h1>Nothing To Show!</h1></div>");
-                                    //change productPageInfo
-                                    var from = 0;
-                                    var to = 0;
 
-                                    var currentProductPageInfo = from + " - " + to;
-                                    $(".fs-change-currentProductPageInfo").text(currentProductPageInfo);
-                                    $(".fs-number-of-products").text(numberOfProducts);
-                                } else {
-                                    //Tổng số sản phẩm
-                                    var numberOfPages = Math.ceil(parseInt(numberOfProducts) / itemPerPage);
-                                    //Change pagination
-                                    var pagination = "<li><span class=\"fs-page-number fs-page-number-active\" fs-page-number=\"1\" fs-subCategory=\"" + subCateID + "\">1</span></li>";
-                                    if (numberOfPages > 1) {
-                                        for (var i = 2; i <= numberOfPages; i++) {
-                                            pagination += "<li><span class=\"fs-page-number\" fs-page-number=\"" + i + "\" fs-subCategory=\"" + subCateID + "\">" + i + "</span></li>";
-                                        }
+        if (fromPrice != "") {
+            $("#fs-price-from-text").text(Math.round(fromPrice * 100) / 100);
+        }
+
+        if (toPrice != "") {
+            $("#fs-price-to-text").text(Math.round(toPrice * 100) / 100);
+        }
+        $("#fs-filter-price-error").text("");
+        $.ajax({
+            url: "ajax/getNumberOfProductsByFilter_OfASubCategory.html",
+            method: "POST",
+            data: {
+                subCateID: subCateID,
+                fromPrice: fromPrice,
+                toPrice: toPrice,
+                colorFilterArrSubCate: colorFilterArrSubCate,
+                sizeFilterArrSubCate: sizeFilterArrSubCate
+            },
+            success: function (numberOfProducts) {
+                $.ajax({
+                    url: "ajax/productPaginationForSubCate.html",
+                    method: "POST",
+                    data: {
+                        subCateID: subCateID,
+                        page: page,
+                        itemPerPage: itemPerPage,
+                        sortBy: sortBy,
+                        fromPrice: fromPrice,
+                        toPrice: toPrice,
+                        colorFilterArrSubCate: colorFilterArrSubCate,
+                        sizeFilterArrSubCate: sizeFilterArrSubCate
+                    },
+                    dataType: 'JSON',
+                    beforeSend: function () {
+                        $("#fs-ajax-loading").css("display", "block");
+                    },
+                    success: function (response) {
+                        setTimeout(function () {
+                            $("#fs-ajax-loading").css("display", "none");
+                            if (response.length == 0) {
+                                $("#fs-change-data-here").html("<div class='col-xs-12'><h1>Nothing To Show!</h1></div>");
+                                //change productPageInfo
+                                var from = 0;
+                                var to = 0;
+
+                                var currentProductPageInfo = from + " - " + to;
+                                $(".fs-change-currentProductPageInfo").text(currentProductPageInfo);
+                                $(".fs-number-of-products").text(numberOfProducts);
+                            } else {
+                                //Tổng số sản phẩm
+                                var numberOfPages = Math.ceil(parseInt(numberOfProducts) / itemPerPage);
+                                //Change pagination
+                                var pagination = "<li><span class=\"fs-page-number fs-page-number-active\" fs-page-number=\"1\" fs-subCategory=\"" + subCateID + "\">1</span></li>";
+                                if (numberOfPages > 1) {
+                                    for (var i = 2; i <= numberOfPages; i++) {
+                                        pagination += "<li><span class=\"fs-page-number\" fs-page-number=\"" + i + "\" fs-subCategory=\"" + subCateID + "\">" + i + "</span></li>";
                                     }
-
-                                    $(".fs-ul-page-nav").html(pagination);
-                                    //change productPageInfo
-                                    var from = (page - 1) * itemPerPage + 1;
-                                    var to = (page - 1) * itemPerPage + parseInt(itemPerPage);
-                                    if (to > parseInt(numberOfProducts)) {
-                                        to = parseInt(numberOfProducts);
-                                    }
-                                    var currentProductPageInfo = from + " - " + to;
-                                    $(".fs-change-currentProductPageInfo").text(currentProductPageInfo);
-                                    $(".fs-number-of-products").text(numberOfProducts);
-                                    //Change product content
-                                    var result = "";
-                                    $.each(response, function (i, prod) {
-                                        var renderColor = "";
-                                        if (prod.productColorListWorking.length > 1) {
-                                            $.each(prod.productColorListWorking, function (j, color) {
-                                                renderColor += "<img src=\"assets/images/products/colors/" + color.urlColorImg + "\" \n" +
-                                                        "              class=\"img-responsive fs-index-color-img\" \n" +
-                                                        "              fs-index-color-img=\"" + color.colorID + "\" \n" +
-                                                        "              fs-product=\"" + prod.productID + "\" \n" +
-                                                        "              alt=\"" + color.urlColorImg + "\" \n" +
-                                                        "              title=\"" + color.color + "\"/>";
-                                            });
-                                        }
-
-                                        if (prod.productWithDiscount == prod.price) {
-                                            result += "<div class=\"col-md-4 col-sm-6\">\n" +
-                                                    "     <div class=\"product-item\">\n" +
-                                                    "          <div class=\"item-thumb\">\n" +
-                                                    "               <img src=\"assets/images/products/" + prod.urlImg + "\" \n" +
-                                                    "                    class=\"img-responsive\" \n" +
-                                                    "                    alt=\"" + prod.urlImg + "\"\n" +
-                                                    "                    fs-product-for-img=\"" + prod.productID + "\"/>\n" +
-                                                    "                <div class=\"overlay-rmore fa fa-search quickview fs-product-modal\" \n" +
-                                                    "                     data-toggle=\"modal\" \n" +
-                                                    "                     fs-product=\"" + prod.productID + "\" \n" +
-                                                    "                     fs-product-modal-color=\"" + prod.productColorListWorking[0].colorID + "\">\n" +
-                                                    "                </div>\n" +
-                                                    "                <div class=\"product-overlay\">\n" +
-                                                    "                     <a href=\"#\" class=\"addcart fa fa-shopping-cart\"></a>\n" +
-                                                    "<a href=\"#\" class=\"compare fa fa-signal\"></a>" +
-                                                    "                     <a href=\"#\" class=\"likeitem fa fa-heart-o\"></a>\n" +
-                                                    "                </div>\n" +
-                                                    "          </div>\n" +
-                                                    "      <div class=\"product-info\">\n" +
-                                                    "          <h4 class=\"product-title\">\n" +
-                                                    "              <a href=\"" + prod.productID + "-" + prod.productColorListWorking[0].colorID  + ".html\">\n" +
-                                                    "                 " + prod.productName + "\n" +
-                                                    "              </a>\n" +
-                                                    "          </h4>\n" +
-                                                    "          <span class=\"product-price\">$" + prod.price + ".00</span>\n" +
-                                                    "          <div class=\"item-colors\" style=\"height: 25px;\">\n" +
-                                                    renderColor +
-                                                    "          </div>\n" +
-                                                    "      </div>\n" +
-                                                    "    </div>\n" +
-                                                    "</div>";
-                                        } else {
-                                            result += "<div class=\"col-md-4 col-sm-6\">\n" +
-                                                    "     <div class=\"product-item\">\n" +
-                                                    "          <div class=\"item-thumb\">\n" +
-                                                    "               <span class=\"badge offer\">-" + prod.discountByProduct + "%</span>\n" +
-                                                    "               <img src=\"assets/images/products/" + prod.urlImg + "\" \n" +
-                                                    "                    class=\"img-responsive\" \n" +
-                                                    "                    alt=\"" + prod.urlImg + "\"\n" +
-                                                    "                    fs-product-for-img=\"" + prod.productID + "\"/>\n" +
-                                                    "                <div class=\"overlay-rmore fa fa-search quickview fs-product-modal\" \n" +
-                                                    "                     data-toggle=\"modal\" \n" +
-                                                    "                     fs-product=\"" + prod.productID + "\" \n" +
-                                                    "                     fs-product-modal-color=\"" + prod.productColorListWorking[0].colorID + "\">\n" +
-                                                    "                </div>\n" +
-                                                    "                <div class=\"product-overlay\">\n" +
-                                                    "                     <a href=\"#\" class=\"addcart fa fa-shopping-cart\"></a>\n" +
-                                                    "<a href=\"#\" class=\"compare fa fa-signal\"></a>" +
-                                                    "                     <a href=\"#\" class=\"likeitem fa fa-heart-o\"></a>\n" +
-                                                    "                </div>\n" +
-                                                    "          </div>\n" +
-                                                    "      <div class=\"product-info\">\n" +
-                                                    "          <h4 class=\"product-title\">\n" +
-                                                    "              <a href=\"" + prod.productID + "-" + prod.productColorListWorking[0].colorID  + ".html\">\n" +
-                                                    "                 " + prod.productName + "\n" +
-                                                    "              </a>\n" +
-                                                    "          </h4>\n" +
-                                                    "          <span class=\"product-price\">\n" +
-                                                    "               <small class=\"cutprice\">$ " + prod.price + ".00 </small>  $ " + ((prod.productWithDiscount)).toFixed(2) +
-                                                    "          </span>\n" +
-                                                    "          <div class=\"item-colors\" style=\"height: 25px;\">\n" +
-                                                    renderColor +
-                                                    "          </div>\n" +
-                                                    "      </div>\n" +
-                                                    "    </div>\n" +
-                                                    "</div>";
-                                        }
-                                    });
-                                    $("#fs-change-data-here").html(result);
-                                    $("#fs-price-from").val("");
-                                    $("#fs-price-to").val("");
                                 }
-                            }, 400);
-                        }
-                    });
-                }
 
-            });
+                                $(".fs-ul-page-nav").html(pagination);
+                                //change productPageInfo
+                                var from = (page - 1) * itemPerPage + 1;
+                                var to = (page - 1) * itemPerPage + parseInt(itemPerPage);
+                                if (to > parseInt(numberOfProducts)) {
+                                    to = parseInt(numberOfProducts);
+                                }
+                                var currentProductPageInfo = from + " - " + to;
+                                $(".fs-change-currentProductPageInfo").text(currentProductPageInfo);
+                                $(".fs-number-of-products").text(numberOfProducts);
+                                //Change product content
+                                var result = "";
+                                $.each(response, function (i, prod) {
+                                    var renderColor = "";
+                                    if (prod.productColorListWorking.length > 1) {
+                                        $.each(prod.productColorListWorking, function (j, color) {
+                                            renderColor += "<img src=\"assets/images/products/colors/" + color.urlColorImg + "\" \n" +
+                                                    "              class=\"img-responsive fs-index-color-img\" \n" +
+                                                    "              fs-index-color-img=\"" + color.colorID + "\" \n" +
+                                                    "              fs-product=\"" + prod.productID + "\" \n" +
+                                                    "              alt=\"" + color.urlColorImg + "\" \n" +
+                                                    "              title=\"" + color.color + "\"/>";
+                                        });
+                                    }
+
+                                    if (prod.productWithDiscount == prod.price) {
+                                        result += "<div class=\"col-md-4 col-sm-6\">\n" +
+                                                "     <div class=\"product-item\">\n" +
+                                                "          <div class=\"item-thumb\">\n" +
+                                                "               <img src=\"assets/images/products/" + prod.urlImg + "\" \n" +
+                                                "                    class=\"img-responsive\" \n" +
+                                                "                    alt=\"" + prod.urlImg + "\"\n" +
+                                                "                    fs-product-for-img=\"" + prod.productID + "\"/>\n" +
+                                                "                <div class=\"overlay-rmore fa fa-search quickview fs-product-modal\" \n" +
+                                                "                     data-toggle=\"modal\" \n" +
+                                                "                     fs-product=\"" + prod.productID + "\" \n" +
+                                                "                     fs-product-modal-color=\"" + prod.productColorListWorking[0].colorID + "\">\n" +
+                                                "                </div>\n" +
+                                                "                <div class=\"product-overlay\">\n" +
+                                                "                     <a href=\"#\" class=\"addcart fa fa-shopping-cart\"></a>\n" +
+                                                "<a href=\"#\" class=\"compare fa fa-signal\"></a>" +
+                                                "                     <a href=\"#\" class=\"likeitem fa fa-heart-o\"></a>\n" +
+                                                "                </div>\n" +
+                                                "          </div>\n" +
+                                                "      <div class=\"product-info\">\n" +
+                                                "          <h4 class=\"product-title\">\n" +
+                                                "              <a href=\"" + prod.productID + "-" + prod.productColorListWorking[0].colorID + ".html\">\n" +
+                                                "                 " + prod.productName + "\n" +
+                                                "              </a>\n" +
+                                                "          </h4>\n" +
+                                                "          <span class=\"product-price\">$" + prod.price + ".00</span>\n" +
+                                                "          <div class=\"item-colors\" style=\"height: 25px;\">\n" +
+                                                renderColor +
+                                                "          </div>\n" +
+                                                "      </div>\n" +
+                                                "    </div>\n" +
+                                                "</div>";
+                                    } else {
+                                        result += "<div class=\"col-md-4 col-sm-6\">\n" +
+                                                "     <div class=\"product-item\">\n" +
+                                                "          <div class=\"item-thumb\">\n" +
+                                                "               <span class=\"badge offer\">-" + prod.discountByProduct + "%</span>\n" +
+                                                "               <img src=\"assets/images/products/" + prod.urlImg + "\" \n" +
+                                                "                    class=\"img-responsive\" \n" +
+                                                "                    alt=\"" + prod.urlImg + "\"\n" +
+                                                "                    fs-product-for-img=\"" + prod.productID + "\"/>\n" +
+                                                "                <div class=\"overlay-rmore fa fa-search quickview fs-product-modal\" \n" +
+                                                "                     data-toggle=\"modal\" \n" +
+                                                "                     fs-product=\"" + prod.productID + "\" \n" +
+                                                "                     fs-product-modal-color=\"" + prod.productColorListWorking[0].colorID + "\">\n" +
+                                                "                </div>\n" +
+                                                "                <div class=\"product-overlay\">\n" +
+                                                "                     <a href=\"#\" class=\"addcart fa fa-shopping-cart\"></a>\n" +
+                                                "<a href=\"#\" class=\"compare fa fa-signal\"></a>" +
+                                                "                     <a href=\"#\" class=\"likeitem fa fa-heart-o\"></a>\n" +
+                                                "                </div>\n" +
+                                                "          </div>\n" +
+                                                "      <div class=\"product-info\">\n" +
+                                                "          <h4 class=\"product-title\">\n" +
+                                                "              <a href=\"" + prod.productID + "-" + prod.productColorListWorking[0].colorID + ".html\">\n" +
+                                                "                 " + prod.productName + "\n" +
+                                                "              </a>\n" +
+                                                "          </h4>\n" +
+                                                "          <span class=\"product-price\">\n" +
+                                                "               <small class=\"cutprice\">$ " + prod.price + ".00 </small>  $ " + ((prod.productWithDiscount)).toFixed(2) +
+                                                "          </span>\n" +
+                                                "          <div class=\"item-colors\" style=\"height: 25px;\">\n" +
+                                                renderColor +
+                                                "          </div>\n" +
+                                                "      </div>\n" +
+                                                "    </div>\n" +
+                                                "</div>";
+                                    }
+                                });
+                                $("#fs-change-data-here").html(result);
+                                $("#fs-price-from").val("");
+                                $("#fs-price-to").val("");
+                            }
+                        }, 400);
+                    }
+                });
+            }
+
         });
-    
-    
+    });
+
+
     /* USER JS AREA */
     /* REGISTER FORM */
     $("#txtBirthday").datepicker({
@@ -1336,7 +1336,7 @@ $(document).ready(function () {
         var productID = $(this).attr("fs-product-id");
 
         if (review == "") {
-            $("#fs-review-product-error").text("Content cannot be empty!");            
+            $("#fs-review-product-error").text("Content cannot be empty!");
 //            $("#cke_fs-product-description iframe").contents().find("body").focus();
 //            $('html,body').scrollTop(0);          
         } else if (review.length < 5 || review.length > 25) {
@@ -1344,49 +1344,79 @@ $(document).ready(function () {
             $("#fs-review-product").focus();
         } else {
             $("#fs-review-product-error").text("");
-            
+
             if (ratingVal == "") {
                 ratingVal = 0;
                 swal({
-                        title: "Are you sure?",
-                        text: "Continue without rating stars?",
-                        type: "warning",
-                        showCancelButton: true,
-                        confirmButtonColor: "#DD6B55",
-                        confirmButtonText: "Yes!",
-                        closeOnConfirm: false
-                        },
-                function(isConfirm){
-                        if(isConfirm){
-                            $.ajax({
-                                url: "ajax/submitReviewRating.html",
-                                method: "POST",
-                                data: {
-                                    productID: productID,
-                                    userID: userID,
-                                    ratingVal: ratingVal,
-                                    review: review
-                                },
-                                beforeSend: function (xhr) {
-                                    $("#fs-ajax-loading-2").css("display", "block");
-                                },
-                                success: function (response) {
-                                    if (response == "ok") {
-                                        setTimeout(function () {
-                                            $("#fs-ajax-loading-2").css("display", "none");
-                                            $("#fs-form-rating-review").empty();
-                                            //$("#fs-form-rating-review").html("<h3>Thank you! Your review is being verified </h3>");
+                    title: "Are you sure?",
+                    text: "Continue without rating stars?",
+                    type: "warning",
+                    showCancelButton: true,
+                    confirmButtonColor: "#DD6B55",
+                    confirmButtonText: "Yes!",
+                    closeOnConfirm: false
+                },
+                        function (isConfirm) {
+                            if (isConfirm) {
+                                $.ajax({
+                                    url: "ajax/submitReviewRating.html",
+                                    method: "POST",
+                                    data: {
+                                        productID: productID,
+                                        userID: userID,
+                                        ratingVal: ratingVal,
+                                        review: review
+                                    },
+                                    beforeSend: function (xhr) {
+                                        $("#fs-ajax-loading-2").css("display", "block");
+                                    },
+                                    success: function (response) {
+                                        if (response == "ok") {
+                                            setTimeout(function () {
+                                                $("#fs-ajax-loading-2").css("display", "none");
+                                                $("#fs-form-rating-review").empty();
+                                                //$("#fs-form-rating-review").html("<h3>Thank you! Your review is being verified </h3>");
+                                                $.notify({
+                                                    icon: 'glyphicon glyphicon-ok-sign',
+                                                    title: '<strong>Thank you!</strong>',
+                                                    message: "You voted " + ratingVal + " Star for this Product!."
+                                                }, {
+                                                    type: 'success',
+                                                    placement: {
+                                                        from: 'top',
+                                                        align: 'right'
+                                                    },
+                                                    delay: 2500,
+                                                    timer: 200,
+                                                    mouse_over: 'pause',
+                                                    animate: {
+                                                        enter: 'animated fadeInRight',
+                                                        exit: 'animated fadeOutRight'
+                                                    },
+                                                    template: '<div data-notify="container" class="col-xs-11 col-sm-6 col-md-5 col-lg-3 alert alert-{0}" role="alert">' +
+                                                            '<button type="button" aria-hidden="true" class="close" data-notify="dismiss">×</button>' +
+                                                            '<span data-notify="icon"></span> ' +
+                                                            '<span data-notify="title">{1}</span> ' +
+                                                            '<span data-notify="message">{2}</span>' +
+                                                            '<div class="progress" data-notify="progressbar">' +
+                                                            '<div class="progress-bar progress-bar-{0}" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 0%;"></div>' +
+                                                            '</div>' +
+                                                            '<a href="{3}" target="{4}" data-notify="url"></a>' +
+                                                            '</div>'
+                                                });
+                                            }, 600);
+                                        } else {
                                             $.notify({
-                                                icon: 'glyphicon glyphicon-ok-sign',
-                                                title: '<strong>Thank you!</strong>',
-                                                message: "You voted " + ratingVal + " Star for this Product!."
+                                                icon: 'glyphicon glyphicon-warning-sign',
+                                                title: '<strong>Error!</strong>',
+                                                message: 'Something was wrong! Please try again later!.'
                                             }, {
-                                                type: 'success',
+                                                type: 'danger',
                                                 placement: {
                                                     from: 'top',
                                                     align: 'right'
                                                 },
-                                                delay: 2500,
+                                                delay: 3000,
                                                 timer: 200,
                                                 mouse_over: 'pause',
                                                 animate: {
@@ -1404,43 +1434,13 @@ $(document).ready(function () {
                                                         '<a href="{3}" target="{4}" data-notify="url"></a>' +
                                                         '</div>'
                                             });
-                                        }, 600);
-                                    } else {
-                                        $.notify({
-                                            icon: 'glyphicon glyphicon-warning-sign',
-                                            title: '<strong>Error!</strong>',
-                                            message: 'Something was wrong! Please try again later!.'
-                                        }, {
-                                            type: 'danger',
-                                            placement: {
-                                                from: 'top',
-                                                align: 'right'
-                                            },
-                                            delay: 3000,
-                                            timer: 200,
-                                            mouse_over: 'pause',
-                                            animate: {
-                                                enter: 'animated fadeInRight',
-                                                exit: 'animated fadeOutRight'
-                                            },
-                                            template: '<div data-notify="container" class="col-xs-11 col-sm-6 col-md-5 col-lg-3 alert alert-{0}" role="alert">' +
-                                                    '<button type="button" aria-hidden="true" class="close" data-notify="dismiss">×</button>' +
-                                                    '<span data-notify="icon"></span> ' +
-                                                    '<span data-notify="title">{1}</span> ' +
-                                                    '<span data-notify="message">{2}</span>' +
-                                                    '<div class="progress" data-notify="progressbar">' +
-                                                    '<div class="progress-bar progress-bar-{0}" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 0%;"></div>' +
-                                                    '</div>' +
-                                                    '<a href="{3}" target="{4}" data-notify="url"></a>' +
-                                                    '</div>'
-                                        });
+                                        }
                                     }
-                                }
-                            });
-                        }
-                        
-                });
-                
+                                });
+                            }
+
+                        });
+
             } else if (ratingVal != "") {
 
                 $.ajax({
@@ -1529,6 +1529,8 @@ $(document).ready(function () {
     $("#fs-product-detail-page").on("click", "#fs-btn-login-to-review", function () {
         $("#loginModal").modal("show");
     });
+
+
     /* PRODUCT CATEGORY-GRID */
     /* AJAX PAGINATION */
     var colorFilterArr = [];
@@ -1606,14 +1608,14 @@ $(document).ready(function () {
                                             "                     fs-product-modal-color=\"" + prod.productColorListWorking[0].colorID + "\">\n" +
                                             "                </div>\n" +
                                             "                <div class=\"product-overlay\">\n" +
-                                            "                     <a href=\"#\" class=\"addcart fa fa-shopping-cart\"></a>\n" +
-                                            "                     <a href=\"#\" class=\"likeitem fa fa-heart-o\"></a>\n" +
-                                            "                     <a href=\"#\" class=\"compare fa fa-signal\"></a>" +
+                                            "                       <a class=\"fa fa-bar-chart fs-cp-cdt\" fs-productID=\"" + prod.productID + "\"></a> \n" +
+                                            "                       <a class=\"likeitem fa fa-heart-o fs-wl-add-cdt\" fs-userID=\"" + sessionScope.findUsersID +"\" \n" +
+                                            "fs-productID=\"" + prod.productID + "\></a>" +
                                             "                </div>\n" +
                                             "          </div>\n" +
                                             "      <div class=\"product-info\">\n" +
                                             "          <h4 class=\"product-title\">\n" +
-                                            "              <a href=\"" + prod.productID + "-" + prod.productColorListWorking[0].colorID  + ".html\">\n" +
+                                            "              <a href=\"" + prod.productID + "-" + prod.productColorListWorking[0].colorID + ".html\">\n" +
                                             "                 " + prod.productName + "\n" +
                                             "              </a>\n" +
                                             "          </h4>\n" +
@@ -1639,9 +1641,8 @@ $(document).ready(function () {
                                             "                     fs-product-modal-color=\"" + prod.productColorListWorking[0].colorID + "\">\n" +
                                             "                </div>\n" +
                                             "                <div class=\"product-overlay\">\n" +
-                                            "                     <a href=\"#\" class=\"addcart fa fa-shopping-cart\"></a>\n" +
-                                            "                     <a href=\"#\" class=\"likeitem fa fa-heart-o\"></a>\n" +
-                                            "                     <a href=\"#\" class=\"compare fa fa-signal\"></a>" +
+                                            "                       <a class=\"fa fa-bar-chart fs-cp-cdt\" fs-productID=\"" + prod.productID + "\"></a> \n" +
+                                            "                        <a href=\"#\" class=\"likeitem fa fa-heart-o\"></a>\n" +
                                             "                </div>\n" +
                                             "          </div>\n" +
                                             "      <div class=\"product-info\">\n" +
@@ -1894,7 +1895,7 @@ $(document).ready(function () {
                                         "          </div>\n" +
                                         "      <div class=\"product-info\">\n" +
                                         "          <h4 class=\"product-title\">\n" +
-                                        "              <a href=\"" + prod.productID + "-" + prod.productColorListWorking[0].colorID +  ".html\">\n" +
+                                        "              <a href=\"" + prod.productID + "-" + prod.productColorListWorking[0].colorID + ".html\">\n" +
                                         "                 " + prod.productName + "\n" +
                                         "              </a>\n" +
                                         "          </h4>\n" +
@@ -1927,7 +1928,7 @@ $(document).ready(function () {
                                         "          </div>\n" +
                                         "      <div class=\"product-info\">\n" +
                                         "          <h4 class=\"product-title\">\n" +
-                                        "              <a href=\"" + prod.productID + "-" + prod.productColorListWorking[0].colorID +  ".html\">\n" +
+                                        "              <a href=\"" + prod.productID + "-" + prod.productColorListWorking[0].colorID + ".html\">\n" +
                                         "                 " + prod.productName + "\n" +
                                         "              </a>\n" +
                                         "          </h4>\n" +
@@ -1959,182 +1960,182 @@ $(document).ready(function () {
         var sortBy = $("#fs-sort-product-by").val(); //1: Newest; 2: Low to High Price; 3: High to Low Price
         var itemPerPage = $("#fs-number-of-item-on-page").val();
 
-        
-
-       if (fromPrice != "") {
-                $("#fs-price-from-text").text(Math.round(fromPrice * 100) / 100);
-            }
-
-            if (toPrice != "") {
-                $("#fs-price-to-text").text(Math.round(toPrice * 100) / 100);
-            }
 
 
-        
-            
-            $("#fs-filter-price-error").text("");
-            $.ajax({
-                url: "ajax/getNumberOfProductsByFilter_OfACategory.html",
-                method: "POST",
-                data: {
-                    cateID: cateID,
-                    fromPrice: fromPrice,
-                    toPrice: toPrice,
-                    colorFilterArr: colorFilterArr,
-                    sizeFilterArr: sizeFilterArr
-                },
-                success: function (numberOfProducts) {
+        if (fromPrice != "") {
+            $("#fs-price-from-text").text(Math.round(fromPrice * 100) / 100);
+        }
 
-                    $.ajax({
-                        url: "ajax/productPagination.html",
-                        method: "POST",
-                        data: {
-                            cateID: cateID,
-                            page: page,
-                            itemPerPage: itemPerPage,
-                            sortBy: sortBy,
-                            fromPrice: fromPrice,
-                            toPrice: toPrice,
-                            colorFilterArr: colorFilterArr,
-                            sizeFilterArr: sizeFilterArr
-                        },
-                        dataType: 'JSON',
-                        beforeSend: function () {
-                            $("#fs-ajax-loading").css("display", "block");
-                        },
-                        success: function (response) {
-                            setTimeout(function () {
-                                $("#fs-ajax-loading").css("display", "none");
-                                if (response.length == 0) {
-                                    $("#fs-change-data-here").html("<div class='col-xs-12'><h1>Nothing To Show!</h1></div>");
-                                    //change productPageInfo
-                                    var from = 0;
-                                    var to = 0;
-                                    var currentProductPageInfo = from + " - " + to;
-                                    $(".fs-change-currentProductPageInfo").text(currentProductPageInfo);
-                                    $(".fs-number-of-products").text(numberOfProducts);
-                                } else {
-                                    //Tổng số sản phẩm
-                                    var numberOfPages = Math.ceil(parseInt(numberOfProducts) / itemPerPage);
+        if (toPrice != "") {
+            $("#fs-price-to-text").text(Math.round(toPrice * 100) / 100);
+        }
 
-                                    //Change pagination
-                                    var pagination = "<li><span class=\"fs-page-number fs-page-number-active\" fs-page-number=\"1\" fs-category=\"" + cateID + "\">1</span></li>";
-                                    if (numberOfPages > 1) {
-                                        for (var i = 2; i <= numberOfPages; i++) {
-                                            pagination += "<li><span class=\"fs-page-number\" fs-page-number=\"" + i + "\" fs-category=\"" + cateID + "\">" + i + "</span></li>";
-                                        }
+
+
+
+        $("#fs-filter-price-error").text("");
+        $.ajax({
+            url: "ajax/getNumberOfProductsByFilter_OfACategory.html",
+            method: "POST",
+            data: {
+                cateID: cateID,
+                fromPrice: fromPrice,
+                toPrice: toPrice,
+                colorFilterArr: colorFilterArr,
+                sizeFilterArr: sizeFilterArr
+            },
+            success: function (numberOfProducts) {
+
+                $.ajax({
+                    url: "ajax/productPagination.html",
+                    method: "POST",
+                    data: {
+                        cateID: cateID,
+                        page: page,
+                        itemPerPage: itemPerPage,
+                        sortBy: sortBy,
+                        fromPrice: fromPrice,
+                        toPrice: toPrice,
+                        colorFilterArr: colorFilterArr,
+                        sizeFilterArr: sizeFilterArr
+                    },
+                    dataType: 'JSON',
+                    beforeSend: function () {
+                        $("#fs-ajax-loading").css("display", "block");
+                    },
+                    success: function (response) {
+                        setTimeout(function () {
+                            $("#fs-ajax-loading").css("display", "none");
+                            if (response.length == 0) {
+                                $("#fs-change-data-here").html("<div class='col-xs-12'><h1>Nothing To Show!</h1></div>");
+                                //change productPageInfo
+                                var from = 0;
+                                var to = 0;
+                                var currentProductPageInfo = from + " - " + to;
+                                $(".fs-change-currentProductPageInfo").text(currentProductPageInfo);
+                                $(".fs-number-of-products").text(numberOfProducts);
+                            } else {
+                                //Tổng số sản phẩm
+                                var numberOfPages = Math.ceil(parseInt(numberOfProducts) / itemPerPage);
+
+                                //Change pagination
+                                var pagination = "<li><span class=\"fs-page-number fs-page-number-active\" fs-page-number=\"1\" fs-category=\"" + cateID + "\">1</span></li>";
+                                if (numberOfPages > 1) {
+                                    for (var i = 2; i <= numberOfPages; i++) {
+                                        pagination += "<li><span class=\"fs-page-number\" fs-page-number=\"" + i + "\" fs-category=\"" + cateID + "\">" + i + "</span></li>";
                                     }
-
-                                    $(".fs-ul-page-nav").html(pagination);
-
-                                    //change productPageInfo
-                                    var from = (page - 1) * itemPerPage + 1;
-                                    var to = (page - 1) * itemPerPage + parseInt(itemPerPage);
-                                    if (to > parseInt(numberOfProducts)) {
-                                        to = parseInt(numberOfProducts);
-                                    }
-                                    var currentProductPageInfo = from + " - " + to;
-                                    $(".fs-change-currentProductPageInfo").text(currentProductPageInfo);
-                                    $(".fs-number-of-products").text(numberOfProducts);
-
-                                    //Change product content
-                                    var result = "";
-                                    $.each(response, function (i, prod) {
-                                        var renderColor = "";
-                                        if (prod.productColorListWorking.length > 1) {
-                                            $.each(prod.productColorListWorking, function (j, color) {
-                                                renderColor += "<img src=\"assets/images/products/colors/" + color.urlColorImg + "\" \n" +
-                                                        "              class=\"img-responsive fs-index-color-img\" \n" +
-                                                        "              fs-index-color-img=\"" + color.colorID + "\" \n" +
-                                                        "              fs-product=\"" + prod.productID + "\" \n" +
-                                                        "              alt=\"" + color.urlColorImg + "\" \n" +
-                                                        "              title=\"" + color.color + "\"/>";
-                                            });
-                                        }
-
-                                        if (prod.productWithDiscount == prod.price) {
-
-                                            result += "<div class=\"col-md-4 col-sm-6\">\n" +
-                                                    "     <div class=\"product-item\">\n" +
-                                                    "          <div class=\"item-thumb\">\n" +
-                                                    "               <img src=\"assets/images/products/" + prod.urlImg + "\" \n" +
-                                                    "                    class=\"img-responsive\" \n" +
-                                                    "                    alt=\"" + prod.urlImg + "\"\n" +
-                                                    "                    fs-product-for-img=\"" + prod.productID + "\"/>\n" +
-                                                    "                <div class=\"overlay-rmore fa fa-search quickview fs-product-modal\" \n" +
-                                                    "                     data-toggle=\"modal\" \n" +
-                                                    "                     fs-product=\"" + prod.productID + "\" \n" +
-                                                    "                     fs-product-modal-color=\"" + prod.productColorListWorking[0].colorID + "\">\n" +
-                                                    "                </div>\n" +
-                                                    "                <div class=\"product-overlay\">\n" +
-                                                    "                     <a href=\"#\" class=\"addcart fa fa-shopping-cart\"></a>\n" +
-                                                    "<a href=\"#\" class=\"compare fa fa-signal\"></a>" +
-                                                    "                     <a href=\"#\" class=\"likeitem fa fa-heart-o\"></a>\n" +
-                                                    "                </div>\n" +
-                                                    "          </div>\n" +
-                                                    "      <div class=\"product-info\">\n" +
-                                                    "          <h4 class=\"product-title\">\n" +
-                                                    "              <a href=\"" + prod.productID + "-" + prod.productColorListWorking[0].colorID + ".html\">\n" +
-                                                    "                 " + prod.productName + "\n" +
-                                                    "              </a>\n" +
-                                                    "          </h4>\n" +
-                                                    "          <span class=\"product-price\">$" + prod.price + ".00</span>\n" +
-                                                    "          <div class=\"item-colors\" style=\"height: 25px;\">\n" +
-                                                    renderColor +
-                                                    "          </div>\n" +
-                                                    "      </div>\n" +
-                                                    "    </div>\n" +
-                                                    "</div>";
-                                        } else {
-                                            result += "<div class=\"col-md-4 col-sm-6\">\n" +
-                                                    "     <div class=\"product-item\">\n" +
-                                                    "          <div class=\"item-thumb\">\n" +
-                                                    "               <span class=\"badge offer\">-" + prod.discountByProduct + "%</span>\n" +
-                                                    "               <img src=\"assets/images/products/" + prod.urlImg + "\" \n" +
-                                                    "                    class=\"img-responsive\" \n" +
-                                                    "                    alt=\"" + prod.urlImg + "\"\n" +
-                                                    "                    fs-product-for-img=\"" + prod.productID + "\"/>\n" +
-                                                    "                <div class=\"overlay-rmore fa fa-search quickview fs-product-modal\" \n" +
-                                                    "                     data-toggle=\"modal\" \n" +
-                                                    "                     fs-product=\"" + prod.productID + "\" \n" +
-                                                    "                     fs-product-modal-color=\"" + prod.productColorListWorking[0].colorID + "\">\n" +
-                                                    "                </div>\n" +
-                                                    "                <div class=\"product-overlay\">\n" +
-                                                    "                     <a href=\"#\" class=\"addcart fa fa-shopping-cart\"></a>\n" +
-                                                    "                     <a href=\"#\" class=\"compare fa fa-signal\"></a>" +
-                                                    "                     <a href=\"#\" class=\"likeitem fa fa-heart-o\"></a>\n" +
-                                                    "                </div>\n" +
-                                                    "          </div>\n" +
-                                                    "      <div class=\"product-info\">\n" +
-                                                    "          <h4 class=\"product-title\">\n" +
-                                                    "              <a href=\"" + prod.productID + "-" + prod.productColorListWorking[0].colorID +  ".html\">\n" +
-                                                    "                 " + prod.productName + "\n" +
-                                                    "              </a>\n" +
-                                                    "          </h4>\n" +
-                                                    "          <span class=\"product-price\">\n" +
-                                                    "               <small class=\"cutprice\">$ " + prod.price + ".00 </small>  $ " + ((prod.productWithDiscount)).toFixed(2) +
-                                                    "          </span>\n" +
-                                                    "          <div class=\"item-colors\" style=\"height: 25px;\">\n" +
-                                                    renderColor +
-                                                    "          </div>\n" +
-                                                    "      </div>\n" +
-                                                    "    </div>\n" +
-                                                    "</div>";
-                                        }
-                                    });
-                                    $("#fs-change-data-here").html(result);
-
-                                    $("#fs-price-from").val("");
-                                    $("#fs-price-to").val("");
                                 }
-                            }, 400);
-                        }
-                    });
-                }
 
-            });
+                                $(".fs-ul-page-nav").html(pagination);
 
-        
+                                //change productPageInfo
+                                var from = (page - 1) * itemPerPage + 1;
+                                var to = (page - 1) * itemPerPage + parseInt(itemPerPage);
+                                if (to > parseInt(numberOfProducts)) {
+                                    to = parseInt(numberOfProducts);
+                                }
+                                var currentProductPageInfo = from + " - " + to;
+                                $(".fs-change-currentProductPageInfo").text(currentProductPageInfo);
+                                $(".fs-number-of-products").text(numberOfProducts);
+
+                                //Change product content
+                                var result = "";
+                                $.each(response, function (i, prod) {
+                                    var renderColor = "";
+                                    if (prod.productColorListWorking.length > 1) {
+                                        $.each(prod.productColorListWorking, function (j, color) {
+                                            renderColor += "<img src=\"assets/images/products/colors/" + color.urlColorImg + "\" \n" +
+                                                    "              class=\"img-responsive fs-index-color-img\" \n" +
+                                                    "              fs-index-color-img=\"" + color.colorID + "\" \n" +
+                                                    "              fs-product=\"" + prod.productID + "\" \n" +
+                                                    "              alt=\"" + color.urlColorImg + "\" \n" +
+                                                    "              title=\"" + color.color + "\"/>";
+                                        });
+                                    }
+
+                                    if (prod.productWithDiscount == prod.price) {
+
+                                        result += "<div class=\"col-md-4 col-sm-6\">\n" +
+                                                "     <div class=\"product-item\">\n" +
+                                                "          <div class=\"item-thumb\">\n" +
+                                                "               <img src=\"assets/images/products/" + prod.urlImg + "\" \n" +
+                                                "                    class=\"img-responsive\" \n" +
+                                                "                    alt=\"" + prod.urlImg + "\"\n" +
+                                                "                    fs-product-for-img=\"" + prod.productID + "\"/>\n" +
+                                                "                <div class=\"overlay-rmore fa fa-search quickview fs-product-modal\" \n" +
+                                                "                     data-toggle=\"modal\" \n" +
+                                                "                     fs-product=\"" + prod.productID + "\" \n" +
+                                                "                     fs-product-modal-color=\"" + prod.productColorListWorking[0].colorID + "\">\n" +
+                                                "                </div>\n" +
+                                                "                <div class=\"product-overlay\">\n" +
+                                                "                     <a href=\"#\" class=\"addcart fa fa-shopping-cart\"></a>\n" +
+                                                "<a href=\"#\" class=\"compare fa fa-signal\"></a>" +
+                                                "                     <a href=\"#\" class=\"likeitem fa fa-heart-o\"></a>\n" +
+                                                "                </div>\n" +
+                                                "          </div>\n" +
+                                                "      <div class=\"product-info\">\n" +
+                                                "          <h4 class=\"product-title\">\n" +
+                                                "              <a href=\"" + prod.productID + "-" + prod.productColorListWorking[0].colorID + ".html\">\n" +
+                                                "                 " + prod.productName + "\n" +
+                                                "              </a>\n" +
+                                                "          </h4>\n" +
+                                                "          <span class=\"product-price\">$" + prod.price + ".00</span>\n" +
+                                                "          <div class=\"item-colors\" style=\"height: 25px;\">\n" +
+                                                renderColor +
+                                                "          </div>\n" +
+                                                "      </div>\n" +
+                                                "    </div>\n" +
+                                                "</div>";
+                                    } else {
+                                        result += "<div class=\"col-md-4 col-sm-6\">\n" +
+                                                "     <div class=\"product-item\">\n" +
+                                                "          <div class=\"item-thumb\">\n" +
+                                                "               <span class=\"badge offer\">-" + prod.discountByProduct + "%</span>\n" +
+                                                "               <img src=\"assets/images/products/" + prod.urlImg + "\" \n" +
+                                                "                    class=\"img-responsive\" \n" +
+                                                "                    alt=\"" + prod.urlImg + "\"\n" +
+                                                "                    fs-product-for-img=\"" + prod.productID + "\"/>\n" +
+                                                "                <div class=\"overlay-rmore fa fa-search quickview fs-product-modal\" \n" +
+                                                "                     data-toggle=\"modal\" \n" +
+                                                "                     fs-product=\"" + prod.productID + "\" \n" +
+                                                "                     fs-product-modal-color=\"" + prod.productColorListWorking[0].colorID + "\">\n" +
+                                                "                </div>\n" +
+                                                "                <div class=\"product-overlay\">\n" +
+                                                "                     <a href=\"#\" class=\"addcart fa fa-shopping-cart\"></a>\n" +
+                                                "                     <a href=\"#\" class=\"compare fa fa-signal\"></a>" +
+                                                "                     <a href=\"#\" class=\"likeitem fa fa-heart-o\"></a>\n" +
+                                                "                </div>\n" +
+                                                "          </div>\n" +
+                                                "      <div class=\"product-info\">\n" +
+                                                "          <h4 class=\"product-title\">\n" +
+                                                "              <a href=\"" + prod.productID + "-" + prod.productColorListWorking[0].colorID + ".html\">\n" +
+                                                "                 " + prod.productName + "\n" +
+                                                "              </a>\n" +
+                                                "          </h4>\n" +
+                                                "          <span class=\"product-price\">\n" +
+                                                "               <small class=\"cutprice\">$ " + prod.price + ".00 </small>  $ " + ((prod.productWithDiscount)).toFixed(2) +
+                                                "          </span>\n" +
+                                                "          <div class=\"item-colors\" style=\"height: 25px;\">\n" +
+                                                renderColor +
+                                                "          </div>\n" +
+                                                "      </div>\n" +
+                                                "    </div>\n" +
+                                                "</div>";
+                                    }
+                                });
+                                $("#fs-change-data-here").html(result);
+
+                                $("#fs-price-from").val("");
+                                $("#fs-price-to").val("");
+                            }
+                        }, 400);
+                    }
+                });
+            }
+
+        });
+
+
     });
 
     /* FILTER PRODUCT BY COLOR */
@@ -2258,7 +2259,7 @@ $(document).ready(function () {
                                                 "          </div>\n" +
                                                 "      <div class=\"product-info\">\n" +
                                                 "          <h4 class=\"product-title\">\n" +
-                                                "              <a href=\"" + prod.productID + "-" + prod.productColorListWorking[0].colorID +  ".html\">\n" +
+                                                "              <a href=\"" + prod.productID + "-" + prod.productColorListWorking[0].colorID + ".html\">\n" +
                                                 "                 " + prod.productName + "\n" +
                                                 "              </a>\n" +
                                                 "          </h4>\n" +
@@ -2433,7 +2434,7 @@ $(document).ready(function () {
                                                 "          </div>\n" +
                                                 "      <div class=\"product-info\">\n" +
                                                 "          <h4 class=\"product-title\">\n" +
-                                                "              <a href=\"" + prod.productID + "-" + prod.productColorListWorking[0].colorID  + ".html\">\n" +
+                                                "              <a href=\"" + prod.productID + "-" + prod.productColorListWorking[0].colorID + ".html\">\n" +
                                                 "                 " + prod.productName + "\n" +
                                                 "              </a>\n" +
                                                 "          </h4>\n" +
@@ -2466,7 +2467,7 @@ $(document).ready(function () {
                                                 "          </div>\n" +
                                                 "      <div class=\"product-info\">\n" +
                                                 "          <h4 class=\"product-title\">\n" +
-                                                "              <a href=\"" + prod.productID + "-" + prod.productColorListWorking[0].colorID +  ".html\">\n" +
+                                                "              <a href=\"" + prod.productID + "-" + prod.productColorListWorking[0].colorID + ".html\">\n" +
                                                 "                 " + prod.productName + "\n" +
                                                 "              </a>\n" +
                                                 "          </h4>\n" +
@@ -2577,7 +2578,7 @@ $(document).ready(function () {
                                             "          </div>\n" +
                                             "      <div class=\"product-info\">\n" +
                                             "          <h4 class=\"product-title\">\n" +
-                                            "              <a href=\"" + prod.productID + "-" + prod.productColorListWorking[0].colorID +  ".html\">\n" +
+                                            "              <a href=\"" + prod.productID + "-" + prod.productColorListWorking[0].colorID + ".html\">\n" +
                                             "                 " + prod.productName + "\n" +
                                             "              </a>\n" +
                                             "          </h4>\n" +
@@ -2612,7 +2613,7 @@ $(document).ready(function () {
                                             "          </div>\n" +
                                             "      <div class=\"product-info\">\n" +
                                             "          <h4 class=\"product-title\">\n" +
-                                            "              <a href=\"" + prod.productID + "-" + prod.productColorListWorking[0].colorID  + ".html\">\n" +
+                                            "              <a href=\"" + prod.productID + "-" + prod.productColorListWorking[0].colorID + ".html\">\n" +
                                             "                 " + prod.productName + "\n" +
                                             "              </a>\n" +
                                             "          </h4>\n" +
@@ -2786,7 +2787,7 @@ $(document).ready(function () {
                                         "          </div>\n" +
                                         "      <div class=\"product-info\">\n" +
                                         "          <h4 class=\"product-title\">\n" +
-                                        "              <a href=\"" + prod.productID + "-" + prod.productColorListWorking[0].colorID +  ".html\">\n" +
+                                        "              <a href=\"" + prod.productID + "-" + prod.productColorListWorking[0].colorID + ".html\">\n" +
                                         "                 " + prod.productName + "\n" +
                                         "              </a>\n" +
                                         "          </h4>\n" +
@@ -2819,7 +2820,7 @@ $(document).ready(function () {
                                         "          </div>\n" +
                                         "      <div class=\"product-info\">\n" +
                                         "          <h4 class=\"product-title\">\n" +
-                                        "              <a href=\"" + prod.productID + "-" + prod.productColorListWorking[0].colorID +  ".html\">\n" +
+                                        "              <a href=\"" + prod.productID + "-" + prod.productColorListWorking[0].colorID + ".html\">\n" +
                                         "                 " + prod.productName + "\n" +
                                         "              </a>\n" +
                                         "          </h4>\n" +
@@ -2991,173 +2992,173 @@ $(document).ready(function () {
         var subCateID = $("#fs-shop-content-sub-category").find("#slider #fs-price-from").attr("fs-subCategory");
         var sortBy = $("#fs-sort-product-by").val(); //1: Newest; 2: Low to High Price; 3: High to Low Price
         var itemPerPage = $("#fs-number-of-item-on-page").val();
-        
 
-        
-            if (fromPrice != "") {
-                $("#fs-price-from-text").text(Math.round(fromPrice * 100) / 100);
-            }
 
-            if (toPrice != "") {
-                $("#fs-price-to-text").text(Math.round(toPrice * 100) / 100);
-            }
-            $("#fs-filter-price-error").text("");
-            $.ajax({
-                url: "ajax/getNumberOfProductsByFilter_OfASubCategory.html",
-                method: "POST",
-                data: {
-                    subCateID: subCateID,
-                    fromPrice: fromPrice,
-                    toPrice: toPrice,
-                    colorFilterArrSubCate: colorFilterArrSubCate,
-                    sizeFilterArrSubCate: sizeFilterArrSubCate
-                },
-                success: function (numberOfProducts) {
-                    $.ajax({
-                        url: "ajax/productPaginationForSubCate.html",
-                        method: "POST",
-                        data: {
-                            subCateID: subCateID,
-                            page: page,
-                            itemPerPage: itemPerPage,
-                            sortBy: sortBy,
-                            fromPrice: fromPrice,
-                            toPrice: toPrice,
-                            colorFilterArrSubCate: colorFilterArrSubCate,
-                            sizeFilterArrSubCate: sizeFilterArrSubCate
-                        },
-                        dataType: 'JSON',
-                        beforeSend: function () {
-                            $("#fs-ajax-loading").css("display", "block");
-                        },
-                        success: function (response) {
-                            setTimeout(function () {
-                                $("#fs-ajax-loading").css("display", "none");
-                                if (response.length == 0) {
-                                    $("#fs-change-data-here").html("<div class='col-xs-12'><h1>Nothing To Show!</h1></div>");
-                                    //change productPageInfo
-                                    var from = 0;
-                                    var to = 0;
 
-                                    var currentProductPageInfo = from + " - " + to;
-                                    $(".fs-change-currentProductPageInfo").text(currentProductPageInfo);
-                                    $(".fs-number-of-products").text(numberOfProducts);
-                                } else {
-                                    //Tổng số sản phẩm
-                                    var numberOfPages = Math.ceil(parseInt(numberOfProducts) / itemPerPage);
-                                    //Change pagination
-                                    var pagination = "<li><span class=\"fs-page-number fs-page-number-active\" fs-page-number=\"1\" fs-subCategory=\"" + subCateID + "\">1</span></li>";
-                                    if (numberOfPages > 1) {
-                                        for (var i = 2; i <= numberOfPages; i++) {
-                                            pagination += "<li><span class=\"fs-page-number\" fs-page-number=\"" + i + "\" fs-subCategory=\"" + subCateID + "\">" + i + "</span></li>";
-                                        }
+        if (fromPrice != "") {
+            $("#fs-price-from-text").text(Math.round(fromPrice * 100) / 100);
+        }
+
+        if (toPrice != "") {
+            $("#fs-price-to-text").text(Math.round(toPrice * 100) / 100);
+        }
+        $("#fs-filter-price-error").text("");
+        $.ajax({
+            url: "ajax/getNumberOfProductsByFilter_OfASubCategory.html",
+            method: "POST",
+            data: {
+                subCateID: subCateID,
+                fromPrice: fromPrice,
+                toPrice: toPrice,
+                colorFilterArrSubCate: colorFilterArrSubCate,
+                sizeFilterArrSubCate: sizeFilterArrSubCate
+            },
+            success: function (numberOfProducts) {
+                $.ajax({
+                    url: "ajax/productPaginationForSubCate.html",
+                    method: "POST",
+                    data: {
+                        subCateID: subCateID,
+                        page: page,
+                        itemPerPage: itemPerPage,
+                        sortBy: sortBy,
+                        fromPrice: fromPrice,
+                        toPrice: toPrice,
+                        colorFilterArrSubCate: colorFilterArrSubCate,
+                        sizeFilterArrSubCate: sizeFilterArrSubCate
+                    },
+                    dataType: 'JSON',
+                    beforeSend: function () {
+                        $("#fs-ajax-loading").css("display", "block");
+                    },
+                    success: function (response) {
+                        setTimeout(function () {
+                            $("#fs-ajax-loading").css("display", "none");
+                            if (response.length == 0) {
+                                $("#fs-change-data-here").html("<div class='col-xs-12'><h1>Nothing To Show!</h1></div>");
+                                //change productPageInfo
+                                var from = 0;
+                                var to = 0;
+
+                                var currentProductPageInfo = from + " - " + to;
+                                $(".fs-change-currentProductPageInfo").text(currentProductPageInfo);
+                                $(".fs-number-of-products").text(numberOfProducts);
+                            } else {
+                                //Tổng số sản phẩm
+                                var numberOfPages = Math.ceil(parseInt(numberOfProducts) / itemPerPage);
+                                //Change pagination
+                                var pagination = "<li><span class=\"fs-page-number fs-page-number-active\" fs-page-number=\"1\" fs-subCategory=\"" + subCateID + "\">1</span></li>";
+                                if (numberOfPages > 1) {
+                                    for (var i = 2; i <= numberOfPages; i++) {
+                                        pagination += "<li><span class=\"fs-page-number\" fs-page-number=\"" + i + "\" fs-subCategory=\"" + subCateID + "\">" + i + "</span></li>";
                                     }
-
-                                    $(".fs-ul-page-nav").html(pagination);
-                                    //change productPageInfo
-                                    var from = (page - 1) * itemPerPage + 1;
-                                    var to = (page - 1) * itemPerPage + parseInt(itemPerPage);
-                                    if (to > parseInt(numberOfProducts)) {
-                                        to = parseInt(numberOfProducts);
-                                    }
-                                    var currentProductPageInfo = from + " - " + to;
-                                    $(".fs-change-currentProductPageInfo").text(currentProductPageInfo);
-                                    $(".fs-number-of-products").text(numberOfProducts);
-                                    //Change product content
-                                    var result = "";
-                                    $.each(response, function (i, prod) {
-                                        var renderColor = "";
-                                        if (prod.productColorListWorking.length > 1) {
-                                            $.each(prod.productColorListWorking, function (j, color) {
-                                                renderColor += "<img src=\"assets/images/products/colors/" + color.urlColorImg + "\" \n" +
-                                                        "              class=\"img-responsive fs-index-color-img\" \n" +
-                                                        "              fs-index-color-img=\"" + color.colorID + "\" \n" +
-                                                        "              fs-product=\"" + prod.productID + "\" \n" +
-                                                        "              alt=\"" + color.urlColorImg + "\" \n" +
-                                                        "              title=\"" + color.color + "\"/>";
-                                            });
-                                        }
-
-                                        if (prod.productWithDiscount == prod.price) {
-                                            result += "<div class=\"col-md-4 col-sm-6\">\n" +
-                                                    "     <div class=\"product-item\">\n" +
-                                                    "          <div class=\"item-thumb\">\n" +
-                                                    "               <img src=\"assets/images/products/" + prod.urlImg + "\" \n" +
-                                                    "                    class=\"img-responsive\" \n" +
-                                                    "                    alt=\"" + prod.urlImg + "\"\n" +
-                                                    "                    fs-product-for-img=\"" + prod.productID + "\"/>\n" +
-                                                    "                <div class=\"overlay-rmore fa fa-search quickview fs-product-modal\" \n" +
-                                                    "                     data-toggle=\"modal\" \n" +
-                                                    "                     fs-product=\"" + prod.productID + "\" \n" +
-                                                    "                     fs-product-modal-color=\"" + prod.productColorListWorking[0].colorID + "\">\n" +
-                                                    "                </div>\n" +
-                                                    "                <div class=\"product-overlay\">\n" +
-                                                    "                     <a href=\"#\" class=\"addcart fa fa-shopping-cart\"></a>\n" +
-                                                    "<a href=\"#\" class=\"compare fa fa-signal\"></a>" +
-                                                    "                     <a href=\"#\" class=\"likeitem fa fa-heart-o\"></a>\n" +
-                                                    "                </div>\n" +
-                                                    "          </div>\n" +
-                                                    "      <div class=\"product-info\">\n" +
-                                                    "          <h4 class=\"product-title\">\n" +
-                                                    "              <a href=\"" + prod.productID + "-" + prod.productColorListWorking[0].colorID  + ".html\">\n" +
-                                                    "                 " + prod.productName + "\n" +
-                                                    "              </a>\n" +
-                                                    "          </h4>\n" +
-                                                    "          <span class=\"product-price\">$" + prod.price + ".00</span>\n" +
-                                                    "          <div class=\"item-colors\" style=\"height: 25px;\">\n" +
-                                                    renderColor +
-                                                    "          </div>\n" +
-                                                    "      </div>\n" +
-                                                    "    </div>\n" +
-                                                    "</div>";
-                                        } else {
-                                            result += "<div class=\"col-md-4 col-sm-6\">\n" +
-                                                    "     <div class=\"product-item\">\n" +
-                                                    "          <div class=\"item-thumb\">\n" +
-                                                    "               <span class=\"badge offer\">-" + prod.discountByProduct + "%</span>\n" +
-                                                    "               <img src=\"assets/images/products/" + prod.urlImg + "\" \n" +
-                                                    "                    class=\"img-responsive\" \n" +
-                                                    "                    alt=\"" + prod.urlImg + "\"\n" +
-                                                    "                    fs-product-for-img=\"" + prod.productID + "\"/>\n" +
-                                                    "                <div class=\"overlay-rmore fa fa-search quickview fs-product-modal\" \n" +
-                                                    "                     data-toggle=\"modal\" \n" +
-                                                    "                     fs-product=\"" + prod.productID + "\" \n" +
-                                                    "                     fs-product-modal-color=\"" + prod.productColorListWorking[0].colorID + "\">\n" +
-                                                    "                </div>\n" +
-                                                    "                <div class=\"product-overlay\">\n" +
-                                                    "                     <a href=\"#\" class=\"addcart fa fa-shopping-cart\"></a>\n" +
-                                                    "<a href=\"#\" class=\"compare fa fa-signal\"></a>" +
-                                                    "                     <a href=\"#\" class=\"likeitem fa fa-heart-o\"></a>\n" +
-                                                    "                </div>\n" +
-                                                    "          </div>\n" +
-                                                    "      <div class=\"product-info\">\n" +
-                                                    "          <h4 class=\"product-title\">\n" +
-                                                    "              <a href=\"" + prod.productID + "-" + prod.productColorListWorking[0].colorID  + ".html\">\n" +
-                                                    "                 " + prod.productName + "\n" +
-                                                    "              </a>\n" +
-                                                    "          </h4>\n" +
-                                                    "          <span class=\"product-price\">\n" +
-                                                    "               <small class=\"cutprice\">$ " + prod.price + ".00 </small>  $ " + ((prod.productWithDiscount)).toFixed(2) +
-                                                    "          </span>\n" +
-                                                    "          <div class=\"item-colors\" style=\"height: 25px;\">\n" +
-                                                    renderColor +
-                                                    "          </div>\n" +
-                                                    "      </div>\n" +
-                                                    "    </div>\n" +
-                                                    "</div>";
-                                        }
-                                    });
-                                    $("#fs-change-data-here").html(result);
-                                    $("#fs-price-from").val("");
-                                    $("#fs-price-to").val("");
                                 }
-                            }, 400);
-                        }
-                    });
-                }
 
-            });
-        
+                                $(".fs-ul-page-nav").html(pagination);
+                                //change productPageInfo
+                                var from = (page - 1) * itemPerPage + 1;
+                                var to = (page - 1) * itemPerPage + parseInt(itemPerPage);
+                                if (to > parseInt(numberOfProducts)) {
+                                    to = parseInt(numberOfProducts);
+                                }
+                                var currentProductPageInfo = from + " - " + to;
+                                $(".fs-change-currentProductPageInfo").text(currentProductPageInfo);
+                                $(".fs-number-of-products").text(numberOfProducts);
+                                //Change product content
+                                var result = "";
+                                $.each(response, function (i, prod) {
+                                    var renderColor = "";
+                                    if (prod.productColorListWorking.length > 1) {
+                                        $.each(prod.productColorListWorking, function (j, color) {
+                                            renderColor += "<img src=\"assets/images/products/colors/" + color.urlColorImg + "\" \n" +
+                                                    "              class=\"img-responsive fs-index-color-img\" \n" +
+                                                    "              fs-index-color-img=\"" + color.colorID + "\" \n" +
+                                                    "              fs-product=\"" + prod.productID + "\" \n" +
+                                                    "              alt=\"" + color.urlColorImg + "\" \n" +
+                                                    "              title=\"" + color.color + "\"/>";
+                                        });
+                                    }
+
+                                    if (prod.productWithDiscount == prod.price) {
+                                        result += "<div class=\"col-md-4 col-sm-6\">\n" +
+                                                "     <div class=\"product-item\">\n" +
+                                                "          <div class=\"item-thumb\">\n" +
+                                                "               <img src=\"assets/images/products/" + prod.urlImg + "\" \n" +
+                                                "                    class=\"img-responsive\" \n" +
+                                                "                    alt=\"" + prod.urlImg + "\"\n" +
+                                                "                    fs-product-for-img=\"" + prod.productID + "\"/>\n" +
+                                                "                <div class=\"overlay-rmore fa fa-search quickview fs-product-modal\" \n" +
+                                                "                     data-toggle=\"modal\" \n" +
+                                                "                     fs-product=\"" + prod.productID + "\" \n" +
+                                                "                     fs-product-modal-color=\"" + prod.productColorListWorking[0].colorID + "\">\n" +
+                                                "                </div>\n" +
+                                                "                <div class=\"product-overlay\">\n" +
+                                                "                     <a href=\"#\" class=\"addcart fa fa-shopping-cart\"></a>\n" +
+                                                "<a href=\"#\" class=\"compare fa fa-signal\"></a>" +
+                                                "                     <a href=\"#\" class=\"likeitem fa fa-heart-o\"></a>\n" +
+                                                "                </div>\n" +
+                                                "          </div>\n" +
+                                                "      <div class=\"product-info\">\n" +
+                                                "          <h4 class=\"product-title\">\n" +
+                                                "              <a href=\"" + prod.productID + "-" + prod.productColorListWorking[0].colorID + ".html\">\n" +
+                                                "                 " + prod.productName + "\n" +
+                                                "              </a>\n" +
+                                                "          </h4>\n" +
+                                                "          <span class=\"product-price\">$" + prod.price + ".00</span>\n" +
+                                                "          <div class=\"item-colors\" style=\"height: 25px;\">\n" +
+                                                renderColor +
+                                                "          </div>\n" +
+                                                "      </div>\n" +
+                                                "    </div>\n" +
+                                                "</div>";
+                                    } else {
+                                        result += "<div class=\"col-md-4 col-sm-6\">\n" +
+                                                "     <div class=\"product-item\">\n" +
+                                                "          <div class=\"item-thumb\">\n" +
+                                                "               <span class=\"badge offer\">-" + prod.discountByProduct + "%</span>\n" +
+                                                "               <img src=\"assets/images/products/" + prod.urlImg + "\" \n" +
+                                                "                    class=\"img-responsive\" \n" +
+                                                "                    alt=\"" + prod.urlImg + "\"\n" +
+                                                "                    fs-product-for-img=\"" + prod.productID + "\"/>\n" +
+                                                "                <div class=\"overlay-rmore fa fa-search quickview fs-product-modal\" \n" +
+                                                "                     data-toggle=\"modal\" \n" +
+                                                "                     fs-product=\"" + prod.productID + "\" \n" +
+                                                "                     fs-product-modal-color=\"" + prod.productColorListWorking[0].colorID + "\">\n" +
+                                                "                </div>\n" +
+                                                "                <div class=\"product-overlay\">\n" +
+                                                "                     <a href=\"#\" class=\"addcart fa fa-shopping-cart\"></a>\n" +
+                                                "<a href=\"#\" class=\"compare fa fa-signal\"></a>" +
+                                                "                     <a href=\"#\" class=\"likeitem fa fa-heart-o\"></a>\n" +
+                                                "                </div>\n" +
+                                                "          </div>\n" +
+                                                "      <div class=\"product-info\">\n" +
+                                                "          <h4 class=\"product-title\">\n" +
+                                                "              <a href=\"" + prod.productID + "-" + prod.productColorListWorking[0].colorID + ".html\">\n" +
+                                                "                 " + prod.productName + "\n" +
+                                                "              </a>\n" +
+                                                "          </h4>\n" +
+                                                "          <span class=\"product-price\">\n" +
+                                                "               <small class=\"cutprice\">$ " + prod.price + ".00 </small>  $ " + ((prod.productWithDiscount)).toFixed(2) +
+                                                "          </span>\n" +
+                                                "          <div class=\"item-colors\" style=\"height: 25px;\">\n" +
+                                                renderColor +
+                                                "          </div>\n" +
+                                                "      </div>\n" +
+                                                "    </div>\n" +
+                                                "</div>";
+                                    }
+                                });
+                                $("#fs-change-data-here").html(result);
+                                $("#fs-price-from").val("");
+                                $("#fs-price-to").val("");
+                            }
+                        }, 400);
+                    }
+                });
+            }
+
+        });
+
     });
     /* FILTER PRODUCT BY COLOR */
     $("#fs-shop-content-sub-category").on("click", "#fs-color-checkbox", function () {
@@ -3275,7 +3276,7 @@ $(document).ready(function () {
                                                 "          </div>\n" +
                                                 "      <div class=\"product-info\">\n" +
                                                 "          <h4 class=\"product-title\">\n" +
-                                                "              <a href=\"" + prod.productID + "-" + prod.productColorListWorking[0].colorID +  ".html\">\n" +
+                                                "              <a href=\"" + prod.productID + "-" + prod.productColorListWorking[0].colorID + ".html\">\n" +
                                                 "                 " + prod.productName + "\n" +
                                                 "              </a>\n" +
                                                 "          </h4>\n" +
@@ -3308,7 +3309,7 @@ $(document).ready(function () {
                                                 "          </div>\n" +
                                                 "      <div class=\"product-info\">\n" +
                                                 "          <h4 class=\"product-title\">\n" +
-                                                "              <a href=\"" + prod.productID + "-" + prod.productColorListWorking[0].colorID +  ".html\">\n" +
+                                                "              <a href=\"" + prod.productID + "-" + prod.productColorListWorking[0].colorID + ".html\">\n" +
                                                 "                 " + prod.productName + "\n" +
                                                 "              </a>\n" +
                                                 "          </h4>\n" +
@@ -3443,7 +3444,7 @@ $(document).ready(function () {
                                                 "          </div>\n" +
                                                 "      <div class=\"product-info\">\n" +
                                                 "          <h4 class=\"product-title\">\n" +
-                                                "              <a href=\"" + prod.productID + "-" + prod.productColorListWorking[0].colorID +  ".html\">\n" +
+                                                "              <a href=\"" + prod.productID + "-" + prod.productColorListWorking[0].colorID + ".html\">\n" +
                                                 "                 " + prod.productName + "\n" +
                                                 "              </a>\n" +
                                                 "          </h4>\n" +
@@ -3476,7 +3477,7 @@ $(document).ready(function () {
                                                 "          </div>\n" +
                                                 "      <div class=\"product-info\">\n" +
                                                 "          <h4 class=\"product-title\">\n" +
-                                                "              <a href=\"" + prod.productID + "-" + prod.productColorListWorking[0].colorID  + ".html\">\n" +
+                                                "              <a href=\"" + prod.productID + "-" + prod.productColorListWorking[0].colorID + ".html\">\n" +
                                                 "                 " + prod.productName + "\n" +
                                                 "              </a>\n" +
                                                 "          </h4>\n" +
@@ -3523,10 +3524,10 @@ $(document).ready(function () {
         }
     });
     //enable checkoutbtn
-        if(cartCount.find('li').eq(0).text()=="0"){
+    if (cartCount.find('li').eq(0).text() == "0") {
         cartWrapper.find('.checkout').prop('disabled', true)
-        }
-        
+    }
+
 
     function updateCartCount(quantity) {
 
@@ -5149,7 +5150,7 @@ $(document).ready(function () {
                         swal({
                             title: "<h1 style='color: #31b131;'>Success</h1>",
                             text: "Add To Wish List Successfully.",
-                            timer: 2000,
+                            timer: 1000,
                             showConfirmButton: false,
                             html: true
                         });
@@ -5157,7 +5158,7 @@ $(document).ready(function () {
                         swal({
                             title: "<h1 style='color: #F65D20;' >Error!",
                             text: "Error",
-                            timer: 2000,
+                            timer: 1000,
                             showConfirmButton: false,
                             html: true
                         });
@@ -5165,7 +5166,7 @@ $(document).ready(function () {
                         swal({
                             title: "<h1 style='color: #F65D20;' >Error!",
                             text: "This product is available in your wishlist",
-                            timer: 2000,
+                            timer: 1000,
                             showConfirmButton: false,
                             html: true
                         });
@@ -5211,7 +5212,7 @@ $(document).ready(function () {
                         swal({
                             title: "<h1 style='color: #31b131;'>Success</h1>",
                             text: "Add To Wish List Successfully",
-                            timer: 2000,
+                            timer: 1000,
                             showConfirmButton: false,
                             html: true
                         });
@@ -5219,7 +5220,7 @@ $(document).ready(function () {
                         swal({
                             title: "<h1 style='color: #F65D20;' >Error!",
                             text: "Error",
-                            timer: 2000,
+                            timer: 1000,
                             showConfirmButton: false,
                             html: true
                         });
@@ -5227,7 +5228,7 @@ $(document).ready(function () {
                         swal({
                             title: "<h1 style='color: #F65D20;' >Error!",
                             text: "This product is available in your wishlist",
-                            timer: 2000,
+                            timer: 1000,
                             showConfirmButton: false,
                             html: true
                         });
@@ -5271,7 +5272,7 @@ $(document).ready(function () {
                         swal({
                             title: "<h1 style='color: #31b131;'>Success</h1>",
                             text: "Add To Wish List Successfully",
-                            timer: 2000,
+                            timer: 1000,
                             showConfirmButton: false,
                             html: true
                         });
@@ -5279,7 +5280,7 @@ $(document).ready(function () {
                         swal({
                             title: "<h1 style='color: #F65D20;' >Error!",
                             text: "Error",
-                            timer: 2000,
+                            timer: 1000,
                             showConfirmButton: false,
                             html: true
                         });
@@ -5287,7 +5288,7 @@ $(document).ready(function () {
                         swal({
                             title: "<h1 style='color: #F65D20;' >Error!",
                             text: "This product is available in your wishlist",
-                            timer: 2000,
+                            timer: 1000,
                             showConfirmButton: false,
                             html: true
                         });
@@ -5306,8 +5307,8 @@ $(document).ready(function () {
             });
         }
     });
-    
-    $("#fs-product-detail-page").on('click','.fs-wl-add-pddt',function () {
+
+    $("#fs-product-detail-page").on('click', '.fs-wl-add-pddt', function () {
         var userID = $(this).attr("fs-userID");
         var productID = $(this).attr("fs-productID");
         var input = $("input[name='emailUser']");
@@ -5329,7 +5330,7 @@ $(document).ready(function () {
                         swal({
                             title: "<h1 style='color: #31b131;'>Success</h1>",
                             text: "Add To Wish List Successfully",
-                            timer: 2000,
+                            timer: 1000,
                             showConfirmButton: false,
                             html: true
                         });
@@ -5337,7 +5338,7 @@ $(document).ready(function () {
                         swal({
                             title: "<h1 style='color: #F65D20;' >Error!",
                             text: "Error",
-                            timer: 2000,
+                            timer: 1000,
                             showConfirmButton: false,
                             html: true
                         });
@@ -5345,7 +5346,7 @@ $(document).ready(function () {
                         swal({
                             title: "<h1 style='color: #F65D20;' >Error!",
                             text: "This product is available in your wishlist",
-                            timer: 2000,
+                            timer: 1000,
                             showConfirmButton: false,
                             html: true
                         });
@@ -5365,6 +5366,63 @@ $(document).ready(function () {
         }
     });
 
+    $("#fs-change-data-here").on('click', '.fs-wl-add-cdt', function () {
+        var userID = $(this).attr("fs-userID");
+        var productID = $(this).attr("fs-productID");
+        var input = $("input[name='emailUser']");
+        if (input.val() != "") {
+            //Có session
+            //            $(this).addClass("fs-heart-color");
+
+
+            $.ajax({
+                url: "user/ajax/addWishList.html",
+                method: "POST",
+                data: {
+                    userID: userID,
+                    productID: productID
+                },
+                success: function (response) {
+
+                    if (response == "1") {
+                        swal({
+                            title: "<h1 style='color: #31b131;'>Success</h1>",
+                            text: "Add To Wish List Successfully",
+                            timer: 1000,
+                            showConfirmButton: false,
+                            html: true
+                        });
+                    } else if (response == "0") {
+                        swal({
+                            title: "<h1 style='color: #F65D20;' >Error!",
+                            text: "Error",
+                            timer: 1000,
+                            showConfirmButton: false,
+                            html: true
+                        });
+                    } else if (response == "2") {
+                        swal({
+                            title: "<h1 style='color: #F65D20;' >Error!",
+                            text: "This product is available in your wishlist",
+                            timer: 1000,
+                            showConfirmButton: false,
+                            html: true
+                        });
+                    }
+                }
+            });
+
+
+        } else {
+            //Khong có session
+            $("#fs-modal-mess").modal("show");
+            $(".fs-btn-login-wl").click(function () {
+                $("#fs-modal-mess").modal("hide");
+
+                $("#loginModal").modal("show");
+            });
+        }
+    });
     // ADD WISH-LIST: SUB_CATEGORY
 
     $(".fs-wl-add-sub").click(function () {
@@ -5387,7 +5445,7 @@ $(document).ready(function () {
                         swal({
                             title: "<h1 style='color: #31b131;'>Success</h1>",
                             text: "Add To Wish List Successfully",
-                            timer: 2000,
+                            timer: 1000,
                             showConfirmButton: false,
                             html: true
                         });
@@ -5396,7 +5454,7 @@ $(document).ready(function () {
                         swal({
                             title: "<h1 style='color: #F65D20;' >Error!",
                             text: "This Product Is Available in You Wish List",
-                            timer: 2000,
+                            timer: 1000,
                             showConfirmButton: false,
                             html: true
                         });
@@ -5416,6 +5474,7 @@ $(document).ready(function () {
         }
     });
 
+
     //compare latest product
     $(".fs-cp-lsp").click(function () {
 
@@ -5434,7 +5493,7 @@ $(document).ready(function () {
                     swal({
                         title: "<h1 style='color: #31b131;'>Success</h1>",
                         text: "Add To Compare List Successfully.",
-                        timer: 2000,
+                        timer: 1000,
                         showConfirmButton: false,
                         html: true
                     });
@@ -5451,7 +5510,7 @@ $(document).ready(function () {
                     swal({
                         title: "<h1 style='color: #F65D20;' >Error!",
                         text: "Error",
-                        timer: 2000,
+                        timer: 1000,
                         showConfirmButton: false,
                         html: true
                     });
@@ -5459,7 +5518,7 @@ $(document).ready(function () {
                     swal({
                         title: "<h1 style='color: #F65D20;' >Error!",
                         text: "This product is available in your compare list",
-                        timer: 2000,
+                        timer: 1000,
                         showConfirmButton: false,
                         html: true
                     });
@@ -5470,6 +5529,7 @@ $(document).ready(function () {
 
 
     });
+
 
     //compare featured product
     $(".fs-cp-fp").click(function () {
@@ -5489,7 +5549,7 @@ $(document).ready(function () {
                     swal({
                         title: "<h1 style='color: #31b131;'>Success</h1>",
                         text: "Add To Compare List Successfully.",
-                        timer: 2000,
+                        timer: 1000,
                         showConfirmButton: false,
                         html: true
                     });
@@ -5506,7 +5566,7 @@ $(document).ready(function () {
                     swal({
                         title: "<h1 style='color: #F65D20;' >Error!",
                         text: "Error",
-                        timer: 2000,
+                        timer: 1000,
                         showConfirmButton: false,
                         html: true
                     });
@@ -5514,17 +5574,15 @@ $(document).ready(function () {
                     swal({
                         title: "<h1 style='color: #F65D20;' >Error!",
                         text: "This product is available in your compare list",
-                        timer: 2000,
+                        timer: 1000,
                         showConfirmButton: false,
                         html: true
                     });
                 }
             }
         });
-
-
-
     });
+
 
     //compare product(brand list)
     $(".fs-cp-bra").click(function () {
@@ -5544,7 +5602,7 @@ $(document).ready(function () {
                     swal({
                         title: "<h1 style='color: #31b131;'>Success</h1>",
                         text: "Add To Compare List Successfully.",
-                        timer: 2000,
+                        timer: 1000,
                         showConfirmButton: false,
                         html: true
                     });
@@ -5561,7 +5619,7 @@ $(document).ready(function () {
                     swal({
                         title: "<h1 style='color: #F65D20;' >Error!",
                         text: "Error",
-                        timer: 2000,
+                        timer: 1000,
                         showConfirmButton: false,
                         html: true
                     });
@@ -5569,7 +5627,7 @@ $(document).ready(function () {
                     swal({
                         title: "<h1 style='color: #F65D20;' >Error!",
                         text: "This product is available in your compare list",
-                        timer: 2000,
+                        timer: 1000,
                         showConfirmButton: false,
                         html: true
                     });
@@ -5580,9 +5638,9 @@ $(document).ready(function () {
 
 
     });
-    
+
     //compare product(brand list)
-    $("#fs-product-detail-page").on('click','.fs-cp-pddt',function () {
+    $("#fs-product-detail-page").on('click', '.fs-cp-pddt', function () {
 
         var productID = $(this).attr("fs-productID");
 
@@ -5599,7 +5657,7 @@ $(document).ready(function () {
                     swal({
                         title: "<h1 style='color: #31b131;'>Success</h1>",
                         text: "Add To Compare List Successfully.",
-                        timer: 2000,
+                        timer: 1000,
                         showConfirmButton: false,
                         html: true
                     });
@@ -5616,7 +5674,7 @@ $(document).ready(function () {
                     swal({
                         title: "<h1 style='color: #F65D20;' >Error!",
                         text: "Error",
-                        timer: 2000,
+                        timer: 1000,
                         showConfirmButton: false,
                         html: true
                     });
@@ -5624,7 +5682,61 @@ $(document).ready(function () {
                     swal({
                         title: "<h1 style='color: #F65D20;' >Error!",
                         text: "This product is available in your compare list",
-                        timer: 2000,
+                        timer: 1000,
+                        showConfirmButton: false,
+                        html: true
+                    });
+                }
+            }
+        });
+
+
+
+    });
+    //compare product when data change
+    $("#fs-change-data-here").on('click', '.fs-cp-cdt', function () {
+
+        var productID = $(this).attr("fs-productID");
+
+        $.ajax({
+            url: "ajax/compare.html",
+            method: "POST",
+            data: {
+
+                proID: productID
+            },
+            success: function (response) {
+
+                if (response == "1") {
+                    swal({
+                        title: "<h1 style='color: #31b131;'>Success</h1>",
+                        text: "Add To Compare List Successfully.",
+                        timer: 1000,
+                        showConfirmButton: false,
+                        html: true
+                    });
+                    $.ajax({
+                        url: "ajax/comparelist.html",
+                        method: "GET",
+                        dataType: 'html',
+                        success: function (response) {
+                            $(".compare-info").html(response).fadeIn(1000);
+                        }
+                    });
+
+                } else if (response == "0") {
+                    swal({
+                        title: "<h1 style='color: #F65D20;' >Error!",
+                        text: "Error",
+                        timer: 1000,
+                        showConfirmButton: false,
+                        html: true
+                    });
+                } else if (response == "2") {
+                    swal({
+                        title: "<h1 style='color: #F65D20;' >Error!",
+                        text: "This product is available in your compare list",
+                        timer: 1000,
                         showConfirmButton: false,
                         html: true
                     });
@@ -5636,7 +5748,7 @@ $(document).ready(function () {
 
     });
 
-    //compare product(brand list)
+    //compare product(category list)
     $(".fs-cp-cat").click(function () {
 
         var productID = $(this).attr("fs-productID");
@@ -5654,7 +5766,7 @@ $(document).ready(function () {
                     swal({
                         title: "<h1 style='color: #31b131;'>Success</h1>",
                         text: "Add To Compare List Successfully.",
-                        timer: 2000,
+                        timer: 1000,
                         showConfirmButton: false,
                         html: true
                     });
@@ -5671,7 +5783,7 @@ $(document).ready(function () {
                     swal({
                         title: "<h1 style='color: #F65D20;' >Error!",
                         text: "Error",
-                        timer: 2000,
+                        timer: 1000,
                         showConfirmButton: false,
                         html: true
                     });
@@ -5679,7 +5791,7 @@ $(document).ready(function () {
                     swal({
                         title: "<h1 style='color: #F65D20;' >Error!",
                         text: "This product is available in your compare list",
-                        timer: 2000,
+                        timer: 1000,
                         showConfirmButton: false,
                         html: true
                     });
@@ -5710,7 +5822,7 @@ $(document).ready(function () {
                     swal({
                         title: "<h1 style='color: #31b131;'>Success</h1>",
                         text: "Delete Product Success.",
-                        timer: 2000,
+                        timer: 1000,
                         showConfirmButton: false,
                         html: true
                     });
@@ -5727,7 +5839,7 @@ $(document).ready(function () {
                     swal({
                         title: "<h1 style='color: #F65D20;' >Error!",
                         text: "Error",
-                        timer: 2000,
+                        timer: 1000,
                         showConfirmButton: false,
                         html: true
                     });
@@ -5749,7 +5861,7 @@ $(document).ready(function () {
                     swal({
                         title: "<h1 style='color: #31b131;'>Success</h1>",
                         text: "Delete Product Success.",
-                        timer: 2000,
+                        timer: 1000,
                         showConfirmButton: false,
                         html: true
                     });
@@ -5787,7 +5899,7 @@ $(document).ready(function () {
                     swal({
                         title: "<h1 style='color: #ff0000;'>Delete</h1>",
                         text: "Delete Wish List success.",
-                        timer: 2000,
+                        timer: 1000,
                         showConfirmButton: false,
                         html: true
                     });
@@ -5818,11 +5930,11 @@ $(document).ready(function () {
     /*========================================END THANH - BLOG====================================================*/
 
 
-$('#discountModal').on('show.bs.modal', function (event) {
-  var button = $(event.relatedTarget) // Button that triggered the modal
-  var discount = button.data('whatever') // discountdetail list
-  var modal = $(this)
-  $.ajax({
+    $('#discountModal').on('show.bs.modal', function (event) {
+        var button = $(event.relatedTarget) // Button that triggered the modal
+        var discount = button.data('whatever') // discountdetail list
+        var modal = $(this)
+        $.ajax({
             url: "ajax/discountProduct.html",
             method: "POST",
             dataType: 'html',
@@ -5834,6 +5946,6 @@ $('#discountModal').on('show.bs.modal', function (event) {
                 modal.find('#dynamic-content').html(response); // load here
             }
         });
-})
+    })
 
 });

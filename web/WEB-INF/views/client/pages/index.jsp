@@ -178,7 +178,7 @@
     <div class="container">
         <h3 class="wthree_text_info"><span>SALE OFF</span></h3>
 
-        <div class="col-md-10 bb-grids bb-left-agileits-w3layouts" style="margin: auto;">
+        <div class="col-md-7 bb-grids bb-left-agileits-w3layouts" style="margin: auto;">
             <a data-toggle="modal" data-target="#discountModal" data-whatever="${discount[0].discID}">
                 <div class="bb-left-agileits-w3layouts-inner grid">
                     <figure class="effect-roxy">
