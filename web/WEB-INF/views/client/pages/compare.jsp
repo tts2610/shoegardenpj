@@ -48,7 +48,7 @@
                                         <td><img src="assets/images/products/${item.urlImg}" class="img-responsive" alt=""/></td>
                                         <td>
                                             <h4>
-                                                <a href="#">
+                                                <a href="${item.productID}-${item.productColorListWorking[0].colorID}.html">
                                                     ${item.productName}
                                                 </a>
                                             </h4>                                            

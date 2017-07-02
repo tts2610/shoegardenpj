@@ -290,8 +290,7 @@ jQuery(document).ready(function ($) {
                 productTotPrice = Number(product.find('.price').text().replace('$', '')) * productQuantity;
 
         product.css('top', topPosition + 'px').addClass('deleted');
-        //update items count + total price
-        updateCartTotal(productTotPrice, false);
+        
 
         //wait before completely remove the item
         undoTimeoutId = setTimeout(function () {

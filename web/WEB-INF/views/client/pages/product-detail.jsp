@@ -217,7 +217,7 @@
                 </div>
 
 
-<!--Recently-->
+                <!--Recently-->
                 <div class="clearfix space40"></div>
                 <div class="row">
                     <div class="col-md-12 col-sm-12">
@@ -240,9 +240,10 @@
                                                      fs-product-modal-color="${prod.productColorListWorking[0].colorID}" 
                                                      data-toggle="modal" ></div>
                                                 <div class="product-overlay">
-                                                    <!--<a href="#" class="addcart fa fa-shopping-cart"></a>-->
-                                                    <a class="likeitem fa fa-heart-o fs-wl-add-lsp"
-                                                       fs-userID="${sessionScope.findUsersID}" fs-productID="${prod.productID}" ></a>
+                                                    <a class="fa fa-bar-chart fs-cp-pddt" fs-productID="${prod.productID}"></a>
+                                                    <a class="likeitem fa fa-heart-o fs-wl-add-pddt"
+                                                       fs-userID="${sessionScope.findUsersID}" 
+                                                       fs-productID="${prod.productID}" ></a>
                                                     <input type="hidden" name="emailUser" value="${sessionScope.emailUser}" />
                                                 </div>
                                             </div>

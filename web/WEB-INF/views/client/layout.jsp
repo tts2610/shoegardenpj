@@ -46,6 +46,8 @@
         <link rel="stylesheet" href="assets/css/styleCart.css">
         <link href="assets/css/fontawesome-stars.css" rel="stylesheet" type="text/css"/>
         <link href="assets/css/fontawesome-stars-o.css" rel="stylesheet" type="text/css"/>
+        <link href="assets/css/iThing-min.css" rel="stylesheet" type="text/css"/>
+        <link href="assets/css/iThing.css" rel="stylesheet" type="text/css"/>
 <!--        <link href="assets/css/comparetb.css" rel="stylesheet" type="text/css"/>-->
 <!--        <link href="assets/css/reset.css" rel="stylesheet" type="text/css"/>-->
 <!--        <link href="assets/css/style_1.css" rel="stylesheet" type="text/css"/>-->
@@ -101,6 +103,6 @@
         <script src="assets/js/shoegarden_custom_JS.js" type="text/javascript"></script>
         <script src="assets/js/styleCart.js" type="text/javascript"></script>
         <script src="assets/js/bootbox.min.js" type="text/javascript"></script>
-        
+        <script src="assets/js/jQRangeSlider-min.js" type="text/javascript"></script>
     </body>
 </html>

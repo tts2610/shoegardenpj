@@ -3970,7 +3970,7 @@ $(document).ready(function () {
     /* 
      * AJAX - EVENT ONCHANGE SELECT USER "ROLE" 
      */
-    $(".fs-select-user-role").on("change", function () {
+    $("#user-list").on("change",'.fs-select-user-role', function () {
         var roleID = $(this).val();
         var userID = $(this).attr("fs-user");
 
@@ -4922,40 +4922,28 @@ $(document).ready(function () {
         var status = $(this).val();
         var order = $(this).attr("fs-order");
 
-        bootbox.confirm({
-            title: "Review without rating stars?",
-            message: "Are you sure to continue?",
-            buttons: {
-                cancel: {
-                    label: '<i class="fa fa-times"></i> Cancel'
-                },
-                confirm: {
-                    label: '<i class="fa fa-check"></i> Confirm'
-                }
-            },
-            callback: function (result) {
-                if(result)
-                $.ajax({
-                    url: "admin/orders/confirmstatusOrder.html",
-                    method: "POST",
-                    data: {order: order, status: status},
-                    success: function (response) {
+        swal({
+            title: "Are you sure to change status?",
+            type: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#DD6B55",
+            confirmButtonText: "Yes",
+            closeOnConfirm: false
+        },
+                function (isConfirm) {
+                    if (isConfirm)
+                        $.ajax({
+                            url: "admin/orders/confirmstatusOrder.html",
+                            method: "POST",
+                            data: {order: order, status: status},
+                            success: function (response) {
 //                swal("UPDATE SUCCESS", response, "success");
-                        swal({
-                            type: "success",
-                            title: "UPDATE SUCCESS",
-                            text: "update status successfully",
-                            timer: 2000,
-                            showConfirmButton: true
+                                swal("Success!", "", "success");
+                            }
                         });
-
-                    }
                 });
 
-            }
-        });
-
-
+                
     });
 
 
