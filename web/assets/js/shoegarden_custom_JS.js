@@ -1609,8 +1609,8 @@ $(document).ready(function () {
                                             "                </div>\n" +
                                             "                <div class=\"product-overlay\">\n" +
                                             "                       <a class=\"fa fa-bar-chart fs-cp-cdt\" fs-productID=\"" + prod.productID + "\"></a> \n" +
-//                                            "                       <a class=\"likeitem fa fa-heart-o fs-wl-add-cdt\" fs-userID=\"" + sessionScope.findUsersID + "\" \n" +
-//                                            "fs-productID=\"" + prod.productID + "\></a>" +
+                                            "                       <a class=\"likeitem fa fa-heart-o fs-wl-add-cdt\" fs-userID=\"" + prod.productID + "\" " +
+                                            "fs-productID=\"" + prod.productID + "\"></a> \n" +
                                             "                </div>\n" +
                                             "          </div>\n" +
                                             "      <div class=\"product-info\">\n" +
