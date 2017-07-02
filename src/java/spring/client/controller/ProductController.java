@@ -461,6 +461,7 @@ public class ProductController {
                 model.addAttribute("targetColor", targetColor);
                 model.addAttribute("braList", cateList);
                 model.addAttribute("ratingAVR", ratingAVR);
+                model.addAttribute("rateCount", ratecount);
                 model.addAttribute("numberOfRating", ratingList.size());
                 model.addAttribute("ratingfor1", ratingfor1);
                 model.addAttribute("ratingfor2", ratingfor2);

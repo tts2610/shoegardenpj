@@ -45,7 +45,6 @@ import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 import org.springframework.format.annotation.DateTimeFormat;
-import spring.ejb.DiscountDetailsFacadeLocal;
 
 /**
  *

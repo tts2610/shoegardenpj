@@ -1336,10 +1336,10 @@ $(document).ready(function () {
         var productID = $(this).attr("fs-product-id");
 
         if (review == "") {
-            $("#fs-review-product-error").text("Content cannot be empty!");
+            $("#fs-review-product-error").text("Please write your review!");
 //            $("#cke_fs-product-description iframe").contents().find("body").focus();
 //            $('html,body').scrollTop(0);          
-        } else if (review.length < 5 || review.length > 25) {
+        } else if (review.length < 5 || review.length > 500) {
             $("#fs-review-product-error").text("Content must have 5 - 500 characters!");
             $("#fs-review-product").focus();
         } else {

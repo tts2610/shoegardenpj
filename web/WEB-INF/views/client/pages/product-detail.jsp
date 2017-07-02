@@ -37,7 +37,8 @@
                         <div class="product-single">
                             <div class="ps-header fs-product-detail-name" fs-product-id="${targetProduct.productID}">
                                 <h1>${targetProduct.productName}</h1>
-                                <div class="ps-price" style="margin-top: 11px;">                                     
+
+                                <div class="ps-rating" style="margin-top: 11px;">                                     
                                     <select id="fs-rating-star-result" name="fs-rating-star-result" data-current-rating="${ratingAVR}">
                                         <option value="1">1</option>
                                         <option value="2">2</option>
@@ -46,6 +47,7 @@
                                         <option value="5">5</option>
                                     </select>                            
                                 </div>
+                                    <h2 class="bold padding-bottom-7" style="margin-bottom: 10px">${ratingAVR}<small>/ 5  with ${rateCount} ratings</small></h2>
                                 <c:if test="${targetProduct.productWithDiscount!=targetProduct.price}">
                                     <div class="ps-price">
                                         <h1 style="color: #888888;text-decoration: line-through; display: inline">$${targetProduct.price} </h1>
@@ -267,7 +269,7 @@
                                                 </span>
 
                                                 <div class="item-colors">
-                                                    <c:if test="${prod.productColorListWorking.size() > 1}">
+                                                    <c:if test="${prod.productColorListWorking.size() >= 1}">
                                                         <c:forEach items="${prod.productColorListWorking}" var="color">
                                                             <img src="assets/images/products/colors/${color.urlColorImg}" 
                                                                  class="img-responsive fs-index-color-img" 
