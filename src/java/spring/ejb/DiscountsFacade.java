@@ -70,7 +70,7 @@ public class DiscountsFacade extends AbstractFacade<Discounts> implements Discou
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         LocalDate localDate = LocalDate.now();
         String date = dtf.format(localDate);
-        System.err.println(date);
+       // System.err.println(date);
         Query q = getEntityManager().createNativeQuery("SELECT TOP 3 * FROM discounts d where d.dateBegin<= '"+date+"' AND d.dateEnd>='"+date+"'",Discounts.class);
         return q.getResultList();
     }

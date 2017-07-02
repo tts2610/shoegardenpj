@@ -90,7 +90,7 @@ public class GeneralController {
         model.addAttribute("bestSellerList", bestSellerList); //lấy sản phẩm bán chạy nhất
         model.addAttribute("mostViewList", mostViewList); //lấy sản phẩm xem nhiều nhất
         model.addAttribute("productTopRateList", newTopRateList); //lấy sản phẩm được rate nhiều nhất
-        model.addAttribute("discount", discount);
+        model.addAttribute("discount", discount); //lay 3 discount gan nhat dang trong thoi han
 //        model.addAttribute("blogListIndex", blogListIndex);
         return "client/pages/index";
     }

@@ -18,7 +18,7 @@
                 <div class="carousel-caption">
                     <h3>The Biggest <span>Sale</span></h3>
                     <p>Special for today</p>
-                    <a class="hvr-outline-out button2" href="mens.html">Shop Now </a>
+                    <a class="hvr-outline-out button2" href="#">Shop Now </a>
                 </div>
             </div>
         </div>
@@ -27,7 +27,7 @@
                 <div class="carousel-caption">
                     <h3>Summer <span>Collection</span></h3>
                     <p>New Arrivals On Sale</p>
-                    <a class="hvr-outline-out button2" href="mens.html">Shop Now </a>
+                    <a class="hvr-outline-out button2" href="#">Shop Now </a>
                 </div>
             </div>
         </div>
@@ -36,7 +36,7 @@
                 <div class="carousel-caption">
                     <h3>The Biggest <span>Sale</span></h3>
                     <p>Special for today</p>
-                    <a class="hvr-outline-out button2" href="mens.html">Shop Now </a>
+                    <a class="hvr-outline-out button2" href="#">Shop Now </a>
                 </div>
             </div>
         </div>
@@ -45,7 +45,7 @@
                 <div class="carousel-caption">
                     <h3>Summer <span>Collection</span></h3>
                     <p>New Arrivals On Sale</p>
-                    <a class="hvr-outline-out button2" href="mens.html">Shop Now </a>
+                    <a class="hvr-outline-out button2" href="#">Shop Now </a>
                 </div>
             </div>
         </div>
@@ -59,7 +59,9 @@
         <span class="sr-only">Next</span>
     </a>
     <!-- The Modal -->
-</div> <!--/slider-->
+</div> 
+
+<!--/slider-->
 
 <div class="banner_bottom_agile_info">
     <div class="container">
@@ -93,7 +95,7 @@
 <c:if test="${discount.size()>=3}">
     <div class="banner-bootom-w3-agileits">
     <div class="container">
-        <h3 class="wthree_text_info">What's <span>Trending</span></h3>
+        <h3 class="wthree_text_info"><span>SALE OFF</span></h3>
 
         <div class="col-md-5 bb-grids bb-left-agileits-w3layouts">
             <a data-toggle="modal" data-target="#discountModal" data-whatever="${discount[0].discID}">
@@ -139,7 +141,7 @@
 <c:if test="${discount.size()==2}"> 
     <div class="banner-bootom-w3-agileits">
     <div class="container">
-        <h3 class="wthree_text_info">What's <span>Trending</span></h3>
+        <h3 class="wthree_text_info"><span>SALE OFF</span></h3>
 
         <div class="col-md-5 bb-grids bb-left-agileits-w3layouts" style="margin-left: 91px;">
             <a data-toggle="modal" data-target="#discountModal" data-whatever="${discount[0].discID}">
@@ -171,7 +173,27 @@
     </div>
 </div>
 </c:if>
+<c:if test="${discount.size()==1}"> 
+    <div class="banner-bootom-w3-agileits">
+    <div class="container">
+        <h3 class="wthree_text_info"><span>SALE OFF</span></h3>
 
+        <div class="col-md-10 bb-grids bb-left-agileits-w3layouts" style="margin: auto;">
+            <a data-toggle="modal" data-target="#discountModal" data-whatever="${discount[0].discID}">
+                <div class="bb-left-agileits-w3layouts-inner grid">
+                    <figure class="effect-roxy">
+                        <img src="assets/images/img1.jpg" alt=" " class="img-responsive" />
+                        <figcaption>
+                            <h3><span>S</span>ale </h3>
+                            <p>Upto ${discount[0].discount}%</p>
+                        </figcaption>			
+                    </figure>
+                </div>
+            </a>
+        </div>        
+    </div>
+</div>
+</c:if>
 
 
 <!-- FEATURED PRODUCTS -->
