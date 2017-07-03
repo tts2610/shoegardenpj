@@ -3110,7 +3110,12 @@ footer {
     font-family: Montserrat;
     margin: 0 0 10px;
 }
-
+.ps-rating {
+    font-size: 16px;
+    color: #e74c3c;
+    font-family: sans-serif;
+    margin: 0 0 0 0;
+}
 .ps-price span {
     font-size: 14px;
     text-decoration: line-through;
