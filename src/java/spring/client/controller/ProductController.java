@@ -507,6 +507,17 @@ public class ProductController {
             return "" + e.getMessage();
         }
     }
+    
+    @ResponseBody
+    @RequestMapping(value = "ajax/productgetSession", method = RequestMethod.GET)
+    public String ajaxGetSession(HttpServletRequest request) {
+        Integer userid = (Integer) request.getSession().getAttribute("findUsersID");
+        
+        String email = (String) request.getSession().getAttribute("emailUser")==null?"":(String) request.getSession().getAttribute("emailUser");
+        String uid = userid==null?"":userid.toString();
+        
+        return uid+"-"+email;
+    }
 
     @ResponseBody
     @RequestMapping(value = "/ajax/productPagination", method = RequestMethod.POST)
@@ -568,8 +579,6 @@ public class ProductController {
         } catch (JsonProcessingException ex) {
             ex.printStackTrace();
         }
-
-        
         return result;
     }
 
