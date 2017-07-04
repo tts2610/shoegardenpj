@@ -1372,39 +1372,45 @@ $(document).ready(function () {
                                     },
                                     success: function (response) {
                                         if (response == "ok") {
-                                            setTimeout(function () {
+                                            
                                                 $("#fs-ajax-loading-2").css("display", "none");
                                                 $("#fs-form-rating-review").empty();
                                                 //$("#fs-form-rating-review").html("<h3>Thank you! Your review is being verified </h3>");
-                                                $.notify({
-                                                    icon: 'glyphicon glyphicon-ok-sign',
-                                                    title: '<strong>Thank you!</strong>',
-                                                    message: "You voted " + ratingVal + " Star for this Product!."
-                                                }, {
-                                                    type: 'success',
-                                                    placement: {
-                                                        from: 'top',
-                                                        align: 'right'
-                                                    },
-                                                    delay: 2500,
-                                                    timer: 200,
-                                                    mouse_over: 'pause',
-                                                    animate: {
-                                                        enter: 'animated fadeInRight',
-                                                        exit: 'animated fadeOutRight'
-                                                    },
-                                                    template: '<div data-notify="container" class="col-xs-11 col-sm-6 col-md-5 col-lg-3 alert alert-{0}" role="alert">' +
-                                                            '<button type="button" aria-hidden="true" class="close" data-notify="dismiss">×</button>' +
-                                                            '<span data-notify="icon"></span> ' +
-                                                            '<span data-notify="title">{1}</span> ' +
-                                                            '<span data-notify="message">{2}</span>' +
-                                                            '<div class="progress" data-notify="progressbar">' +
-                                                            '<div class="progress-bar progress-bar-{0}" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 0%;"></div>' +
-                                                            '</div>' +
-                                                            '<a href="{3}" target="{4}" data-notify="url"></a>' +
-                                                            '</div>'
-                                                });
-                                            }, 600);
+//                                                $.notify({
+//                                                    icon: 'glyphicon glyphicon-ok-sign',
+//                                                    title: '<strong>Thank you!</strong>',
+//                                                    message: "You voted " + ratingVal + " Star for this Product!."
+//                                                }, {
+//                                                    type: 'success',
+//                                                    placement: {
+//                                                        from: 'top',
+//                                                        align: 'right'
+//                                                    },
+//                                                    delay: 2500,
+//                                                    timer: 200,
+//                                                    mouse_over: 'pause',
+//                                                    animate: {
+//                                                        enter: 'animated fadeInRight',
+//                                                        exit: 'animated fadeOutRight'
+//                                                    },
+//                                                    template: '<div data-notify="container" class="col-xs-11 col-sm-6 col-md-5 col-lg-3 alert alert-{0}" role="alert">' +
+//                                                            '<button type="button" aria-hidden="true" class="close" data-notify="dismiss">×</button>' +
+//                                                            '<span data-notify="icon"></span> ' +
+//                                                            '<span data-notify="title">{1}</span> ' +
+//                                                            '<span data-notify="message">{2}</span>' +
+//                                                            '<div class="progress" data-notify="progressbar">' +
+//                                                            '<div class="progress-bar progress-bar-{0}" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 0%;"></div>' +
+//                                                            '</div>' +
+//                                                            '<a href="{3}" target="{4}" data-notify="url"></a>' +
+//                                                            '</div>'
+//                                                });
+                                                
+                                            swal({
+                                                type: "success",
+                                                title: "Thank You For Your Review!",
+                                                timer: 2000,
+                                                showConfirmButton: false
+                                            });
                                         } else {
                                             $.notify({
                                                 icon: 'glyphicon glyphicon-warning-sign',

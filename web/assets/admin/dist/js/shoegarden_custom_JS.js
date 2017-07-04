@@ -3970,7 +3970,7 @@ $(document).ready(function () {
     /* 
      * AJAX - EVENT ONCHANGE SELECT USER "ROLE" 
      */
-    $("#user-list").on("change",'.fs-select-user-role', function () {
+    $("#user-list").on("change", '.fs-select-user-role', function () {
         var roleID = $(this).val();
         var userID = $(this).attr("fs-user");
 
@@ -4450,8 +4450,8 @@ $(document).ready(function () {
     //Thiết lập cho bảng order list
     $('#tableOrder').DataTable({
         responsive: true,
-        order: [[0, "desc"]],
-        columnDefs: [{"orderable": false, "targets": [2, 3, 5]}] //,{"targets":4,render: $.fn.dataTable.render.moment(dd/mm/yyyy)}
+        order: [[0, "desc"]]
+        
     });
 
     //Thiết lập cho bảng order details list
@@ -4918,7 +4918,7 @@ $(document).ready(function () {
         })
     });
 
-    $("#id-status-order").on("change", function () {
+    $("#order-list").on("change","#id-status-order", function () {
         var status = $(this).val();
         var order = $(this).attr("fs-order");
 
@@ -4931,19 +4931,28 @@ $(document).ready(function () {
             closeOnConfirm: false
         },
                 function (isConfirm) {
-                    if (isConfirm)
+                    if (isConfirm){
                         $.ajax({
                             url: "admin/orders/confirmstatusOrder.html",
                             method: "POST",
                             data: {order: order, status: status},
                             success: function (response) {
 //                swal("UPDATE SUCCESS", response, "success");
-                                swal("Success!", "", "success");
+                                swal({
+                                    type: "success",
+                                    title: "UPDATE SUCCESS",
+                                    timer: 2000,
+                                    showConfirmButton: false
+                                });
+                                window.location.reload()
                             }
                         });
+                        
+                    }else
+                        window.location.reload()
                 });
 
-                
+
     });
 
 
