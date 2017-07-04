@@ -139,13 +139,13 @@
                     <div class="sep"></div>
                     <div class="row">                        
                         <div class="col-md-9">
-                            <h2 style="font-weight: 400">Descriptions</h2>
+                            <h2 style="font-weight: 400; margin-bottom: 10px">Descriptions</h2>
                             ${targetProduct.productDes}
                         </div>                        
                     </div>
                     <div class="sep"></div>
                     <div class="fs-display-none" id="fs-number-of-rating" fs-nort="${numberOfRating}"></div>
-                    <h2>Reviews</h2>
+                    <h2 style="font-weight: 400; margin-bottom: 10px">Reviews</h2>
                     <c:forEach items="${targetProduct.ratingList}" var="review" varStatus="no">
                         <c:if test="${review.status==1}">                            
                             <p>
