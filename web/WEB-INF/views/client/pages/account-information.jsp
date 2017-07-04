@@ -22,9 +22,9 @@
                         <form:form id="fs-form-update-account" class="form-update-user" method="POST" action="user/account-information/${sessionScope.findUsersID}.html" modelAttribute="updateUser" enctype="multipart/form-data">      
                             ${error}
                             <ul class="form-list row">
-                                <li class="col-md-12 col-sm-12">
+                                <li class="col-md-12 col-sm-12" style="display: none">
                                     <label>Email <em>*</em></label>
-                                    <div class="fs-email-update">
+                                    <div class="fs-email-update" >
                                         <form:input path="email" id="fs-update-email" cssClass="input-text"/>
                                         <p class="help-block" style="color: red; text-align: center; margin-top: -10px;" id="fs-email-update-user-error"></p>
                                     </div>

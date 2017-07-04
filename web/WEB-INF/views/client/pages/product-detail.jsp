@@ -139,13 +139,13 @@
                     <div class="sep"></div>
                     <div class="row">                        
                         <div class="col-md-9">
-                            <h2 style="font-weight: 400">Product Descriptions</h2>
+                            <h2 style="font-weight: 400">Descriptions</h2>
                             ${targetProduct.productDes}
                         </div>                        
                     </div>
                     <div class="sep"></div>
                     <div class="fs-display-none" id="fs-number-of-rating" fs-nort="${numberOfRating}"></div>
-                    <h2>Product Reviews</h2>
+                    <h2>Reviews</h2>
                     <c:forEach items="${targetProduct.ratingList}" var="review" varStatus="no">
                         <c:if test="${review.status==1}">                            
                             <p>
@@ -168,8 +168,8 @@
                         </c:if>
                     </c:forEach>                            
                     <c:choose>
-                        <c:when test="${sessionScope.findUsersID != null && checkUserRated != 0}">
-                            <!--<h3>Thank you! Your review is being verified</h3>-->
+                        <c:when test="${sessionScope.findUsersID != null && checkUserRated == 2}">
+                            <h3>Thank you! Your review is being verified</h3>
                         </c:when>
                         <c:when test="${sessionScope.findUsersID != null && checkUserRated == 0}">
                             <div id="fs-form-rating-review">

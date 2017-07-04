@@ -389,7 +389,11 @@ public class ProductController {
 
                     if (session.getAttribute("findUsersID") != null) {
                         if (Objects.equals(rating.getUser().getUserID(), session.getAttribute("findUsersID"))) {
-                            checkUserRated = 1;
+                            if(rating.getStatus()==2){
+                            checkUserRated = 2;
+                            }else{
+                               checkUserRated = 1; 
+                            }
                         }
                     }
                 }
