@@ -32,7 +32,7 @@ $(document).ready(function () {
                     type: "success",
                     title: "UPDATE SUCCESS",
                     text: response,
-                    timer: 2000,
+                    timer: 1000,
                     showConfirmButton: false
                 });
 

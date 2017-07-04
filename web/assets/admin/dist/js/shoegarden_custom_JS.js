@@ -4002,8 +4002,8 @@ $(document).ready(function () {
     var fs_user_table = $("#fs-user-dataTables").DataTable({//cấu hình datatable chính chủ.
         responsive: true
     });
-
-
+ 
+    
     $("#fs-discount-added-dataTables").DataTable({
         responsive: true,
         "scrollY": '50vh',
@@ -4447,11 +4447,17 @@ $(document).ready(function () {
     /*==============================END DUONG - USER============================*/
 
     /*==============================NGAN - ORDER============================*/
+    //rating table
+    $('#fs-rating-dataTables').DataTable({
+         responsive: true,
+        order: [[0, "desc"]]
+
+    });
     //Thiết lập cho bảng order list
     $('#tableOrder').DataTable({
         responsive: true,
         order: [[0, "desc"]]
-        
+
     });
 
     //Thiết lập cho bảng order details list
@@ -4918,7 +4924,7 @@ $(document).ready(function () {
         })
     });
 
-    $("#order-list").on("change","#id-status-order", function () {
+    $("#order-list").on("change", "#id-status-order", function () {
         var status = $(this).val();
         var order = $(this).attr("fs-order");
 
@@ -4931,7 +4937,7 @@ $(document).ready(function () {
             closeOnConfirm: false
         },
                 function (isConfirm) {
-                    if (isConfirm){
+                    if (isConfirm) {
                         $.ajax({
                             url: "admin/orders/confirmstatusOrder.html",
                             method: "POST",
@@ -4947,8 +4953,8 @@ $(document).ready(function () {
                                 window.location.reload()
                             }
                         });
-                        
-                    }else
+
+                    } else
                         window.location.reload()
                 });
 

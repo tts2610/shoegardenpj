@@ -12,6 +12,7 @@ import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -34,6 +35,12 @@ public class Comment_Controller {
     @RequestMapping(value = "list")
     public String productCateList(ModelMap model) {
         model.addAttribute("cList", ratingFacade.findAll());
+        return "admin/pages/comment-list";
+    }
+    @RequestMapping(value = "list/{status}")
+    public String reviewListByStatus(ModelMap model, @PathVariable("status") Integer status) {
+        model.addAttribute("reviewStatus", status);
+//        model.addAttribute("orderList", orderStateLessBean.getAllOrderByStatus(status));
         return "admin/pages/comment-list";
     }
     @ResponseBody

@@ -73,7 +73,7 @@
                                 <td class="text-center fs-valign-middle">
                                     <a href="admin/orders/orderlistdetail/${order.ordersID}.html" style="font-size: 20px; font-weight: 700;">${order.ordersID}</a>
                                 </td>
-                                <td class="text-center fs-valign-middle">${order.receiverFirstName}</td>
+                                <td class="text-center fs-valign-middle">${order.receiverFirstName}&nbsp;{order.receiverLastName}</td>
                                 <td class="text-center fs-valign-middle">${order.phoneNumber}</td>
                                 <td class="text-center fs-valign-middle">${order.deliveryAddress}</td>
                                 <td class="text-center fs-valign-middle">
