@@ -31,7 +31,7 @@
                         <fieldset class="form-group" id="fs-fieldset-discount">
 
                             <div class="col-lg-12">
-                                <legend class="text-center">Discount</legend>
+                                <!--<legend class="text-center">Discount</legend>-->
                                 <div class="col-xs-12" style="margin-bottom: 10px">
                                     <span style="color: red; font-size: 13px">
                                         <i>*: Required Field!</i>
@@ -88,7 +88,7 @@
 
                             </div>
                         </fieldset>
-                        <legend class="text-center">Discount Detail</legend>
+                        <!--<legend class="text-center">Discount Detail</legend>-->
                         
                         <div class="row">
                             <div class="col-lg-12">
