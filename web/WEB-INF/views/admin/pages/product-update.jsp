@@ -12,7 +12,7 @@
                     <i class="fa fa-caret-right fa-style" aria-hidden="true" style="color: #337ab7"></i> 
                     <span style="font-size: 0.9em">Edit Info</span>
                     <i class="fa fa-caret-right fa-style" aria-hidden="true" style="color: #337ab7; font-size: 25px"></i> 
-                    <a style="font-size: 0.5em" href="${productID}-${firstColorID}-${productNameNA}.html">Go to Details</a>
+                    <a style="font-size: 0.5em" href="${productID}-${firstColorID}.html">Go to Details</a>
                 </h1>
             </div>
             <!-- /.col-lg-12 -->
