@@ -4154,35 +4154,22 @@ $(document).ready(function () {
         var userID = $(this).attr("fs-userID");
 
         $.ajax({
-            url: "admin/user/ajax/getUsersByID.html",
-            method: "POST",
-            data: {userID: userID},
+            url: "admin/user/ajax/getUserAddress.html",
             dataType: "JSON",
+            method: "POST",
+            data: {userID:userID},
             success: function (response) {
                 console.log(response);
-                //vòng lặp foreach của jquery
-                var jsonStringBD = response[0].birthday;
-                var jsonObjectBD = JSON.parse(jsonStringBD);
-                var newFormattedDateBD = $.datepicker.formatDate('dd/mm/yy', new Date(jsonObjectBD));
-                var jsonStringRG = response[0].registrationDate;
-                var jsonObjectRG = JSON.parse(jsonStringRG);
-                var newFormattedDateRG = $.datepicker.formatDate('dd/mm/yy', new Date(jsonObjectRG));
-//                    var dataStr = $('');
-//                    $(dataStr).append('<tr id="fs-tr" style="border-bottom: 1px solid #cccccc;">');
-//                    $(dataStr).append('<td class="text-center" id="fs-td" style="border-right: 1px solid #cccccc;padding: 10px;transition: all 0.2s;">' + item.firstName + '</td>');
-//                    $(dataStr).append('<td class="text-center" id="fs-td" style="border-right: 1px solid #cccccc;padding: 10px;transition: all 0.2s;">' + item.lastName + '</td>');
-//                    $(dataStr).append('<td class="text-center" id="fs-td" style="border-right: 1px solid #cccccc;padding: 10px;transition: all 0.2s;">' + newFormattedDateBD + '</td>');
-//                    $(dataStr).append('<td class="text-center" id="fs-td" style="border-right: 1px solid #cccccc;padding: 10px;transition: all 0.2s;">' + newFormattedDateRG + '</td>');
-//                    $(dataStr).append('</tr>');
-
-//                    $(".heavyTable").append(dataStr);
+                
                 var dataStr = "";
-                dataStr += '<tr id="fs-tr" style="border-bottom: 1px solid #cccccc;">' +
-                        '<td class="text-center" id="fs-td" style="border-right: 1px solid #cccccc;padding: 10px;transition: all 0.2s;">' + response[0].firstName + '</td>' +
-                        '<td class="text-center" id="fs-td" style="border-right: 1px solid #cccccc;padding: 10px;transition: all 0.2s;">' + response[0].lastName + '</td>' +
-                        '<td class="text-center" id="fs-td" style="border-right: 1px solid #cccccc;padding: 10px;transition: all 0.2s;">' + newFormattedDateBD + '</td>' +
-                        '<td class="text-center" id="fs-td" style="border-right: 1px solid #cccccc;padding: 10px;transition: all 0.2s;">' + newFormattedDateRG + '</td>' +
-                        '</tr>';
+                //vòng lặp foreach của jquery
+        $.each(response, function (i, item) { //i: index; item: từng object
+            dataStr +=
+                    '<tr id="fs-tr" style="border-bottom: 1px solid #cccccc;">' +
+                    '<td class="text-center" id="fs-td" style="border-right: 1px solid #cccccc;padding: 10px;transition: all 0.2s;">' + item.address + '</td>' +
+                    '<td class="text-center" id="fs-td" style="border-right: 1px solid #cccccc;padding: 10px;transition: all 0.2s;">' + item.phoneNumber + '</td>' +
+                    '</tr>' ;
+        });
                 $("#fs-tbody-table-in-user-detail-info").html(dataStr);
                 $('#fs-user-detail-info').modal('show');
 
@@ -4453,6 +4440,22 @@ $(document).ready(function () {
         order: [[0, "desc"]]
 
     });
+    
+    //update lai rating stars khi paging
+    $('#fs-rating-dataTables').on('draw.dt', function () {
+        $('#comment #fs-rating-dataTables .fs-rating-star-results-select').each(function() {
+        var currentRating = $(this).data('current-rating');
+        var i = $(this).attr("index")
+        console.log(currentRating+" "+i);
+        $('#comment #fs-rating-dataTables #fs-rating-star-results-' + i).barrating({
+            theme: 'fontawesome-stars-o',
+            initialRating: currentRating,
+            showSelectedRating: false,
+            readonly: true
+        });
+    });
+    });
+    
     //Thiết lập cho bảng order list
     $('#tableOrder').DataTable({
         responsive: true,

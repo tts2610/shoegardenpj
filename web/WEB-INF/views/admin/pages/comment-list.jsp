@@ -41,7 +41,7 @@
                                 <td class="text-center fs-valign-middle">${rating.product.productName}</td>
                                 <td class="text-center fs-valign-middle">${rating.user.firstName}&nbsp;${rating.user.lastName}</td>
                                 <td class="text-center fs-valign-middle">                        
-                                    <select id="fs-rating-star-results-${no.index + 1}" name="fs-rating-star-results-${no.index + 1}" data-current-rating="${rating.rating}">
+                                    <select id="fs-rating-star-results-${no.index + 1}" class="fs-rating-star-results-select" index="${no.index + 1}" data-current-rating="${rating.rating}">
                                         <option value=""></option>
                                         <option value="1">1</option>
                                         <option value="2">2</option>
@@ -59,7 +59,7 @@
                                         <option id="fs-status-2" value="0" <c:if test="${rating.status == 2}">selected</c:if>>PENDING</option>
                                         </select>
                                </td>
-                               <div class="countcmt" style="display: none"></div>
+                            <div id="countcmt" fs-value="${countcmt}" style="display: none"></div>
                             </tr>                        
                         </c:forEach>
                     </tbody>

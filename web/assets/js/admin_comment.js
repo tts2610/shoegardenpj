@@ -6,17 +6,18 @@
 
 $(document).ready(function () {
 
-    var count = document.getElementsByClassName("countcmt");
 
-    for (var i = 1; i <= count.length; i++) {
-        var currentRating = $('#comment #fs-rating-star-results-' + i).data('current-rating');
-        $('#comment #fs-rating-star-results-' + i).barrating({
+    $('#comment #fs-rating-dataTables .fs-rating-star-results-select').each(function() {
+        var currentRating = $(this).data('current-rating');
+        var i = $(this).attr("index")
+        console.log(currentRating+" "+i);
+        $('#comment #fs-rating-dataTables #fs-rating-star-results-' + i).barrating({
             theme: 'fontawesome-stars-o',
             initialRating: currentRating,
             showSelectedRating: false,
             readonly: true
         });
-    }
+    });
 
     $("#comment").on("change", "#fs-status-select", function () {
         var status = $(this).val();

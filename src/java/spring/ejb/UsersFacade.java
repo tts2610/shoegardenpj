@@ -201,10 +201,10 @@ public class UsersFacade extends AbstractFacade<Users> implements UsersFacadeLoc
     }
 
     @Override
-    public List<Users> getAllUserID(int userID) {
+    public Users getAllUserID(int userID) {
         Query q = getEntityManager().createQuery("SELECT u FROM Users u WHERE u.userID = :userID", Users.class);
         q.setParameter("userID", userID);
-        return q.getResultList();
+        return (Users) q.getSingleResult();
     }
 
     @Override

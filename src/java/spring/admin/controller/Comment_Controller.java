@@ -5,6 +5,7 @@
  */
 package spring.admin.controller;
 
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.naming.Context;
@@ -18,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import spring.ejb.RatingFacadeLocal;
+import spring.entity.Rating;
 
 /**
  *
@@ -34,7 +36,10 @@ public class Comment_Controller {
     
     @RequestMapping(value = "list")
     public String productCateList(ModelMap model) {
-        model.addAttribute("cList", ratingFacade.findAll());
+        List<Rating> list = ratingFacade.findAll();
+        model.addAttribute("cList", list);
+        int countcmt = list.size();
+        model.addAttribute("countcmt", countcmt);
         return "admin/pages/comment-list";
     }
     @RequestMapping(value = "list/{status}")

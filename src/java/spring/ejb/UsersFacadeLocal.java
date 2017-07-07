@@ -38,7 +38,7 @@ public interface UsersFacadeLocal {
 
     void changePass(int userID, String newpass);
 
-    List<Users> getAllUserID(int userID);
+    Users getAllUserID(int userID);
     
     List<Users> getAllEmail();
     

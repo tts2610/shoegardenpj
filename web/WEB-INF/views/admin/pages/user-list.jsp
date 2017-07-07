@@ -38,8 +38,10 @@
                     <tbody>
                         <c:forEach items="${ulist}" var="users" varStatus="no">
                             <tr class="odd gradeX" >
-
-                                <td class="center fs-detail-user text-center" fs-userID="${users.userID}" data-toggle="modal">${no.index + 1}</td>
+                                
+                                <td style="cursor: pointer;" class="center fs-detail-user text-center" fs-userID="${users.userID}" data-toggle="modal" data-target="#fs-user-detail-info">${no.index + 1}</td>
+                               
+                                
                                 <c:if test="${sessionScope.rid==1}">
                                     <c:if test="${users.roleID.roleID != 1}">
                                         <td align="center">
@@ -133,7 +135,7 @@
 <!-- /#page-wrapper -->
 
 <!--MODAL USER-->
-<div id="fs-user-detail-info" class="modal" tabindex="-1" role="dialog">
+<div id="fs-user-detail-info" class="modal fade" tabindex="-1" role="dialog">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
@@ -143,10 +145,8 @@
             <div class="modal-body text-center">
                 <table class="heavyTable" style="width: 100%;border: 1px solid #38678f;max-width: 500px; height: 30px; border-collapse: collapse;margin: 10px auto;background: white; text-align: center" >
                     <tr id="fs-tr" style="border-bottom: 1px solid #cccccc;">
-                        <th class="text-center" id="fs-th" style="background: steelblue;height: 54px;width: 25%;font-weight: lighter;text-shadow: 0 1px 0 #38678f;color: white;border: 1px solid #38678f;box-shadow: inset 0px 1px 2px #568ebd;transition: all 0.2s;">First Name</th> 
-                        <th class="text-center" id="fs-th" style="background: steelblue;height: 54px;width: 25%;font-weight: lighter;text-shadow: 0 1px 0 #38678f;color: white;border: 1px solid #38678f;box-shadow: inset 0px 1px 2px #568ebd;transition: all 0.2s;">Last Name</th>
-                        <th class="text-center" id="fs-th" style="background: steelblue;height: 54px;width: 25%;font-weight: lighter;text-shadow: 0 1px 0 #38678f;color: white;border: 1px solid #38678f;box-shadow: inset 0px 1px 2px #568ebd;transition: all 0.2s;">Birth Day</th>
-                        <th class="text-center" id="fs-th" style="background: steelblue;height: 54px;width: 25%;font-weight: lighter;text-shadow: 0 1px 0 #38678f;color: white;border: 1px solid #38678f;box-shadow: inset 0px 1px 2px #568ebd;transition: all 0.2s;">Resgistraion Date</th>
+                        <th class="text-center" id="fs-th" style="background: steelblue;height: 54px;width: 25%;font-weight: lighter;text-shadow: 0 1px 0 #38678f;color: white;border: 1px solid #38678f;box-shadow: inset 0px 1px 2px #568ebd;transition: all 0.2s;">Addresses</th> 
+                        <th class="text-center" id="fs-th" style="background: steelblue;height: 54px;width: 25%;font-weight: lighter;text-shadow: 0 1px 0 #38678f;color: white;border: 1px solid #38678f;box-shadow: inset 0px 1px 2px #568ebd;transition: all 0.2s;">Phone Numbers</th>
                     </tr>
                     <tbody id="fs-tbody-table-in-user-detail-info">
 

@@ -10,6 +10,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.json.stream.JsonGenerator;
 import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
@@ -145,19 +146,18 @@ public class User_Controller {
         ObjectMapper om = new ObjectMapper();
         String json = "";
         try {
+            om.configure(com.fasterxml.jackson.core.JsonGenerator.Feature.ESCAPE_NON_ASCII, true);
             json = om.writeValueAsString(userAddressList); //Chuyển list sang chuỗi JSON (com.fasterxml.jackson.databind.ObjectMapper;)
         } catch (JsonProcessingException ex) {
             Logger.getLogger(User_Controller.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
         return json;
     }
     
     @ResponseBody 
     @RequestMapping(value = "ajax/getUsersByID", method = RequestMethod.POST)
     public String getUsersByID(@RequestParam("userID") Integer userID){
-        List<Users> userIDList = usersStateLessBean.getAllUserID(userID);
-        
+        Users userIDList = usersStateLessBean.getAllUserID(userID);
         ObjectMapper om = new ObjectMapper();
         String json = ""; 
         try {
@@ -165,7 +165,7 @@ public class User_Controller {
         } catch (JsonProcessingException ex) {
             Logger.getLogger(User_Controller.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
+        System.err.println(json);
         return json;
     }
     

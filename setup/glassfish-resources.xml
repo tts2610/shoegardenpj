@@ -19,7 +19,7 @@
                           max-connection-usage-count="0" 
                           max-pool-size="32" 
                           max-wait-time-in-millis="60000" 
-                          name="shoegarden2017" 
+                          name="f21508t1_shoegarden2017_pool" 
                           non-transactional-connections="false" 
                           pool-resize-quantity="2" 
                           res-type="javax.sql.ConnectionPoolDataSource" 
@@ -29,11 +29,11 @@
                           wrap-jdbc-objects="false">
         <property name="serverName" value="localhost"/>
         <property name="portNumber" value="1433"/>
-        <property name="databaseName" value="shoegarden2017"/>
+        <property name="databaseName" value="f21508t1_shoegarden_2017"/>
         <property name="User" value="sa"/>
         <property name="Password" value="1"/>
-        <property name="URL" value="jdbc:sqlserver://localhost:1433;databaseName=shoegarden2017"/>
+        <property name="URL" value="jdbc:sqlserver://localhost:1433;databaseName=f21508t1_shoegarden_2017"/>
         <property name="driverClass" value="com.microsoft.sqlserver.jdbc.SQLServerDriver"/>
     </jdbc-connection-pool>
-    <jdbc-resource enabled="true" jndi-name="jdbc/shoegarden2017" object-type="user" pool-name="shoegarden2017"/>
+    <jdbc-resource enabled="true" jndi-name="jdbc/f21508t1_shoegarden_2017" object-type="user" pool-name="f21508t1_shoegarden2017_pool"/>
 </resources>
