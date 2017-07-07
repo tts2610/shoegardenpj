@@ -13,6 +13,11 @@
                     <span style="font-size: 0.9em">List</span>
                 </h1>
             </div>
+            <div class="col-xs-12" style="margin-bottom: 10px">
+                <span style="color: red; font-size: 13px">
+                    <i>* Click on ID to view user's addresses!</i>
+                </span>
+            </div>
             <!-- /.col-lg-12 -->
         </div>
         <!-- /.row -->
@@ -23,7 +28,7 @@
                     <thead>
                         <tr>
 
-                            <td align="center">No</td>
+                            <td align="center">ID</td>
                             <td align="center">Status</td>
                             <td align="center">Role</td>
                             <td align="center">Email</td>
@@ -39,7 +44,7 @@
                         <c:forEach items="${ulist}" var="users" varStatus="no">
                             <tr class="odd gradeX" >
                                 
-                                <td style="cursor: pointer;" class="center fs-detail-user text-center" fs-userID="${users.userID}" data-toggle="modal" data-target="#fs-user-detail-info">${no.index + 1}</td>
+                                <td style="color: #337ab7; font-size: 20px; font-weight: 700; cursor: pointer;" class="center fs-detail-user text-center" fs-userID="${users.userID}" data-toggle="modal" data-target="#fs-user-detail-info">${no.index + 1}</td>
                                
                                 
                                 <c:if test="${sessionScope.rid==1}">
@@ -140,7 +145,7 @@
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" id="close fs-close" class="close" data-dismiss="modal">&times;</button>
-                <h3 class="modal-title text-center">TABLE USER</h3>
+                <h3 class="modal-title text-center">ADDRESS LIST</h3>
             </div>
             <div class="modal-body text-center">
                 <table class="heavyTable" style="width: 100%;border: 1px solid #38678f;max-width: 500px; height: 30px; border-collapse: collapse;margin: 10px auto;background: white; text-align: center" >

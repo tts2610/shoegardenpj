@@ -12,6 +12,7 @@
                     <span style="font-size: 0.9em">List</span>
                 </h1>
             </div>
+
             <!-- /.col-lg-12 -->
         </div>
         <!-- /.row -->
@@ -52,6 +53,11 @@
                         <td class="text-center fs-valign-middle"><a href="admin/orders/list/0.html" <%= classOrder5%>>CANCELED</a></td>
                     </tr>
                 </table>
+            </div>
+            <div class="col-xs-12" style="margin-bottom: 10px">
+                <span style="color: red; font-size: 13px">
+                    <i>* Click on ID to view order details!</i>
+                </span>
             </div>
             <div class="col-lg-12">
                 <!--id="dataTables-example"-->
@@ -102,7 +108,7 @@
                                             <c:when test="${order.status == 1}">
                                                 Completed
                                             </c:when>
-                                            
+
                                             <c:otherwise>
                                                 Canceled
                                             </c:otherwise>

@@ -32,6 +32,7 @@
                             <td class="text-center fs-valign-middle">ID</td>
                             <th class="text-center fs-valign-middle">Discount</th>
                             <th class="text-center fs-valign-middle">Title</th>
+                            <th class="text-center fs-valign-middle">Content</th>
                             <th class="text-center fs-valign-middle">Begin Date</th>
                             <th class="text-center fs-valign-middle">End Date</th>
                             <th class="text-center fs-valign-middle">Action</th>
@@ -40,11 +41,12 @@
                     <tbody>
                         <c:forEach items="${discountList}" var="discount">
                             <tr class="odd gradeX">
-                                <td class="text-center fs-valign-middle"><a  
+                                <td class="text-center fs-valign-middle" style="font-size: 20px; font-weight: 700;"><a  
                                         href="admin/discount/viewdiscountdetail/${discount.discID}.html"
                                         >${discount.discID}</a></td>
                                 <td class="text-center fs-valign-middle">${discount.discount}%</td>
                                 <td class="text-center fs-valign-middle">${discount.discTitle}</td>
+                                <td class="text-center fs-valign-middle">${discount.discContent}</td>
                                 <td class="text-center fs-valign-middle">
                                     <c:choose>
                                         <c:when test="${discount.dateBegin == null}">

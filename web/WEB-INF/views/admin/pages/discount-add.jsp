@@ -23,7 +23,7 @@
                 <div id="error-discount-add">
                     ${error}
                 </div>
-
+               
                 <div class="row">
 
                     <form:form id="fs-form-create-discount" name="discount-add-form" method="POST" modelAttribute="discount">
@@ -31,10 +31,10 @@
                         <fieldset class="form-group" id="fs-fieldset-discount">
 
                             <div class="col-lg-12">
-                                <legend class="text-center">Discount</legend>
+                                <!--<legend class="text-center">Discount</legend>-->
                                 <div class="col-xs-12" style="margin-bottom: 10px">
                                     <span style="color: red; font-size: 13px">
-                                        <i>*: Required Field!</i>
+                                        <i>* Required Field!</i>
                                     </span>
                                 </div>
                                 <div class="col-md-5">
@@ -88,10 +88,10 @@
 
                             </div>
                         </fieldset>
-                        <legend class="text-center">Discount Detail</legend>
+<!--                        <legend class="text-center">Discount Detail</legend>-->
                         <div class="col-xs-12" style="margin-bottom: 10px">
                             <span style="color: red; font-size: 13px">
-                                <i>Click on rows to select products!</i>
+                                <i>* Click on rows to select products!</i>
                             </span>
                         </div>
                         <div class="row fs-div-product-list-select-box" > 
@@ -119,7 +119,7 @@
                                                 <c:if test="${product.status == 0}">
                                                     <td class="text-center fs-valign-middle">STOPPED</td>
                                                 </c:if>
-                                                
+
                                                 <td class="text-center fs-valign-middle">${product.braID.braName} - ${product.catID.catName}</td>
                                                 <td class="text-center fs-valign-middle">${product.productName}</td>
                                                 <td class="text-center fs-valign-middle">

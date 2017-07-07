@@ -41,6 +41,7 @@ catch(Exception e) {
     <div class="navbar-default sidebar" role="navigation">
         <div class="sidebar-nav navbar-collapse">
             <ul class="nav" id="side-menu">
+                <c:if test="${sessionScope.rid==1}">
                 <li>
                     <a href="#"><i class="fa fa-key fa-fw"></i> User Role<span class="fa arrow"></span></a>
                     <ul class="nav nav-second-level">
@@ -53,6 +54,7 @@ catch(Exception e) {
                     </ul>
                     <!-- /.nav-second-level -->
                 </li>
+                </c:if>
                 <li>
                     <a href="#"><i class="fa fa-users fa-fw"></i> User<span class="fa arrow"></span></a>
                     <ul class="nav nav-second-level">

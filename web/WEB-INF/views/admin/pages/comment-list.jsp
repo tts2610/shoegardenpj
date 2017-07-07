@@ -54,14 +54,22 @@
                                 <td class="text-center fs-valign-middle">${rating.review}</td>
                                 <td align="center">
                                     <select name="status" fs-comment="${rating.ratingID}" class="fs-select-comment-status form-control input-sm" id="fs-status-select">
-                                        <option id="fs-status-1" value="1" <c:if test="${rating.status == 1}">selected</c:if>>VERIFIED</option>
-                                        <option id="fs-status-2" value="0" <c:if test="${rating.status == 0}">selected</c:if>>NOT VERIFIED</option>
-                                        <option id="fs-status-2" value="0" <c:if test="${rating.status == 2}">selected</c:if>>PENDING</option>
-                                        </select>
-                               </td>
-                            <div id="countcmt" fs-value="${countcmt}" style="display: none"></div>
-                            </tr>                        
-                        </c:forEach>
+                                        <c:choose>
+                                            <c:when test="${rating.status != 2}">
+                                                <option id="fs-status-1" value="1" <c:if test="${rating.status == 1}">selected</c:if>>VERIFIED</option>
+                                                <option id="fs-status-2" value="0" <c:if test="${rating.status == 0}">selected</c:if>>NOT VERIFIED</option>
+                                            </c:when>
+                                            <c:otherwise>
+                                                <option id="fs-status-1" value="1" <c:if test="${rating.status == 1}">selected</c:if>>VERIFIED</option>
+                                                <option id="fs-status-2" value="0" <c:if test="${rating.status == 0}">selected</c:if>>NOT VERIFIED</option>
+                                                <option id="fs-status-2" value="0" <c:if test="${rating.status == 2}">selected</c:if>>PENDING</option>
+                                            </c:otherwise>
+                                        </c:choose>
+                                    </select>
+                                </td>
+                        <div id="countcmt" fs-value="${countcmt}" style="display: none"></div>
+                        </tr>                        
+                    </c:forEach>
                     </tbody>
                 </table>
                 <!-- /.table-responsive -->
