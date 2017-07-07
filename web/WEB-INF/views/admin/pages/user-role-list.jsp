@@ -30,15 +30,26 @@
                             <tr class="odd gradeX" id="fs-role-list-id-${roles.roleID}">
                                 <td class="text-center fs-valign-middle">${no.index + 1}</td>
                                 <td class="text-center fs-valign-middle">${roles.roleName}</td>
-                                <td class="text-center fs-valign-middle">
-                                    <a href="admin/user/role/edit/${roles.roleID}.html" class="btn btn-warning"><i class="fa fa-edit"></i> Update</a>
-                                    <c:if test="${empty roles.usersList}">
-                                        <a class="btn fs-button-detele-role btn-danger" id="fs-delete-button-role" fs-roleID="${roles.roleID}"><i class="fa fa-remove"></i> Delete</a>
-                                    </c:if>
-                                    <c:if test="${not empty roles.usersList}">
-                                        <a class="btn btn-danger disabled" fs-roleID="${roles.roleID}"><i class="fa fa-remove"></i> Delete</a>
-                                    </c:if>
-                                      </td>
+                                <c:choose>
+                                    <c:when test="${sessionScope.rid==1}">
+                                        <td class="text-center fs-valign-middle">
+                                            <a href="admin/user/role/edit/${roles.roleID}.html" class="btn btn-warning"><i class="fa fa-edit"></i> Update</a>
+                                            <c:if test="${empty roles.usersList}">
+                                                <a class="btn fs-button-detele-role btn-danger" id="fs-delete-button-role" fs-roleID="${roles.roleID}"><i class="fa fa-remove"></i> Delete</a>
+                                            </c:if>
+                                            <c:if test="${not empty roles.usersList}">
+                                                <a class="btn btn-danger disabled" fs-roleID="${roles.roleID}"><i class="fa fa-remove"></i> Delete</a>
+                                            </c:if>
+                                        </td>
+                                    </c:when>
+                                    <c:otherwise>
+                                        <td class="text-center fs-valign-middle">
+                                            <a class="btn btn-warning disabled"><i class="fa fa-edit"></i> Update</a>
+
+                                            <a class="btn btn-danger disabled" ><i class="fa fa-remove"></i> Delete</a>
+                                        </td>
+                                    </c:otherwise>
+                                </c:choose>
                             </tr>
                         </c:forEach>
                     </tbody>
