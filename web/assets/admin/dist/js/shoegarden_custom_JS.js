@@ -4525,8 +4525,16 @@ $(document).ready(function () {
 //        $('#error-discount-add').html("");
 //    });
     //discount-update.jsp
-    $("#fs-form-update-discount #dateBegin").datepicker("option", "disabled", true);
-    $("#fs-form-update-discount #dateEnd").datepicker("option", "disabled", true);
+    $("#fs-form-update-discount #dateBegin").datepicker({"disabled" :true});
+    $("#fs-form-update-discount #dateEnd").datepicker({
+            orientation: "bottom",
+        showAnim: "drop",
+        dateFormat: "dd-mm-yy",
+        changeMonth: true,
+        changeYear: true,
+        yearRange: new Date().getFullYear().toString() + ":" + (new Date().getFullYear() + 2).toString(),
+        minDate: new Date()
+    });
 //    $('#btn-update-discount').on("click", function (e) {
 //        e.preventDefault();
 //        var errorHead = "<div class=\"alert alert-danger\"><strong>";

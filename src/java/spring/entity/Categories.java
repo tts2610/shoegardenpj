@@ -11,6 +11,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.Basic;
+import javax.persistence.Cacheable;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -32,6 +33,7 @@ import javax.xml.bind.annotation.XmlTransient;
  * @author tuan
  */
 @Entity
+@Cacheable(false)
 @Table(name = "categories")
 @XmlRootElement
 @NamedQueries({

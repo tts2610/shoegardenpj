@@ -59,14 +59,14 @@
                                     <div class="form-group">
                                         <label>Begin Date<span class="fs-color-red">*</span></label>
                                         <p class="help-block" id="fs-bDate-error"></p>
-                                        <form:input cssClass="form-control" path="dateBegin" readonly="true"/>
+                                        <form:input cssClass="form-control" path="dateBegin" onkeydown="return false"/>
 
 
                                     </div>
                                     <div class="form-group">
                                         <label>End Date<span class="fs-color-red">*</span></label>
 
-                                        <form:input cssClass="form-control" path="dateEnd" readonly="true"/>
+                                        <form:input cssClass="form-control" path="dateEnd" onkeydown="return false"/>
                                     </div>
                                     <p class="help-block" id="fs-eDate-error"></p>
 
