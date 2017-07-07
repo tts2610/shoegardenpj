@@ -1,8 +1,3 @@
-<%-- 
-    Document   : order-history
-    Created on : Feb 28, 2017, 5:05:55 PM
-    Author     : vinh.an
---%>
 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>

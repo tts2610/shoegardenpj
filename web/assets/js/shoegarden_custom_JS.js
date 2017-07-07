@@ -3658,9 +3658,9 @@ $(document).ready(function () {
             }
         });
     });
-    /*======================================END VINH - PRODUCT==================================================*/
+    
 
-    /*========================================NGAN - ORDER====================================================*/
+    
     $("select#select-quantity-shoppingcart").selectBoxIt();
     //Load cart
     var cartWrapper = $('.cd-cart-container');
@@ -4178,38 +4178,7 @@ $(document).ready(function () {
         $('#error-cart-product-modal').html("");
     });
 
-    //    var orderUrl = window.location.href;
-    //    if (orderUrl.includes("order-history")) {
-    //        window.onbeforeunload = function () {
-    //            $.ajax({
-    //                url: "orders/ajax/getSession.html",
-    //                method: "GET",
-    //                dataType: 'html',
-    //                success: function (response) {
-    //                    if (response == "0") {
-    //                        $("#loginModal").modal('show');
-    //                    }
-    //                }
-    //            });
-    //        }
-    //    }
-    /*==========================END NGAN - ORDER==================================*/
-
-    /*===========================DUONG - USER===================================*/
-    //THÔNG BÁO KHI CLICK VÀO ADD ADDRESS KHI VƯỢT QUÁ MỨC CHO PHÉP
-    //    $(".fs-add-address-user").on("click", function () {
-    //        var userID = $(this).attr("fs-userID");
-    //        var modal = $(this).attr("fs-message");
-    //        $.ajax({
-    //            url: "user/address-add/" + userID + ".html",
-    //            method: "GET",
-    //            data: {userID: userID},
-    //            success: function (response) {
-    //                alert('không thể thêm address');
-    //            }
-    //        });
-    //    });
-
+    
     //CUỘN LẠI, HIỆN RA TABLE ADDRESS-LIST
 
     $(".fs-panel").on("click", ".panel-heading span.clickable", function () {
@@ -6231,11 +6200,7 @@ $(document).ready(function () {
         }
     });
 
-    /*===========================END DUONG - USER===================================*/
-
-    /*========================================END DUONG - USER====================================================*/
-
-    /*========================================THANH - BLOG====================================================*/
+    
     var mincount = 2;
     var maxcount = 4;
     $(".image-gallery-ul li").slice(2).hide();
@@ -6246,7 +6211,7 @@ $(document).ready(function () {
             maxcount = maxcount + 2;
         }
     });
-    /*========================================END THANH - BLOG====================================================*/
+    
 
 
     $('#discountModal').on('show.bs.modal', function (event) {

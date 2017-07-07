@@ -7,7 +7,7 @@ package spring.entity;
 
 /**
  *
- * @author vinh.an
+ * @author tuan
  */
 public class SizeLetterOrder {
     private String sizeLetter;

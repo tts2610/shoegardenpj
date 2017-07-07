@@ -406,7 +406,7 @@
                                                         fs-size-id="${size.sizeID}"
                                                 fs-size="${size.size}"
                                                 class="btn btn-danger fs-update-product-button-delete-size"
-                                                <c:if test="${fn:length(size.ordersDetailList) gt 0}">disabled</c:if>><!--CHU Y CC -->
+                                                <c:if test="${fn:length(size.ordersDetailList) gt 0||color.sizesByColorList.size()==1}">disabled</c:if>>
                                                     <i class="fa fa-close" aria-hidden="true"></i> Delete
                                                 </button>
                                             </td>

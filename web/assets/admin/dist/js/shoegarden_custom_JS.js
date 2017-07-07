@@ -15,7 +15,7 @@ $(document).ready(function () {
     setTimeout(function () {
         $("#fs-error-div").hide("fade", 1500);
     }, 3000);
-    /*==============================VINH - PRODUCT============================*/
+    
     /* Pie chart returning visitor */
 //    $.ajax({
 //        url: "admin/ajax/getReturningVisitorData.html",
@@ -3617,20 +3617,7 @@ $(document).ready(function () {
         }
     });
 
-    /*==========================END VINH - PRODUCT============================*/
-
-    /*=============================== THANH - BLOG =================================*/
-    /*    
-     * CẤU HÌNH DATEPICKER CHO BLOG
-     */
-//    $("#postedDate").datepicker({
-//        showAnim: "drop",
-//        dateFormat: "dd-mm-yy",
-//        changeMonth: true,
-//        changeYear: true
-//    });
-    /* BẮT validation CKSinder */
-//    $("select#monthblog").selectBoxIt();
+    
 
     /* BẮT validation CREATE BLOG CATEGORY */
     // blog-category-add
@@ -3901,9 +3888,7 @@ $(document).ready(function () {
             }
         });
     }
-    /*===============================END THANH - BLOG =================================*/
-
-    /*==============================DUONG - USER============================*/
+    
     /* 
      * AJAX - EVENT ONCHANGE SELECT USER "STATUS" 
      */
@@ -4431,9 +4416,7 @@ $(document).ready(function () {
 
 //    $
 
-    /*==============================END DUONG - USER============================*/
-
-    /*==============================NGAN - ORDER============================*/
+    
     //rating table
     $('#fs-rating-dataTables').DataTable({
          responsive: true,
@@ -4963,9 +4946,5 @@ $(document).ready(function () {
 
 
     });
-
-
-
-    /*==============================END NGAN - ORDER============================*/
 
 });

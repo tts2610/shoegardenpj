@@ -1,8 +1,4 @@
-<%-- 
-    Document   : review-rating
-    Created on : Feb 28, 2017, 4:29:14 PM
-    Author     : vinh.an
---%>
+
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!-- BREADCRUMBS -->

@@ -1,8 +1,3 @@
-<%-- 
-    Document   : return
-    Created on : Feb 28, 2017, 5:02:44 PM
-    Author     : vinh.an
---%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!-- BREADCRUMBS -->
