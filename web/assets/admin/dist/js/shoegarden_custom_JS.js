@@ -4525,7 +4525,7 @@ $(document).ready(function () {
 //        $('#error-discount-add').html("");
 //    });
     //discount-update.jsp
-    $("#fs-form-update-discount #dateBegin").datepicker({"disabled": true});
+    $("#fs-form-update-discount #dateBegin").datepicker("option", "disabled", true);
     $("#fs-form-update-discount #dateEnd").datepicker({
         orientation: "bottom",
         showAnim: "drop",
