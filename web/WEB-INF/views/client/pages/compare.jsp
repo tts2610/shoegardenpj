@@ -57,7 +57,7 @@
                                             <div class="item-price">$${item.price}</div>
                                         </td>                                         
                                         <td>
-                                            <div class="item-price">-$${item.discountByProduct}</div>
+                                            <div class="item-price">-${item.discountByProduct}% now</div>
                                         </td> 
                                         <td>
                                             <div class="item-info"><fmt:formatDate pattern="dd/MM/yyyy" value="${item.postedDate}"/>

@@ -278,15 +278,15 @@ $(document).ready(function () {
             $("#fs-discount").focus();
 
         } else if (isNaN(discount)||!test.test(discount)) {
-            $("#fs-discount-error").text("Discount must be a ROUND number!");
+            $("#fs-discount-error").text("Discount must be a non-negative integer number!");
             $("#fs-discount").focus();
 
         } else if (discount <= 0) {
             $("#fs-discount-error").text("Dicount must be >0");
             $("#fs-discount").focus();
 
-        } else if (discount > 50) {
-            $("#fs-discount-error").text("Dicount must be <=50");
+        } else if (discount > 80) {
+            $("#fs-discount-error").text("Dicount must be <=80");
             $("#fs-discount").focus();
 
         } else {
@@ -301,14 +301,18 @@ $(document).ready(function () {
             $("#fs-discount").focus();
 
         } else if (isNaN(discount)||!test.test(discount)) {
-            $("#fs-discount-error").text("Discount must be a ROUND number!");
+            $("#fs-discount-error").text("Discount must be a non-negative integer number!");
             $("#fs-discount").focus();
 
         } else if (discount <= 0) {
             $("#fs-discount-error").text("Dicount must be >0");
             $("#fs-discount").focus();
 
-        } else {
+        }else if (discount > 80) {
+            $("#fs-discount-error").text("Dicount must be <=80");
+            $("#fs-discount").focus();
+
+        }  else {
             $("#fs-discount-error").text("");
         }
     });
@@ -1465,8 +1469,8 @@ $(document).ready(function () {
             $("#fs-discount-error").text("Dicount must be >0");
             $("#fs-discount").focus();
             count++;
-        } else if (discount > 50) {
-            $("#fs-discount-error").text("Dicount must be <=50");
+        } else if (discount > 80) {
+            $("#fs-discount-error").text("Dicount must be <=80");
             $("#fs-discount").focus();
             count++;
         } else {
