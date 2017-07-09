@@ -92,99 +92,60 @@
 <div class="clearfix"></div>
 
 
-<c:if test="${discount.size()>=3}">
-    <div class="banner-bootom-w3-agileits">
-    <div class="container">
-        <h3 class="wthree_text_info"><span>SALE OFF</span></h3>
+<!--DISCOUNT-->
 
-        <div class="col-md-5 bb-grids bb-left-agileits-w3layouts">
-            <a data-toggle="modal" data-target="#discountModal" data-whatever="${discount[0].discID}">
-                <div class="bb-left-agileits-w3layouts-inner grid">
-                    <figure class="effect-roxy">
-                        <img src="assets/images/img1.jpg" alt=" " class="img-responsive" />
-                        <figcaption>
-                            <h3><span>S</span>ale </h3>
-                            <p>Upto ${discount[0].discount}%</p>
-                        </figcaption>			
-                    </figure>
-                </div>
-            </a>
-        </div>
-        <div class="col-md-7 bb-grids bb-middle-agileits-w3layouts">
-            <a data-toggle="modal" data-target="#discountModal" data-whatever="${discount[1].discID}">
-                <div class="bb-middle-agileits-w3layouts grid">
-                    <figure class="effect-roxy">
-                        <img src="assets/images/img2.jpg" alt=" " class="img-responsive" />
-                        <figcaption>
-                            <h3><span>S</span>ale </h3>
-                            <p>Upto ${discount[1].discount}%</p>
-                        </figcaption>			
-                    </figure>
-                </div>
-            </a>
-            <a data-toggle="modal" data-target="#discountModal" data-whatever="${discount[2].discID}">
-                <div class="bb-middle-agileits-w3layouts forth grid">
-                    <figure class="effect-roxy">
-                        <img src="assets/images/img3.jpg" alt=" " class="img-responsive">
-                        <figcaption>
-                            <h3><span>S</span>ale </h3>
-                            <p>Upto ${discount[2].discount}%</p>
-                        </figcaption>		
-                    </figure>
-                </div>
-            </a>
-            <div class="clearfix"></div>
+<c:if test="${not empty discount.size()}">
+    <div class="banner-bootom-w3-agileits">
+        <div class="container">       
+
+            <div class="col-md-5 bb-grids bb-left-agileits-w3layouts">
+                <a data-toggle="modal" data-target="#discountModal" data-whatever="${discount[0].discID}">
+                    <div class="bb-left-agileits-w3layouts-inner grid">
+                        <figure class="effect-roxy">
+                            <img src="assets/images/img1.jpg" alt=" " class="img-responsive" />
+                            <figcaption>
+                                <h3>${discount[0].discTitle}</h3>                            
+                                <p><span>Sale</span>Up to ${discount[0].discount}%</span></p>
+                                <i>${discount[0].discContent}</i>
+
+                            </figcaption>			
+                        </figure>
+                    </div>
+                </a>
+            </div>
+            <div class="col-md-7 bb-grids bb-middle-agileits-w3layouts">
+                <a data-toggle="modal" data-target="#discountModal" data-whatever="${discount[1].discID}">
+                    <div class="bb-middle-agileits-w3layouts grid">
+                        <figure class="effect-roxy">
+                            <img src="assets/images/img2.jpg" alt=" " class="img-responsive" />
+                            <figcaption>
+                                <h3>${discount[1].discTitle}</h3>
+                                <!--<h3><span>S</span>ale </h3>-->
+                                <p><span>Sale</span>Up to ${discount[1].discount}%</p>
+                                <i>${discount[1].discContent}</i>
+                            </figcaption>			
+                        </figure>
+                    </div>
+                </a>
+                <a data-toggle="modal" data-target="#discountModal" data-whatever="${discount[2].discID}">
+                    <div class="bb-middle-agileits-w3layouts forth grid">
+                        <figure class="effect-roxy">
+                            <img src="assets/images/img3.jpg" alt=" " class="img-responsive">
+                            <figcaption>
+                                <h3><span>${discount[2].discTitle}</span></h3>
+                                <h3><span>S</span>ale </h3>
+                                <p>Upto ${discount[2].discount}%</p>
+                            </figcaption>		
+                        </figure>
+                    </div>
+                </a>
+                <div class="clearfix"></div>
+            </div>
         </div>
     </div>
-</div>
-</c:if>
-<c:if test="${discount.size()==2}"> 
-    <div class="banner-bootom-w3-agileits">
-    <div class="container">
-        <h3 class="wthree_text_info"><span>SALE OFF</span></h3>
-
-        <div class="col-md-5 bb-grids bb-left-agileits-w3layouts">
-            <a data-toggle="modal" data-target="#discountModal" data-whatever="${discount[0].discID}">
-                <div class="bb-left-agileits-w3layouts-inner grid">
-                    <figure class="effect-roxy">
-                        <img src="assets/images/img1.jpg" alt=" " class="img-responsive" />
-                        <figcaption>
-                            <h3><span>S</span>ale </h3>
-                            <p>Upto ${discount[0].discount}%</p>
-                        </figcaption>			
-                    </figure>
-                </div>
-            </a>
-        </div>
-        <div class="col-md-7 bb-grids bb-middle-agileits-w3layouts">
-            <a data-toggle="modal" data-target="#discountModal" data-whatever="${discount[1].discID}">
-                <div class="bb-middle-agileits-w3layouts grid">
-                    <figure class="effect-roxy">
-                        <img src="assets/images/img2.jpg" alt=" " class="img-responsive" />
-                        <figcaption>
-                            <h3><span>S</span>ale </h3>
-                            <p>Upto ${discount[1].discount}%</p>
-                        </figcaption>			
-                    </figure>
-                </div>
-            </a>
-            <a data-toggle="modal" data-target="#discountModal" data-whatever="${discount[2].discID}">
-                <div class="bb-middle-agileits-w3layouts forth grid">
-                    <figure class="effect-roxy">
-                        <img src="assets/images/img3.jpg" alt=" " class="img-responsive">
-                        <figcaption>
-                            <h3><span>S</span>ale </h3>
-                            <p>Upto ${discount[2].discount}%</p>
-                        </figcaption>		
-                    </figure>
-                </div>
-            </a>
-            <div class="clearfix"></div>
-        </div>
-    </div>
-</div>
 </c:if>
 
+<!--DISCOUNT-->
 
 <!-- FEATURED PRODUCTS -->
 <div class="featured-products">

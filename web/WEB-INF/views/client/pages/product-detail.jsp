@@ -47,7 +47,20 @@
                                         <option value="5">5</option>
                                     </select>                            
                                 </div>
-                                    <h2 class="bold padding-bottom-7" style="margin-bottom: 10px">${ratingAVR}<small>/ 5  with ${rateCount} ratings</small></h2>
+                                <c:choose>
+                                    <c:when test="${rateCount!=0}">
+                                        <h2 class="bold padding-bottom-7" style="margin-bottom: 10px">
+                                            ${ratingAVR}<small>/ 5  with ${rateCount} ratings</small>
+                                        </h2>
+                                    </c:when>
+                                    <c:otherwise>
+                                        <h2 class="bold padding-bottom-7" style="margin-bottom: 10px">
+                                            <small>
+                                                <a href="${targetProduct.productID}-${targetProduct.productColorListWorking[0].colorID}.html#yourReview">Be the first to rating !</a>
+                                            </small>
+                                        </h2>
+                                    </c:otherwise>
+                                </c:choose> 
                                 <c:if test="${targetProduct.productWithDiscount!=targetProduct.price}">
                                     <div class="ps-price">
                                         <h1 style="color: #888888;text-decoration: line-through; display: inline">$${targetProduct.price} </h1>
@@ -128,14 +141,14 @@
                         </div>
                     </div>
                 </div>
-                <div class="clearfix space40"></div>
+                <div class="clearfix space40" ></div>
 
 
 
                 <!-- REVIEW -->
 
 
-                <div> 
+                <div id="yourReview"> 
                     <div class="sep"></div>
                     <div class="row">                        
                         <div class="col-md-9">
@@ -143,9 +156,11 @@
                             ${targetProduct.productDes}
                         </div>                        
                     </div>
-                    <div class="sep"></div>
+                    <div class="sep" ></div>
                     <div class="fs-display-none" id="fs-number-of-rating" fs-nort="${numberOfRating}"></div>
-                    <h2 style="font-weight: 400; margin-bottom: 10px">Reviews</h2>
+                    <c:if test="${not empty targetProduct.ratingList}">
+                        <h2 style="font-weight: 400; margin-bottom: 10px" >Reviews</h2>
+                    </c:if>
                     <c:forEach items="${targetProduct.ratingList}" var="review" varStatus="no">
                         <c:if test="${review.status==1}">                            
                             <p>
