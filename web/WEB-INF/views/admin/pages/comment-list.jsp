@@ -36,39 +36,40 @@
                     </thead>
                     <tbody>
                         <c:forEach items="${cList}" var="rating" varStatus="no">
-                            <tr class="odd gradeX" id="fs-role-list-id-${rating.ratingID}">
-                                <td class="text-center fs-valign-middle">${no.index + 1}</td>
-                                <td class="text-center fs-valign-middle">${rating.product.productName}</td>
-                                <td class="text-center fs-valign-middle">${rating.user.firstName}&nbsp;${rating.user.lastName}</td>
-                                <td class="text-center fs-valign-middle">                        
-                                    <select id="fs-rating-star-results-${no.index + 1}" class="fs-rating-star-results-select" index="${no.index + 1}" data-current-rating="${rating.rating}">
-                                        <option value=""></option>
-                                        <option value="1">1</option>
-                                        <option value="2">2</option>
-                                        <option value="3">3</option>
-                                        <option value="4">4</option>
-                                        <option value="5">5</option>
-                                    </select>
-                                </td>
-                                <td class="text-center fs-valign-middle"><fmt:formatDate value="${rating.ratingDate}" pattern="dd MMM, yyyy" timeZone="US"/></td>
-                                <td class="text-center fs-valign-middle">${rating.review}</td>
-                                <td align="center">
-                                    <select name="status" fs-comment="${rating.ratingID}" class="fs-select-comment-status form-control input-sm" id="fs-status-select">
-                                        <c:choose>
-                                            <c:when test="${rating.status != 2}">
-                                                <option id="fs-status-1" value="1" <c:if test="${rating.status == 1}">selected</c:if>>VERIFIED</option>
-                                                <option id="fs-status-2" value="0" <c:if test="${rating.status == 0}">selected</c:if>>NOT VERIFIED</option>
-                                            </c:when>
-                                            <c:otherwise>
-                                                <option id="fs-status-1" value="1" <c:if test="${rating.status == 1}">selected</c:if>>VERIFIED</option>
-                                                <option id="fs-status-2" value="0" <c:if test="${rating.status == 0}">selected</c:if>>NOT VERIFIED</option>
-                                                <option id="fs-status-2" value="0" <c:if test="${rating.status == 2}">selected</c:if>>PENDING</option>
-                                            </c:otherwise>
-                                        </c:choose>
-                                    </select>
-                                </td>
-                        <div id="countcmt" fs-value="${countcmt}" style="display: none"></div>
-                        </tr>                        
+                            
+                            <tr class="odd gradeX" id="fs-role-list-id-${rating.ratingID}" <c:if test="${rating.status == 2}">style="background-color: rgb(175, 244, 234)"</c:if><c:if test="${rating.status == 0}">style="background-color: rgba(237, 40, 40, 0.51)"</c:if>>
+                                    <td class="text-center fs-valign-middle">${no.index + 1}</td>
+                                    <td class="text-center fs-valign-middle">${rating.product.productName}</td>
+                                    <td class="text-center fs-valign-middle">${rating.user.firstName}&nbsp;${rating.user.lastName}</td>
+                                    <td class="text-center fs-valign-middle">                        
+                                        <select id="fs-rating-star-results-${no.index + 1}" class="fs-rating-star-results-select" index="${no.index + 1}" data-current-rating="${rating.rating}">
+                                            <option value=""></option>
+                                            <option value="1">1</option>
+                                            <option value="2">2</option>
+                                            <option value="3">3</option>
+                                            <option value="4">4</option>
+                                            <option value="5">5</option>
+                                        </select>
+                                    </td>
+                                    <td class="text-center fs-valign-middle"><fmt:formatDate value="${rating.ratingDate}" pattern="dd MMM, yyyy" timeZone="US"/></td>
+                                    <td class="text-center fs-valign-middle">${rating.review}</td>
+                                    <td align="center">
+                                        <select name="status" fs-comment="${rating.ratingID}" class="fs-select-comment-status form-control input-sm" id="fs-status-select">
+                                            <c:choose>
+                                                <c:when test="${rating.status != 2}">
+                                                    <option id="fs-status-1" value="1" <c:if test="${rating.status == 1}">selected</c:if>>VERIFIED</option>
+                                                    <option id="fs-status-2" value="0" <c:if test="${rating.status == 0}">selected</c:if>>NOT VERIFIED</option>
+                                                </c:when>
+                                                <c:otherwise>
+                                                    <option id="fs-status-1" value="1" <c:if test="${rating.status == 1}">selected</c:if>>VERIFIED</option>
+                                                    <option id="fs-status-2" value="0" <c:if test="${rating.status == 0}">selected</c:if>>NOT VERIFIED</option>
+                                                    <option id="fs-status-2" value="0" <c:if test="${rating.status == 2}">selected</c:if>>PENDING</option>
+                                                </c:otherwise>
+                                            </c:choose>
+                                        </select>
+                                    </td>
+                            <div id="countcmt" fs-value="${countcmt}" style="display: none"></div>
+                            </tr>    
                     </c:forEach>
                     </tbody>
                 </table>
