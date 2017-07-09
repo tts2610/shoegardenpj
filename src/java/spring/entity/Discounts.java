@@ -92,9 +92,7 @@ public class Discounts implements Serializable {
     public void setDiscountDetailList(List<DiscountDetails> discountDetailList) {
         this.discountDetailList = discountDetailList;
     }
-    
-    
-    
+
     public Discounts() {
     }
 
@@ -110,9 +108,9 @@ public class Discounts implements Serializable {
         this.dateEnd = dateEnd;
         this.discount = discount;
     }
-    
+
     public Discounts(String discTitle, String discContent, Date dateBegin, Date dateEnd, short discount) {
-        
+
         this.discTitle = discTitle;
         this.discContent = discContent;
         this.dateBegin = dateBegin;
@@ -168,6 +166,16 @@ public class Discounts implements Serializable {
         this.discount = discount;
     }
 
+    public boolean getCheckEvent() {
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(new Date());
+        cal.set(Calendar.HOUR_OF_DAY, 0);
+        cal.set(Calendar.MINUTE, 0);
+        cal.set(Calendar.SECOND, 0);
+        cal.set(Calendar.MILLISECOND, 0);
+        return this.dateEnd.before(cal.getTime());
+    }
+
     @Override
     public int hashCode() {
         int hash = 0;
@@ -192,5 +200,5 @@ public class Discounts implements Serializable {
     public String toString() {
         return "spring.entity.Discounts[ discID=" + discID + " ]";
     }
-    
+
 }
