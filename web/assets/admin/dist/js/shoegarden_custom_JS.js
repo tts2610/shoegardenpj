@@ -1395,9 +1395,6 @@ $(document).ready(function () {
             $("#fs-eDate-error").text("End Date cannot be empty!");
 
             count++;
-        } else if (eDate < bDate) {
-            $("#fs-eDate-error").text("End Date must be greater than Begin Date!");
-            count++;
         } else {
             $("#fs-eDate-error").text("");
         }
@@ -1485,10 +1482,6 @@ $(document).ready(function () {
         }
         if (eDate == "") {
             $("#fs-eDate-error").text("End Date cannot be empty!");
-
-            count++;
-        } else if (eDate < bDate) {
-            $("#fs-eDate-error").text("End Date must be greater than Begin Date!");
 
             count++;
         } else {
