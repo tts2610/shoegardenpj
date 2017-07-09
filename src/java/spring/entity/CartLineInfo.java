@@ -56,6 +56,7 @@ public class CartLineInfo {
     }
     
     public double getSubTotal(){
+//           return 0;
            return discountDetailsFacade.getProductWithDiscount(product)*quantity;
     }
     
