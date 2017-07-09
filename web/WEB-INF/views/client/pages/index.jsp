@@ -103,12 +103,14 @@
                     <div class="bb-left-agileits-w3layouts-inner grid">
                         <figure class="effect-roxy">
                             <img src="assets/images/img1.jpg" alt=" " class="img-responsive" />
+                            <c:if test="${not empty discount[0]}">
                             <figcaption>
                                 <h3>${discount[0].discTitle}</h3>                            
-                                <p><span>Sale</span>Up to ${discount[0].discount}%</span></p>
+                                <p><span>Sale Up</span> to <span>${discount[0].discount}%</span></p>
                                 <i>${discount[0].discContent}</i>
-
-                            </figcaption>			
+                                <i><p><fmt:formatDate value="${discount[0].dateBegin}" pattern="dd/MM/yyyy" timeZone="US"/> - <fmt:formatDate value="${discount[0].dateEnd}" pattern="dd/MM/yyyy" timeZone="US"/></p></i>
+                            </figcaption>
+                            </c:if>
                         </figure>
                     </div>
                 </a>
@@ -117,13 +119,15 @@
                 <a data-toggle="modal" data-target="#discountModal" data-whatever="${discount[1].discID}">
                     <div class="bb-middle-agileits-w3layouts grid">
                         <figure class="effect-roxy">
-                            <img src="assets/images/img2.jpg" alt=" " class="img-responsive" />
+                            <img src="assets/images/faster.jpg" alt=" " class="img-responsive" />
+                            <c:if test="${not empty discount[1]}">
                             <figcaption>
                                 <h3>${discount[1].discTitle}</h3>
-                                <!--<h3><span>S</span>ale </h3>-->
-                                <p><span>Sale</span>Up to ${discount[1].discount}%</p>
+                                <p><span>Sale</span>Up to <span>${discount[1].discount}%</span></p>
                                 <i>${discount[1].discContent}</i>
-                            </figcaption>			
+                                <i><p><fmt:formatDate value="${discount[1].dateBegin}" pattern="dd/MM/yyyy" timeZone="US"/> - <fmt:formatDate value="${discount[1].dateEnd}" pattern="dd/MM/yyyy" timeZone="US"/></p></i>
+                            </figcaption>
+                            </c:if>
                         </figure>
                     </div>
                 </a>
@@ -131,11 +135,14 @@
                     <div class="bb-middle-agileits-w3layouts forth grid">
                         <figure class="effect-roxy">
                             <img src="assets/images/img3.jpg" alt=" " class="img-responsive">
-                            <figcaption>
-                                <h3><span>${discount[2].discTitle}</span></h3>
-                                <h3><span>S</span>ale </h3>
-                                <p>Upto ${discount[2].discount}%</p>
-                            </figcaption>		
+                            <c:if test="${not empty discount[2]}">
+                                <figcaption>
+                                    <h3>${discount[2].discTitle}</h3>
+                                    <p><span>Sale</span>Up to <span>${discount[2].discount}%</span></p>
+                                    <i>${discount[2].discContent}</i>
+                                    <i><p><fmt:formatDate value="${discount[2].dateBegin}" pattern="dd/MM/yyyy" timeZone="US"/> - <fmt:formatDate value="${discount[2].dateEnd}" pattern="dd/MM/yyyy" timeZone="US"/></p></i>
+                                </figcaption>
+                            </c:if>		
                         </figure>
                     </div>
                 </a>
@@ -336,8 +343,8 @@
                                                 ${prod[1]}
                                             </a>
                                         </h4>
-                                                <span class="fw-price" style="display: block">Price: $${prod[2]}0</span>
-                                                <span class="fw-price" style="display: block">Size: ${prod[5]}</span>
+                                        <span class="fw-price" style="display: block">Price: $${prod[2]}0</span>
+                                        <span class="fw-price" style="display: block">Size: ${prod[5]}</span>
                                     </div>
                                 </li>
                             </c:forEach>

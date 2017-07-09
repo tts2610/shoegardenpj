@@ -93,6 +93,7 @@
                         <button type="submit" class="btn-black pull-right">Update Shopping Cart</button>
                     </div>
                 </form>
+                <input type="hidden" name="order-emailUser" value="${sessionScope.emailUser}" />
                 <div class="table-btn" style="padding-top: 10px;">
                     <button onclick="checkoutClick();" class="btn btn-danger pull-right" style="color: #fff !important;">PROCEED TO CHECKOUT</button>
                 </div>
