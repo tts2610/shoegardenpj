@@ -113,19 +113,23 @@ public class DiscountDetailsFacade extends AbstractFacade<DiscountDetails> imple
     
     @Override
     public float getProductWithDiscount(Products pro){
-        Query q = getEntityManager().createNativeQuery("SELECT * FROM discountDetails where productID ="+pro.getProductID(),DiscountDetails.class);
+        Calendar cal = Calendar.getInstance();  
+        cal.setTime(new Date());  
+        cal.set(Calendar.HOUR_OF_DAY, 0);  
+        cal.set(Calendar.MINUTE, 0);  
+        cal.set(Calendar.SECOND, 0);  
+        cal.set(Calendar.MILLISECOND, 0);
+        Query q = getEntityManager().createQuery("SELECT dt FROM DiscountDetails dt where dt.productID.productID = "+pro.getProductID()+" AND (dt.discID.dateBegin <= :beginDate) AND (dt.discID.dateEnd >= :endDate)",DiscountDetails.class);
+        
+        q.setParameter("beginDate", cal.getTime());
+        q.setParameter("endDate", cal.getTime());
         DiscountDetails dt = (DiscountDetails) q.getSingleResult();
         Discounts d = discountFacade.find(dt.getDiscID().getDiscID());
         
         Date beginDate = d.getDateBegin();
         Date endDate = d.getDateEnd();
            
-            Calendar cal = Calendar.getInstance();  
-            cal.setTime(new Date());  
-            cal.set(Calendar.HOUR_OF_DAY, 0);  
-            cal.set(Calendar.MINUTE, 0);  
-            cal.set(Calendar.SECOND, 0);  
-            cal.set(Calendar.MILLISECOND, 0);
+           
             if(!beginDate.after(cal.getTime())&&!endDate.before(cal.getTime())){
                 
                 return (float) (pro.getPrice()*(1-(float)d.getDiscount()/100));
