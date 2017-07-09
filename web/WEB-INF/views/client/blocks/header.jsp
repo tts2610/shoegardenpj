@@ -1,7 +1,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <jsp:include page="loginModal.jsp"></jsp:include>
-<link rel="shortcut icon" type="image/png" href="../../../../assets/images/basic/rsleaf-icon.png"/>
+    <link rel="shortcut icon" type="image/png" href="../../../../assets/images/basic/rsleaf-icon.png"/>
     <!-- TOPBAR -->
     <div class="top_bar">
         <div class="container">
@@ -75,12 +75,12 @@
                             </div>
                         </div>
                     </div>
-<!--                    <div class="topcart">
-                        <div id="cart">
-
-                        </div>
-                        <input id="order-emailUser" name="order-emailUser" type="hidden" value="${sessionScope.emailUser}"/>
-                    </div>-->
+                    <!--                    <div class="topcart">
+                                            <div id="cart">
+                    
+                                            </div>
+                                            <input id="order-emailUser" name="order-emailUser" type="hidden" value="${sessionScope.emailUser}"/>
+                                        </div>-->
                     <div class="topsearch">
                         <span>
                             <i class="fa fa-search"></i>
@@ -100,25 +100,28 @@
                 <!-- Navmenu -->
                 <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                     <nav class="stroke">
-                    <ul class="nav navbar-nav navbar-right">
-                        <li>
-                            <a href="index.html" class="active">Home</a>
-                        </li>
-                        <c:forEach items="${braList}" var="bra">
-                            <li class="dropdown">
-                                <a href="brand/${bra.braID}-${bra.braName}.html" 
-                                   class="dropdown-toggle" 
-                                   data-toggle="dropdown" role="button" 
-                                   aria-expanded="false">${bra.braName}</a>
-                                <ul class="dropdown-menu submenu" role="menu">
-                                    <c:forEach items="${bra.categoriesList}" var="category">
-                                        <li><a href="${bra.braName}/${category.catID}-${category.catName}.html">${category.catName}</a></li>
-                                        </c:forEach>
-                                </ul>
+                        <ul class="nav navbar-nav navbar-right">
+                            <li>
+                                <a href="index.html" class="active">Home</a>
                             </li>
-                        </c:forEach>
+                            <c:forEach items="${braList}" var="bra">
+                                <li class="dropdown">
+                                    <a href="brand/${bra.braID}-${bra.braName}.html" 
+                                       class="dropdown-toggle" 
+                                       data-toggle="dropdown" role="button" 
+                                       aria-expanded="false">${bra.braName}</a>
+                                    <ul class="dropdown-menu submenu" role="menu">
+                                        <c:forEach items="${bra.categoriesList}" var="category">
+                                            <li><a href="${bra.braName}/${category.catID}-${category.catName}.html">${category.catName}</a></li>
+                                            </c:forEach>
+                                    </ul>
+                                </li>
+                            </c:forEach>
+                            <li>
+                                <a href="discount/productList.html" class="active">Sale</a>
+                            </li>
 
-                    </ul>
+                        </ul>
                     </nav>
                 </div>
             </div>
@@ -150,21 +153,22 @@
         } else {
             window.location = "orders/checkout.html";
         }
-    };
-    
-    
-    function compareClearAllClick(){
+    }
+    ;
+
+
+    function compareClearAllClick() {
         $.ajax({
             url: "compare/deleteAll.html",
             method: "GET",
             success: function (response) {
                 $.ajax({
-                        url: "ajax/comparelist.html",
-                        method: "GET",
-                        dataType: 'html',
-                        success: function (response) {
-                            $(".compare-info").html(response).fadeIn(1000);
-                        }
+                    url: "ajax/comparelist.html",
+                    method: "GET",
+                    dataType: 'html',
+                    success: function (response) {
+                        $(".compare-info").html(response).fadeIn(1000);
+                    }
                 });
             }
         });
