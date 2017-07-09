@@ -105,10 +105,10 @@
                             <img src="assets/images/img1.jpg" alt=" " class="img-responsive" />
                             <c:if test="${not empty discount[0]}">
                             <figcaption>
-                                <h3>${discount[0].discTitle}</h3>                            
+                                <h3>${discount[0].discTitle}</h3>                                 
                                 <p><span>Sale Up</span> to <span>${discount[0].discount}%</span></p>
                                 <i>${discount[0].discContent}</i>
-                                <i><p><fmt:formatDate value="${discount[0].dateBegin}" pattern="dd/MM/yyyy" timeZone="US"/> - <fmt:formatDate value="${discount[0].dateEnd}" pattern="dd/MM/yyyy" timeZone="US"/></p></i>
+                                <i><p><fmt:formatDate value="${discount[0].dateBegin}" pattern="dd/MM/yyyy"/> - <fmt:formatDate value="${discount[0].dateEnd}" pattern="dd/MM/yyyy"/></p></i>
                             </figcaption>
                             </c:if>
                         </figure>
@@ -125,7 +125,7 @@
                                 <h3>${discount[1].discTitle}</h3>
                                 <p><span>Sale</span>Up to <span>${discount[1].discount}%</span></p>
                                 <i>${discount[1].discContent}</i>
-                                <i><p><fmt:formatDate value="${discount[1].dateBegin}" pattern="dd/MM/yyyy" timeZone="US"/> - <fmt:formatDate value="${discount[1].dateEnd}" pattern="dd/MM/yyyy" timeZone="US"/></p></i>
+                                <i><p><fmt:formatDate value="${discount[1].dateBegin}" pattern="dd/MM/yyyy"/> - <fmt:formatDate value="${discount[1].dateEnd}" pattern="dd/MM/yyyy"/></p></i>
                             </figcaption>
                             </c:if>
                         </figure>
@@ -140,7 +140,7 @@
                                     <h3>${discount[2].discTitle}</h3>
                                     <p><span>Sale</span>Up to <span>${discount[2].discount}%</span></p>
                                     <i>${discount[2].discContent}</i>
-                                    <i><p><fmt:formatDate value="${discount[2].dateBegin}" pattern="dd/MM/yyyy" timeZone="US"/> - <fmt:formatDate value="${discount[2].dateEnd}" pattern="dd/MM/yyyy" timeZone="US"/></p></i>
+                                    <i><p><fmt:formatDate value="${discount[2].dateBegin}" pattern="dd/MM/yyyy" /> - <fmt:formatDate value="${discount[2].dateEnd}" pattern="dd/MM/yyyy"/></p></i>
                                 </figcaption>
                             </c:if>		
                         </figure>

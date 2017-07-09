@@ -51,7 +51,7 @@
                                             <option value="5">5</option>
                                         </select>
                                     </td>
-                                    <td class="text-center fs-valign-middle"><fmt:formatDate value="${rating.ratingDate}" pattern="dd MMM, yyyy" timeZone="US"/></td>
+                                    <td class="text-center fs-valign-middle"><fmt:formatDate value="${rating.ratingDate}" pattern="dd MMM, yyyy"/></td>
                                     <td class="text-center fs-valign-middle">${rating.review}</td>
                                     <td align="center">
                                         <select name="status" fs-comment="${rating.ratingID}" class="fs-select-comment-status form-control input-sm" id="fs-status-select">
