@@ -21,7 +21,7 @@
                 <table width="100%" class="table table-striped table-bordered table-hover" id="productList_dataTable">
                     <thead>
                         <tr>
-                            <th class="text-center fs-valign-middle">No</th>
+                            <th class="text-center fs-valign-middle">ID</th>
                             <th class="text-center fs-valign-middle">Status</th>
                             <th class="text-center fs-valign-middle">Category - SubCategory</th>
                             <th class="text-center fs-valign-middle">Product</th>
@@ -34,7 +34,7 @@
                     <tbody>
                         <c:forEach items="${productList}" var="product" varStatus="No">
                             <tr class="odd gradeX">
-                                <td class="text-center fs-valign-middle">${No.index + 1}</td>
+                                <td class="text-center fs-valign-middle">${product.productID}</td>
                                 <td class="text-center fs-valign-middle" style="position: relative">
                                     <div class="fs-trigger"></div>
                                     <div class="fs-success-icon">

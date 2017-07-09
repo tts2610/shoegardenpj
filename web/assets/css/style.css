@@ -5899,16 +5899,15 @@ a.simpleCart_empty {
 	font-weight: 300;
 }
 
-.grid figure h3 span {
-	font-weight: 800;
-    color: #e71f30;
-}
-
 .grid figure p {
-    letter-spacing: 12px;
+    letter-spacing: 5px;
     color: #fff;
-    line-height: 2em;
+    line-height: 1.7em;
     font-size: 1.1em;
+}
+.grid figure p span {
+    font-weight: 300;
+    color: #e71f30;
 }
 
 figure.effect-roxy img {
@@ -5953,7 +5952,7 @@ figure.effect-roxy figcaption {
 
 figure.effect-roxy h3 {
     padding: 1.5em 0 .5em;
-    font-size: 1.7em;
+    font-size: 1.5em;
     color: #fff;
     text-transform: uppercase;
     letter-spacing: 5px;
