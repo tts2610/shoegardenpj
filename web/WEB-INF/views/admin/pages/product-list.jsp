@@ -23,7 +23,7 @@
                         <tr>
                             <th class="text-center fs-valign-middle">ID</th>
                             <th class="text-center fs-valign-middle">Status</th>
-                            <th class="text-center fs-valign-middle">Category - SubCategory</th>
+                            <th class="text-center fs-valign-middle">Brand - Category</th>
                             <th class="text-center fs-valign-middle">Product</th>
                             <th class="text-center fs-valign-middle">Image</th>
                             <th class="text-center fs-valign-middle">Posted Date</th>
