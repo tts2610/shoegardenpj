@@ -1160,6 +1160,22 @@ public class Product_Controller {
     public List<Brands> getAllCategory() {
         return brandsFacade.findAll();
     }
+    
+    @ResponseBody
+    @RequestMapping(value = "/ajax/findProduct", method = RequestMethod.POST)
+    public String getProductByID(@RequestParam("productID") Integer productID) {
+        Products targetProduct = productsFacade.findProductByID(productID);
+
+        try {
+            ObjectMapper mapper = new ObjectMapper();
+            String result = mapper.writeValueAsString(targetProduct);
+            return result;
+        } catch (Exception e) {
+            return "Error!" + e.getMessage();
+        }
+
+    }
+    
 
     private ProductsFacadeLocal lookupProductsFacadeLocal() {
         try {

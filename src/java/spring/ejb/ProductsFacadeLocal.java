@@ -43,11 +43,17 @@ public interface ProductsFacadeLocal {
     Double getMaxPriceOfProduct_ByCate(int cateID);
 
     Double getMinPriceOfProduct_ByCate(int cateID);
+    
+    List<Object[]> productsByFilter_OfDiscount(double fromPrice, double toPrice, String filterColor, String filterSize);
 
     List<Object[]> productsByFilter_OfACategory(int cateID, double fromPrice, double toPrice, String filterColor, String filterSize);
 
     List<Object[]> filterProductByCategory(int cateID, int page, int itemPerPage, double fromPrice, double toPrice, String filterColor, String filterSize, int sortBy);
 
+    List<Object[]> filterProductByDiscount(int page, int itemPerPage,
+            double fromPrice, double toPrice,
+            String filterColor, String filterSize, int sortBy);
+    
     Double getMaxPriceOfProduct_BySubCate(int subCateID);
 
     Double getMinPriceOfProduct_BySubCate(int subCateID);
