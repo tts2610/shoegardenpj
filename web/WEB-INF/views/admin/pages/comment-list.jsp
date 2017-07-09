@@ -37,7 +37,7 @@
                     <tbody>
                         <c:forEach items="${cList}" var="rating" varStatus="no">
                             
-                            <tr class="odd gradeX" id="fs-role-list-id-${rating.ratingID}" <c:if test="${rating.status == 2}">style="background-color: rgb(225, 255, 251)"</c:if><c:if test="${rating.status == 0}">style="background-color: rgb(255, 211, 211)"</c:if><c:if test="${rating.status == 1}">style="background-color: rgba(147, 177, 233, 0.56)"</c:if>>
+                            <tr class="odd gradeX" id="fs-role-list-id-${rating.ratingID}" >
                                     <td class="text-center fs-valign-middle">${no.index + 1}</td>
                                     <td class="text-center fs-valign-middle">${rating.product.productName}</td>
                                     <td class="text-center fs-valign-middle">${rating.user.firstName}&nbsp;${rating.user.lastName}</td>
@@ -54,7 +54,7 @@
                                     <td class="text-center fs-valign-middle"><fmt:formatDate value="${rating.ratingDate}" pattern="dd MMM, yyyy"/></td>
                                     <td class="text-center fs-valign-middle">${rating.review}</td>
                                     <td align="center">
-                                        <select name="status" fs-comment="${rating.ratingID}" class="fs-select-comment-status form-control input-sm" id="fs-status-select">
+                                        <select name="status" fs-comment="${rating.ratingID}" class="fs-select-comment-status form-control input-sm" id="fs-status-select" <c:if test="${rating.status == 2}">style="background-color: rgb(126, 245, 147)"</c:if><c:if test="${rating.status == 0}">style="background-color: rgb(255, 132, 132)"</c:if><c:if test="${rating.status == 1}">style="background-color: rgba(147, 177, 233, 0.56)"</c:if>>
                                             <c:choose>
                                                 <c:when test="${rating.status != 2}">
                                                     <option id="fs-status-1" value="1" <c:if test="${rating.status == 1}">selected</c:if>>VERIFIED</option>
