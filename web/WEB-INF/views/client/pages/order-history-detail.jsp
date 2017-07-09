@@ -74,14 +74,7 @@
                                         <td class="text-center fs-valign-middle">${orderdetail.quantity}</td>
                                         <td class="text-center fs-valign-middle">$${orderdetail.price}</td>
                                         <td class="text-center fs-valign-middle">${orderdetail.productDiscount}%</td>
-                                        <td class="text-center fs-valign-middle">$${orderdetail.getSubTotal()}</td>
-<!--                                        <td class="text-center fs-valign-middle">
-                                            <c:choose>
-                                                <c:when test="${orderdetail.status == 1}">Canceled</c:when>
-                                                <c:when test="${orderdetail.status == 2}">New</c:when>
-                                                <c:otherwise>--</c:otherwise>
-                                            </c:choose>
-                                        </td>-->
+                                        <td class="text-center fs-valign-middle">$${orderdetail.getSubTotal()}</td>                                       
                                     </tr>
                                 </c:forEach>
                             </tbody>
