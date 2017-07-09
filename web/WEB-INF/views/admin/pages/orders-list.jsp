@@ -75,7 +75,7 @@
                     </thead>
                     <tbody>
                         <c:forEach items="${orderList}" var="order">
-                            <tr class="odd gradeX">
+                            <tr class="odd gradeX" <c:if test="${order.status == 2}">style="background-color: rgb(225, 255, 251)"</c:if><c:if test="${order.status == 0}">style="background-color: rgb(255, 211, 211)"</c:if><c:if test="${order.status == 3}">style="background-color: rgba(147, 177, 233, 0.56)"</c:if><c:if test="${order.status == 1}">style="background-color: #f9f9f9"</c:if>>
                                 <td class="text-center fs-valign-middle">
                                     <a href="admin/orders/orderlistdetail/${order.ordersID}.html" style="font-size: 20px; font-weight: 700;">${order.ordersID}</a>
                                 </td>
