@@ -19,6 +19,8 @@ import spring.ejb.DiscountDetailsFacadeLocal;
 public class CartLineInfo {
 
     DiscountDetailsFacadeLocal discountDetailsFacade = lookupDiscountDetailsFacadeLocal();
+
+    
     private Products product;
     private SizesByColor sizesByColor;
     private int quantity;
@@ -54,12 +56,11 @@ public class CartLineInfo {
     }
     
     public double getSubTotal(){
-           return (product.getPrice()*(1-(getProductDiscount()/100)))*quantity;
+           return discountDetailsFacade.getProductWithDiscount(product)*quantity;
     }
     
-    public double getProductDiscount(){
-        return discountDetailsFacade.findDiscountDetailsByProductID(product);
-    }
+    
+
     private DiscountDetailsFacadeLocal lookupDiscountDetailsFacadeLocal() {
         try {
             Context c = new InitialContext();
@@ -69,4 +70,5 @@ public class CartLineInfo {
             throw new RuntimeException(ne);
         }
     }
+    
 }

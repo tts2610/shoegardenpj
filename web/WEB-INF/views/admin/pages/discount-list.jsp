@@ -43,7 +43,7 @@
                             <tr class="odd gradeX">
                                 <td class="text-center fs-valign-middle" style="font-size: 20px; font-weight: 700;"><a  
                                         href="admin/discount/viewdiscountdetail/${discount.discID}.html"
-                                        >${discount.discID}</a></td>
+                                        style="color: #337ab7; font-size: 20px; font-weight: 700; cursor: pointer;">${discount.discID}</a></td>
                                 <td class="text-center fs-valign-middle">${discount.discount}%</td>
                                 <td class="text-center fs-valign-middle">${discount.discTitle}</td>
                                 <td class="text-center fs-valign-middle">${discount.discContent}</td>

@@ -39,6 +39,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import spring.ejb.BrandsFacadeLocal;
 import spring.ejb.CategoriesFacadeLocal;
+import spring.ejb.DiscountDetailsFacadeLocal;
+import spring.ejb.DiscountsFacadeLocal;
 import spring.ejb.OrderStateFullBeanLocal;
 import spring.ejb.ProductColorsFacadeLocal;
 
@@ -59,6 +61,10 @@ import spring.entity.SizesByColor;
 @Controller
 public class ProductController {
 
+    DiscountDetailsFacadeLocal discountDetailsFacade = lookupDiscountDetailsFacadeLocal();
+
+    DiscountsFacadeLocal discountsFacade = lookupDiscountsFacadeLocal();
+
     ProductColorsFacadeLocal productColorsFacade = lookupProductColorsFacadeLocal();
 
     SizesByColorFacadeLocal sizesByColorFacade = lookupSizesByColorFacadeLocal();
@@ -72,6 +78,7 @@ public class ProductController {
     ProductsFacadeLocal productsFacade = lookupProductsFacadeLocal();
 
     UsersFacadeLocal usersFacade = lookupUsersFacadeLocal();
+    
     
     
 
@@ -141,6 +148,82 @@ public class ProductController {
         }
         model.addAttribute("braList", cateList);
         return "client/pages/brands-grid";
+    }
+    
+    @RequestMapping(value = "/discount/productList")
+    public String discountlist(ModelMap model) {
+        int page = 1;
+        int itemPerPage = 6;
+
+        List<Brands> cateList = brandsFacade.findAll();
+        
+        List<Products> allProduct = productsFacade.getProductWorkingList("client");
+        List<Products> allProductWithDiscount = new ArrayList<>();
+        
+        for (Products products : allProduct) {
+            
+            if(discountDetailsFacade.getDiscountByProduct(products)!=0.0){
+                allProductWithDiscount.add(products);
+            }
+        }
+        
+        int numberOfProducts = allProductWithDiscount.size();
+        int fromProduct = ((page - 1) * itemPerPage) + 1;
+        int toProduct = ((page - 1) * itemPerPage) + itemPerPage;
+        if (toProduct > numberOfProducts) {
+            toProduct = numberOfProducts;
+        }
+        String currentProductPageInfo = fromProduct + " - " + toProduct;
+
+        if (numberOfProducts > 0) {
+            
+            double fromPrice = allProductWithDiscount.get(0).getProductWithDiscount();
+            double toPrice = allProductWithDiscount.get(0).getProductWithDiscount();
+
+        for(Products i: allProductWithDiscount) {
+             if(i.getPrice() < fromPrice) fromPrice = i.getPrice();
+             if(i.getPrice() > toPrice) toPrice = i.getPrice();
+        }
+            
+
+            List<Object[]> productIDList = productsFacade.filterProductByDiscount(page, itemPerPage, fromPrice, toPrice, "", "", 1);
+            
+            List<Products> finalProductList = new ArrayList<>();
+            
+            
+            for (Object[] prod : productIDList) {
+                Products product = productsFacade.findProductByID((Integer) prod[0]);
+                finalProductList.add(product);
+            }
+            List<ProductColors> colorSet = new ArrayList<>();
+            Set<String> sizeSet = new HashSet<>();
+            Set<String> colorNameSet = new HashSet<>();
+            
+            //get List of Color
+            for (Products p : allProductWithDiscount) {
+                for (ProductColors pc : p.getProductColorsList()) {
+                    colorNameSet.add(pc.getColor());
+                    for (SizesByColor size : pc.getSizesByColorList()) {
+                        sizeSet.add(size.getSize());
+                    }
+                }
+            }
+
+            for (String name : colorNameSet) {
+                    colorSet.add(productColorsFacade.findTop1ByColorName(name));
+            }
+           
+            
+            model.addAttribute("numberOfProducts", numberOfProducts);
+            model.addAttribute("currentProductPageInfo", currentProductPageInfo);
+            model.addAttribute("productsList", finalProductList);
+            model.addAttribute("colorList", colorSet);
+            model.addAttribute("sizeList", sizeSet);
+            model.addAttribute("maxPrice", toPrice);
+            model.addAttribute("minPrice", fromPrice);
+        }
+        model.addAttribute("braList", cateList);
+        return "client/pages/discount-grid";
     }
     
     
@@ -586,6 +669,83 @@ public class ProductController {
         }
         return result;
     }
+    
+    @ResponseBody
+    @RequestMapping(value = "/ajax/productPaginationForDiscount", method = RequestMethod.POST)
+    public String productPaginationForDiscount(
+            @RequestParam("page") Integer page,
+            @RequestParam("itemPerPage") Integer itemPerPage,
+            @RequestParam("sortBy") Integer sortBy,
+            @RequestParam("fromPrice") Double fromPrice,
+            @RequestParam("toPrice") Double toPrice,
+            @RequestParam(value = "colorFilterArr[]", required = false) List<String> colorFilterArr,
+            @RequestParam(value = "sizeFilterArr[]", required = false) List<String> sizeFilterArr) {
+        List<Products> allProduct = productsFacade.getProductWorkingList("client");
+        List<Products> allProductWithDiscount = new ArrayList<>();
+        for (Products products : allProduct) {
+            if(discountDetailsFacade.getDiscountByProduct(products)!=0)
+                allProductWithDiscount.add(products);
+        }
+
+
+        
+        if (fromPrice == null) {
+            fromPrice = (double) allProductWithDiscount.get(0).getProductWithDiscount();
+            for(Products i: allProductWithDiscount) {
+                if(i.getPrice() < fromPrice) fromPrice = i.getPrice();
+            }
+        }
+
+        if (toPrice == null) {
+            toPrice = (double) allProductWithDiscount.get(0).getProductWithDiscount();
+            for(Products i: allProductWithDiscount) {
+                if(i.getPrice() > toPrice) toPrice = i.getPrice();
+            }
+        }
+        String filterColor = "";
+        String beginColorStr = "AND pc.color in (";
+        String endColorStr = ") ";
+        String contentColorStr = "";
+
+        String filterSize = "";
+        String beginSizeStr = "AND ps.size in (";
+        String endSizeStr = ") ";
+        String contentSizeStr = "";
+
+        if (colorFilterArr != null) {
+            for (String color : colorFilterArr) {
+                contentColorStr += "'" + color + "',";
+            }
+            contentColorStr = contentColorStr.substring(0, contentColorStr.length() - 1);
+            filterColor = beginColorStr + contentColorStr + endColorStr;
+        }
+
+        if (sizeFilterArr != null) {
+            for (String size : sizeFilterArr) {
+                contentSizeStr += "'" + size + "',";
+            }
+            contentSizeStr = contentSizeStr.substring(0, contentSizeStr.length() - 1);
+            filterSize = beginSizeStr + contentSizeStr + endSizeStr;
+        }
+
+        List<Object[]> productIDList = productsFacade.filterProductByDiscount(page, itemPerPage, fromPrice, toPrice, filterColor, filterSize, sortBy);
+        List<Products> finalProductList = new ArrayList<>();
+        
+        for (Object[] prod : productIDList) {
+
+            Products product = productsFacade.findProductByID((Integer) prod[0]);
+            
+            finalProductList.add(product);
+        }
+        ObjectMapper mapper = new ObjectMapper();
+        String result = "";
+        try {
+            result = mapper.writeValueAsString(finalProductList);
+        } catch (JsonProcessingException ex) {
+            ex.printStackTrace();
+        }
+        return result;
+    }
 
     @ResponseBody
     @RequestMapping(value = "/ajax/getNumberOfProductsByFilter_OfACategory", method = RequestMethod.POST)
@@ -631,6 +791,71 @@ public class ProductController {
         }
 
         List<Object[]> allProductFilteredByPrice = productsFacade.productsByFilter_OfACategory(cateID, fromPrice, toPrice, filterColor, filterSize);
+
+        int numberOfProducts = allProductFilteredByPrice.size();
+        
+        return "" + numberOfProducts;
+    }
+    
+    @ResponseBody
+    @RequestMapping(value = "/ajax/getNumberOfProductsByFilter_OfDiscount", method = RequestMethod.POST)
+    public String getNumberOfProductsByFilter_OfDiscount(
+            @RequestParam("fromPrice") Double fromPrice,
+            @RequestParam("toPrice") Double toPrice,
+            @RequestParam(value = "colorFilterArr[]", required = false) List<String> colorFilterArr,
+            @RequestParam(value = "sizeFilterArr[]", required = false) List<String> sizeFilterArr
+    ) {
+        
+        
+        List<Products> allProduct = productsFacade.getProductWorkingList("client");
+        List<Products> allProductWithDiscount = new ArrayList<>();
+        for (Products products : allProduct) {
+            if(discountDetailsFacade.getDiscountByProduct(products)!=0)
+                allProductWithDiscount.add(products);
+        }
+
+
+        
+        if (fromPrice == null) {
+            fromPrice = (double) allProductWithDiscount.get(0).getProductWithDiscount();
+            for(Products i: allProductWithDiscount) {
+                if(i.getPrice() < fromPrice) fromPrice = i.getPrice();
+            }
+        }
+
+        if (toPrice == null) {
+            toPrice = (double) allProductWithDiscount.get(0).getProductWithDiscount();
+            for(Products i: allProductWithDiscount) {
+                if(i.getPrice() > toPrice) toPrice = i.getPrice();
+            }
+        }
+        String filterColor = "";
+        String beginColorStr = "AND pc.color in (";
+        String endColorStr = ") ";
+        String contentColorStr = "";
+
+        String filterSize = "";
+        String beginSizeStr = "AND ps.size in (";
+        String endSizeStr = ") ";
+        String contentSizeStr = "";
+
+        if (colorFilterArr != null) {
+            for (String color : colorFilterArr) {
+                contentColorStr += "'" + color + "',";
+            }
+            contentColorStr = contentColorStr.substring(0, contentColorStr.length() - 1);
+            filterColor = beginColorStr + contentColorStr + endColorStr;
+        }
+
+        if (sizeFilterArr != null) {
+            for (String size : sizeFilterArr) {
+                contentSizeStr += "'" + size + "',";
+            }
+            contentSizeStr = contentSizeStr.substring(0, contentSizeStr.length() - 1);
+            filterSize = beginSizeStr + contentSizeStr + endSizeStr;
+        }
+
+        List<Object[]> allProductFilteredByPrice = productsFacade.productsByFilter_OfDiscount(fromPrice, toPrice, filterColor, filterSize);
 
         int numberOfProducts = allProductFilteredByPrice.size();
         
@@ -858,6 +1083,26 @@ public class ProductController {
         try {
             Context c = new InitialContext();
             return (ProductColorsFacadeLocal) c.lookup("java:global/ShoeGardenPJ/ProductColorsFacade!spring.ejb.ProductColorsFacadeLocal");
+        } catch (NamingException ne) {
+            Logger.getLogger(getClass().getName()).log(Level.SEVERE, "exception caught", ne);
+            throw new RuntimeException(ne);
+        }
+    }
+
+    private DiscountsFacadeLocal lookupDiscountsFacadeLocal() {
+        try {
+            Context c = new InitialContext();
+            return (DiscountsFacadeLocal) c.lookup("java:global/ShoeGardenPJ/DiscountsFacade!spring.ejb.DiscountsFacadeLocal");
+        } catch (NamingException ne) {
+            Logger.getLogger(getClass().getName()).log(Level.SEVERE, "exception caught", ne);
+            throw new RuntimeException(ne);
+        }
+    }
+
+    private DiscountDetailsFacadeLocal lookupDiscountDetailsFacadeLocal() {
+        try {
+            Context c = new InitialContext();
+            return (DiscountDetailsFacadeLocal) c.lookup("java:global/ShoeGardenPJ/DiscountDetailsFacade!spring.ejb.DiscountDetailsFacadeLocal");
         } catch (NamingException ne) {
             Logger.getLogger(getClass().getName()).log(Level.SEVERE, "exception caught", ne);
             throw new RuntimeException(ne);

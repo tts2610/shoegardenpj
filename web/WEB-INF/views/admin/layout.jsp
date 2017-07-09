@@ -45,6 +45,8 @@
 
         <!-- fileUploader -->
         <link href="assets/admin/dist/css/jquery.fileuploader.css" rel="stylesheet" type="text/css"/>
+        
+        <link rel="stylesheet" href="assets/css/shoegarden_custom_CSS.css">
 
         <!-- animate - use with bootstrap notify -->
         <link href="assets/css/animate.css" rel="stylesheet" type="text/css"/>
@@ -62,6 +64,9 @@
         <link href="assets/admin/dist/css/bootstrap-editable.css" rel="stylesheet" type="text/css"/>
         <link href="assets/css/fontawesome-stars.css" rel="stylesheet" type="text/css"/>
         <link href="assets/css/fontawesome-stars-o.css" rel="stylesheet" type="text/css"/>
+        <link rel="stylesheet" href="assets/plugin/owl-carousel/owl.carousel.css">
+        <link rel="stylesheet" href="assets/plugin/owl-carousel/owl.theme.css">
+        <link rel="stylesheet" href="assets/plugin/prettyphoto/css/prettyPhoto.css">  
     </head>
 
     <body>        
@@ -130,6 +135,9 @@
         <script src="assets/js/admin_comment.js" type="text/javascript"></script>
         
         <script src="assets/js/bootbox.min.js" type="text/javascript"></script>
+        
+        <script src="assets/plugin/owl-carousel/owl.carousel.min.js"></script>
+        <script src="assets/plugin/prettyphoto/js/jquery.prettyPhoto.js"></script>
     </body>
 
 </html>

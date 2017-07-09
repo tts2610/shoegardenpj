@@ -3,7 +3,7 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!-- Page Content -->
 <div id="page-wrapper">
-    <div class="container-fluid">
+    <div class="container-fluid" id="productlist">
         <div class="row">
             <div class="col-lg-12">
                 <h1 class="page-header"> 
@@ -83,7 +83,9 @@
                                 </td>
 
                                 <td class="text-center fs-valign-middle">
-                                    <a href="${product.productID}-${product.productColorsList[0].colorID}.html" class="btn btn-info" style="margin-top: 4px;">
+                                    <a class="btn btn-info fs-product-modal" fs-product="${product.productID}" 
+                                         fs-product-modal-color="${product.productColorListWorking[0].colorID}" 
+                                         data-toggle="modal" style="margin-top: 4px;">
                                         <i class="fa fa-info-circle" aria-hidden="true"></i> Detail
                                     </a>
                                     <a href="admin/product/edit-${product.productID}.html" class="btn btn-warning" style="margin-top: 4px;">
@@ -103,3 +105,74 @@
     <!-- /.container-fluid -->
 </div>
 <!-- /#page-wrapper -->
+<div class="modal fade" id="productModal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-ku">
+        <div class="modal-content">
+            <button type="button" class="close fs-modal-close" data-dismiss="modal" aria-hidden="true">
+                <i class="fa fa-times"></i>
+            </button>
+            <div class="row">
+<!--                <div class="col-md-1 col-sm-6">
+                    <div class="owl-carousel sync2 fs-main-product-img">
+                    </div>  
+                </div>-->
+                <div class="col-md-5 col-sm-6" id="fs-product-modal-slide-img">
+                    <div class="owl-carousel sync1 fs-main-product-img">
+                    </div>  
+                    <div class="owl-carousel sync2 fs-main-product-img">
+                    </div>  
+                </div>
+                
+                <div class="col-md-7 col-sm-6">
+                    <div class="product-single fs-modal-product">
+                        <div id="error-cart-product-modal">
+                        </div>
+                        <div class="ps-header">
+                            <h3 class="fs-product-name" style="margin-top: 134px;"></h3>
+                            <span class="product-price">
+                                <!--                            <div class="ps-price fs-product-price"></div>-->
+                                <small class="cutprice" style="display: inline; text-decoration: line-through"></small>&nbsp;<div class="ps-price fs-product-price" style="display: inline"></div>&nbsp;<div class="ps-price fs-product-discount" style="display: inline"></div>
+                            </span>
+                        </div>
+
+                        <div class="ps-stock">
+                            Availability: <span style="color: #d6644a" class="fs-quantity-in-stock">---</span>
+                            <div class="fs-display-none" id="fs-show-quantity"></div>
+                            
+                        </div>
+                        <div class="alert alert-warning fs-quantity-in-cart" style="display: none">
+                           
+                        </div>
+                        <div class="sep"></div>
+                        <div class="ps-color fs-product-modal-color">
+                            <p>Color<span>*</span></p>                         
+                            <div class="fs-product-modal-color-border">
+
+                            </div>
+                        </div>
+                        <div class="fs-clear-fix"></div>
+                        <div class="space10"></div>
+                        <div class="row select-wraps">
+                            <div class="col-md-7 col-xs-7">
+                                <p>Size<span>*</span></p>
+                                <div id="fs-product-modal-size">
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="space20"></div>
+                        
+                        <div class="space20"></div>
+                        <div class="sep"></div>
+                        <!--<form method="POST" action="">-->
+                        <!--<a class="fs-modal-btn-addtobag" href="#">Add to Bag</a>-->
+                        
+                        <!--</form>-->
+                        
+                        <div class="space20"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

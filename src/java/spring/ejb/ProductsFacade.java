@@ -5,6 +5,8 @@
  */
 package spring.ejb;
 
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -183,6 +185,44 @@ public class ProductsFacade extends AbstractFacade<Products> implements Products
 
         
     }
+    
+    @Override
+    public List<Object[]> productsByFilter_OfDiscount(double fromPrice, double toPrice, String filterColor, String filterSize) {
+        
+        Query q = null;
+        Calendar cal = Calendar.getInstance();  
+            cal.setTime(new Date());  
+            cal.set(Calendar.HOUR_OF_DAY, 0);  
+            cal.set(Calendar.MINUTE, 0);  
+            cal.set(Calendar.SECOND, 0);  
+            cal.set(Calendar.MILLISECOND, 0);
+        try{
+            String sql = "SELECT DISTINCT"
+                + "         p.productID, p.price\n"
+                + "FROM Products p\n"
+                + "JOIN p.productColorsList pc\n"
+                + "JOIN pc.sizesByColorList ps\n"
+                + "JOIN p.discountDetailsList dc\n"
+                + "WHERE p.productID = dc.productID.productID AND (dc.discID.dateBegin <= :beginDate) AND (dc.discID.dateEnd >= :endDate)"
+                + " AND((p.price*(1-dc.discID.discount/100)) BETWEEN :fromPrice AND :toPrice) "
+                + filterColor
+                + filterSize
+                + "AND p.status = 1";
+        q = getEntityManager().createQuery(sql, Products.class);
+        q.setParameter("fromPrice", fromPrice);
+        q.setParameter("toPrice", toPrice);
+        q.setParameter("beginDate", cal.getTime());
+        q.setParameter("endDate", cal.getTime());
+        
+        }
+        catch(Exception e){
+            e.printStackTrace();
+        }
+        
+        return q.getResultList();
+
+        
+    }
 
     @Override
     public List<Object[]> filterProductByCategory(int cateID, int page, int itemPerPage,
@@ -231,6 +271,72 @@ public class ProductsFacade extends AbstractFacade<Products> implements Products
         q.setParameter("cateID", cateID);
         q.setParameter("fromPrice", fromPrice);
         q.setParameter("toPrice", toPrice);
+        q.setFirstResult(firstResult);
+        q.setMaxResults(itemPerPage);
+        
+        return q.getResultList();
+    }
+    
+    @Override
+    public List<Object[]> filterProductByDiscount(int page, int itemPerPage,
+            double fromPrice, double toPrice,
+            String filterColor, String filterSize, int sortBy) {
+        String sql;
+        
+           
+            Calendar cal = Calendar.getInstance();  
+            cal.setTime(new Date());  
+            cal.set(Calendar.HOUR_OF_DAY, 0);  
+            cal.set(Calendar.MINUTE, 0);  
+            cal.set(Calendar.SECOND, 0);  
+            cal.set(Calendar.MILLISECOND, 0);
+        if (sortBy == 1) {//1: Newest; 2: Low to High Price; 3: High to Low Price
+            
+            sql = "SELECT DISTINCT"
+                    + "         p.productID, p.price\n"
+                    + "FROM Products p\n"
+                    + "JOIN p.productColorsList pc\n"
+                    + "JOIN pc.sizesByColorList ps\n"
+                    + "JOIN p.discountDetailsList dc \n"
+                    + "WHERE (p.productID = dc.productID.productID) AND (dc.discID.dateBegin <= :beginDate) AND (dc.discID.dateEnd >= :endDate) "
+                    + " AND ((p.price*(1-dc.discID.discount/100)) BETWEEN :fromPrice AND :toPrice) "
+                    + filterColor
+                    + filterSize
+                    + " AND p.status = 1 ORDER BY p.productID DESC";
+            
+        } else if (sortBy == 2) {
+            sql = "SELECT DISTINCT"
+                    + "         p.productID, p.price\n"
+                    + "FROM Products p\n"
+                    + "JOIN p.productColorsList pc\n"
+                    + "JOIN pc.sizesByColorList ps\n"
+                    + "JOIN p.discountDetailsList dc\n"
+                    + "WHERE p.productID = dc.productID.productID AND (dc.discID.dateBegin <= :beginDate) AND (dc.discID.dateEnd >= :endDate)"
+                    + " AND ((p.price*(1-dc.discID.discount/100)) BETWEEN :fromPrice AND :toPrice) "
+                    + filterColor
+                    + filterSize
+                    + "AND p.status = 1 ORDER BY p.price ASC";
+        } else {
+            sql = "SELECT DISTINCT"
+                    + "         p.productID, p.price\n"
+                    + "FROM Products p\n"
+                    + "JOIN p.productColorsList pc\n"
+                    + "JOIN pc.sizesByColorList ps\n"
+                    + "JOIN p.discountDetailsList dc\n"
+                    + "WHERE p.productID = dc.productID.productID AND (dc.discID.dateBegin <= :beginDate) AND (dc.discID.dateEnd >= :endDate)"
+                    + " AND ((p.price*(1-dc.discID.discount/100)) BETWEEN :fromPrice AND :toPrice) "
+                    + filterColor
+                    + filterSize
+                    + "AND p.status = 1 ORDER BY p.price DESC";
+        }
+        int firstResult = (page - 1) * itemPerPage;
+        em.flush();
+        Query q = getEntityManager().createQuery(sql,Products.class);
+        
+        q.setParameter("fromPrice", fromPrice);
+        q.setParameter("toPrice", toPrice);
+        q.setParameter("beginDate", cal.getTime());
+        q.setParameter("endDate", cal.getTime());
         q.setFirstResult(firstResult);
         q.setMaxResults(itemPerPage);
         
