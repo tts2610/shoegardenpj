@@ -55,12 +55,12 @@ public class ProductsFacade extends AbstractFacade<Products> implements Products
 
     @Override
     public List<Object[]> getTop3ProductBestSeller() {
-        String sql = "SELECT p.productID, p.productName, p.price, p.urlImg, c.colorID, sum(od.quantity) as tongsoluong "
-                + "FROM OrdersDetail od JOIN Products p JOIN p.productColorsList c "
-                + "WHERE p.status = 1 AND c.status = 1 "
-                + "GROUP BY p.productID, p.productName, p.price, p.urlImg, c.colorID "
-                + "ORDER BY tongsoluong DESC";
-        Query q = getEntityManager().createQuery(sql,Products.class).setMaxResults(3);
+        String sql = "select top 3 p.productID, p.productName, p.price, p.urlImg,pc.colorID, s.size from ordersDetail o  \n" +
+                     "  join products p on p.productID = o.productID\n" +
+                     "  join sizesByColor s on s.sizeID = o.sizeID\n" +
+                     "  join productColors pc on pc.colorID = s.colorID\n" +
+                     "  order by o.quantity desc";
+        Query q = getEntityManager().createNativeQuery(sql);
 
         return q.getResultList();
     }
