@@ -69,7 +69,7 @@
                                 </td>
 
                                 <td class="text-center fs-valign-middle">
-                                    <a href="admin/discount/discountupdate/${discount.discID}.html" type="button" class="btn btn-primary">UPDATE</a>
+                                    <a href="admin/discount/discountupdate/${discount.discID}.html" type="button" class="btn btn-primary <c:if test="${discount.checkEvent}">disabled</c:if>">UPDATE</a>
                                     <a data-href="admin/discount/discountdelete/${discount.discID}.html" 
                                        type="button" 
                                        class="btn btn-danger" 
