@@ -100,16 +100,16 @@
 
             <div class="col-md-5 bb-grids bb-left-agileits-w3layouts">
                 <a <c:if test="${not empty discount[0]}"> data-toggle="modal" data-target="#discountModal" data-whatever="${discount[0].discID}"</c:if>>
-                    <div class="bb-left-agileits-w3layouts-inner grid">
-                        <figure class="effect-roxy">
-                            <img src="assets/images/img1.jpg" alt=" " class="img-responsive" />
+                        <div class="bb-left-agileits-w3layouts-inner grid">
+                            <figure class="effect-roxy">
+                                <img src="assets/images/img1.jpg" alt=" " class="img-responsive" />
                             <c:if test="${not empty discount[0]}">
-                            <figcaption>
-                                <h3>${discount[0].discTitle}</h3>                                 
-                                <p><span>Sale Up</span> to <span>${discount[0].discount}%</span></p>
-                                <i>${discount[0].discContent}</i>
-                                <i><p><fmt:formatDate value="${discount[0].dateBegin}" pattern="dd/MM/yyyy"/> - <fmt:formatDate value="${discount[0].dateEnd}" pattern="dd/MM/yyyy"/></p></i>
-                            </figcaption>
+                                <figcaption>
+                                    <h3>${discount[0].discTitle}</h3>                                 
+                                    <p><span>Sale Up</span> to <span>${discount[0].discount}%</span></p>
+                                    <i>${discount[0].discContent}</i>
+                                    <i><p><fmt:formatDate value="${discount[0].dateBegin}" pattern="dd/MM/yyyy"/> - <fmt:formatDate value="${discount[0].dateEnd}" pattern="dd/MM/yyyy"/></p></i>
+                                </figcaption>
                             </c:if>
                         </figure>
                     </div>
@@ -117,24 +117,24 @@
             </div>
             <div class="col-md-7 bb-grids bb-middle-agileits-w3layouts">
                 <a <c:if test="${not empty discount[1]}"> data-toggle="modal" data-target="#discountModal" data-whatever="${discount[1].discID}"</c:if>>
-                    <div class="bb-middle-agileits-w3layouts grid">
-                        <figure class="effect-roxy">
-                            <img src="assets/images/faster.jpg" alt=" " class="img-responsive" />
+                        <div class="bb-middle-agileits-w3layouts grid">
+                            <figure class="effect-roxy">
+                                <img src="assets/images/faster.jpg" alt=" " class="img-responsive" />
                             <c:if test="${not empty discount[1]}">
-                            <figcaption>
-                                <h3>${discount[1].discTitle}</h3>
-                                <p><span>Sale</span>Up to <span>${discount[1].discount}%</span></p>
-                                <i>${discount[1].discContent}</i>
-                                <i><p><fmt:formatDate value="${discount[1].dateBegin}" pattern="dd/MM/yyyy"/> - <fmt:formatDate value="${discount[1].dateEnd}" pattern="dd/MM/yyyy"/></p></i>
-                            </figcaption>
+                                <figcaption>
+                                    <h3>${discount[1].discTitle}</h3>
+                                    <p><span>Sale</span>Up to <span>${discount[1].discount}%</span></p>
+                                    <i>${discount[1].discContent}</i>
+                                    <i><p><fmt:formatDate value="${discount[1].dateBegin}" pattern="dd/MM/yyyy"/> - <fmt:formatDate value="${discount[1].dateEnd}" pattern="dd/MM/yyyy"/></p></i>
+                                </figcaption>
                             </c:if>
                         </figure>
                     </div>
                 </a>
                 <a <c:if test="${not empty discount[2]}"> data-toggle="modal" data-target="#discountModal" data-whatever="${discount[2].discID}"</c:if>>
-                    <div class="bb-middle-agileits-w3layouts forth grid">
-                        <figure class="effect-roxy">
-                            <img src="assets/images/best_trail_running.jpg" alt=" " class="img-responsive">
+                        <div class="bb-middle-agileits-w3layouts forth grid">
+                            <figure class="effect-roxy">
+                                <img src="assets/images/best_trail_running.jpg" alt=" " class="img-responsive">
                             <c:if test="${not empty discount[2]}">
                                 <figcaption>
                                     <h3>${discount[2].discTitle}</h3>
@@ -344,7 +344,7 @@
                                             </a>
                                         </h4>
                                         <span class="fw-price" style="display: block">Price: $${prod[2]}0</span>
-                                        <span class="fw-price" style="display: block">Size: ${prod[5]}</span>
+                                        <span class="fw-thumb" style="display: block">Size: ${prod[5]}</span>
                                     </div>
                                 </li>
                             </c:forEach>
@@ -367,6 +367,8 @@
                                             </a>
                                         </h4>
                                         <span class="fw-price">$ ${prod.price}0</span>
+                                        <span class="fw-thumb" style="display: block">${prod.productViews} views</span>
+
                                     </div>
                                 </li>
                             </c:forEach>

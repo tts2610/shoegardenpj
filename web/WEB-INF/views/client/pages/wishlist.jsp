@@ -13,6 +13,7 @@
                 ${error}
             </div>
             <div class="col-md-12 col-sm-12">
+                <c:if test="${not empty wishList}">
                     <table class="cart-table">
                         <thead>
                             <tr>
@@ -39,7 +40,9 @@
                                 </tr>
                             </c:forEach>
                         </tbody>
-                    </table>               
+                    </table>   
+                    </c:if>
+                <h1>Please add your wishlist !</h1>
                 <div class="clearfix space90"></div>
                 <div class="clearfix space90"></div>
             </div>

@@ -59,7 +59,6 @@
                                     <th style="font-weight: 700;">Price for one</th>
                                     <th style="font-weight: 700;">Product discount</th>
                                     <th style="font-weight: 700;">SubTotal</th>
-                                    <th style="font-weight: 700;">Status</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -76,26 +75,13 @@
                                         <td class="text-center fs-valign-middle">$${orderdetail.price}</td>
                                         <td class="text-center fs-valign-middle">${orderdetail.productDiscount}%</td>
                                         <td class="text-center fs-valign-middle">$${orderdetail.getSubTotal()}</td>
-                                        <td class="text-center fs-valign-middle">
-                                            <c:choose>
-                                                <c:when test="${orderdetail.status == 1}">Canceled</c:when>
-                                                <c:when test="${orderdetail.status == 2}">New</c:when>
-                                                <c:otherwise>--</c:otherwise>
-                                            </c:choose>
-                                        </td>
                                     </tr>
                                 </c:forEach>
                             </tbody>
                             <tfoot>
                                 <tr>
-                                    <td colspan="6" style="padding-left: 770px;"><b>Quantity Total</b></td>
-                                    <td align="center">$${order.getPaymentTotal()}</td>
-                                    <td></td>   
-                                </tr>
-                                <tr>
                                     <td colspan="6" style="padding-left: 770px;"><b>Payment Total</b></td>
                                     <td align="center">$${order.getPaymentTotal()}</td>
-                                    <td></td>   
                                 </tr>
                             </tfoot>
                         </table>
