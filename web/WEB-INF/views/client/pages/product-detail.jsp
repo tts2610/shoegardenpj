@@ -165,7 +165,7 @@
                         <c:if test="${review.status==1}">                            
                             <p>
                                 <b>${review.user.firstName} ${review.user.lastName}</b>
-                                <span style="color: #444"> on <fmt:formatDate value="${review.ratingDate}" pattern="dd MMM, yyyy" timeZone="US"/></span>
+                                <span style="color: #444"> on <fmt:formatDate value="${review.ratingDate}" pattern="dd MMM, yyyy"/></span>
                             </p>                            
                             <c:if test="${review.rating!=0}">
                                 <select id="fs-rating-star-${no.index}" name="fs-rating-star-${no.index}" data-current-rating="${review.rating}">
