@@ -272,12 +272,13 @@ $(document).ready(function () {
 
     $("#fs-discount-add-page").on("keyup", "#fs-discount", function () {
         var discount = $(this).val().trim();
+        var test = /^\d+$/;
         if (discount == "") {
             $("#fs-discount-error").text("Discount cannot be empty!");
             $("#fs-discount").focus();
 
-        } else if (isNaN(discount)) {
-            $("#fs-discount-error").text("Discount must be a number!");
+        } else if (isNaN(discount)||!test.test(discount)) {
+            $("#fs-discount-error").text("Discount must be a ROUND number!");
             $("#fs-discount").focus();
 
         } else if (discount <= 0) {
@@ -294,12 +295,13 @@ $(document).ready(function () {
     });
     $("#fs-discount-update-page").on("keyup", "#fs-discount", function () {
         var discount = $(this).val().trim();
+        var test = /^\d+$/;
         if (discount == "") {
             $("#fs-discount-error").text("Dicount cannot be empty!");
             $("#fs-discount").focus();
 
-        } else if (isNaN(discount)) {
-            $("#fs-discount-error").text("Discount must be a number!");
+        } else if (isNaN(discount)||!test.test(discount)) {
+            $("#fs-discount-error").text("Discount must be a ROUND number!");
             $("#fs-discount").focus();
 
         } else if (discount <= 0) {
@@ -1337,7 +1339,7 @@ $(document).ready(function () {
         var discount = $("#fs-discount").val();
         var bDate = $("#dateBegin").val();
         var eDate = $("#dateEnd").val();
-
+        var test = /^\d+$/;
         //validate ckeditor
         var content = $("#cke_fs-product-description iframe").contents().find("body").text();
 
@@ -1363,8 +1365,8 @@ $(document).ready(function () {
             $("#fs-discount-error").text("Discount cannot be empty!");
             $("#fs-discount").focus();
             count++;
-        } else if (isNaN(discount)) {
-            $("#fs-discount-error").text("Discount must be a number!");
+        } else if (isNaN(discount)||!test.test(discount)) {
+            $("#fs-discount-error").text("Discount must be an ROUND number!");
             $("#fs-discount").focus();
             count++;
         } else if (discount <= 0) {
@@ -1429,7 +1431,7 @@ $(document).ready(function () {
         var discount = $("#fs-discount").val();
         var bDate = $("#dateBegin").val();
         var eDate = $("#dateEnd").val();
-
+        var test = /^\d+$/;
         //validate ckeditor
         var content = $("#cke_fs-product-description iframe").contents().find("body").text();
 
@@ -1455,8 +1457,8 @@ $(document).ready(function () {
             $("#fs-discount-error").text("Dicount cannot be empty!");
             $("#fs-discount").focus();
             count++;
-        } else if (isNaN(discount)) {
-            $("#fs-discount-error").text("Discount must be a number!");
+        } else if (isNaN(discount)||!test.test(discount)) {
+            $("#fs-discount-error").text("Discount must be a ROUND number!");
             $("#fs-discount").focus();
             count++;
         } else if (discount <= 0) {

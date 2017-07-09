@@ -160,5 +160,18 @@ public class DiscountDetailsFacade extends AbstractFacade<DiscountDetails> imple
         return 0;
     }
     
+    @Override
+    public List<DiscountDetails> findAllOR(){
+        Calendar cal = Calendar.getInstance();  
+        cal.setTime(new Date());  
+        cal.set(Calendar.HOUR_OF_DAY, 0);  
+        cal.set(Calendar.MINUTE, 0);  
+        cal.set(Calendar.SECOND, 0);  
+        cal.set(Calendar.MILLISECOND, 0);
+        Query q = getEntityManager().createQuery("SELECT d from DiscountDetails d where (d.discID.dateBegin<= :beginDate) AND (d.discID.dateEnd >= :endDate)");
+        q.setParameter("beginDate", cal.getTime());
+        q.setParameter("endDate", cal.getTime());
+        return q.getResultList();
+    }
     
 }

@@ -45,4 +45,6 @@ public interface DiscountDetailsFacadeLocal {
     float getProductWithDiscount(Products pro);
     float getDiscountByProduct(Products pro);
     
+    List<DiscountDetails> findAllOR();
+    
 }

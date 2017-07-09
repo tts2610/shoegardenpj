@@ -61,7 +61,7 @@ public class Discount_Countroller {
 
         //lay tat ca nhung san pham co trong discountDetail
         List<Products> pList = new ArrayList<>();
-        List<DiscountDetails> dList = discountDetailsFacade.findAll();
+        List<DiscountDetails> dList = discountDetailsFacade.findAllOR();
         for (DiscountDetails discountDetails : dList) {
             pList.add(discountDetails.getProductID());
         }
