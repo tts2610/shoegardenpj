@@ -99,7 +99,7 @@
         <div class="container">       
 
             <div class="col-md-5 bb-grids bb-left-agileits-w3layouts">
-                <a data-toggle="modal" data-target="#discountModal" data-whatever="${discount[0].discID}">
+                <a <c:if test="${not empty discount[0]}"> data-toggle="modal" data-target="#discountModal" data-whatever="${discount[0].discID}"</c:if>>
                     <div class="bb-left-agileits-w3layouts-inner grid">
                         <figure class="effect-roxy">
                             <img src="assets/images/img1.jpg" alt=" " class="img-responsive" />
@@ -116,7 +116,7 @@
                 </a>
             </div>
             <div class="col-md-7 bb-grids bb-middle-agileits-w3layouts">
-                <a data-toggle="modal" data-target="#discountModal" data-whatever="${discount[1].discID}">
+                <a <c:if test="${not empty discount[1]}"> data-toggle="modal" data-target="#discountModal" data-whatever="${discount[1].discID}"</c:if>>
                     <div class="bb-middle-agileits-w3layouts grid">
                         <figure class="effect-roxy">
                             <img src="assets/images/faster.jpg" alt=" " class="img-responsive" />
@@ -131,7 +131,7 @@
                         </figure>
                     </div>
                 </a>
-                <a data-toggle="modal" data-target="#discountModal" data-whatever="${discount[2].discID}">
+                <a <c:if test="${not empty discount[2]}"> data-toggle="modal" data-target="#discountModal" data-whatever="${discount[2].discID}"</c:if>>
                     <div class="bb-middle-agileits-w3layouts forth grid">
                         <figure class="effect-roxy">
                             <img src="assets/images/img3.jpg" alt=" " class="img-responsive">
