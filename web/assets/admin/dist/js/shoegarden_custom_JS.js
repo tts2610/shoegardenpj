@@ -15,7 +15,7 @@ $(document).ready(function () {
     setTimeout(function () {
         $("#fs-error-div").hide("fade", 1500);
     }, 3000);
-    
+
     /* Pie chart returning visitor */
 //    $.ajax({
 //        url: "admin/ajax/getReturningVisitorData.html",
@@ -3617,7 +3617,7 @@ $(document).ready(function () {
         }
     });
 
-    
+
 
     /* BẮT validation CREATE BLOG CATEGORY */
     // blog-category-add
@@ -3888,7 +3888,7 @@ $(document).ready(function () {
             }
         });
     }
-    
+
     /* 
      * AJAX - EVENT ONCHANGE SELECT USER "STATUS" 
      */
@@ -3987,8 +3987,8 @@ $(document).ready(function () {
     var fs_user_table = $("#fs-user-dataTables").DataTable({//cấu hình datatable chính chủ.
         responsive: true
     });
- 
-    
+
+
     $("#fs-discount-added-dataTables").DataTable({
         responsive: true,
         "scrollY": '50vh',
@@ -4142,19 +4142,19 @@ $(document).ready(function () {
             url: "admin/user/ajax/getUserAddress.html",
             dataType: "JSON",
             method: "POST",
-            data: {userID:userID},
+            data: {userID: userID},
             success: function (response) {
                 console.log(response);
-                
+
                 var dataStr = "";
                 //vòng lặp foreach của jquery
-        $.each(response, function (i, item) { //i: index; item: từng object
-            dataStr +=
-                    '<tr id="fs-tr" style="border-bottom: 1px solid #cccccc;">' +
-                    '<td class="text-center" id="fs-td" style="border-right: 1px solid #cccccc;padding: 10px;transition: all 0.2s;">' + item.address + '</td>' +
-                    '<td class="text-center" id="fs-td" style="border-right: 1px solid #cccccc;padding: 10px;transition: all 0.2s;">' + item.phoneNumber + '</td>' +
-                    '</tr>' ;
-        });
+                $.each(response, function (i, item) { //i: index; item: từng object
+                    dataStr +=
+                            '<tr id="fs-tr" style="border-bottom: 1px solid #cccccc;">' +
+                            '<td class="text-center" id="fs-td" style="border-right: 1px solid #cccccc;padding: 10px;transition: all 0.2s;">' + item.address + '</td>' +
+                            '<td class="text-center" id="fs-td" style="border-right: 1px solid #cccccc;padding: 10px;transition: all 0.2s;">' + item.phoneNumber + '</td>' +
+                            '</tr>';
+                });
                 $("#fs-tbody-table-in-user-detail-info").html(dataStr);
                 $('#fs-user-detail-info').modal('show');
 
@@ -4416,29 +4416,29 @@ $(document).ready(function () {
 
 //    $
 
-    
+
     //rating table
     $('#fs-rating-dataTables').DataTable({
-         responsive: true,
+        responsive: true,
         order: [[0, "desc"]]
 
     });
-    
+
     //update lai rating stars khi paging
     $('#fs-rating-dataTables').on('draw.dt', function () {
-        $('#comment #fs-rating-dataTables .fs-rating-star-results-select').each(function() {
-        var currentRating = $(this).data('current-rating');
-        var i = $(this).attr("index")
-        console.log(currentRating+" "+i);
-        $('#comment #fs-rating-dataTables #fs-rating-star-results-' + i).barrating({
-            theme: 'fontawesome-stars-o',
-            initialRating: currentRating,
-            showSelectedRating: false,
-            readonly: true
+        $('#comment #fs-rating-dataTables .fs-rating-star-results-select').each(function () {
+            var currentRating = $(this).data('current-rating');
+            var i = $(this).attr("index")
+            console.log(currentRating + " " + i);
+            $('#comment #fs-rating-dataTables #fs-rating-star-results-' + i).barrating({
+                theme: 'fontawesome-stars-o',
+                initialRating: currentRating,
+                showSelectedRating: false,
+                readonly: true
+            });
         });
     });
-    });
-    
+
     //Thiết lập cho bảng order list
     $('#tableOrder').DataTable({
         responsive: true,
@@ -4525,9 +4525,9 @@ $(document).ready(function () {
 //        $('#error-discount-add').html("");
 //    });
     //discount-update.jsp
-    $("#fs-form-update-discount #dateBegin").datepicker({"disabled" :true});
+    $("#fs-form-update-discount #dateBegin").datepicker({"disabled": true});
     $("#fs-form-update-discount #dateEnd").datepicker({
-            orientation: "bottom",
+        orientation: "bottom",
         showAnim: "drop",
         dateFormat: "dd-mm-yy",
         changeMonth: true,
@@ -4953,6 +4953,317 @@ $(document).ready(function () {
                 });
 
 
+    });
+
+
+    /* FUNCTION FOR OWL CAROUSEL */
+    function fsCreateOwlCarousel() {
+        var sync1 = $(".sync1");
+        var sync2 = $(".sync2");
+        sync1.owlCarousel({
+            singleItem: true,
+            slideSpeed: 1000,
+            navigation: true,
+            pagination: false,
+            afterAction: syncPosition,
+            responsiveRefreshRate: 200,
+            navigationText: [
+                "<i class='fa fa-chevron-left'></i>",
+                "<i class='fa fa-chevron-right'></i>"
+            ]
+        });
+        sync2.owlCarousel({
+            items: 4,
+            itemsDesktop: [1199, 4],
+            itemsDesktopSmall: [979, 3],
+            itemsTablet: [768, 3],
+            itemsMobile: [479, 2],
+            pagination: false,
+            responsiveRefreshRate: 100,
+            afterInit: function (el) {
+                el.find(".owl-item").eq(0).addClass("synced");
+            }
+        });
+
+        function syncPosition(el) {
+            var current = this.currentItem;
+            $(".sync2")
+                    .find(".owl-item")
+                    .removeClass("synced")
+                    .eq(current)
+                    .addClass("synced");
+            if ($(".sync2").data("owlCarousel") != undefined) {
+                center(current);
+            }
+        }
+
+        $(".sync2").on("click", ".owl-item", function (e) {
+            e.preventDefault();
+            var number = $(this).data("owlItem");
+            sync1.trigger("owl.goTo", number);
+        });
+
+        function center(number) {
+            var sync2visible = sync2.data("owlCarousel").owl.visibleItems;
+            var num = number;
+            var found = false;
+            for (var i in sync2visible) {
+                if (num == sync2visible[i]) {
+                    found = true;
+                }
+            }
+
+            if (found == false) {
+                if (num > sync2visible[sync2visible.length - 1]) {
+                    sync2.trigger("owl.goTo", num - sync2visible.length + 2)
+                } else {
+                    if (num - 1 == -1) {
+                        num = 0;
+                    }
+                    sync2.trigger("owl.goTo", num);
+                }
+            } else if (num == sync2visible[sync2visible.length - 1]) {
+                sync2.trigger("owl.goTo", sync2visible[1])
+            } else if (num == sync2visible[0]) {
+                sync2.trigger("owl.goTo", num - 1)
+            }
+        }
+
+        // prettyPhoto
+        // ---------------------------------------------------------------------------------------
+        $("a[rel^='prettyPhoto']").prettyPhoto({
+            theme: 'facebook',
+            slideshow: 5000,
+            autoplay_slideshow: true
+        });
+    }
+
+
+    $(".sync2").on("click", ".owl-item", function (e) {
+        e.preventDefault();
+        var number = $(this).data("owlItem");
+        sync1.trigger("owl.goTo", number);
+    });
+
+    function center(number) {
+        var sync2visible = sync2.data("owlCarousel").owl.visibleItems;
+        var num = number;
+        var found = false;
+        for (var i in sync2visible) {
+            if (num == sync2visible[i]) {
+                found = true;
+            }
+        }
+        ;
+
+        if (found == false) {
+            if (num > sync2visible[sync2visible.length - 1]) {
+                sync2.trigger("owl.goTo", num - sync2visible.length + 2)
+            } else {
+                if (num - 1 == -1) {
+                    num = 0;
+                }
+                sync2.trigger("owl.goTo", num);
+            }
+        } else if (num == sync2visible[sync2visible.length - 1]) {
+            sync2.trigger("owl.goTo", sync2visible[1]);
+        } else if (num == sync2visible[0]) {
+            sync2.trigger("owl.goTo", num - 1);
+        }
+        ;
+    }
+    ;
+
+    // prettyPhoto
+    // ---------------------------------------------------------------------------------------
+    $("a[rel^='prettyPhoto']").prettyPhoto({
+        theme: 'facebook',
+        slideshow: 5000,
+        autoplay_slideshow: true
+    });
+
+    //PRODUCT MODAL
+    $("#productlist").on("click", ".fs-product-modal", function () {
+        $('#discountModal').modal('hide')
+        $(".fs-quantity-in-stock").text("---");
+        $('#error-cart-product-modal').html("");
+        var productID = $(this).attr("fs-product");
+        proID = productID;
+        var colorID = $(this).attr("fs-product-modal-color");
+        var productModal = $("#productModal");
+        $(".fs-modal-input-number").val(1);
+        $(".fs-modal-btn-quantity-minus").attr("disabled", "disabled");
+        $(".fs-modal-btn-quantity-plus").attr("disabled", "disabled");
+        $(".fs-quantity-in-cart").text("");
+        $(".fs-quantity-in-cart").css("display", "none")
+        //$(".fs-modal-btn-quantity-plus").removeAttr("disabled");
+
+        $.ajax({
+            url: "ajax/findProduct.html",
+            data: {
+                productID: productID
+            },
+            method: "POST",
+            dataType: "json",
+            success: function (response) {
+                /* Init Name and Price */
+                $("h3.fs-product-name").text(response.productName);
+                $("h3.fs-product-name").attr("fs-product-modal-id", productID);
+                if (response.productWithDiscount != response.price) {
+                    $("small.cutprice").text("$" + response.price + ".00");
+                    $("div.fs-product-price").text(" $" + parseFloat(Math.round(response.productWithDiscount * 100) / 100).toFixed(2));
+                    $("div.fs-product-discount").text("(-" + response.discountByProduct + "%)");
+
+                } else {
+                    $("small.cutprice").text("");
+                    $("div.fs-product-price").text("$" + response.price + ".00");
+                }
+
+                /* Init color img  */
+                var colorImgStr = "<p>Color<span>*</span></p>";
+                var sizeStr = "";
+                var str_change_big_img = "";
+                var str_change_small_img = "";
+                $.each(response.productColorListWorking, function (i, item) {
+                    colorImgStr += "<div class=\"fs-product-modal-color-border\">\n\
+                                        <img fs-color=\"" + item.colorID + "\" src=\"assets/images/products/colors/" + item.urlColorImg + "\" class=\"img-responsive\" alt=\"" + item.urlColorImg + "\" title=\"" + item.color + "\"/>\n\
+                                    </div>";
+                    if (item.colorID == colorID) {
+                        /* Init size By ColorID */
+
+                        $.each(item.sizeListWorking, function (j, size) {
+                            if (size.quantity == 0) {
+                                sizeStr += "<div class=\"fs-particular-size fs-unselectable\" fs-size=\"" + size.sizeID + "\">" + size.size + "</div>";
+                            } else {
+                                sizeStr += "<div class=\"fs-particular-size\" fs-size=\"" + size.sizeID + "\">" + size.size + "</div>";
+                            }
+
+                        });
+                        /* Init product Image By Color*/
+                        $.each(item.productSubImgsList, function (k, subImg) {
+                            str_change_big_img += "<div class=\"item\"><img src=\"assets/images/products/subImg/" + subImg.urlImg + "\" alt=\"" + subImg.urlImg + "\"></div>";
+                            str_change_small_img += "<div class=\"item\"><img src=\"assets/images/products/subImg/" + subImg.urlImg + "\" alt=\"" + subImg.urlImg + "\"></div>";
+                        });
+                    }
+                });
+                var finalStrToChangeImg = "<div class=\"owl-carousel sync1 fs-main-product-img\">" + str_change_big_img + "</div><div class=\"owl-carousel sync2 fs-main-product-img\">" + str_change_small_img + "</div>";
+                $("div.fs-product-modal-color").html(colorImgStr);
+                $(".fs-product-modal-color-border").each(function () {
+                    if ($(this).children("img").attr("fs-color") == colorID) {
+                        $(this).addClass("fs-product-selected");
+                    }
+                });
+                $("#fs-product-modal-size").html(sizeStr);
+                $("#fs-product-modal-slide-img").html(finalStrToChangeImg);
+                fsCreateOwlCarousel();
+
+                $(".fs-product-modal-link-to-detail").attr("href", productID + "-" + colorID + ".html");
+                //Call Modal
+                productModal.modal("show");
+            }
+        });
+    });
+    
+    $(document).on("click", ".fs-particular-size", function () {
+        var errorHead = "<div class=\"alert alert-danger\"><strong>";
+        var errorHeadSuccess = "<div class=\"alert alert-success\"><strong>";
+        var errorFoot = "</strong></div>";
+        $('#error-cart-product-modal').html("");
+        $("#error-product-detail").html("");
+        var classList = $(this).attr("class").split(" ");
+        var rs = $.inArray("fs-unselectable", classList);
+        if (rs == -1) {
+            $(".fs-particular-size").removeClass("fs-product-selected");
+            $(this).addClass("fs-product-selected");
+        }
+
+        var sizeID = $(this).attr("fs-size");
+        var colorID = $('.fs-product-selected img').attr("fs-color");
+        $.ajax({
+            url: "orders/ajax/checkquantity.html",
+            method: "POST",
+            data: {
+                sizeID: sizeID,
+                colorID: colorID
+            },
+            success: function (response) {
+                if (response != 0) {
+                    var res = response.split("-");
+                    $(".fs-input-number, .fs-modal-input-number").removeAttr("disabled");
+                    $(".fs-btn-quantity-plus, .fs-modal-btn-quantity-plus").removeAttr("disabled");
+                    $(".fs-quantity-in-stock").text(" (In Stock " + res[2] + ")");
+                    $(".fs-modal-input-number").val(1);
+                    $(".fs-input-number").val(1);
+
+                    if (res[1] != res[2]) {
+                        $(".fs-quantity-in-cart").css("display", "block")
+                        $(".fs-quantity-in-cart").text("This pairs are available in your cart (" + res[0] + " pairs)");
+                    }
+                    if (res[1] == res[2]) {
+                        $(".fs-quantity-in-cart").css("display", "none")
+                        $(".fs-quantity-in-cart").text("");
+                        $("#fs-product-detail-add-to-cart").attr("disabled", false);
+                        $(".fs-modal-btn-addtobag").attr("disabled", false)
+                    }
+                    if (res[0] == res[2]) {
+                        $(".fs-modal-btn-quantity-plus").attr("disabled", "disabled");
+                        $(".fs-modal-btn-quantity-minus").attr("disabled", "disabled");
+                        $(".fs-modal-btn-addtobag").attr("disabled", "disabled")
+                        $("#fs-product-detail-add-to-cart").attr("disabled", "disabled")
+                        $(".fs-btn-quantity-minus").attr("disabled", "disabled")
+                        $(".fs-btn-quantity-plus").attr("disabled", "disabled")
+
+                    }
+                    $(".fs-input-number, .fs-modal-input-number").attr("max", res[1]);
+
+                    $(".fs-input-number, .fs-modal-input-number").attr("disabled", "disabled");
+                }
+            }
+        });
+    });
+    
+    $("div.fs-product-modal-color").on("click", ".fs-product-modal-color-border", function () {
+        $(".fs-quantity-in-stock").text("---");
+        $('#error-cart-product-modal').html("");
+        $(".fs-product-modal-color-border").removeClass("fs-product-selected");
+        $(this).addClass("fs-product-selected");
+        var colorID = $(this).find("img").attr("fs-color");
+        
+
+        $.ajax({
+            url: "ajax/color.html",
+            method: "POST",
+            data: {
+                colorID: colorID
+            },
+            dataType: "json",
+            success: function (response) {
+
+                /* Change Image */
+                var str_change_big_img = "";
+                var str_change_small_img = "";
+                $.each(response.productSubImgsList, function (i, item) {
+                    if (item.status != 0) {
+                        str_change_big_img += "<div class=\"item\"><img src=\"assets/images/products/subImg/" + item.urlImg + "\" alt=\"" + item.urlImg + "\"></div>";
+                        str_change_small_img += "<div class=\"item\"><img src=\"assets/images/products/subImg/" + item.urlImg + "\" alt=\"" + item.urlImg + "\"></div>";
+                    }
+                });
+                var finalStrToChangeImg = "<div class=\"owl-carousel sync1 fs-main-product-img\">" + str_change_big_img + "</div><div class=\"owl-carousel sync2 fs-main-product-img\">" + str_change_small_img + "</div>";
+                $("#fs-product-modal-slide-img").hide().html(finalStrToChangeImg).fadeIn(1000);
+                fsCreateOwlCarousel();
+                /* Change Size */
+                var str_change_size = "";
+
+                $.each(response.sizeListWorking, function (i, item) {
+                    if (item.quantity == 0) {
+                        str_change_size += "<div class=\"fs-particular-size fs-unselectable\" fs-size=\"" + item.sizeID + "\">" + item.size + "</div>";
+                    } else {
+                        str_change_size += "<div class=\"fs-particular-size\" fs-size=\"" + item.sizeID + "\">" + item.size + "</div>";
+                    }
+                });
+                $("#fs-product-modal-size").hide().html(str_change_size).fadeIn(1000);
+            }
+        });
     });
 
 });

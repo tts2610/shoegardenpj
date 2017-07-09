@@ -43,23 +43,23 @@ catch(Exception e) {
             <ul class="nav" id="side-menu">
                 <c:if test="${sessionScope.rid==1}">
                 <li>
-                    <a href="#"><i class="fa fa-key fa-fw"></i> User Role<span class="fa arrow"></span></a>
+                    <a href="#" style="color: #337ab7"><i class="fa fa-key fa-fw"></i> User Role<span class="fa arrow"></span></a>
                     <ul class="nav nav-second-level">
                         <li>
-                            <a href="admin/user/role.html"><i class="fa fa-list" aria-hidden="true"></i> List</a>
+                            <a href="admin/user/role.html" style="color: #337ab7"><i class="fa fa-list" aria-hidden="true"></i> List</a>
                         </li>
                         <li>
-                            <a href="admin/user/role/create.html"><i class="fa fa-plus" aria-hidden="true"></i> New</a>
+                            <a href="admin/user/role/create.html" style="color: #337ab7"><i class="fa fa-plus" aria-hidden="true"></i> New</a>
                         </li>
                     </ul>
                     <!-- /.nav-second-level -->
                 </li>
                 </c:if>
                 <li>
-                    <a href="#"><i class="fa fa-users fa-fw"></i> User<span class="fa arrow"></span></a>
+                    <a href="#" style="color: #337ab7"><i class="fa fa-users fa-fw"></i> User<span class="fa arrow"></span></a>
                     <ul class="nav nav-second-level">
                         <li>
-                            <a href="admin/user/list.html"><i class="fa fa-list" aria-hidden="true"></i> List</a>
+                            <a href="admin/user/list.html" style="color: #337ab7"><i class="fa fa-list" aria-hidden="true"></i> List</a>
                         </li>
 
                     </ul>
@@ -67,80 +67,80 @@ catch(Exception e) {
                 </li>
 
                 <li>
-                    <a href="#"><i class="fa fa-cube fa-fw"></i>Brand<span class="fa arrow"></span></a>
+                    <a href="#" style="color: #337ab7"><i class="fa fa-cube fa-fw"></i>Brand<span class="fa arrow"></span></a>
                     <ul class="nav nav-second-level">
                         <li>
-                            <a href="admin/product-category.html"><i class="fa fa-list" aria-hidden="true"></i> List</a>
+                            <a href="admin/product-category.html" style="color: #337ab7"><i class="fa fa-list" aria-hidden="true"></i> List</a>
                         </li>
                         <li>
-                            <a href="admin/product-category/create.html"><i class="fa fa-plus" aria-hidden="true"></i> New</a>
+                            <a href="admin/product-category/create.html" style="color: #337ab7"><i class="fa fa-plus" aria-hidden="true"></i> New</a>
                         </li>
                     </ul>
                     <!-- /.nav-second-level -->
                 </li>
 
                 <li>
-                    <a href="#"><i class="fa fa-cubes fa-fw"></i>Category<span class="fa arrow"></span></a>
+                    <a href="#" style="color: #337ab7"><i class="fa fa-cubes fa-fw"></i>Category<span class="fa arrow"></span></a>
                     <ul class="nav nav-second-level">
                         <li>
-                            <a href="admin/product-subcategory.html"><i class="fa fa-list" aria-hidden="true"></i> List</a>
+                            <a href="admin/product-subcategory.html" style="color: #337ab7"><i class="fa fa-list" aria-hidden="true"></i> List</a>
                         </li>
                         <li>
-                            <a href="admin/product-subcategory/create.html"><i class="fa fa-plus" aria-hidden="true"></i> New</a>
+                            <a href="admin/product-subcategory/create.html" style="color: #337ab7"><i class="fa fa-plus" aria-hidden="true"></i> New</a>
                         </li>
                     </ul>
                     <!-- /.nav-second-level -->
                 </li>
 
                 <li>
-                    <a href="#"><i class="fa fa-diamond fa-fw"></i> Product<span class="fa arrow"></span></a>
+                    <a href="#" style="color: #337ab7"><i class="fa fa-diamond fa-fw"></i> Product<span class="fa arrow"></span></a>
                     <ul class="nav nav-second-level">
                         <li>
-                            <a href="admin/product.html"><i class="fa fa-list" aria-hidden="true"></i> List</a>
+                            <a href="admin/product.html" style="color: #337ab7"><i class="fa fa-list" aria-hidden="true"></i> List</a>
                         </li>
                         <li>
-                            <a href="admin/product/create.html"><i class="fa fa-plus" aria-hidden="true"></i> New</a>
+                            <a href="admin/product/create.html" style="color: #337ab7"><i class="fa fa-plus" aria-hidden="true"></i> New</a>
                         </li>
                     </ul>
                     <!-- /.nav-second-level -->
                 </li>
 
                 <li>
-                    <a href="#"><i class="fa fa-shopping-cart fa-fw"></i> Orders&nbsp;
+                    <a href="#" style="color: #337ab7"><i class="fa fa-shopping-cart fa-fw"></i> Orders&nbsp;
                         <%if(orderFacade.countPendingOrder()!=0){%>
                         <span class="badge" style="background: red"><%=orderFacade.countPendingOrder()%></span>
                         <%}%>
                         <span class="fa arrow"></span></a>
                     <ul class="nav nav-second-level">
                         <li>
-                            <a href="admin/orders/list.html"><i class="fa fa-list" aria-hidden="true"></i> List</a>
+                            <a href="admin/orders/list.html" style="color: #337ab7"><i class="fa fa-list" aria-hidden="true"></i> List</a>
                         </li>
                     </ul>
                     <!-- /.nav-second-level -->
                 </li>
 
                 <li>
-                    <a href="#"><i class="fa fa-shopping-cart fa-fw"></i> Discount<span class="fa arrow"></span></a>
+                    <a href="#" style="color: #337ab7"><i class="fa fa-shopping-cart fa-fw"></i> Discount<span class="fa arrow"></span></a>
                     <ul class="nav nav-second-level">
                         <li>
-                            <a href="admin/discount/discountlist.html"><i class="fa fa-wpforms" aria-hidden="true"></i> List</a>
+                            <a href="admin/discount/discountlist.html" style="color: #337ab7"><i class="fa fa-wpforms" aria-hidden="true"></i> List</a>
                         </li>
                         <li>
-                            <a href="admin/discount/discountadd.html"><i class="fa fa-plus" aria-hidden="true"></i> New</a>
+                            <a href="admin/discount/discountadd.html" style="color: #337ab7"><i class="fa fa-plus" aria-hidden="true"></i> New</a>
                         </li>
                     </ul>
                     <!-- /.nav-second-level -->
                 </li>
 
                 <li>
-                    <a href="#"><i class="fa fa-thumb-tack fa-fw"></i> Reviews&nbsp;
+                    <a href="#" style="color: #337ab7"><i class="fa fa-thumb-tack fa-fw"></i> Reviews&nbsp;
                         <%if(ratingFacade.countPendingRecord()!=0){%>
                         <span class="badge" style="background: red"><%=ratingFacade.countPendingRecord()%></span>
                         <%}%>
                         <span class="fa arrow"></span></a>
                     <ul class="nav nav-second-level">
                         <li>
-                            <a href="admin/comments/list.html"><i class="fa fa-list" aria-hidden="true"></i> List</a>
+                            <a href="admin/comments/list.html" style="color: #337ab7"><i class="fa fa-list" aria-hidden="true"></i> List</a>
                         </li>
                     </ul>
                     <!-- /.nav-second-level -->
