@@ -865,13 +865,13 @@ $(document).ready(function () {
                 $("h3.fs-product-name").text(response.productName);
                 $("h3.fs-product-name").attr("fs-product-modal-id", productID);
                 if (response.productWithDiscount != response.price) {
-                    $("small.cutprice").text("$" + response.price + ".00");
-                    $("div.fs-product-price").text(" $" + parseFloat(Math.round(response.productWithDiscount * 100) / 100).toFixed(2));
-                    $("div.fs-product-discount").text("(-" + response.discountByProduct + "%)");
+                    $("#productModal small.cutprice").text("$" + response.price + ".00");
+                    $("#productModal div.fs-product-price").text(" $" + parseFloat(Math.round(response.productWithDiscount * 100) / 100).toFixed(2));
+                    $("#productModal div.fs-product-discount").text("(-" + response.discountByProduct + "%)");
 
                 } else {
-                    $("small.cutprice").text("");
-                    $("div.fs-product-price").text("$" + response.price + ".00");
+                    $("#productModal small.cutprice").text("");
+                    $("#productModal div.fs-product-price").text("$" + response.price + ".00");
                 }
 
                 /* Init color img  */
