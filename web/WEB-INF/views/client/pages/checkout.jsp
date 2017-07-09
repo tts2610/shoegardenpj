@@ -191,7 +191,7 @@
                                 <tr>
                                     <th>Order Total</th>
                                     <td>
-                                        <div class="grandTotal">$${grandTotal}</div>
+                                        <div class="grandTotal">$<fmt:formatNumber type="number" maxFractionDigits="2" value="${grandTotal}" var="prodPrice"/>${fn:replace(prodPrice, ",", ".")}</div>
                                     </td> 
                                 </tr>
                             </tfoot>

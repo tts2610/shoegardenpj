@@ -559,7 +559,7 @@ public class OrdersController{
         
         
         if(size>0)
-        cart_info+="<li class=\"product\">Grand Total: <div style=\"color:#1a5996;display:inline;font-weight:700;\">$"+subtotal+"</div>"
+        cart_info+="<li class=\"product\">Grand Total: <div style=\"color:#1a5996;display:inline;font-weight:700;\">$"+String.format("%.2f", subtotal)+"</div>"
                  +"</li><li></li><a style=\"padding-left:118px;cursor:pointer;\" id=\"removeallbtn\">Remove All</a>&nbsp;&nbsp;|&nbsp;\n" +
 "                <a href=\"orders/shoppingcart.html\">View Cart</a>";
         else

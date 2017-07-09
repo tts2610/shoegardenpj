@@ -1,6 +1,8 @@
 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 
 <!-- BREADCRUMBS -->
@@ -78,7 +80,8 @@
                                                 <td align="center"><a href="orders/order-history-detail/${order.ordersID}.html">Order No.${order.ordersID}</a></td>
                                                 
                                                 <td style="width: 100px;">
-                                                    <div class="item-price">$${order.getPaymentTotal()}</div>
+                                                    <div class="item-price">$<fmt:formatNumber type="number" maxFractionDigits="2" value="${order.getPaymentTotal()}" var="prodPrice"/>
+                                                    ${fn:replace(prodPrice, ",", ".")}</div>
                                                 </td>
                                                 <td align="center">
                                                     <fmt:formatDate value="${order.ordersDate}" pattern="dd-MM-yyyy hh:mm:ss"/>

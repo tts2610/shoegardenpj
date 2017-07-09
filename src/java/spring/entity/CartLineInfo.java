@@ -18,9 +18,6 @@ import spring.ejb.DiscountDetailsFacadeLocal;
  */
 public class CartLineInfo {
 
-    DiscountDetailsFacadeLocal discountDetailsFacade = lookupDiscountDetailsFacadeLocal();
-
-    
     private Products product;
     private SizesByColor sizesByColor;
     private int quantity;
@@ -56,19 +53,6 @@ public class CartLineInfo {
     }
     
     public double getSubTotal(){
-           return discountDetailsFacade.getProductWithDiscount(product)*quantity;
+           return this.product.getProductWithDiscount()*quantity;
     }
-    
-    
-
-    private DiscountDetailsFacadeLocal lookupDiscountDetailsFacadeLocal() {
-        try {
-            Context c = new InitialContext();
-            return (DiscountDetailsFacadeLocal) c.lookup("java:global/ShoeGardenPJ/DiscountDetailsFacade!spring.ejb.DiscountDetailsFacadeLocal");
-        } catch (NamingException ne) {
-            Logger.getLogger(getClass().getName()).log(Level.SEVERE, "exception caught", ne);
-            throw new RuntimeException(ne);
-        }
-    }
-    
 }
