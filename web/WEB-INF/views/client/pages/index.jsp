@@ -134,7 +134,7 @@
                 <a <c:if test="${not empty discount[2]}"> data-toggle="modal" data-target="#discountModal" data-whatever="${discount[2].discID}"</c:if>>
                     <div class="bb-middle-agileits-w3layouts forth grid">
                         <figure class="effect-roxy">
-                            <img src="assets/images/img3.jpg" alt=" " class="img-responsive">
+                            <img src="assets/images/best_trail_running.jpg" alt=" " class="img-responsive">
                             <c:if test="${not empty discount[2]}">
                                 <figcaption>
                                     <h3>${discount[2].discTitle}</h3>
