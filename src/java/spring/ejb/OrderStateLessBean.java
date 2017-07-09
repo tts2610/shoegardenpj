@@ -289,7 +289,7 @@ public class OrderStateLessBean implements OrderStateLessBeanLocal {
         ordersDetail.setOrdersID(orders);
         ordersDetail.setPrice(cartLineInfo.getProduct().getPrice());
         ordersDetail.setProductID(cartLineInfo.getProduct());
-        ordersDetail.setProductDiscount((short) cartLineInfo.getProductDiscount());
+        ordersDetail.setProductDiscount((short) cartLineInfo.getProduct().getDiscountByProduct());
         ordersDetail.setQuantity(cartLineInfo.getQuantity());
         ordersDetail.setSizeID(cartLineInfo.getSizesByColor());
         ordersDetail.setStatus(Short.valueOf("2"));

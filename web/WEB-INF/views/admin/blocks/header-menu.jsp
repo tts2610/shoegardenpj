@@ -33,7 +33,7 @@ catch(Exception e) {
     <!-- /.navbar-header -->
 
     <ul class="nav navbar-top-links navbar-right">
-       <li><a href="admin/logout.html"><i class="fa fa-sign-out fa-fw"></i> Logout</a>
+        <li><a href="admin/logout.html" style="color: #337ab7"><i class="fa fa-sign-out fa-fw"></i> Logout</a>
                 </li>
     </ul>
     <!-- /.navbar-top-links -->

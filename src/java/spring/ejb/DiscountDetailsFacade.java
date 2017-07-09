@@ -45,12 +45,19 @@ public class DiscountDetailsFacade extends AbstractFacade<DiscountDetails> imple
     
     @Override
     public short findDiscountDetailsByProductID(Products pro){
-        Query q = em.createNativeQuery("select d.discount from Discounts d JOIN DiscountDetails di on d.discID = di.discID AND di.productID = "+pro.getProductID());
-        try{
-        return (short) q.getSingleResult();}
-        catch(Exception e){
-            return 0;
-        }
+//        Calendar cal = Calendar.getInstance();  
+//        cal.setTime(new Date());  
+//        cal.set(Calendar.HOUR_OF_DAY, 0);  
+//        cal.set(Calendar.MINUTE, 0);  
+//        cal.set(Calendar.SECOND, 0);  
+//        cal.set(Calendar.MILLISECOND, 0);
+//        Query q = em.createNativeQuery("select d.discount from Discounts d JOIN DiscountDetails di on d.discID = di.discID AND di.productID = "+pro.getProductID()+" WHERE (d.dateBegin <= "+cal.getTime()+") AND (d.dateEnd >= "+cal.getTime()+")");
+//        try{
+//        return (short) q.getSingleResult();}
+//        catch(Exception e){
+//            return 0;
+//        }
+          return 0;
     }
 
     @Override
