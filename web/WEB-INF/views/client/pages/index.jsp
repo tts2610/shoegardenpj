@@ -375,7 +375,8 @@
                                                 ${prod[1]}
                                             </a>
                                         </h4>
-                                        <span class="fw-price">$${prod[2]}0</span>
+                                                <span class="fw-price" style="display: block">Price: $${prod[2]}0</span>
+                                                <span class="fw-price" style="display: block">Size: ${prod[5]}</span>
                                     </div>
                                 </li>
                             </c:forEach>
